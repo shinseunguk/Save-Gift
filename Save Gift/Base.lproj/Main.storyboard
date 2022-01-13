@@ -313,10 +313,10 @@
             </objects>
             <point key="canvasLocation" x="3536" y="1501"/>
         </scene>
-        <!--View Controller-->
+        <!--Setting Developer Controller-->
         <scene sceneID="7vz-bC-dXL">
             <objects>
-                <viewController storyboardIdentifier="giftPresentPush" useStoryboardIdentifierAsRestorationIdentifier="YES" id="WI3-I1-h1x" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SettingDeveloperVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="WI3-I1-h1x" customClass="SettingDeveloperController" customModule="Save_Gift" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Yx7-la-ovp">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -340,10 +340,10 @@
             </objects>
             <point key="canvasLocation" x="3069" y="750"/>
         </scene>
-        <!--Gift Share-->
+        <!--Setting Noti Controller-->
         <scene sceneID="SXY-hs-KZp">
             <objects>
-                <viewController storyboardIdentifier="giftSharePush" id="M98-kr-7Lc" customClass="GiftShare" customModule="Save_Gift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SettingNotiControllerVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="M98-kr-7Lc" customClass="SettingNotiController" customModule="Save_Gift" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="SQt-qy-iIe">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -367,10 +367,10 @@
             </objects>
             <point key="canvasLocation" x="3788" y="750"/>
         </scene>
-        <!--Gift Rank-->
+        <!--Setting App Version Controller-->
         <scene sceneID="ktC-Cd-1oL">
             <objects>
-                <viewController storyboardIdentifier="giftRankPush" useStoryboardIdentifierAsRestorationIdentifier="YES" id="NkN-AQ-rSq" customClass="GiftRank" customModule="Save_Gift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SettingAppVersionVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="NkN-AQ-rSq" customClass="SettingAppVersionController" customModule="Save_Gift" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="M6N-Ep-6nw">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -394,10 +394,10 @@
             </objects>
             <point key="canvasLocation" x="4492" y="750"/>
         </scene>
-        <!--Gift How To Use-->
+        <!--Setting How To Use Controller-->
         <scene sceneID="P4J-rF-BtB">
             <objects>
-                <viewController storyboardIdentifier="giftHowToUsePush" id="RtQ-gk-rSD" customClass="GiftHowToUse" customModule="Save_Gift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SettingHowToUseVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="RtQ-gk-rSD" customClass="SettingHowToUseController" customModule="Save_Gift" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8ym-86-faa">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -421,10 +421,10 @@
             </objects>
             <point key="canvasLocation" x="5190" y="750"/>
         </scene>
-        <!--Gift Setting-->
+        <!--Setting Secession Controller-->
         <scene sceneID="UPb-Gh-ME7">
             <objects>
-                <viewController storyboardIdentifier="giftSettingPush" useStoryboardIdentifierAsRestorationIdentifier="YES" id="k3R-M8-FaB" customClass="GiftSetting" customModule="Save_Gift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SettingSecessionVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="k3R-M8-FaB" customClass="SettingSecessionController" customModule="Save_Gift" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WxZ-Us-fSb">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1176,10 +1176,10 @@
             </objects>
             <point key="canvasLocation" x="2304.6728971962616" y="2222.4622030237583"/>
         </scene>
-        <!--View Controller-->
+        <!--Setting My Info Controller-->
         <scene sceneID="Ivn-HD-s2a">
             <objects>
-                <viewController storyboardIdentifier="infoVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="wVj-4E-2MQ" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SettingMyInfoVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="wVj-4E-2MQ" customClass="SettingMyInfoController" customModule="Save_Gift" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="CBW-sk-tge">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

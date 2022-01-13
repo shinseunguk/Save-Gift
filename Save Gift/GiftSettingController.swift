@@ -71,8 +71,11 @@ extension GiftSettingController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        //cell.textLabel?.font = UIFont(name: "나눔손글씨 무궁화", size: 20)
         cell.textLabel?.text="\(indexPath.row)"
         cell.textLabel?.text = arr[indexPath.row]
+        
+        
 //        cell.cellImageView?.image = UIImage(named: emoji[indexPath.row])
         
 //        let customCell = tableView.dequeueReusableCell(withIdentifier: "customCell", for: indexPath) as! CustomCell
@@ -94,26 +97,26 @@ extension GiftSettingController: UITableViewDelegate, UITableViewDataSource{
             
             print("Click Cell Number: " + String(indexPath.row))
         
-        if indexPath.row == 0{
-            let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "infoVC")
+        if indexPath.row == 0{ //내정보
+            let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "SettingMyInfoVC")
             self.navigationController?.pushViewController(pushVC!, animated: true)
             
-            let backBarButtonItem = UIBarButtonItem(title: "로그인", style: .plain, target: self, action: nil)
+            let backBarButtonItem = UIBarButtonItem(title: "휴대폰 인증", style: .plain, target: self, action: nil)
             self.navigationItem.backBarButtonItem = backBarButtonItem
-        } else if indexPath.row == 1{
-            let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "giftPresentPush")
+        } else if indexPath.row == 1{ //개발자
+            let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "SettingDeveloperVC")
             self.navigationController?.pushViewController(pushVC!, animated: true)
-        } else if indexPath.row == 2{
-            let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "giftSharePush")
+        } else if indexPath.row == 2{ //알림설정
+            let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "SettingNotiControllerVC")
             self.navigationController?.pushViewController(pushVC!, animated: true)
-        } else if indexPath.row == 3{
-            let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "giftRankPush")
+        } else if indexPath.row == 3{ //앱버전
+            let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "SettingAppVersionVC")
             self.navigationController?.pushViewController(pushVC!, animated: true)
-        } else if indexPath.row == 4{
-            let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "giftHowToUsePush")
+        } else if indexPath.row == 4{ //기프티콘 사용법
+            let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "SettingHowToUseVC")
             self.navigationController?.pushViewController(pushVC!, animated: true)
-        } else if indexPath.row == 5{
-            let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "giftSettingPush")
+        } else if indexPath.row == 5{ //회원탈퇴
+            let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "SettingSecessionVC")
             self.navigationController?.pushViewController(pushVC!, animated: true)
         }
             
