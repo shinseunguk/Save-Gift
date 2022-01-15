@@ -11,6 +11,7 @@ import UIKit
 class CustomTabBarController: UITabBarController, UITabBarControllerDelegate {
 
     var index = 0
+    var VC : String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,8 +31,28 @@ class CustomTabBarController: UITabBarController, UITabBarControllerDelegate {
 
         self.navigationItem.titleView = lbNavTitle
         
-        //세번째로 이동시킴
-        selectedIndex = 2
+        if(UserDefaults.standard.string(forKey: "ID") != nil){
+            print(UserDefaults.standard.string(forKey: "ID")!,"#########")
+        }
+        
+        print("VC ########### ", VC)
+        
+        if VC != nil {
+            if VC! == "공유하기" {
+                selectedIndex = 0
+                lbNavTitle.text = "기프티콘 공유"
+            } else if VC! == "선물하기"{
+                selectedIndex = 1
+                lbNavTitle.text = "기프티콘 선물"
+            }
+        }else{
+            //세번째로 이동시킴
+            selectedIndex = 2
+        }
+        
+        
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -53,9 +74,17 @@ extension CustomTabBarController{
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         switch item.title! {
         case "공유하기":
-        navigationBarSetting(navigationTitle: "기프티콘 공유")
+        if(UserDefaults.standard.string(forKey: "ID") != nil){ //로그인 O
+            navigationBarSetting(navigationTitle: "기프티콘 공유")
+        } else{// 로그인 X
+            needLoginService("공유하기")
+        }
         case "선물하기":
-        navigationBarSetting(navigationTitle: "기프티콘 선물")
+            if(UserDefaults.standard.string(forKey: "ID") != nil){ //로그인 O
+                navigationBarSetting(navigationTitle: "기프티콘 선물")
+            } else{// 로그인 X
+                needLoginService("선물하기")
+            }
         case "저장소":
         navigationBarSetting(navigationTitle: "기프티콘 저장")
         case "랭킹보기":
@@ -83,5 +112,28 @@ extension CustomTabBarController{
         lbNavTitle.text = navigationTitle
 
         self.navigationItem.titleView = lbNavTitle
+    }
+    
+    func needLoginService(_ VC : String){
+        let alert = UIAlertController(title: "로그인", message: "로그인이 필요한 서비스입니다. \n 로그인 화면으로 이동하시겠습니까?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "취소", style: .default) { action in
+            //세번째로 이동시킴
+            self.selectedIndex = 2
+            self.navigationBarSetting(navigationTitle: "기프티콘 저장")
+        })
+        alert.addAction(UIAlertAction(title: "확인", style: .default) { action in
+            self.selectedIndex = 2
+            self.navigationBarSetting(navigationTitle: "기프티콘 저장")
+            guard let pushVC = self.storyboard?.instantiateViewController(identifier: "viewVC") as? ViewController else{
+                return
+            }
+            
+            pushVC.VC = VC
+                    self.navigationController?.pushViewController(pushVC, animated: true)
+            
+            let backBarButtonItem = UIBarButtonItem(title: "홈화면", style: .plain, target: self, action: nil)
+            self.navigationItem.backBarButtonItem = backBarButtonItem
+        })
+        self.present(alert, animated: true, completion: nil)
     }
 }

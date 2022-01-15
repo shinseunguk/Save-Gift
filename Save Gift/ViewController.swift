@@ -40,13 +40,16 @@ class ViewController: UIViewController, ASAuthorizationControllerDelegate, ASAut
     let border1 = CALayer()
     let border2 = CALayer()
     var navigationBarBackButtonTitle : String?
+    var VC : String?
     //DeviceId
+    
+
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if navigationBarBackButtonTitle != nil{
-            print("### ",navigationBarBackButtonTitle!)
+        if VC != nil{
+            print("### ",VC!)
             
         }
         //첫 진입시 버튼 사용할수 없음
@@ -61,7 +64,7 @@ class ViewController: UIViewController, ASAuthorizationControllerDelegate, ASAut
         passwordTextField.delegate = self
         
         //back버튼이 늘어나는 이슈
-        self.navigationController?.navigationBar.topItem?.title = ""
+//        self.navigationController?.navigationBar.topItem?.title = ""
         
 //        let rightBarButton = UIBarButtonItem.init(title: "확인", style: .plain, target: self, action: #selector(self.actionA)) //Class.MethodName
 //        self.navigationItem.rightBarButtonItem = rightBarButton
@@ -213,8 +216,16 @@ class ViewController: UIViewController, ASAuthorizationControllerDelegate, ASAut
                     
                     if(responseString == "true"){
                         DispatchQueue.main.async{
-                        let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "main2Push")
-                        self.navigationController?.pushViewController(pushVC!, animated: true)
+                            guard let pushVC = self.storyboard?.instantiateViewController(identifier: "tabbarVC") as? CustomTabBarController else{
+                                return
+                            }
+                            
+                            pushVC.VC = self.VC
+                                
+                            self.navigationController?.pushViewController(pushVC, animated: true)
+                            
+                        //저장
+                        UserDefaults.standard.set(email, forKey: "ID")
                         }
                     } else if(responseString == "false"){
                         DispatchQueue.main.async{
@@ -249,7 +260,7 @@ class ViewController: UIViewController, ASAuthorizationControllerDelegate, ASAut
 
                     self.setUserInfo()
 
-                    let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "main2Push")
+                    let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "tabbarVC")
                             self.navigationController?.pushViewController(pushVC!, animated: true)
                 }
             }
@@ -300,7 +311,7 @@ class ViewController: UIViewController, ASAuthorizationControllerDelegate, ASAut
         
         //ㅌㅅㅌ용
         if id == "1" && pw == "1"{
-            let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "main2Push")
+            let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "tabbarVC")
                     self.navigationController?.pushViewController(pushVC!, animated: true)
         }
     }

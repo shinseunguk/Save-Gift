@@ -13,6 +13,7 @@ class GiftSettingController : UIViewController{
 //    @IBOutlet weak var cell: UITableViewCell!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var loginBtn: UIButton!
+    @IBOutlet weak var loginLabel: UILabel!
     let arr = ["내정보", "개발자", "알림설정", "앱버전", "기프티콘 사용법", "회원탈퇴"]
     let emoji = ["barcode", "gift", "square.and.arrow.up", "crown", "scroll", "gear"]
     
@@ -33,17 +34,25 @@ class GiftSettingController : UIViewController{
     }
     
     @IBAction func loginAction(_ sender: Any) {
-        let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "viewVC")
-                self.navigationController?.pushViewController(pushVC!, animated: true)
-        
-//        let backBarButtonItem = UIBarButtonItem(title: "설정", style: .plain, target: self, action: nil)
-//        self.navigationItem.backBarButtonItem = backBarButtonItem
-        self.navigationItem.backBarButtonItem?.title = "설정"
+        if(UserDefaults.standard.string(forKey: "ID") != nil){
+            UserDefaults.standard.removeObject(forKey: "ID")
+            
+            let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "tabbarVC")
+                    self.navigationController?.pushViewController(pushVC!, animated: true)
+        }else{
+            guard let pushVC = self.storyboard?.instantiateViewController(identifier: "viewVC") as? ViewController else{
+                return
+            }
+            
+//            pushVC.pushYn = push
+//            pushVC.emailYn = email
+//            pushVC.smsYn = sms
+                    self.navigationController?.pushViewController(pushVC, animated: true)
+            
+            let backBarButtonItem = UIBarButtonItem(title: "설정", style: .plain, target: self, action: nil)
+            self.navigationItem.backBarButtonItem = backBarButtonItem
+        }
 
-    
-        //notworking
-//        let backBarButtonItem = UIBarButtonItem(title: "설정2", style: .plain, target: self, action: nil)
-//        self.navigationItem.backBarButtonItem = backBarButtonItem
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,6 +63,15 @@ class GiftSettingController : UIViewController{
         self.navigationController?.navigationBar.isTranslucent = false
         //네비게이션바 뒤로가기 삭제
         self.navigationItem.hidesBackButton = true
+        
+        if(UserDefaults.standard.string(forKey: "ID") != nil){
+            print(UserDefaults.standard.string(forKey: "ID")!,"#########")
+//            self.loginLabel.text = "UserDefaults.standard.string(forKey: "ID")!+"님 반갑습니다.""
+            self.loginLabel.text = "로그아웃"
+        }else{
+            self.loginLabel.text = "로그인"
+        }
+        
     }
     
 }
@@ -98,11 +116,12 @@ extension GiftSettingController: UITableViewDelegate, UITableViewDataSource{
             print("Click Cell Number: " + String(indexPath.row))
         
         if indexPath.row == 0{ //내정보
-            let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "SettingMyInfoVC")
-            self.navigationController?.pushViewController(pushVC!, animated: true)
-            
-            let backBarButtonItem = UIBarButtonItem(title: "휴대폰 인증", style: .plain, target: self, action: nil)
-            self.navigationItem.backBarButtonItem = backBarButtonItem
+            if(UserDefaults.standard.string(forKey: "ID") != nil){ //로그인 O
+                let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "SettingMyInfoVC")
+                self.navigationController?.pushViewController(pushVC!, animated: true)
+            }else{// 로그인 X
+                needLoginService()
+            }
         } else if indexPath.row == 1{ //개발자
             let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "SettingDeveloperVC")
             self.navigationController?.pushViewController(pushVC!, animated: true)
@@ -116,10 +135,29 @@ extension GiftSettingController: UITableViewDelegate, UITableViewDataSource{
             let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "SettingHowToUseVC")
             self.navigationController?.pushViewController(pushVC!, animated: true)
         } else if indexPath.row == 5{ //회원탈퇴
-            let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "SettingSecessionVC")
-            self.navigationController?.pushViewController(pushVC!, animated: true)
+            if(UserDefaults.standard.string(forKey: "ID") != nil){ //로그인 O
+                let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "SettingSecessionVC")
+                self.navigationController?.pushViewController(pushVC!, animated: true)
+            }else{// 로그인 X
+                needLoginService()
+            }
         }
             
+    }
+    
+    func needLoginService(){
+        let alert = UIAlertController(title: "로그인", message: "로그인이 필요한 서비스입니다. \n 로그인 화면으로 이동하시겠습니까?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "취소", style: .default) { action in
+
+        })
+        alert.addAction(UIAlertAction(title: "확인", style: .default) { action in
+            let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "viewVC")
+            self.navigationController?.pushViewController(pushVC!, animated: true)
+
+            let backBarButtonItem = UIBarButtonItem(title: "휴대폰 인증", style: .plain, target: self, action: nil)
+            self.navigationItem.backBarButtonItem = backBarButtonItem
+        })
+        self.present(alert, animated: true, completion: nil)
     }
     
     //cell 여백 삭제
