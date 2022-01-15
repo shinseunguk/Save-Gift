@@ -97,7 +97,7 @@ extension SideMenuViewController: UITableViewDelegate, UITableViewDataSource{
             print("Click Cell Number: " + String(indexPath.row))
         
         if indexPath.row == 0{
-            let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "main2Push")
+            let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "tabbarVC")
             self.navigationController?.pushViewController(pushVC!, animated: true)
         } else if indexPath.row == 1{
             let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "giftPresentPush")

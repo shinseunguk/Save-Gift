@@ -127,6 +127,7 @@ class Register3Controller: UIViewController, UITextFieldDelegate{
         
         telInput.keyboardType = .phonePad
         
+        
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
@@ -305,8 +306,15 @@ class Register3Controller: UIViewController, UITextFieldDelegate{
                     // 응답 처리 로직
                     if(responseString == "true"){
                         DispatchQueue.main.async{
-                        let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "viewVC")
-                        self.navigationController?.pushViewController(pushVC!, animated: true)
+//                        let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "viewVC")
+//                        self.navigationController?.pushViewController(pushVC!, animated: true)
+                            if let viewControllers = self.navigationController?.viewControllers {
+                                if viewControllers.count > 3 {
+                                    self.navigationController?.popToViewController(viewControllers[viewControllers.count - 3], animated: true)
+                                } else {
+                                            // fail
+                                }
+                            }
                         }
                     }else{
                         self.normalAlert(titles: "회원가입 오류", messages: nil)
