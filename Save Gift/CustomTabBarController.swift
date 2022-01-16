@@ -153,11 +153,14 @@ extension CustomTabBarController{
     func floatingBtn(){
         actionButton.addItem(title: "바코드(기프티콘) 저장하기", image: UIImage(systemName: "barcode")?.withRenderingMode(.alwaysTemplate)) { item in
             print("바코드(기프티콘) 저장하기")
-            let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "giftRegisterVC")
-                    self.navigationController?.pushViewController(pushVC!, animated: true)
+            DispatchQueue.main.async{
+                guard let pushVC = self.storyboard?.instantiateViewController(identifier: "GiftRegisterVC") as? GiftRegisterController else{
+                    return
+                }
 
-            let backBarButtonItem = UIBarButtonItem(title: "홈화면", style: .plain, target: self, action: nil)
-            self.navigationItem.backBarButtonItem = backBarButtonItem
+                self.navigationController?.pushViewController(pushVC, animated: true)
+
+            }
         }
 
         actionButton.addItem(title: "QR코드 저장하기", image: UIImage(systemName: "qrcode")?.withRenderingMode(.alwaysTemplate)) { item in
@@ -189,7 +192,7 @@ extension CustomTabBarController{
             item.layer.shadowRadius = CGFloat(2)
         }
         
-                actionButton.bottomAnchor.constraint(equalTo: view.topAnchor
-                            ,constant: screenHeight-200).isActive = true // ---- 1
+//                actionButton.bottomAnchor.constraint(equalTo: view.topAnchor
+//                            ,constant: screenHeight-200).isActive = true // ---- 1
     }
 }
