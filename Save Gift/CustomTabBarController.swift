@@ -7,19 +7,26 @@
 
 import Foundation
 import UIKit
+import JJFloatingActionButton
 
 class CustomTabBarController: UITabBarController, UITabBarControllerDelegate {
 
     var index = 0
     var VC : String?
+    // 뷰 전체 폭 길이
+    let screenHeight = UIScreen.main.bounds.size.height
+    //기기 가로길이 구하기
+    let screenWidth = UIScreen.main.bounds.size.width
+    
+    let actionButton = JJFloatingActionButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
         
-        //기기 가로길이 구하기
-        let screenWidth = UIScreen.main.bounds.size.width
+
         print("screenWidth : ", screenWidth)
+        print("screenHeight : ", screenHeight)
         let lbNavTitle = UILabel (frame: CGRect(x: 0, y: 0, width: screenWidth-78, height: 40))
 //        lbNavTitle.backgroundColor = UIColor.white
         lbNavTitle.textColor = UIColor.black
@@ -50,12 +57,11 @@ class CustomTabBarController: UITabBarController, UITabBarControllerDelegate {
             selectedIndex = 2
         }
         
-        
-        
-        
+        floatingBtn()
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        print("customtabbar viewWillAppear")
         self.navigationController?.isNavigationBarHidden = false
         self.navigationController?.navigationBar.tintColor = .systemBlue
         self.navigationController?.navigationBar.barTintColor = UIColor.init(displayP3Red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
@@ -65,6 +71,7 @@ class CustomTabBarController: UITabBarController, UITabBarControllerDelegate {
         self.navigationItem.hidesBackButton = true
 //
 //        self.navigationController?.navigationBar.topItem?.title = "기프티콘 저장"
+        
     }
     
 }
@@ -74,23 +81,29 @@ extension CustomTabBarController{
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         switch item.title! {
         case "공유하기":
+            actionButton.isHidden = true
+//            view.removeFromSuperview()
         if(UserDefaults.standard.string(forKey: "ID") != nil){ //로그인 O
             navigationBarSetting(navigationTitle: "기프티콘 공유")
         } else{// 로그인 X
             needLoginService("공유하기")
         }
         case "선물하기":
+            actionButton.isHidden = true
             if(UserDefaults.standard.string(forKey: "ID") != nil){ //로그인 O
                 navigationBarSetting(navigationTitle: "기프티콘 선물")
             } else{// 로그인 X
                 needLoginService("선물하기")
             }
         case "저장소":
+            actionButton.isHidden = false
         navigationBarSetting(navigationTitle: "기프티콘 저장")
         case "랭킹보기":
+            actionButton.isHidden = true
         navigationBarSetting(navigationTitle: "기프티콘 랭킹")
-        case "설정":
-        navigationBarSetting(navigationTitle: "설정")
+        case "환경설정":
+            actionButton.isHidden = true
+        navigationBarSetting(navigationTitle: "환경설정")
         default:
             self.navigationItem.leftBarButtonItem = nil
         }
@@ -135,5 +148,48 @@ extension CustomTabBarController{
             self.navigationItem.backBarButtonItem = backBarButtonItem
         })
         self.present(alert, animated: true, completion: nil)
+        actionButton.isHidden = false
+    }
+    func floatingBtn(){
+        actionButton.addItem(title: "바코드(기프티콘) 저장하기", image: UIImage(systemName: "barcode")?.withRenderingMode(.alwaysTemplate)) { item in
+            print("바코드(기프티콘) 저장하기")
+            let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "giftRegisterVC")
+                    self.navigationController?.pushViewController(pushVC!, animated: true)
+
+            let backBarButtonItem = UIBarButtonItem(title: "홈화면", style: .plain, target: self, action: nil)
+            self.navigationItem.backBarButtonItem = backBarButtonItem
+        }
+
+        actionButton.addItem(title: "QR코드 저장하기", image: UIImage(systemName: "qrcode")?.withRenderingMode(.alwaysTemplate)) { item in
+          // do something
+            print("qrcode 2")
+        }
+        
+//        actionButton.addItem(title: "item 3", image: nil) { item in
+//          // do something
+//        }
+        
+        view.addSubview(actionButton)
+        actionButton.buttonColor = .systemBlue
+        actionButton.translatesAutoresizingMaskIntoConstraints = false
+        actionButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16).isActive = true
+        actionButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16).isActive = true
+        
+        actionButton.configureDefaultItem { item in
+//            item.titlePosition = .trailing
+
+            item.titleLabel.font = .boldSystemFont(ofSize: UIFont.systemFontSize)
+            item.titleLabel.textColor = .white
+            item.buttonColor = .white
+            item.buttonImageColor = .systemBlue
+
+            item.layer.shadowColor = UIColor.black.cgColor
+            item.layer.shadowOffset = CGSize(width: 0, height: 1)
+            item.layer.shadowOpacity = Float(0.4)
+            item.layer.shadowRadius = CGFloat(2)
+        }
+        
+                actionButton.bottomAnchor.constraint(equalTo: view.topAnchor
+                            ,constant: screenHeight-200).isActive = true // ---- 1
     }
 }

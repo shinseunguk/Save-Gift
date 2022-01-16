@@ -11,6 +11,7 @@ target 'Save Gift' do
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
   pod 'Firebase/Analytics'
+  pod 'JJFloatingActionButton'
   # Pods for Save Gift
 
 end
