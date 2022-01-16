@@ -476,6 +476,7 @@ PODS:
     - gRPC-Core/Interface (= 1.28.2)
   - gRPC-Core/Interface (1.28.2)
   - GTMSessionFetcher/Core (1.7.0)
+  - JJFloatingActionButton (2.5.0)
   - JSPhoneFormat (0.0.1)
   - KakaoSDK (2.8.4):
     - KakaoSDKAuth (= 2.8.4)
@@ -522,6 +523,7 @@ DEPENDENCIES:
   - Firebase/Analytics
   - Firebase/Auth
   - Firebase/Firestore
+  - JJFloatingActionButton
   - JSPhoneFormat
   - KakaoSDK
   - SideMenu
@@ -544,6 +546,7 @@ SPEC REPOS:
     - "gRPC-C++"
     - gRPC-Core
     - GTMSessionFetcher
+    - JJFloatingActionButton
     - JSPhoneFormat
     - KakaoSDK
     - KakaoSDKAuth
@@ -576,6 +579,7 @@ SPEC CHECKSUMS:
   "gRPC-C++": 13d8ccef97d5c3c441b7e3c529ef28ebee86fad2
   gRPC-Core: 4afa11bfbedf7cdecd04de535a9e046893404ed5
   GTMSessionFetcher: 43748f93435c2aa068b1cbe39655aaf600652e91
+  JJFloatingActionButton: fdc3aefb0f28f04d0f988fa25d5fac97028a9ea7
   JSPhoneFormat: a809ac14c7a9301690f0f0077890ebda0f775f67
   KakaoSDK: f80dbd5e4e8db058c9f1cd48356329f11fd6e281
   KakaoSDKAuth: b9b693995f98b1821ccd22b39d383e1dede5ca45
@@ -591,6 +595,6 @@ SPEC CHECKSUMS:
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   SideMenu: f583187d21c5b1dd04c72002be544b555a2627a2
 
-PODFILE CHECKSUM: f21c674d40be54130153fd6aedf69726a5dd4e79
+PODFILE CHECKSUM: bbee4d3edf3ea26ff7fea846afc02b55cd44385e
 
 COCOAPODS: 1.11.2
