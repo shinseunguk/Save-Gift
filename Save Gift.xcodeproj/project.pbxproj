@@ -18,18 +18,18 @@
 		A225D706275B5FD600484EAE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A225D705275B5FD600484EAE /* Assets.xcassets */; };
 		A225D709275B5FD600484EAE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A225D707275B5FD600484EAE /* LaunchScreen.storyboard */; };
 		A232943127634593007ACA5F /* Register2Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = A232943027634593007ACA5F /* Register2Controller.swift */; };
-		A23A7D49275B96EA00077EF3 /* facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = A23A7D47275B96EA00077EF3 /* facebook.png */; };
-		A23A7D4A275B96EA00077EF3 /* kakaotalk.png in Resources */ = {isa = PBXBuildFile; fileRef = A23A7D48275B96EA00077EF3 /* kakaotalk.png */; };
 		A28A06B42794413000876560 /* GiftRegisterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28A06B32794413000876560 /* GiftRegisterController.swift */; };
 		A28F4398276F44B700B5DB17 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A28F4397276F44B700B5DB17 /* LocalAuthentication.framework */; };
 		A28F439A276F55B700B5DB17 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28F4399276F55B700B5DB17 /* MainController.swift */; };
+		A2AF3FD3279588510076F426 /* kakaotalk.png in Resources */ = {isa = PBXBuildFile; fileRef = A2AF3FD0279588510076F426 /* kakaotalk.png */; };
+		A2AF3FD4279588510076F426 /* naver.png in Resources */ = {isa = PBXBuildFile; fileRef = A2AF3FD1279588510076F426 /* naver.png */; };
+		A2AF3FD5279588510076F426 /* facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = A2AF3FD2279588510076F426 /* facebook.png */; };
 		A2D2FDA42777414A0036B849 /* GiftPresentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D2FDA32777414A0036B849 /* GiftPresentController.swift */; };
 		A2D2FDA6277741A30036B849 /* GiftShareController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D2FDA5277741A30036B849 /* GiftShareController.swift */; };
 		A2D2FDA8277741ED0036B849 /* GiftRankController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D2FDA7277741ED0036B849 /* GiftRankController.swift */; };
 		A2D2FDAA277742200036B849 /* GiftSaveController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D2FDA9277742200036B849 /* GiftSaveController.swift */; };
 		A2D2FDAC277742A30036B849 /* GiftSettingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D2FDAB277742A30036B849 /* GiftSettingController.swift */; };
 		A2D2FDB42778C1400036B849 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D2FDB32778C1400036B849 /* CustomCell.swift */; };
-		A2D3351E275CC2DD00ECF4B1 /* naver.png in Resources */ = {isa = PBXBuildFile; fileRef = A2D3351D275CC2DD00ECF4B1 /* naver.png */; };
 		A2D33522275CDEA700ECF4B1 /* RegisterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D33521275CDEA700ECF4B1 /* RegisterController.swift */; };
 		A2D33524275E474D00ECF4B1 /* UITextFiled+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D33523275E474D00ECF4B1 /* UITextFiled+Extension.swift */; };
 		A2D4935A27905EF300FB5770 /* SettingMyInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D4935927905EF300FB5770 /* SettingMyInfoController.swift */; };
@@ -64,18 +64,18 @@
 		A225D708275B5FD600484EAE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A225D70A275B5FD600484EAE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A232943027634593007ACA5F /* Register2Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Register2Controller.swift; sourceTree = "<group>"; };
-		A23A7D47275B96EA00077EF3 /* facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = facebook.png; path = "../../Save Gift 이미지/로그인 버튼/facebook.png"; sourceTree = "<group>"; };
-		A23A7D48275B96EA00077EF3 /* kakaotalk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kakaotalk.png; path = "../../Save Gift 이미지/로그인 버튼/kakaotalk.png"; sourceTree = "<group>"; };
 		A28A06B32794413000876560 /* GiftRegisterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftRegisterController.swift; sourceTree = "<group>"; };
 		A28F4397276F44B700B5DB17 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
 		A28F4399276F55B700B5DB17 /* MainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
+		A2AF3FD0279588510076F426 /* kakaotalk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kakaotalk.png; sourceTree = "<group>"; };
+		A2AF3FD1279588510076F426 /* naver.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = naver.png; sourceTree = "<group>"; };
+		A2AF3FD2279588510076F426 /* facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook.png; sourceTree = "<group>"; };
 		A2D2FDA32777414A0036B849 /* GiftPresentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftPresentController.swift; sourceTree = "<group>"; };
 		A2D2FDA5277741A30036B849 /* GiftShareController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftShareController.swift; sourceTree = "<group>"; };
 		A2D2FDA7277741ED0036B849 /* GiftRankController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftRankController.swift; sourceTree = "<group>"; };
 		A2D2FDA9277742200036B849 /* GiftSaveController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftSaveController.swift; sourceTree = "<group>"; };
 		A2D2FDAB277742A30036B849 /* GiftSettingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftSettingController.swift; sourceTree = "<group>"; };
 		A2D2FDB32778C1400036B849 /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
-		A2D3351D275CC2DD00ECF4B1 /* naver.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = naver.png; path = "../../Save Gift 이미지/로그인 버튼/naver.png"; sourceTree = "<group>"; };
 		A2D33521275CDEA700ECF4B1 /* RegisterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterController.swift; sourceTree = "<group>"; };
 		A2D33523275E474D00ECF4B1 /* UITextFiled+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextFiled+Extension.swift"; sourceTree = "<group>"; };
 		A2D4935927905EF300FB5770 /* SettingMyInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingMyInfoController.swift; sourceTree = "<group>"; };
@@ -172,10 +172,10 @@
 			isa = PBXGroup;
 			children = (
 				A2DC3F2327817EBD00D354B1 /* barcodeLogo.png */,
+				A2AF3FD2279588510076F426 /* facebook.png */,
+				A2AF3FD0279588510076F426 /* kakaotalk.png */,
+				A2AF3FD1279588510076F426 /* naver.png */,
 				A2DC3F2127803A3700D354B1 /* apple.png */,
-				A23A7D47275B96EA00077EF3 /* facebook.png */,
-				A23A7D48275B96EA00077EF3 /* kakaotalk.png */,
-				A2D3351D275CC2DD00ECF4B1 /* naver.png */,
 			);
 			path = Image;
 			sourceTree = "<group>";
@@ -260,16 +260,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A2AF3FD4279588510076F426 /* naver.png in Resources */,
 				A225D709275B5FD600484EAE /* LaunchScreen.storyboard in Resources */,
 				A2DC3F2C2789A07E00D354B1 /* moogoonghwa.ttf in Resources */,
 				A225D706275B5FD600484EAE /* Assets.xcassets in Resources */,
+				A2AF3FD3279588510076F426 /* kakaotalk.png in Resources */,
 				A2DC3F2227803A3700D354B1 /* apple.png in Resources */,
-				A23A7D49275B96EA00077EF3 /* facebook.png in Resources */,
-				A2D3351E275CC2DD00ECF4B1 /* naver.png in Resources */,
 				A2DC3F2427817EBD00D354B1 /* barcodeLogo.png in Resources */,
+				A2AF3FD5279588510076F426 /* facebook.png in Resources */,
 				A2DC3F2E2789A0A600D354B1 /* geulssi.ttf in Resources */,
 				A225D704275B5FD500484EAE /* Main.storyboard in Resources */,
-				A23A7D4A275B96EA00077EF3 /* kakaotalk.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
