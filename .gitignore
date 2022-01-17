@@ -1,6 +1,6 @@
 
-# Created by https://www.toptal.com/developers/gitignore/api/macos,swift,xcode,cocoapods
-# Edit at https://www.toptal.com/developers/gitignore?templates=macos,swift,xcode,cocoapods
+# Created by https://www.toptal.com/developers/gitignore/api/swift,cocoapods,macos
+# Edit at https://www.toptal.com/developers/gitignore?templates=swift,cocoapods,macos
 
 ### CocoaPods ###
 ## CocoaPods GitIgnore Template
@@ -123,16 +123,4 @@ fastlane/test_output
 
 iOSInjectionProject/
 
-### Xcode ###
-
-## Xcode 8 and earlier
-
-### Xcode Patch ###
-*.xcodeproj/*
-!*.xcodeproj/project.pbxproj
-!*.xcodeproj/xcshareddata/
-!*.xcworkspace/contents.xcworkspacedata
-/*.gcno
-**/xcshareddata/WorkspaceSettings.xcsettings
-
-# End of https://www.toptal.com/developers/gitignore/api/macos,swift,xcode,cocoapods
+# End of https://www.toptal.com/developers/gitignore/api/swift,cocoapods,macos
