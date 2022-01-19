@@ -26,7 +26,7 @@ class Register3Controller: UIViewController, UITextFieldDelegate{
     var registerEnable : Bool = false;
     let border1 = CALayer()
     let phoneFormat = JSPhoneFormat.init(appenCharacter: "-")   //구분자로 사용하고싶은 캐릭터를 넣어주시면 됩니다.
-    var localUrl = "".getLocalURL();
+    let localUrl = "".getLocalURL();
 
 
     //넘어온 값

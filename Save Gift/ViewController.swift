@@ -33,7 +33,7 @@ class ViewController: UIViewController, ASAuthorizationControllerDelegate, ASAut
     // Storyboard
     @IBOutlet weak var appleSignInButton: UIStackView!
 
-    var localUrl = "".getLocalURL();
+    let localUrl = "".getLocalURL();
     var url : String = ""
     var id: String = ""
     var pw: String = ""
