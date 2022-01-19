@@ -48,6 +48,8 @@ class ViewController: UIViewController, ASAuthorizationControllerDelegate, ASAut
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("ViewController viewDidLoad")
+        
         if VC != nil{
             print("### ",VC!)
             
@@ -68,8 +70,6 @@ class ViewController: UIViewController, ASAuthorizationControllerDelegate, ASAut
         
 //        let rightBarButton = UIBarButtonItem.init(title: "확인", style: .plain, target: self, action: #selector(self.actionA)) //Class.MethodName
 //        self.navigationItem.rightBarButtonItem = rightBarButton
-        
-        print("ViewController viewDidLoad")
     }
     
     override func viewWillAppear(_ animated: Bool) {
