@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 
-class GiftRegisterController : ViewController{
+class GiftRegisterController : UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad();
