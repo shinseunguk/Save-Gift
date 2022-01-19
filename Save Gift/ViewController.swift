@@ -4,8 +4,7 @@
 //
 //  Created by ukBook on 2021/12/04.
 // 로그인화면
-// git testddㅇㅇdㅇㅇ
-// test 20220118
+// git testddㅇㅇdㅇㅇ 왜안될가 슈ㅜㄱ쟈ㅜㅕㅑ
 
 import UIKit
 import AuthenticationServices // 생체 인식
