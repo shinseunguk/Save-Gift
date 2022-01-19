@@ -39,6 +39,8 @@ class Register2Controller: UIViewController {
     }
     
     override func viewDidLoad() {
+        print("viewDidLoad Register2Controller")
+        
         self.navigationController?.isNavigationBarHidden = false
         self.navigationController?.navigationBar.tintColor = .systemBlue
         self.navigationController?.navigationBar.barTintColor = UIColor.init(displayP3Red: 242/255, green: 242/255, blue: 247/255, alpha: 1)
