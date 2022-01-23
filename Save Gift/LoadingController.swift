@@ -21,6 +21,8 @@ class LoadingController : UIViewController {
         //DB insert 하는 부분 구현
         print("device model : ", deviceModel)
         
+        requestNotificationPermission()
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "tabbarVC")
             self.navigationController?.pushViewController(pushVC!, animated: true)
@@ -37,4 +39,14 @@ class LoadingController : UIViewController {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
+    
+    func requestNotificationPermission(){
+            UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.sound,.badge], completionHandler: {didAllow,Error in
+                if didAllow {
+                    print("Push: 권한 허용")
+                } else {
+                    print("Push: 권한 거부")
+                }
+            })
+        }
 }
