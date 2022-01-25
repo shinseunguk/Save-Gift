@@ -18,6 +18,7 @@ class SettingAppVersionController : UIViewController {
         let versionAndBuild: String = "version: \(version), build: \(build)"
         return version
     }
+    let localUrl : String = "".getLocalURL();
 
     
     override func viewDidLoad() {
@@ -31,5 +32,24 @@ class SettingAppVersionController : UIViewController {
         self.navigationItem.title = "앱버전"
         
         installedVersion.text = "현재 버전 : \(version!)"
+        
+        requestGet(requestUrl: "/version")
+    }
+    
+    func requestGet(requestUrl : String!){
+        do {
+            // URL 설정 GET 방식으로 호출
+            let url = URL(string: localUrl+requestUrl)
+            let response = try String(contentsOf: url!)
+            
+//            print("success")
+//            print("#########response", response)
+//            print(type(of: response))
+            
+            recentVersion.text = "최신 버전 : \(response)"
+            
+        } catch let e as NSError {
+            print(e.localizedDescription)
+        }
     }
 }
