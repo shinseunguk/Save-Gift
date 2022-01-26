@@ -46,6 +46,9 @@
 		A2DC3F2C2789A07E00D354B1 /* moogoonghwa.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A2DC3F2B2789A07E00D354B1 /* moogoonghwa.ttf */; };
 		A2DC3F2E2789A0A600D354B1 /* geulssi.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A2DC3F2D2789A0A600D354B1 /* geulssi.ttf */; };
 		A2DFB7D72770973F00BB9D21 /* GetDeivceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2DFB7D62770973F00BB9D21 /* GetDeivceModel.swift */; };
+		A2E4FB6E27A0280C00AA08C5 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E4FB6B27A0280C00AA08C5 /* Helper.swift */; };
+		A2E4FB6F27A0280C00AA08C5 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E4FB6C27A0280C00AA08C5 /* TableViewCell.swift */; };
+		A2E4FB7027A0280C00AA08C5 /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2E4FB6D27A0280C00AA08C5 /* TableViewCell.xib */; };
 		A58490207BA7F430468CD57C /* Pods_Save_Gift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D23925D464A68A711FE6DD4C /* Pods_Save_Gift.framework */; };
 /* End PBXBuildFile section */
 
@@ -93,6 +96,9 @@
 		A2DC3F2B2789A07E00D354B1 /* moogoonghwa.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = moogoonghwa.ttf; sourceTree = "<group>"; };
 		A2DC3F2D2789A0A600D354B1 /* geulssi.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = geulssi.ttf; sourceTree = "<group>"; };
 		A2DFB7D62770973F00BB9D21 /* GetDeivceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDeivceModel.swift; sourceTree = "<group>"; };
+		A2E4FB6B27A0280C00AA08C5 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Helper.swift; path = "../../../Downloads/Save-Gift-main/Save Gift/Helper.swift"; sourceTree = "<group>"; };
+		A2E4FB6C27A0280C00AA08C5 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableViewCell.swift; path = "../../../Downloads/Save-Gift-main/Save Gift/TableViewCell.swift"; sourceTree = "<group>"; };
+		A2E4FB6D27A0280C00AA08C5 /* TableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TableViewCell.xib; path = "../../../Downloads/Save-Gift-main/Save Gift/TableViewCell.xib"; sourceTree = "<group>"; };
 		BA0B179A6AE52EF5148856A8 /* Pods-Save Gift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Save Gift.release.xcconfig"; path = "Target Support Files/Pods-Save Gift/Pods-Save Gift.release.xcconfig"; sourceTree = "<group>"; };
 		D23925D464A68A711FE6DD4C /* Pods_Save_Gift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Save_Gift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -139,6 +145,9 @@
 				A225D6FE275B5FD500484EAE /* SceneDelegate.swift */,
 				A225D700275B5FD500484EAE /* ViewController.swift */,
 				A225D702275B5FD500484EAE /* Main.storyboard */,
+				A2E4FB6B27A0280C00AA08C5 /* Helper.swift */,
+				A2E4FB6C27A0280C00AA08C5 /* TableViewCell.swift */,
+				A2E4FB6D27A0280C00AA08C5 /* TableViewCell.xib */,
 				A225D705275B5FD600484EAE /* Assets.xcassets */,
 				A225D707275B5FD600484EAE /* LaunchScreen.storyboard */,
 				A225D70A275B5FD600484EAE /* Info.plist */,
@@ -264,6 +273,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A2AF3FD4279588510076F426 /* naver.png in Resources */,
+				A2E4FB7027A0280C00AA08C5 /* TableViewCell.xib in Resources */,
 				A225D709275B5FD600484EAE /* LaunchScreen.storyboard in Resources */,
 				A2DC3F2C2789A07E00D354B1 /* moogoonghwa.ttf in Resources */,
 				A225D706275B5FD600484EAE /* Assets.xcassets in Resources */,
@@ -340,6 +350,7 @@
 				A2D4935E2790615600FB5770 /* SettingNotiController.swift in Sources */,
 				A2D33524275E474D00ECF4B1 /* UITextFiled+Extension.swift in Sources */,
 				A225D701275B5FD500484EAE /* ViewController.swift in Sources */,
+				A2E4FB6F27A0280C00AA08C5 /* TableViewCell.swift in Sources */,
 				A2D2FDA42777414A0036B849 /* GiftPresentController.swift in Sources */,
 				A2D493642790624C00FB5770 /* SettingSecessionController.swift in Sources */,
 				A21C6D5D276F646000BDE1E4 /* CustomSideMenuNavigation.swift in Sources */,
@@ -352,6 +363,7 @@
 				A225D6FF275B5FD500484EAE /* SceneDelegate.swift in Sources */,
 				A2D2FDA6277741A30036B849 /* GiftShareController.swift in Sources */,
 				A28A06B42794413000876560 /* GiftRegisterController.swift in Sources */,
+				A2E4FB6E27A0280C00AA08C5 /* Helper.swift in Sources */,
 				A2D493602790618F00FB5770 /* SettingAppVersionController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -509,6 +521,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.uk.Save-Gift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -531,6 +544,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.uk.Save-Gift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
