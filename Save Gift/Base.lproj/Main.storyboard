@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="gfd-vK-Avs">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="gfd-vK-Avs">
     <device id="retina6_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -379,7 +379,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="cyQ-Or-yL3">
-                                        <rect key="frame" x="0.0" y="44.666666030883789" width="428" height="43.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="428" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cyQ-Or-yL3" id="SYx-CK-iTn">
                                             <rect key="frame" x="0.0" y="0.0" width="428" height="43.666667938232422"/>
@@ -492,13 +492,13 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="회원탈퇴신청을 하시겠습니까?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8tL-sz-nzP">
-                                <rect key="frame" x="20" y="228" width="388" height="25.333333333333343"/>
+                                <rect key="frame" x="20" y="228" width="388" height="27.333333333333343"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <color key="textColor" systemColor="linkColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="회원탈퇴 하시더라도 기프티콘 저장소에서 제공하는" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PAX-qM-h3p">
-                                <rect key="frame" x="20" y="276" width="388" height="70"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="회원탈퇴 하시더라도 기프티콘 저장소에서 제공하는 회원가입이 필요하지 않는 서비스는 이전과 같이 사용하실 수 있습니다." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PAX-qM-h3p">
+                                <rect key="frame" x="20" y="278" width="388" height="70"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="Ir1-qn-2LY"/>
                                 </constraints>
@@ -506,17 +506,85 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="info.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="bsV-lT-D0t">
+                                <rect key="frame" x="20" y="449" width="30" height="28.666666666666686"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="8Gn-dy-xDd"/>
+                                    <constraint firstAttribute="height" constant="30" id="Iou-r2-i6m"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이용안내" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dFR-OR-Y8Y">
+                                <rect key="frame" x="59" y="452.66666666666669" width="59" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- 회원탈퇴 시 공유되고 있는 미사용 기프티콘은 공유 기프티콘 리스트에서 사라집니다." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ia9-0E-zcq">
+                                <rect key="frame" x="34" y="497.99999999999994" width="374" height="38.333333333333314"/>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- 기프티콘 저장소에서 관리 하고있는 QR코드, 기프티콘들은 삭제 됩니다." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cGZ-lh-Lcl">
+                                <rect key="frame" x="34" y="554.66666666666663" width="374" height="38.333333333333371"/>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- 회원탈퇴 하더라도 해당 QR코드, 기프티콘을 소유하고 있다면 사용가능 합니다." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tQr-SE-SCd">
+                                <rect key="frame" x="34" y="611.33333333333337" width="374" height="38.333333333333371"/>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U08-Ld-jHa">
+                                <rect key="frame" x="20" y="842" width="388" height="50"/>
+                                <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" button="YES" notEnabled="YES"/>
+                                </accessibility>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="oLT-Ec-gIL"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="회원탈퇴">
+                                    <color key="titleColor" red="0.94541759469999997" green="1" blue="0.9990125366" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="keyPath" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="secessionAction:" destination="k3R-M8-FaB" eventType="touchUpInside" id="hcS-h5-ouR"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="rck-8B-uKc"/>
                         <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="8tL-sz-nzP" firstAttribute="top" secondItem="fft-uL-6Ba" secondAttribute="bottom" constant="20" id="3eJ-kx-q4L"/>
                             <constraint firstItem="fft-uL-6Ba" firstAttribute="top" secondItem="rck-8B-uKc" secondAttribute="top" constant="64" id="49o-7d-BST"/>
+                            <constraint firstItem="bsV-lT-D0t" firstAttribute="leading" secondItem="rck-8B-uKc" secondAttribute="leading" constant="20" id="6tT-J1-7Sb"/>
                             <constraint firstItem="PAX-qM-h3p" firstAttribute="leading" secondItem="rck-8B-uKc" secondAttribute="leading" constant="20" id="87w-06-8vi"/>
+                            <constraint firstItem="rck-8B-uKc" firstAttribute="trailing" secondItem="tQr-SE-SCd" secondAttribute="trailing" constant="20" id="9tn-Iv-bNA"/>
+                            <constraint firstItem="U08-Ld-jHa" firstAttribute="bottom" secondItem="rck-8B-uKc" secondAttribute="bottom" id="9v8-C0-qRP"/>
+                            <constraint firstItem="rck-8B-uKc" firstAttribute="trailing" secondItem="cGZ-lh-Lcl" secondAttribute="trailing" constant="20" id="ADc-Bf-FVD"/>
+                            <constraint firstItem="rck-8B-uKc" firstAttribute="trailing" secondItem="Ia9-0E-zcq" secondAttribute="trailing" constant="20" id="Aaw-qS-UJQ"/>
+                            <constraint firstItem="cGZ-lh-Lcl" firstAttribute="leading" secondItem="rck-8B-uKc" secondAttribute="leading" constant="34" id="BIP-gP-Qc9"/>
+                            <constraint firstItem="rck-8B-uKc" firstAttribute="trailing" secondItem="U08-Ld-jHa" secondAttribute="trailing" constant="20" id="HUS-wT-f8u"/>
                             <constraint firstItem="rck-8B-uKc" firstAttribute="trailing" secondItem="PAX-qM-h3p" secondAttribute="trailing" constant="20" id="JDo-5m-ov7"/>
                             <constraint firstItem="PAX-qM-h3p" firstAttribute="top" secondItem="8tL-sz-nzP" secondAttribute="bottom" constant="22.670000000000002" id="LVj-1g-RDH"/>
+                            <constraint firstItem="bsV-lT-D0t" firstAttribute="top" secondItem="PAX-qM-h3p" secondAttribute="bottom" constant="100" id="VMD-jx-vmx"/>
+                            <constraint firstItem="tQr-SE-SCd" firstAttribute="leading" secondItem="rck-8B-uKc" secondAttribute="leading" constant="34" id="Wkf-P3-52z"/>
+                            <constraint firstItem="cGZ-lh-Lcl" firstAttribute="top" secondItem="Ia9-0E-zcq" secondAttribute="bottom" constant="18.329999999999998" id="ePr-7N-26H"/>
+                            <constraint firstItem="bsV-lT-D0t" firstAttribute="centerY" secondItem="WxZ-Us-fSb" secondAttribute="centerY" id="ejy-aU-WJm"/>
+                            <constraint firstItem="Ia9-0E-zcq" firstAttribute="top" secondItem="bsV-lT-D0t" secondAttribute="bottom" constant="20" id="ie3-L2-8FC"/>
+                            <constraint firstItem="tQr-SE-SCd" firstAttribute="top" secondItem="cGZ-lh-Lcl" secondAttribute="bottom" constant="18.329999999999998" id="jBL-lg-V6G"/>
                             <constraint firstItem="8tL-sz-nzP" firstAttribute="leading" secondItem="rck-8B-uKc" secondAttribute="leading" constant="20" id="mg7-H2-dJ4"/>
+                            <constraint firstItem="dFR-OR-Y8Y" firstAttribute="leading" secondItem="bsV-lT-D0t" secondAttribute="trailing" constant="9" id="nEr-Is-LUv"/>
                             <constraint firstItem="rck-8B-uKc" firstAttribute="trailing" secondItem="8tL-sz-nzP" secondAttribute="trailing" constant="20" id="o01-DB-51r"/>
+                            <constraint firstItem="dFR-OR-Y8Y" firstAttribute="centerY" secondItem="WxZ-Us-fSb" secondAttribute="centerY" id="qUf-eq-leo"/>
+                            <constraint firstItem="U08-Ld-jHa" firstAttribute="leading" secondItem="rck-8B-uKc" secondAttribute="leading" constant="20" id="s2Y-rg-Ux2"/>
+                            <constraint firstItem="Ia9-0E-zcq" firstAttribute="leading" secondItem="rck-8B-uKc" secondAttribute="leading" constant="34" id="ty7-Xu-h5Q"/>
                             <constraint firstItem="fft-uL-6Ba" firstAttribute="centerX" secondItem="WxZ-Us-fSb" secondAttribute="centerX" id="xoW-Da-Nsy"/>
                         </constraints>
                     </view>
@@ -958,7 +1026,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="customCell" rowHeight="70" id="1bt-2d-v8B" customClass="CustomCell" customModule="Save_Gift" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.666666030883789" width="428" height="70"/>
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="428" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1bt-2d-v8B" id="rcl-9X-GZj">
                                             <rect key="frame" x="0.0" y="0.0" width="428" height="70"/>
@@ -1201,7 +1269,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="wax-k3-ndu">
-                                        <rect key="frame" x="0.0" y="44.666666030883789" width="413" height="43.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="413" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wax-k3-ndu" id="Cfc-N7-BRx">
                                             <rect key="frame" x="0.0" y="0.0" width="413" height="43.666667938232422"/>
@@ -1323,8 +1391,6 @@
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="confirmAction:" destination="wVj-4E-2MQ" eventType="touchUpInside" id="f8z-jL-lRq"/>
-                                    <action selector="nextBtnAction:" destination="dw0-rS-8n1" eventType="touchUpInside" id="2Z3-UV-8AB"/>
-                                    <action selector="skipAction:" destination="YsA-jA-DI3" eventType="touchUpInside" id="t9q-lQ-Yn0"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1462,6 +1528,7 @@
         <image name="facebook.png" width="37.5" height="37.5"/>
         <image name="gear" catalog="system" width="128" height="119"/>
         <image name="gift" catalog="system" width="128" height="124"/>
+        <image name="info.circle" catalog="system" width="128" height="121"/>
         <image name="kakaotalk.png" width="40" height="40"/>
         <image name="lock" catalog="system" width="128" height="128"/>
         <image name="naver.png" width="25" height="25"/>

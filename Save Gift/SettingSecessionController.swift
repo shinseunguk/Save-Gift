@@ -19,4 +19,7 @@ class SettingSecessionController : UIViewController {
         self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.black]
         self.navigationItem.title = "회원탈퇴"
     }
+    @IBAction func secessionAction(_ sender: Any) {
+        print("탈퇴")
+    }
 }
