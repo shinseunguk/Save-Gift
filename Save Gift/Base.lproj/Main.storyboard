@@ -1339,9 +1339,30 @@
                     <view key="view" contentMode="scaleToFill" id="LSb-Ea-9UQ">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aqL-Vy-5Xs">
+                                <rect key="frame" x="80" y="64" width="268" height="300"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="KkL-Vw-hPR"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                <state key="normal" image="plus" catalog="system"/>
+                                <connections>
+                                    <action selector="plusAction:" destination="GVS-IK-3OG" eventType="touchUpInside" id="jr4-pV-TTo"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="FXo-to-BdZ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="aqL-Vy-5Xs" firstAttribute="leading" secondItem="FXo-to-BdZ" secondAttribute="leading" constant="80" id="9o0-24-M4G"/>
+                            <constraint firstItem="aqL-Vy-5Xs" firstAttribute="top" secondItem="FXo-to-BdZ" secondAttribute="top" constant="20" id="agr-3K-Ipo"/>
+                            <constraint firstItem="FXo-to-BdZ" firstAttribute="trailing" secondItem="aqL-Vy-5Xs" secondAttribute="trailing" constant="80" id="cBy-5G-pmS"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="plusBtn" destination="aqL-Vy-5Xs" id="GEH-Uj-wfU"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d82-Ur-hd2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1532,6 +1553,7 @@
         <image name="kakaotalk.png" width="40" height="40"/>
         <image name="lock" catalog="system" width="128" height="128"/>
         <image name="naver.png" width="25" height="25"/>
+        <image name="plus" catalog="system" width="128" height="113"/>
         <image name="square.and.arrow.up.fill" catalog="system" width="115" height="128"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
