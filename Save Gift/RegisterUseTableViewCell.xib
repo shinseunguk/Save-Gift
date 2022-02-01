@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Fnq-2Y-8o6" customClass="RegisterUseTableViewCell" customModule="Save_Gift" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Fnq-2Y-8o6" id="Qsh-uG-tpE">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="쿠폰상태" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kpb-hu-uhS">
+                        <rect key="frame" x="16" y="13.5" width="80" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="80" id="MBr-cI-pc2"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="L7j-uN-J4h">
+                        <rect key="frame" x="115" y="6.5" width="186" height="32"/>
+                        <segments>
+                            <segment title="미사용"/>
+                            <segment title="사용"/>
+                        </segments>
+                    </segmentedControl>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="L7j-uN-J4h" firstAttribute="leading" secondItem="kpb-hu-uhS" secondAttribute="trailing" constant="19" id="9nv-J6-L2S"/>
+                    <constraint firstItem="kpb-hu-uhS" firstAttribute="centerY" secondItem="Qsh-uG-tpE" secondAttribute="centerY" id="HfF-rc-Hrp"/>
+                    <constraint firstItem="kpb-hu-uhS" firstAttribute="leading" secondItem="Qsh-uG-tpE" secondAttribute="leading" constant="16" id="bjr-PE-GSz"/>
+                    <constraint firstAttribute="trailing" secondItem="L7j-uN-J4h" secondAttribute="trailing" constant="19" id="oJf-kz-ueZ"/>
+                    <constraint firstItem="L7j-uN-J4h" firstAttribute="centerY" secondItem="Qsh-uG-tpE" secondAttribute="centerY" id="vDd-g5-LK6"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="3lO-H9-O6K"/>
+            <connections>
+                <outlet property="segmentControl" destination="L7j-uN-J4h" id="Ut1-RY-3LE"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="83.705357142857139"/>
+        </tableViewCell>
+    </objects>
+</document>

@@ -12,7 +12,7 @@ class SettingNotiController : UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    let arr = ["알림설정","이메일","SMS(문자)"];
+    var arr = ["알림설정","이메일","SMS(문자)"];
     var arrayBoll = [true, false, false];
     let localUrl = "".getLocalURL();
     
@@ -43,7 +43,13 @@ class SettingNotiController : UIViewController {
         //Specify the xib file to use
         tableView.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: "TableViewCell")
         
-        requestGet(user_id : UserDefaults.standard.string(forKey: "ID")! , requestUrl : "/status")
+        if(UserDefaults.standard.string(forKey: "ID") != nil){ //로그인 O
+            requestGet(user_id : UserDefaults.standard.string(forKey: "ID")! , requestUrl : "/status")
+        }else{
+            arr.remove(at: 1)
+            arr.remove(at: 1)
+        }
+        
         
         // 시스템의 Push가 ON/OFF
         let isPushOn = UIApplication.shared.isRegisteredForRemoteNotifications
@@ -89,7 +95,7 @@ class SettingNotiController : UIViewController {
 
 extension SettingNotiController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return arr.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

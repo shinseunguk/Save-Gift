@@ -8,10 +8,13 @@ target 'Save Gift' do
   pod 'JSPhoneFormat'
   pod 'KakaoSDK'
   pod 'SideMenu'
+  pod 'Firebase/Core'
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
   pod 'Firebase/Analytics'
   pod 'JJFloatingActionButton'
+  pod 'GoogleMLKit/BarcodeScanning'
+  pod 'GoogleMLKit/TextRecognition'
   # Pods for Save Gift
 
 end

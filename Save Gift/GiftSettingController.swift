@@ -126,8 +126,8 @@ extension GiftSettingController: UITableViewDelegate, UITableViewDataSource{
             let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "SettingDeveloperVC")
             self.navigationController?.pushViewController(pushVC!, animated: true)
         } else if indexPath.row == 2{ //알림설정
-            let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "SettingNotiControllerVC")
-            self.navigationController?.pushViewController(pushVC!, animated: true)
+                let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "SettingNotiControllerVC")
+                self.navigationController?.pushViewController(pushVC!, animated: true)
         } else if indexPath.row == 3{ //앱버전
             let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "SettingAppVersionVC")
             self.navigationController?.pushViewController(pushVC!, animated: true)
