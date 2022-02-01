@@ -34,6 +34,7 @@ class ViewController: UIViewController, ASAuthorizationControllerDelegate, ASAut
     @IBOutlet weak var appleSignInButton: UIStackView!
 
     let localUrl = "".getLocalURL();
+    let helper : Helper = Helper();
     var url : String = ""
     var id: String = ""
     var pw: String = ""
@@ -41,6 +42,7 @@ class ViewController: UIViewController, ASAuthorizationControllerDelegate, ASAut
     let border2 = CALayer()
     var navigationBarBackButtonTitle : String?
     var VC : String?
+    var dic : [String: Any] = [:];
     //DeviceId
     
 
@@ -224,8 +226,12 @@ class ViewController: UIViewController, ASAuthorizationControllerDelegate, ASAut
                                 
                             self.navigationController?.pushViewController(pushVC, animated: true)
                             
+                            
+                            
                         //저장
                         UserDefaults.standard.set(email, forKey: "ID")
+                            
+                            self.requestGet(user_id : UserDefaults.standard.string(forKey: "ID")! , requestUrl : "/status")
                         }
                     } else if(responseString == "false"){
                         DispatchQueue.main.async{
@@ -235,6 +241,28 @@ class ViewController: UIViewController, ASAuthorizationControllerDelegate, ASAut
                 }
                 // POST 전송
                 task.resume()
+    }
+    
+    func requestGet(user_id : String!, requestUrl : String!){
+        do {
+            // URL 설정 GET 방식으로 호출
+            let url = URL(string: localUrl+requestUrl+"?user_id="+user_id!)
+            let response = try String(contentsOf: url!)
+            
+//            print("success")
+            print("#########response", response)
+            dic = helper.jsonParserName(stringData: response, data1: "name");
+            
+            print("#############################",dic["name"]!)
+            if(dic["name"] != nil){
+                UserDefaults.standard.set(dic["name"]!, forKey: "name")
+            }
+            
+            
+        } catch let e as NSError {
+            print(e.localizedDescription)
+        }
+    
     }
     
     //애플 로그인

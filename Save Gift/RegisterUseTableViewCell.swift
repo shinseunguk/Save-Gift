@@ -1,0 +1,24 @@
+//
+//  RegisterUseTableViewCell.swift
+//  Save Gift
+//
+//  Created by ukBook on 2022/01/31.
+//
+
+import UIKit
+
+class RegisterUseTableViewCell: UITableViewCell {
+    @IBOutlet weak var segmentControl: UISegmentedControl!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
+
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+
+        // Configure the view for the selected state
+    }
+    
+}
