@@ -228,7 +228,7 @@ class ViewController: UIViewController, ASAuthorizationControllerDelegate, ASAut
                             
                             
                             
-                        //저장
+                        // 아이디저장
                         UserDefaults.standard.set(email, forKey: "ID")
                             
                             self.requestGet(user_id : UserDefaults.standard.string(forKey: "ID")! , requestUrl : "/status")

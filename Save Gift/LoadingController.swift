@@ -21,6 +21,9 @@ class LoadingController : UIViewController {
         //DB insert 하는 부분 구현
         print("device model : ", deviceModel)
         
+        // 아이디저장
+        UserDefaults.standard.set(deviceModel, forKey: "device_id")
+        
         requestNotificationPermission()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
