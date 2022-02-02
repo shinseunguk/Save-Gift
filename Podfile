@@ -13,8 +13,10 @@ target 'Save Gift' do
   pod 'Firebase/Firestore'
   pod 'Firebase/Analytics'
   pod 'JJFloatingActionButton'
+  pod 'GoogleMLKit/MLKitCore'
   pod 'GoogleMLKit/BarcodeScanning'
   pod 'GoogleMLKit/TextRecognition'
+  pod 'GoogleMLKit/TextRecognitionKorean', '2.3.0' 
   # Pods for Save Gift
 
 end

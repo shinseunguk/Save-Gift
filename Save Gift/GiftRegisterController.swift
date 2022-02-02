@@ -11,6 +11,7 @@ import MLKitCommon
 //import MLKitImageClassificationAutoML
 import MLKitVision
 import AVFoundation
+import MLKitTextRecognitionKorean
 
 class GiftRegisterController : UIViewController{
     
@@ -152,6 +153,21 @@ class GiftRegisterController : UIViewController{
         present(alert, animated: true, completion: nil)
     }
 
+    func getText(image: UIImage) {
+        let koreanOptions = KoreanTextRecognizerOptions()
+        let textRecognizer = TextRecognizer.textRecognizer(options: koreanOptions)
+        let visionImage = VisionImage(image: image)
+        visionImage.orientation = image.imageOrientation
+        
+        textRecognizer.process(visionImage) { result, error in
+            guard error == nil, let result = result else {
+                //error handling
+                return
+            }
+            //결과값 출력
+            print("결과값 출력,,,.,.,. KoreanTextRecognizerOptions \n "+result.text)
+        }
+    }
    
 }
 
@@ -241,6 +257,12 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
             
             print("###########",info)
         print("!@^%#$^!%@&$#*!@(&$#^(& \n", info[UIImagePickerController.InfoKey.imageURL]!)
+        
+        guard let selectedImage = info[.originalImage] as? UIImage else {
+                    fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
+                }
+        getText(image: selectedImage)
+
     }
     
     @objc func changeSegment(_ sender: UISegmentedControl){
