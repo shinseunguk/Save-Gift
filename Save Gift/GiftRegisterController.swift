@@ -7,6 +7,10 @@
 
 import Foundation
 import UIKit
+import MLKitCommon
+//import MLKitImageClassificationAutoML
+import MLKitVision
+import AVFoundation
 
 class GiftRegisterController : UIViewController{
     
@@ -36,6 +40,7 @@ class GiftRegisterController : UIViewController{
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.black]
         self.navigationItem.title = "기프티콘 등록 화면"
+        
         
         // 등록일 Default Setting
         arrTextField.insert(helper.formatDateToday(), at: 5)
@@ -76,6 +81,11 @@ class GiftRegisterController : UIViewController{
         
         plusAction()
     }
+    
+    //빈곳 터치 키보드 내리기
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
+//          self.view.endEditing(true)
+//    }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
          if scrollView.contentOffset.x > 0 || scrollView.contentOffset.x < 0 {
@@ -121,11 +131,36 @@ class GiftRegisterController : UIViewController{
             print("Camera not available")
         }
     }
+    
+//    @objc func textFieldDidChange(_ textField: UITextField, index: String?) {
+//        checkMaxLength(textField: cellPhoneTextField, maxLength: 13)
+//        guard let text = cellPhoneTextField.text else { return }
+//        cellPhoneTextField.text = phoneFormat.addCharacter(at: text)
+//    }   // phoneFormat.addCharacter에 텍스트를 넣어주면 init시 넣은 character가 구분자로 들어간 값이 반환됩니다.
+//
+//    func checkMaxLength(textField: UITextField!, maxLength: Int) {
+//        if (cellPhoneTextField.text?.count ?? 0 > maxLength) {
+//            cellPhoneTextField.deleteBackward()
+//        }
+//    }
+    
+    func normalAlert(titles:String, messages:String?) -> Void{
+        let alert = UIAlertController(title: titles, message: messages, preferredStyle: UIAlertController.Style.alert)
+        let defaultAction = UIAlertAction(title: "확인", style: .default, handler : nil)
+        
+        alert.addAction(defaultAction)
+        present(alert, animated: true, completion: nil)
+    }
 
    
 }
 
 extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate{
+    
+    //빈곳 터치 키보드 내리기
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
+          self.view.endEditing(true)
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return arr.count
@@ -150,6 +185,7 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
         case 0:
             cell.textfield.isEnabled = true
             cell.textfield.attributedPlaceholder = NSAttributedString(string: "ex) 스타벅스", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
+//            cell.textField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
             break;
         case 1:
             cell.textfield.isEnabled = true
@@ -188,7 +224,7 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
            return 50
-       }
+   }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
             
@@ -205,11 +241,31 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
             
             print("###########",info)
         print("!@^%#$^!%@&$#*!@(&$#^(& \n", info[UIImagePickerController.InfoKey.imageURL]!)
-        }
+    }
     
     @objc func changeSegment(_ sender: UISegmentedControl){
         print("sender.isSelected ",sender.selectedSegmentIndex)
         segmentStatus = sender.selectedSegmentIndex
+    }
+    
+    @IBAction func registerAction(_ sender: Any) {
+        print("print registerAction")
+        for x in 0...6 {
+            if x == 4 {
+                let index = IndexPath(row: x, section: 0)
+                let cell: RegisterUseTableViewCell = self.tableView.cellForRow(at: index) as! RegisterUseTableViewCell
+                print("22222222 ", cell.segmentControl.selectedSegmentIndex)
+            } else {
+                let index = IndexPath(row: x, section: 0)
+                let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
+                print("11111 ", cell.textfield.text!)
+                if cell.textfield.text == "" {
+                    normalAlert(titles: "빈칸없이 작성 해주세요.", messages: nil)
+                } // 유효성 확인
+            } // else
+            
+        }// for
+        
     }
     
 }
