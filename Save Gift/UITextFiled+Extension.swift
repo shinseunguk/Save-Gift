@@ -83,7 +83,7 @@ extension String {
     }
     
     func getLocalURL() -> String{
-        return "http://172.30.1.2:8008"
+        return "http://172.30.1.50:8008"
     }
 }
 

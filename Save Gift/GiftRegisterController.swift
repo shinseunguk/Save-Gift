@@ -8,10 +8,13 @@
 import Foundation
 import UIKit
 import MLKitCommon
-//import MLKitImageClassificationAutoML
 import MLKitVision
 import AVFoundation
 import MLKitTextRecognitionKorean
+import Firebase
+import MLKitBarcodeScanning
+import Vision
+import VisionKit
 
 class GiftRegisterController : UIViewController{
     
@@ -21,10 +24,27 @@ class GiftRegisterController : UIViewController{
     let imagePicker = UIImagePickerController()
     let helper : Helper = Helper()
     
-    
     let arr = ["교환처", "상품명", "바코드 번호", "유효기간", "쿠폰상태", "등록일", "등록자"]
     var arrTextField = ["", "", "", "", "", "", ""]
     var segmentStatus : Int = 0
+    var registerButton = UIButton()
+    var nextBool : Bool = false
+    
+    let metadataObjectTypes: [AVMetadataObject.ObjectType] = [
+                                                              .upce,
+                                                              .code39,
+                                                              .code39Mod43,
+                                                              .code93,
+                                                              .code128,
+                                                              .ean8,
+                                                              .ean13,
+                                                              .aztec,
+                                                              .pdf417,
+                                                              .itf14,
+                                                              .dataMatrix,
+                                                              .interleaved2of5,
+                                                              .qr
+                                                             ]
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -34,7 +54,7 @@ class GiftRegisterController : UIViewController{
         self.imagePicker.delegate = self // picker delegate
         self.scrollView.delegate = self
         
-        
+
         self.navigationController?.navigationBar.tintColor = .systemBlue
         self.navigationController?.navigationBar.barTintColor = UIColor.init(displayP3Red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
         self.navigationController?.navigationBar.shadowImage = UIImage()
@@ -69,6 +89,21 @@ class GiftRegisterController : UIViewController{
 //                shapeLayer.path = UIBezierPath(roundedRect: shapeRect, cornerRadius: 4).cgPath
 //
 //        plusBtn.layer.addSublayer(shapeLayer)
+        
+
+        
+        //버튼생성
+//        self.scrollView.addSubview(registerButton)ㄴ
+//        registerButton.translatesAutoresizingMaskIntoConstraints = false
+//
+//        registerButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+//        registerButton.widthAnchor.constraint(equalToConstant: 275).isActive = true
+//        registerButton.heightAnchor.constraint(equalToConstant: 48).isActive = true
+//        registerButton.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+//
+//        registerButton.setTitle("다음", for: .normal)
+//        registerButton.setTitleColor(.black, for: .normal)
+//        registerButton.backgroundColor = .orange
         
         //셀 테두리지우기
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
@@ -147,8 +182,10 @@ class GiftRegisterController : UIViewController{
     
     func normalAlert(titles:String, messages:String?) -> Void{
         let alert = UIAlertController(title: titles, message: messages, preferredStyle: UIAlertController.Style.alert)
-        let defaultAction = UIAlertAction(title: "확인", style: .default, handler : nil)
+        let cancelAction = UIAlertAction(title: "취소", style: .default, handler : nil)
+        let defaultAction = UIAlertAction(title: "사진추가", style: .default, handler : {_ in self.plusAction()})
         
+        alert.addAction(cancelAction)
         alert.addAction(defaultAction)
         present(alert, animated: true, completion: nil)
     }
@@ -165,10 +202,83 @@ class GiftRegisterController : UIViewController{
                 return
             }
             //결과값 출력
-            print("결과값 출력,,,.,.,. KoreanTextRecognizerOptions \n "+result.text)
+            let resultText = result.text
+                print("resultText: \(resultText)")
         }
     }
-   
+    
+//    func readBarcode(uiImage: UIImage){
+////        let format = BarcodeFormat.all
+//        // vision
+//        let image = VisionImage(image: uiImage)
+//        image.orientation = imageOrientation(deviceOrientation: UIDevice.current.orientation, cameraPosition: .back) // 아직 작성 안 했음!
+//
+//        let barcodeScanner = BarcodeScanner.barcodeScanner()
+//        barcodeScanner.process(image) { barcodes, error in
+//          guard error == nil, let barcodes = barcodes, !barcodes.isEmpty else {
+//            // Error handling
+//            let index = IndexPath(row: 2, section: 0)
+//            let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
+//            cell.textfield.text! = ""
+//            cell.textfield.isEnabled = true
+//            self.normalAlert(titles: "바코드가 인식 되지 않았습니다", messages: nil)
+//            return
+//          }
+//          // Recognized barcodes
+//            for barcode in barcodes {
+//              let corners = barcode.cornerPoints
+//
+//              let displayValue = barcode.displayValue
+//              let rawValue = barcode.rawValue
+//
+//                print("corners ##### ", corners!)
+//                print("displayValue ##### ", displayValue!)
+//                print("rawValue ##### ", rawValue!)
+//
+//                let index = IndexPath(row: 2, section: 0)
+//                let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
+//                cell.textfield.text! = displayValue!
+//                cell.textfield.isEnabled = false
+//
+//
+//              let valueType = barcode.valueType
+//                print("valueType### ", valueType)
+//              switch valueType {
+//              case .wiFi:
+//                let ssid = barcode.wifi?.ssid
+//                let password = barcode.wifi?.password
+//                let encryptionType = barcode.wifi?.type
+//              case .URL:
+//                let title = barcode.url!.title
+//                let url = barcode.url!.url
+//                print("url .. ", url!)
+//                print("title .. ", title!)
+//              default:
+//                print("default")
+//                // See API reference for all supported value types
+//
+//              } //swtich
+//            }
+//        } // process
+//    }
+    
+    func imageOrientation(
+      deviceOrientation: UIDeviceOrientation,
+      cameraPosition: AVCaptureDevice.Position
+    ) -> UIImage.Orientation {
+      switch deviceOrientation {
+      case .portrait:
+        return cameraPosition == .front ? .leftMirrored : .right
+      case .landscapeLeft:
+        return cameraPosition == .front ? .downMirrored : .up
+      case .portraitUpsideDown:
+        return cameraPosition == .front ? .rightMirrored : .left
+      case .landscapeRight:
+        return cameraPosition == .front ? .upMirrored : .down
+      case .faceDown, .faceUp, .unknown:
+        return .up
+      }
+    }
 }
 
 extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate{
@@ -202,18 +312,22 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
             cell.textfield.isEnabled = true
             cell.textfield.attributedPlaceholder = NSAttributedString(string: "ex) 스타벅스", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
 //            cell.textField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
+            cell.textfield.tag = indexPath.row
             break;
         case 1:
             cell.textfield.isEnabled = true
             cell.textfield.attributedPlaceholder = NSAttributedString(string: "ex) 뿌링클 치킨 + 콜라 1.25L", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
+            cell.textfield.tag = indexPath.row
             break;
         case 2:
             cell.textfield.isEnabled = true
             cell.textfield.attributedPlaceholder = NSAttributedString(string: "ex) 1234-5678-9101 ('-'를 제외하고 입력해주세요)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
+            cell.textfield.tag = indexPath.row
             break;
         case 3:
             cell.textfield.isEnabled = true
             cell.textfield.attributedPlaceholder = NSAttributedString(string: "ex) 2099-99-99 ('-'를 제외하고 입력해주세요)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
+            cell.textfield.tag = indexPath.row
             break;
         case 4:
 //            cell.textfield.isEnabled = true
@@ -222,6 +336,7 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
         case 5:
             cell.textfield.isEnabled = false
             cell.textfield.attributedPlaceholder = NSAttributedString(string: "ex) \(helper.formatDateToday())", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
+            cell.textfield.tag = indexPath.row
             break;
         case 6:
             if UserDefaults.standard.string(forKey: "ID") != nil{ // 로그인 o
@@ -230,6 +345,7 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
                 cell.textfield.isEnabled = true
             }
             cell.textfield.attributedPlaceholder = NSAttributedString(string: "ex) ghdrlfehd@naver.com(홍길동)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
+            cell.textfield.tag = indexPath.row
         default:
             print("default")
             break;
@@ -243,7 +359,7 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
    }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            
+        
             var newImage: UIImage? = nil // update 할 이미지
             
             if let possibleImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
@@ -252,17 +368,80 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
                 newImage = possibleImage // 원본 이미지가 있을 경우
             }
             
-            self.imageView.image = newImage // 받아온 이미지를 update
-            picker.dismiss(animated: true, completion: nil) // picker를 닫아줌
-            
-            print("###########",info)
-        print("!@^%#$^!%@&$#*!@(&$#^(& \n", info[UIImagePickerController.InfoKey.imageURL]!)
-        
         guard let selectedImage = info[.originalImage] as? UIImage else {
                     fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
                 }
         getText(image: selectedImage)
+//        readBarcode(uiImage: selectedImage)
+        
+        let image = VisionImage(image: selectedImage)
+        
+        let barcodeScanner = BarcodeScanner.barcodeScanner()
+        barcodeScanner.process(image) { barcodes, error in
+          guard error == nil, let barcodes = barcodes, !barcodes.isEmpty else {
+            // Error handling
+            
+            //바코드 인식 -> setText
+            let index = IndexPath(row: 2, section: 0)
+            let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
+            cell.textfield.text! = ""
+            cell.textfield.isEnabled = true
+            
+            //이미지 clear
+            print("self.nextBool false")
+            self.imageView.image = nil
+            self.nextBool = false
+            
+            self.normalAlert(titles: "바코드가 인식 되지 않았습니다", messages: "사진앨범 혹은 카메라로 바코드를 인식해주세요.")
+            return
+          }
+          // Recognized barcodes
+            for barcode in barcodes {
+              let corners = barcode.cornerPoints
 
+              let displayValue = barcode.displayValue
+              let rawValue = barcode.rawValue
+                
+                print("corners ##### ", corners!)
+                print("displayValue ##### ", displayValue!)
+                print("rawValue ##### ", rawValue!)
+                
+                let index = IndexPath(row: 2, section: 0)
+                let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
+                cell.textfield.text! = displayValue!
+                cell.textfield.isEnabled = false
+                
+                
+              let valueType = barcode.valueType
+                print("valueType### ", valueType)
+              switch valueType {
+              case .wiFi:
+                let ssid = barcode.wifi?.ssid
+                let password = barcode.wifi?.password
+                let encryptionType = barcode.wifi?.type
+              case .URL:
+                let title = barcode.url!.title
+                let url = barcode.url!.url
+                print("url .. ", url!)
+                print("title .. ", title!)
+              default:
+                print("default")
+                // See API reference for all supported value types
+              
+              } //swtich
+                if(error == nil){
+                    print("self.nextBool true")
+//                    self.imageView.isHidden = false
+                    self.imageView.image = newImage // 받아온 이미지를 update
+                    self.nextBool = true
+                }
+            }
+        } // process
+        picker.dismiss(animated: true, completion: nil) // picker를 닫아줌
+        
+            
+//            print("###########",info)
+//        print("!@^%#$^!%@&$#*!@(&$#^(& \n", info[UIImagePickerController.InfoKey.imageURL]!)
     }
     
     @objc func changeSegment(_ sender: UISegmentedControl){
