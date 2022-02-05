@@ -42,7 +42,7 @@
                 <outlet property="label" destination="RDG-xd-B3e" id="KlF-7p-zaj"/>
                 <outlet property="uiSwitch" destination="TVS-qA-0a1" id="z8C-MT-RBD"/>
             </connections>
-            <point key="canvasLocation" x="132" y="75"/>
+            <point key="canvasLocation" x="131.8840579710145" y="75"/>
         </tableViewCell>
     </objects>
 </document>

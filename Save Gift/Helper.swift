@@ -6,9 +6,9 @@
 //
 
 import Foundation
+import UIKit
 
-
-class Helper {
+class Helper : UIViewController{
     
     func jsonParser(stringData : String, data1 : String?, data2 : String?) -> Dictionary<String, Any>{
         let strJsonString = stringData
@@ -32,5 +32,37 @@ class Helper {
         }
         return oJsonDictionaryT!;
     }//func
+    
+    func jsonParserName(stringData : String, data1 : String?) -> Dictionary<String, Any>{
+        let strJsonString = stringData
+//        print(strJsonString)
+        let oJsonDataT:Data? = strJsonString.data(using: .utf8)
+        var oJsonDictionaryT:[String:Any]?
+        
+        if let oJsonData = oJsonDataT{
+            
+            oJsonDictionaryT = try! JSONSerialization.jsonObject(with: oJsonData, options: []) as! [String:Any]
+            
+            if let oJsonDictionary = oJsonDictionaryT{
+                if let strResultCode = oJsonDictionary[data1!]
+                   {
+                    print("data1 = \(strResultCode)")
+                }
+            }
+            return oJsonDictionaryT!;
+        }
+        return oJsonDictionaryT!;
+    }//func
+    
+    //오늘날짜 가져오기
+    func formatDateToday() -> String{
+        let formatter = DateFormatter() //객체 생성
+        formatter.dateStyle = .long
+        formatter.timeStyle = .medium
+        formatter.dateFormat = "yyyy-MM-dd" //데이터 포멧 설정
+        let str = formatter.string(from: Date()) //문자열로 바꾸기
+        
+        return str
+    }
     
 }
