@@ -31,6 +31,9 @@
 		A2B6C2DF27A81E2100B8617B /* RegisterUseTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2B6C2DD27A81E2100B8617B /* RegisterUseTableViewCell.xib */; };
 		A2B6C2E227A8239600B8617B /* RegisterBarcodeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B6C2E027A8239600B8617B /* RegisterBarcodeTableViewCell.swift */; };
 		A2B6C2E327A8239600B8617B /* RegisterBarcodeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2B6C2E127A8239600B8617B /* RegisterBarcodeTableViewCell.xib */; };
+		A2C5B5B427AEEDCF00C65B79 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C5B5B327AEEDCF00C65B79 /* Helper.swift */; };
+		A2C5B5B627AEEDE300C65B79 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C5B5B527AEEDE300C65B79 /* TableViewCell.swift */; };
+		A2C5B5BA27AEEE7C00C65B79 /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2C5B5B927AEEE7C00C65B79 /* TableViewCell.xib */; };
 		A2D2FDA42777414A0036B849 /* GiftPresentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D2FDA32777414A0036B849 /* GiftPresentController.swift */; };
 		A2D2FDA6277741A30036B849 /* GiftShareController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D2FDA5277741A30036B849 /* GiftShareController.swift */; };
 		A2D2FDA8277741ED0036B849 /* GiftRankController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D2FDA7277741ED0036B849 /* GiftRankController.swift */; };
@@ -54,9 +57,6 @@
 		A2DD0BE727A7CC580015E59B /* RegisterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2DD0BE527A7CC580015E59B /* RegisterTableViewCell.swift */; };
 		A2DD0BE827A7CC580015E59B /* RegisterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2DD0BE627A7CC580015E59B /* RegisterTableViewCell.xib */; };
 		A2DFB7D72770973F00BB9D21 /* GetDeivceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2DFB7D62770973F00BB9D21 /* GetDeivceModel.swift */; };
-		A2E4FB6E27A0280C00AA08C5 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E4FB6B27A0280C00AA08C5 /* Helper.swift */; };
-		A2E4FB6F27A0280C00AA08C5 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E4FB6C27A0280C00AA08C5 /* TableViewCell.swift */; };
-		A2E4FB7027A0280C00AA08C5 /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2E4FB6D27A0280C00AA08C5 /* TableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -575,6 +575,9 @@
 		A2B6C2DD27A81E2100B8617B /* RegisterUseTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterUseTableViewCell.xib; sourceTree = "<group>"; };
 		A2B6C2E027A8239600B8617B /* RegisterBarcodeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterBarcodeTableViewCell.swift; sourceTree = "<group>"; };
 		A2B6C2E127A8239600B8617B /* RegisterBarcodeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterBarcodeTableViewCell.xib; sourceTree = "<group>"; };
+		A2C5B5B327AEEDCF00C65B79 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
+		A2C5B5B527AEEDE300C65B79 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		A2C5B5B927AEEE7C00C65B79 /* TableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
 		A2D2FDA32777414A0036B849 /* GiftPresentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftPresentController.swift; sourceTree = "<group>"; };
 		A2D2FDA5277741A30036B849 /* GiftShareController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftShareController.swift; sourceTree = "<group>"; };
 		A2D2FDA7277741ED0036B849 /* GiftRankController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftRankController.swift; sourceTree = "<group>"; };
@@ -599,8 +602,6 @@
 		A2DD0BE627A7CC580015E59B /* RegisterTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterTableViewCell.xib; sourceTree = "<group>"; };
 		A2DFB7D62770973F00BB9D21 /* GetDeivceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDeivceModel.swift; sourceTree = "<group>"; };
 		A2E4FB6B27A0280C00AA08C5 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Helper.swift; path = "../../../Downloads/Save-Gift-main/Save Gift/Helper.swift"; sourceTree = "<group>"; };
-		A2E4FB6C27A0280C00AA08C5 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableViewCell.swift; path = "../../../Downloads/Save-Gift-main/Save Gift/TableViewCell.swift"; sourceTree = "<group>"; };
-		A2E4FB6D27A0280C00AA08C5 /* TableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TableViewCell.xib; path = "../../../Downloads/Save-Gift-main/Save Gift/TableViewCell.xib"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -638,16 +639,17 @@
 		A225D6FB275B5FD500484EAE /* Save Gift */ = {
 			isa = PBXGroup;
 			children = (
+				A2C5B5B527AEEDE300C65B79 /* TableViewCell.swift */,
+				A2C5B5B327AEEDCF00C65B79 /* Helper.swift */,
 				A2DC3F2D2789A0A600D354B1 /* geulssi.ttf */,
 				A2DC3F2B2789A07E00D354B1 /* moogoonghwa.ttf */,
 				A218F1A2276E115E00E71316 /* Save Gift.entitlements */,
 				A225D6FC275B5FD500484EAE /* AppDelegate.swift */,
 				A225D6FE275B5FD500484EAE /* SceneDelegate.swift */,
 				A225D700275B5FD500484EAE /* ViewController.swift */,
+				A2C5B5B927AEEE7C00C65B79 /* TableViewCell.xib */,
 				A225D702275B5FD500484EAE /* Main.storyboard */,
 				A2E4FB6B27A0280C00AA08C5 /* Helper.swift */,
-				A2E4FB6C27A0280C00AA08C5 /* TableViewCell.swift */,
-				A2E4FB6D27A0280C00AA08C5 /* TableViewCell.xib */,
 				A225D705275B5FD600484EAE /* Assets.xcassets */,
 				A225D707275B5FD600484EAE /* LaunchScreen.storyboard */,
 				A225D70A275B5FD600484EAE /* Info.plist */,
@@ -1254,7 +1256,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A2AF3FD4279588510076F426 /* naver.png in Resources */,
-				A2E4FB7027A0280C00AA08C5 /* TableViewCell.xib in Resources */,
 				A2B6C2E327A8239600B8617B /* RegisterBarcodeTableViewCell.xib in Resources */,
 				A2B6C2DF27A81E2100B8617B /* RegisterUseTableViewCell.xib in Resources */,
 				A225D709275B5FD600484EAE /* LaunchScreen.storyboard in Resources */,
@@ -1263,6 +1264,7 @@
 				A2AF3FD3279588510076F426 /* kakaotalk.png in Resources */,
 				A2DC3F2227803A3700D354B1 /* apple.png in Resources */,
 				A2DC3F2427817EBD00D354B1 /* barcodeLogo.png in Resources */,
+				A2C5B5BA27AEEE7C00C65B79 /* TableViewCell.xib in Resources */,
 				A2AF3FD5279588510076F426 /* facebook.png in Resources */,
 				A2DC3F2E2789A0A600D354B1 /* geulssi.ttf in Resources */,
 				A2DD0BE827A7CC580015E59B /* RegisterTableViewCell.xib in Resources */,
@@ -1336,6 +1338,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A2C5B5B627AEEDE300C65B79 /* TableViewCell.swift in Sources */,
+				A2C5B5B427AEEDCF00C65B79 /* Helper.swift in Sources */,
 				A218F1A1276E093D00E71316 /* UnlockController.swift in Sources */,
 				A20D2682276A151700470D06 /* Register3Controller.swift in Sources */,
 				A2DC3F282785C47000D354B1 /* CustomTabBarController.swift in Sources */,
@@ -1353,7 +1357,6 @@
 				A2B6C2DE27A81E2100B8617B /* RegisterUseTableViewCell.swift in Sources */,
 				A2D33524275E474D00ECF4B1 /* UITextFiled+Extension.swift in Sources */,
 				A225D701275B5FD500484EAE /* ViewController.swift in Sources */,
-				A2E4FB6F27A0280C00AA08C5 /* TableViewCell.swift in Sources */,
 				A2D2FDA42777414A0036B849 /* GiftPresentController.swift in Sources */,
 				A2D493642790624C00FB5770 /* SettingSecessionController.swift in Sources */,
 				A21C6D5D276F646000BDE1E4 /* CustomSideMenuNavigation.swift in Sources */,
@@ -1367,7 +1370,6 @@
 				A2D2FDA6277741A30036B849 /* GiftShareController.swift in Sources */,
 				A2B6C2E227A8239600B8617B /* RegisterBarcodeTableViewCell.swift in Sources */,
 				A28A06B42794413000876560 /* GiftRegisterController.swift in Sources */,
-				A2E4FB6E27A0280C00AA08C5 /* Helper.swift in Sources */,
 				A2D493602790618F00FB5770 /* SettingAppVersionController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
