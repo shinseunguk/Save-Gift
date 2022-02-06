@@ -1120,9 +1120,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="나눔손글씨 무궁화2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ohM-Ma-j3w">
-                                <rect key="frame" x="129" y="514" width="216" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="기프티콘 선물하기 서비스 준비중입니다." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vyN-F3-dH9">
+                                <rect key="frame" x="133.66666666666669" y="413.66666666666669" width="146.66666666666669" height="69"/>
                                 <fontDescription key="fontDescription" name="NanumMuGungHwa" family="나눔손글씨 무궁화" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -1130,6 +1129,10 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="y3y-se-2fG"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="vyN-F3-dH9" firstAttribute="centerY" secondItem="DCK-9E-t5e" secondAttribute="centerY" id="9m8-Bz-Uj4"/>
+                            <constraint firstItem="vyN-F3-dH9" firstAttribute="centerX" secondItem="DCK-9E-t5e" secondAttribute="centerX" id="YJ2-TL-Y4k"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="선물하기" image="gift" catalog="system" selectedImage="gift" id="yfi-n5-gwV"/>
                 </viewController>
@@ -1248,9 +1251,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="나눔손글씨 무궁화" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ipk-vS-S26">
-                                <rect key="frame" x="111" y="443" width="216" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="기프티콘 공유 서비스 준비중입니다." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ipk-vS-S26">
+                                <rect key="frame" x="133.66666666666669" y="413.66666666666669" width="146.66666666666669" height="69"/>
                                 <fontDescription key="fontDescription" name="NanumMuGungHwa" family="나눔손글씨 무궁화" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -1258,6 +1260,10 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="bh5-4N-fDa"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Ipk-vS-S26" firstAttribute="centerX" secondItem="Vzh-tG-rCm" secondAttribute="centerX" id="6Ru-Ja-N4g"/>
+                            <constraint firstItem="Ipk-vS-S26" firstAttribute="centerY" secondItem="Vzh-tG-rCm" secondAttribute="centerY" id="kLt-Zt-cMp"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="공유하기" image="square.and.arrow.up.fill" catalog="system" selectedImage="square.and.arrow.up.fill" id="VyJ-nS-Odr"/>
                 </viewController>
@@ -1313,9 +1319,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="나눔손글씨 무궁화3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y3n-nZ-Gjb">
-                                <rect key="frame" x="131" y="586" width="216" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="기프티콘 저장소 서비스 준비중입니다." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="msS-cB-HPV">
+                                <rect key="frame" x="133.66666666666669" y="413.66666666666669" width="146.66666666666669" height="69"/>
                                 <fontDescription key="fontDescription" name="NanumMuGungHwa" family="나눔손글씨 무궁화" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -1323,6 +1328,10 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="s1u-tT-ZNd"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="msS-cB-HPV" firstAttribute="centerY" secondItem="MKE-tH-P26" secondAttribute="centerY" id="c82-Hr-s7e"/>
+                            <constraint firstItem="msS-cB-HPV" firstAttribute="centerX" secondItem="MKE-tH-P26" secondAttribute="centerX" id="hE9-bw-QCW"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="저장소" image="barcode" catalog="system" selectedImage="barcode" id="YpG-yn-sYN"/>
                     <connections>
@@ -1342,9 +1351,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="나눔손글씨 무궁화4" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bog-1u-4l3">
-                                <rect key="frame" x="153" y="611" width="216" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="기프티콘 랭킹보기 서비스 준비중입니다." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ivU-LU-o5s">
+                                <rect key="frame" x="133.66666666666669" y="413.66666666666669" width="146.66666666666669" height="69"/>
                                 <fontDescription key="fontDescription" name="NanumMuGungHwa" family="나눔손글씨 무궁화" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -1352,6 +1360,10 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="aJe-kj-xx6"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="ivU-LU-o5s" firstAttribute="centerY" secondItem="aZS-Yx-78a" secondAttribute="centerY" id="0q8-uO-wqE"/>
+                            <constraint firstItem="ivU-LU-o5s" firstAttribute="centerX" secondItem="aZS-Yx-78a" secondAttribute="centerX" id="PPm-b3-fIX"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="랭킹보기" image="crown.fill" catalog="system" selectedImage="crown.fill" id="nsC-Fj-XxG"/>
                 </viewController>
