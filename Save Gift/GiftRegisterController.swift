@@ -202,8 +202,29 @@ class GiftRegisterController : UIViewController{
                 return
             }
             //결과값 출력
-            let resultText = result.text
-                print("resultText: \(resultText)")
+            let str = result.text
+//                print("resultText: \(str)")
+            
+//            let deciphered = resultText.split(separator: "\n").reduce(into: [String: AnyObject]()) {
+//                let resultText = $1.split(separator: ":")
+//                if let first = resultText.first, let value = resultText.last{
+//                    $0[String(first)] = value as AnyObject
+//                }
+//            }
+            
+            let deciphered = str.split(separator: "\n").reduce(into: [String: AnyObject]()) {
+                let str = $1.split(separator: ":")
+                if let first = str.first, let value = str.last {
+                    let key = String(first)
+                    $0[key] = value as AnyObject
+                }
+            }
+            
+            var arr = str.components(separatedBy: ["\n",":"])
+            print(arr)
+            
+            print("###### deciphered ", deciphered)
+//            print(deciphered.count, " ##########")
         }
     }
     
