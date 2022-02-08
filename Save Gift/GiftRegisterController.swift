@@ -197,7 +197,7 @@ class GiftRegisterController : UIViewController{
     }
 
     func getText(image: UIImage) {
-        var dateYear : String = helper.formatDateToday()
+        let dateYear : String = helper.formatDateToday()
         let endIdx: String.Index = dateYear.index(dateYear.startIndex, offsetBy: 3)
         var dateYears = String(dateYear[...endIdx])
         print("dateYear,, ", dateYears)
@@ -242,15 +242,60 @@ class GiftRegisterController : UIViewController{
                 
                 //상품명
                 if x.contains("뿌링클") {
-                    print(x)
+                    print("상품명 ",x)
                     let index = IndexPath(row: 1, section: 0)
                     let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
                     cell.textfield.text! = x
+                } else {
+                    let index = IndexPath(row: 1, section: 0)
+                    let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
+                    cell.textfield.text! = ""
                 }
                 
                 //유효기간
-//                if x.contains(helper.formatDateToday().substring(to: <#T##String.Index#>))
-            }
+                for date in Int(dateYears)!...Int(dateYears)!+10 {
+//                    print("for index ",date)
+                    if x.contains(String(date)) { // '년월일 /~. 포함시에'
+                        if (x.contains("년") ||
+                            x.contains("월") ||
+                            x.contains("일") ||
+                            x.contains("/") ||
+                            x.contains(".") ||
+                            x.contains("~")) {
+                            print("유효기간 ",x)
+                            var trimStr = x.components(separatedBy: [" ","/","-",".","~","년","월","일"]).joined()
+                            if(trimStr.count == 8){
+                                print("8")
+                                trimStr.insert("-", at: trimStr.index(trimStr.startIndex, offsetBy: 4))
+                                trimStr.insert("-", at: trimStr.index(trimStr.startIndex, offsetBy: 7))
+                                let index = IndexPath(row: 3, section: 0)
+                                let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
+                                cell.textfield.text! = trimStr
+                            } else if (trimStr.count == 16){// 20210908
+                                let indexTrim = str.index(str.startIndex, offsetBy: 8)
+//                                print("16,,,, ", trimStr.substring(from: indexTrim))  // Swift
+                                var trimStr16TO8 = trimStr.substring(from: indexTrim)
+                                trimStr16TO8.insert("-", at: trimStr16TO8.index(trimStr16TO8.startIndex, offsetBy: 4))
+                                trimStr16TO8.insert("-", at: trimStr16TO8.index(trimStr16TO8.startIndex, offsetBy: 7))
+                                
+                                let index = IndexPath(row: 3, section: 0)
+                                let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
+                                cell.textfield.text! = trimStr16TO8
+                            }
+                        }
+                        
+//                        let index = IndexPath(row: 3, section: 0)
+//                        let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
+//                        cell.textfield.text! = trimStr
+                    }
+//                    else {
+//                        let index = IndexPath(row: 3, section: 0)
+//                        let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
+//                        cell.textfield.text! = ""
+//                    }
+                } // 유효기간
+                
+            } // for
             
 //            print("###### deciphered ", deciphered)
 //            print(deciphered.count, " ##########")
@@ -376,7 +421,7 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
             break;
         case 3:
             cell.textfield.isEnabled = true
-            cell.textfield.attributedPlaceholder = NSAttributedString(string: "ex) 2099-99-99 ('-'를 제외하고 입력해주세요)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
+            cell.textfield.attributedPlaceholder = NSAttributedString(string: "ex) 2030-09-08 ('-'를 제외하고 입력해주세요)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
             cell.textfield.tag = indexPath.row
             break;
         case 4:
@@ -421,7 +466,6 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
         guard let selectedImage = info[.originalImage] as? UIImage else {
                     fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
                 }
-        getText(image: selectedImage)
 //        readBarcode(uiImage: selectedImage)
         
         let image = VisionImage(image: selectedImage)
@@ -447,6 +491,8 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
           }
           // Recognized barcodes
             for barcode in barcodes {
+                //OCR
+                self.getText(image: selectedImage)
               let corners = barcode.cornerPoints
 
               let displayValue = barcode.displayValue
