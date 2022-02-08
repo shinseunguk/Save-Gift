@@ -29,6 +29,7 @@ class GiftRegisterController : UIViewController{
     var segmentStatus : Int = 0
     var registerButton = UIButton()
     var nextBool : Bool = false
+    var s = 0
     
     let metadataObjectTypes: [AVMetadataObject.ObjectType] = [
                                                               .upce,
@@ -183,14 +184,25 @@ class GiftRegisterController : UIViewController{
     func normalAlert(titles:String, messages:String?) -> Void{
         let alert = UIAlertController(title: titles, message: messages, preferredStyle: UIAlertController.Style.alert)
         let cancelAction = UIAlertAction(title: "취소", style: .default, handler : nil)
+        
         let defaultAction = UIAlertAction(title: "사진추가", style: .default, handler : {_ in self.plusAction()})
         
+        
         alert.addAction(cancelAction)
-        alert.addAction(defaultAction)
+        if messages == "사진앨범 혹은 카메라로 바코드를 인식해주세요."{
+            alert.addAction(defaultAction)
+        }
+        
         present(alert, animated: true, completion: nil)
     }
 
     func getText(image: UIImage) {
+        var dateYear : String = helper.formatDateToday()
+        let endIdx: String.Index = dateYear.index(dateYear.startIndex, offsetBy: 3)
+        var dateYears = String(dateYear[...endIdx])
+        print("dateYear,, ", dateYears)
+        
+        
         let koreanOptions = KoreanTextRecognizerOptions()
         let textRecognizer = TextRecognizer.textRecognizer(options: koreanOptions)
         let visionImage = VisionImage(image: image)
@@ -220,10 +232,27 @@ class GiftRegisterController : UIViewController{
                 }
             }
             
-            var arr = str.components(separatedBy: ["\n",":"])
+            let arr = str.components(separatedBy: ["\n",":"])
             print(arr)
             
-            print("###### deciphered ", deciphered)
+            for x in 0...arr.count-1 {
+//                print("index ,, ", x);
+                let x : String = arr[x]
+//                print("contains.. ",String(x.contains("뿌링")))
+                
+                //상품명
+                if x.contains("뿌링클") {
+                    print(x)
+                    let index = IndexPath(row: 1, section: 0)
+                    let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
+                    cell.textfield.text! = x
+                }
+                
+                //유효기간
+//                if x.contains(helper.formatDateToday().substring(to: <#T##String.Index#>))
+            }
+            
+//            print("###### deciphered ", deciphered)
 //            print(deciphered.count, " ##########")
         }
     }
