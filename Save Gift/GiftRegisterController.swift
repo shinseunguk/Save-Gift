@@ -49,10 +49,10 @@ class GiftRegisterController : UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad();
-        
-        self.imagePicker.sourceType = .photoLibrary // 앨범에서 가져옴
-        self.imagePicker.allowsEditing = true // 수정 가능 여부
+
         self.imagePicker.delegate = self // picker delegate
+        self.imagePicker.sourceType = .photoLibrary // 앨범에서 가져옴
+        self.imagePicker.allowsEditing = false // 수정 가능 여부
         self.scrollView.delegate = self
         
 
@@ -456,12 +456,19 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
             var newImage: UIImage? = nil // update 할 이미지
-            
-            if let possibleImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
-                newImage = possibleImage // 수정된 이미지가 있을 경우
-            } else if let possibleImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-                newImage = possibleImage // 원본 이미지가 있을 경우
-            }
+            picker.allowsEditing = false
+        
+            let possibleImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+            newImage = possibleImage
+        
+//            if let possibleImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+//                print("수정된 이미지")
+//                newImage = possibleImage // 수정된 이미지가 있을 경우
+//            } else
+            if let possibleImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+                    print("원본 이미지")
+                    newImage = possibleImage // 원본 이미지가 있을 경우
+                }
             
         guard let selectedImage = info[.originalImage] as? UIImage else {
                     fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
