@@ -25,4 +25,9 @@ class RegisterTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    //빈곳 터치 키보드 내리기
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
+        print("빈곳 터치 키보드 내리기 RegisterTableViewCell")
+        self.superview?.endEditing(true)
+    }
 }

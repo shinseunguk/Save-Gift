@@ -16,7 +16,7 @@ import MLKitBarcodeScanning
 import Vision
 import VisionKit
 
-class GiftRegisterController : UIViewController{
+class GiftRegisterController : UIViewController, UITextFieldDelegate{
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var tableView: UITableView!
@@ -63,7 +63,6 @@ class GiftRegisterController : UIViewController{
         self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.black]
         self.navigationItem.title = "기프티콘 등록 화면"
         
-        
         // 등록일 Default Setting
         arrTextField.insert(helper.formatDateToday(), at: 5)
         // 등록자 Default Setting
@@ -74,10 +73,17 @@ class GiftRegisterController : UIViewController{
         let rightBarButton = UIBarButtonItem.init(image: UIImage(systemName: "plus"),  style: .plain, target: self, action: #selector(self.plusAction)) //Class.MethodName
         self.navigationItem.rightBarButtonItem = rightBarButton
         
+        let tapGR = UITapGestureRecognizer(target: self, action: #selector(self.imageTapped))
+                        imageView.addGestureRecognizer(tapGR)
+                        imageView.isUserInteractionEnabled = true
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+
         
         //버튼 점선
 //        let shapeLayer:CAShapeLayer = CAShapeLayer()
-//        let frameSize = plusBtn.frame.size
+//        let frameSize = imageView.frame.size
 //        let shapeRect = CGRect(x: 0, y: 0, width: frameSize.width, height: frameSize.height)
 //
 //        shapeLayer.bounds = shapeRect
@@ -89,22 +95,7 @@ class GiftRegisterController : UIViewController{
 //                shapeLayer.lineDashPattern = [6,3]
 //                shapeLayer.path = UIBezierPath(roundedRect: shapeRect, cornerRadius: 4).cgPath
 //
-//        plusBtn.layer.addSublayer(shapeLayer)
-        
-
-        
-        //버튼생성
-//        self.scrollView.addSubview(registerButton)ㄴ
-//        registerButton.translatesAutoresizingMaskIntoConstraints = false
-//
-//        registerButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-//        registerButton.widthAnchor.constraint(equalToConstant: 275).isActive = true
-//        registerButton.heightAnchor.constraint(equalToConstant: 48).isActive = true
-//        registerButton.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
-//
-//        registerButton.setTitle("다음", for: .normal)
-//        registerButton.setTitleColor(.black, for: .normal)
-//        registerButton.backgroundColor = .orange
+//        imageView.layer.addSublayer(shapeLayer)
         
         //셀 테두리지우기
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
@@ -119,10 +110,38 @@ class GiftRegisterController : UIViewController{
         plusAction()
     }
     
-    //빈곳 터치 키보드 내리기
-//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
-//          self.view.endEditing(true)
-//    }
+    @objc
+    func keyboardWillHide(_ sender: Notification) {
+        print("keyboardWillHide")
+        self.view.frame.origin.y = 0 // Move view to original position
+    }
+    
+    @objc
+    func keyboardWillShow(_ sender: Notification) {
+        print("keyboardWillShow")
+        if let keyboardFrame: NSValue = sender.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            var keyboardHeight : Double = keyboardRectangle.height
+
+            print(keyboardHeight)
+            self.view.frame.origin.y = -keyboardHeight // Move view 150 points upward
+        }
+//        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+//            UIView.animate(withDuration: 0.3, animations: {
+//                self.segmentTopLayout.transform = CGAffineTransform(translationX: 0, y: -keyboardSize.height)
+//            })
+//        }
+
+         
+    }
+    
+    @objc
+    func imageTapped(sender: UITapGestureRecognizer) {
+                if sender.state == .ended {
+                    print("imageTapped")
+                    self.view.endEditing(true)
+                }
+        }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
          if scrollView.contentOffset.x > 0 || scrollView.contentOffset.x < 0 {
@@ -380,7 +399,9 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
     
     //빈곳 터치 키보드 내리기
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
-          self.view.endEditing(true)
+        print("빈곳 터치 키보드 내리기")
+        tableView.keyboardDismissMode = .onDrag
+        self.tableView.endEditing(true)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
