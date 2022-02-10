@@ -30,6 +30,7 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
     var registerButton = UIButton()
     var nextBool : Bool = false
     var s = 0
+    var keyboard : Bool? = false
     
     let metadataObjectTypes: [AVMetadataObject.ObjectType] = [
                                                               .upce,
@@ -77,9 +78,6 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
                         imageView.addGestureRecognizer(tapGR)
                         imageView.isUserInteractionEnabled = true
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-
         
         //버튼 점선
 //        let shapeLayer:CAShapeLayer = CAShapeLayer()
@@ -110,29 +108,59 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
         plusAction()
     }
     
-    @objc
-    func keyboardWillHide(_ sender: Notification) {
-        print("keyboardWillHide")
-        self.view.frame.origin.y = 0 // Move view to original position
+    override func viewWillAppear(_ animated: Bool) {
+        self.addKeyboardNotifications()
     }
     
-    @objc
-    func keyboardWillShow(_ sender: Notification) {
-        print("keyboardWillShow")
-        if let keyboardFrame: NSValue = sender.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
-            let keyboardRectangle = keyboardFrame.cgRectValue
-            var keyboardHeight : Double = keyboardRectangle.height
+    override func viewWillDisappear(_ animated: Bool) {
+        self.removeKeyboardNotifications()
+    }
 
-            print(keyboardHeight)
-            self.view.frame.origin.y = -keyboardHeight // Move view 150 points upward
+    
+    func addKeyboardNotifications(){
+        // 키보드가 나타날 때 앱에게 알리는 메서드 추가
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification , object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    // 노티피케이션을 제거하는 메서드
+    func removeKeyboardNotifications(){
+        // 키보드가 나타날 때 앱에게 알리는 메서드 제거
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification , object: nil)
+        // 키보드가 사라질 때 앱에게 알리는 메서드 제거
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+
+    
+    @objc func keyboardWillHide(_ sender: Notification) {
+        // 키보드의 높이만큼 화면을 내려준다.
+        print("keyboardWillHide")
+        if keyboard! {
+            if let keyboardFrame: NSValue = sender.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+                let keyboardRectangle = keyboardFrame.cgRectValue
+                let keyboardHeight = keyboardRectangle.height
+                self.view.frame.origin.y += keyboardHeight
+                
+                keyboard = false
+            }
         }
-//        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-//            UIView.animate(withDuration: 0.3, animations: {
-//                self.segmentTopLayout.transform = CGAffineTransform(translationX: 0, y: -keyboardSize.height)
-//            })
-//        }
-
-         
+        
+    }
+    
+        
+    @objc func keyboardWillShow(_ sender: Notification) {
+        print("keyboardWillShow")
+        // 키보드의 높이만큼 화면을 올려준다.
+        if !keyboard! {
+            if let keyboardFrame: NSValue = sender.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+                let keyboardRectangle = keyboardFrame.cgRectValue
+                let keyboardHeight = keyboardRectangle.height
+                self.view.frame.origin.y -= keyboardHeight
+                
+                keyboard = true
+            }
+        }
+        
     }
     
     @objc
