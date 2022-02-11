@@ -216,17 +216,6 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
         }
     }
     
-//    @objc func textFieldDidChange(_ textField: UITextField, index: String?) {
-//        checkMaxLength(textField: cellPhoneTextField, maxLength: 13)
-//        guard let text = cellPhoneTextField.text else { return }
-//        cellPhoneTextField.text = phoneFormat.addCharacter(at: text)
-//    }   // phoneFormat.addCharacter에 텍스트를 넣어주면 init시 넣은 character가 구분자로 들어간 값이 반환됩니다.
-//
-//    func checkMaxLength(textField: UITextField!, maxLength: Int) {
-//        if (cellPhoneTextField.text?.count ?? 0 > maxLength) {
-//            cellPhoneTextField.deleteBackward()
-//        }
-//    }
     
     func normalAlert(titles:String, messages:String?) -> Void{
         let alert = UIAlertController(title: titles, message: messages, preferredStyle: UIAlertController.Style.alert)
@@ -421,6 +410,35 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
         return .up
       }
     }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+//        print("textfield.. ", trimStr)
+//        print("textField.text?.count ", trimStr.count)
+        
+        
+//        print("index.. ", index)
+       
+            if textField.text!.count == 5 {
+                textField.text!.insert("-", at: textField.text!.index(textField.text!.startIndex, offsetBy: 4))
+    //            textField.text.insert("-", at: trimStr.index(trimStr.startIndex, offsetBy: 7))
+            }
+            else if textField.text!.count == 7 {
+                textField.text!.insert("-", at: textField.text!.index(textField.text!.startIndex, offsetBy: 7))
+            }
+        
+        
+        checkMaxLength(textField: textField, maxLength: 10)
+        
+//        guard let text = trimStr.text else { return }
+//        textField.text = phoneFormat.addCharacter(at: text)
+    }   // phoneFormat.addCharacter에 텍스트를 넣어주면 init시 넣은 character가 구분자로 들어간 값이 반환됩니다.
+
+    func checkMaxLength(textField: UITextField!, maxLength: Int) {
+        if (textField.text?.count ?? 0 > maxLength) {
+            textField.deleteBackward()
+        }
+    }
+    
 }
 
 extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate{
@@ -455,7 +473,6 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
         case 0:
             cell.textfield.isEnabled = true
             cell.textfield.attributedPlaceholder = NSAttributedString(string: "ex) 스타벅스", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
-//            cell.textField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
             cell.textfield.tag = indexPath.row
             break;
         case 1:
@@ -465,13 +482,15 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
             break;
         case 2:
             cell.textfield.isEnabled = true
-            cell.textfield.attributedPlaceholder = NSAttributedString(string: "ex) 1234-5678-9101 ('-'를 제외하고 입력해주세요)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
+            cell.textfield.attributedPlaceholder = NSAttributedString(string: "ex) 1234-5678-9101 ('-'를 제외하고 입력)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
             cell.textfield.tag = indexPath.row
             break;
         case 3:
             cell.textfield.isEnabled = true
-            cell.textfield.attributedPlaceholder = NSAttributedString(string: "ex) 2030-09-08 ('-'를 제외하고 입력해주세요)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
+            cell.textfield.attributedPlaceholder = NSAttributedString(string: "ex) 2030-09-08 ('-'를 제외하고 입력)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
             cell.textfield.tag = indexPath.row
+            cell.textfield.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
+//            cell.textField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
             break;
         case 4:
 //            cell.textfield.isEnabled = true
@@ -525,6 +544,7 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
 //        readBarcode(uiImage: selectedImage)
         
         let image = VisionImage(image: selectedImage)
+        self.getText(image: selectedImage)
         
         let barcodeScanner = BarcodeScanner.barcodeScanner()
         barcodeScanner.process(image) { barcodes, error in
@@ -548,7 +568,6 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
           // Recognized barcodes
             for barcode in barcodes {
                 //OCR
-                self.getText(image: selectedImage)
               let corners = barcode.cornerPoints
 
               let displayValue = barcode.displayValue

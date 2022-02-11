@@ -17,6 +17,8 @@ class RegisterTableViewCell: UITableViewCell {
         if textfield != nil{
             textfield.addLeftPadding()
         }
+        
+//        print("label.text",label.text)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
