@@ -30,7 +30,7 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
     var registerButton = UIButton()
     var nextBool : Bool = false
     var s = 0
-    var keyboard : Bool? = false
+    var keyboard : Bool? = true
     
     let metadataObjectTypes: [AVMetadataObject.ObjectType] = [
                                                               .upce,
@@ -105,62 +105,39 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
         tableView.register(UINib(nibName: "RegisterUseTableViewCell", bundle: nil), forCellReuseIdentifier: "RegisterUseTableViewCell")
         
         
-        plusAction()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        self.addKeyboardNotifications()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        self.removeKeyboardNotifications()
-    }
-
-    
-    func addKeyboardNotifications(){
-        // 키보드가 나타날 때 앱에게 알리는 메서드 추가
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification , object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        plusAction()
     }
-    
-    // 노티피케이션을 제거하는 메서드
-    func removeKeyboardNotifications(){
-        // 키보드가 나타날 때 앱에게 알리는 메서드 제거
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification , object: nil)
-        // 키보드가 사라질 때 앱에게 알리는 메서드 제거
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-
     
     @objc func keyboardWillHide(_ sender: Notification) {
         // 키보드의 높이만큼 화면을 내려준다.
         print("keyboardWillHide")
-        if keyboard! {
+        print("keyboard ",keyboard!)
+        if !keyboard! {
             if let keyboardFrame: NSValue = sender.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
                 let keyboardRectangle = keyboardFrame.cgRectValue
                 let keyboardHeight = keyboardRectangle.height
                 self.view.frame.origin.y += keyboardHeight
-                
-                keyboard = false
             }
+            keyboard = true
         }
-        
     }
     
         
     @objc func keyboardWillShow(_ sender: Notification) {
         print("keyboardWillShow")
+        print("keyboard ",keyboard!)
         // 키보드의 높이만큼 화면을 올려준다.
-        if !keyboard! {
+        if keyboard! {
             if let keyboardFrame: NSValue = sender.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
                 let keyboardRectangle = keyboardFrame.cgRectValue
                 let keyboardHeight = keyboardRectangle.height
                 self.view.frame.origin.y -= keyboardHeight
-                
-                keyboard = true
             }
+            keyboard = false
         }
-        
     }
     
     @objc
@@ -196,6 +173,10 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
         present(alert, animated: true, completion: nil)
     }
     
+    @objc func imageNil() {
+        self.imageView.image = nil
+    }
+    
     func openLibrary(){
 
 //        if(UIImagePickerController .isSourceTypeAvailable(.camera)){
@@ -219,14 +200,17 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
     
     func normalAlert(titles:String, messages:String?) -> Void{
         let alert = UIAlertController(title: titles, message: messages, preferredStyle: UIAlertController.Style.alert)
-        let cancelAction = UIAlertAction(title: "취소", style: .default, handler : nil)
-        
-        let defaultAction = UIAlertAction(title: "사진추가", style: .default, handler : {_ in self.plusAction()})
-        
-        
-        alert.addAction(cancelAction)
-        if messages == "사진앨범 혹은 카메라로 바코드를 인식해주세요."{
+        if titles == "바코드가 인식 되지 않는 이미지 입니다." {
+            let cancelAction = UIAlertAction(title: "이 이미지 사용안함", style: .default, handler : {_ in self.imageNil()})
+            
+            let defaultAction = UIAlertAction(title: "이 이미지 사용", style: .default, handler : nil)
+            let defaultAction1 = UIAlertAction(title: "다른 이미지 사용", style: .default, handler : {_ in self.plusAction()})
+            alert.addAction(cancelAction)
             alert.addAction(defaultAction)
+            alert.addAction(defaultAction1)
+        } else if titles == "빈칸없이 작성 해주세요." {
+            let cancelAction = UIAlertAction(title: "확인", style: .default, handler : nil)
+            alert.addAction(cancelAction)
         }
         
         present(alert, animated: true, completion: nil)
@@ -271,10 +255,13 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
             let arr = str.components(separatedBy: ["\n",":"])
             print(arr)
             
-            for x in 0...arr.count-1 {
+            //교환처
+            var exchangeArr : [String] = self.exchange()
+            self.exchangeContain(arr1: arr, arr2: exchangeArr)
+            
+            for x in 0..<arr.count {
 //                print("index ,, ", x);
                 let x : String = arr[x]
-//                print("contains.. ",String(x.contains("뿌링")))
                 
                 //상품명
                 if x.contains("뿌링클") {
@@ -320,78 +307,113 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
                             }
                         }
                         
-//                        let index = IndexPath(row: 3, section: 0)
-//                        let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
-//                        cell.textfield.text! = trimStr
                     }
-//                    else {
-//                        let index = IndexPath(row: 3, section: 0)
-//                        let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
-//                        cell.textfield.text! = ""
-//                    }
                 } // 유효기간
                 
             } // for
             
-//            print("###### deciphered ", deciphered)
-//            print(deciphered.count, " ##########")
         }
     }
     
-//    func readBarcode(uiImage: UIImage){
-////        let format = BarcodeFormat.all
-//        // vision
-//        let image = VisionImage(image: uiImage)
-//        image.orientation = imageOrientation(deviceOrientation: UIDevice.current.orientation, cameraPosition: .back) // 아직 작성 안 했음!
-//
-//        let barcodeScanner = BarcodeScanner.barcodeScanner()
-//        barcodeScanner.process(image) { barcodes, error in
-//          guard error == nil, let barcodes = barcodes, !barcodes.isEmpty else {
-//            // Error handling
-//            let index = IndexPath(row: 2, section: 0)
-//            let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
-//            cell.textfield.text! = ""
-//            cell.textfield.isEnabled = true
-//            self.normalAlert(titles: "바코드가 인식 되지 않았습니다", messages: nil)
-//            return
-//          }
-//          // Recognized barcodes
-//            for barcode in barcodes {
-//              let corners = barcode.cornerPoints
-//
-//              let displayValue = barcode.displayValue
-//              let rawValue = barcode.rawValue
-//
-//                print("corners ##### ", corners!)
-//                print("displayValue ##### ", displayValue!)
-//                print("rawValue ##### ", rawValue!)
-//
-//                let index = IndexPath(row: 2, section: 0)
-//                let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
-//                cell.textfield.text! = displayValue!
-//                cell.textfield.isEnabled = false
-//
-//
-//              let valueType = barcode.valueType
-//                print("valueType### ", valueType)
-//              switch valueType {
-//              case .wiFi:
-//                let ssid = barcode.wifi?.ssid
-//                let password = barcode.wifi?.password
-//                let encryptionType = barcode.wifi?.type
-//              case .URL:
-//                let title = barcode.url!.title
-//                let url = barcode.url!.url
-//                print("url .. ", url!)
-//                print("title .. ", title!)
-//              default:
-//                print("default")
-//                // See API reference for all supported value types
-//
-//              } //swtich
-//            }
-//        } // process
-//    }
+    func exchange() -> Array<String>{
+        var exchangeArr = [String]()
+        
+        //편의점
+        exchangeArr.append("GS25")
+        exchangeArr.append("gs25")
+        exchangeArr.append("CU")
+        exchangeArr.append("cu")
+        exchangeArr.append("Cu")
+        exchangeArr.append("세븐일레븐")
+        exchangeArr.append("이마트24")
+        exchangeArr.append("미니스톱")
+        exchangeArr.append("씨스페잇")
+        
+        //카페
+        exchangeArr.append("스타벅스")
+        exchangeArr.append("투썸플레이스")
+        exchangeArr.append("파리바게트")
+        exchangeArr.append("뚜레쥬르")
+        exchangeArr.append("던킨")
+        exchangeArr.append("크리스피크림")
+        exchangeArr.append("디저트39")
+        exchangeArr.append("아티제")
+        exchangeArr.append("한스케익")
+        exchangeArr.append("파리크라상")
+        exchangeArr.append("카페노티드")
+        exchangeArr.append("성심당")
+        exchangeArr.append("앤티앤스프레즐")
+        exchangeArr.append("와플대학")
+        exchangeArr.append("빌리엔젤(교환권)")
+        exchangeArr.append("홍루이젠")
+        exchangeArr.append("빚은")
+        exchangeArr.append("김영모과자점")
+        exchangeArr.append("떡보의하루")
+        exchangeArr.append("코코호두")
+        exchangeArr.append("나폴레웅제과점(교환권)")
+        exchangeArr.append("롤링핀")
+        exchangeArr.append("망원동티라미수")
+        exchangeArr.append("베즐리")
+        exchangeArr.append("도레도레")
+        exchangeArr.append("자연드림")
+        exchangeArr.append("시나본")
+        exchangeArr.append("패션5")
+        exchangeArr.append("밀도")
+        exchangeArr.append("곤트란쉐리에")
+        exchangeArr.append("나폴레옹과자점")
+        exchangeArr.append("라라브레드")
+        exchangeArr.append("스트릿츄러스")
+        exchangeArr.append("브레댄코")
+        exchangeArr.append("지유가오카")
+        exchangeArr.append("브리오슈도레")
+        exchangeArr.append("마리웨일237")
+        exchangeArr.append("케이크를부탁해")
+        exchangeArr.append("노아베이커리")
+        exchangeArr.append("베이크팡")
+        exchangeArr.append("몽 블랑제")
+        exchangeArr.append("리치몬드과자점")
+        exchangeArr.append("정도너츠")
+        exchangeArr.append("빵장수단팥빵")
+        exchangeArr.append("호밀호두")
+        exchangeArr.append("아자부카페")
+        exchangeArr.append("쁘띠렌")
+        exchangeArr.append("도쿄팡야")
+        exchangeArr.append("케르반 베이커리")
+        exchangeArr.append("줄리앙와플 마망갸또")
+        
+        //치킨
+        exchangeArr.append("교촌치킨")
+        exchangeArr.append("bhc")
+        exchangeArr.append("Bhc")
+        exchangeArr.append("BHC")
+        exchangeArr.append("BHc")
+        
+        
+        return exchangeArr
+    }
+    
+    func exchangeContain(arr1 : Array<String>, arr2 : Array<String>) -> Void{
+        //arr1 recognizer text
+        //arr2 exchagne
+        
+        let index = IndexPath(row: 0, section: 0)
+        let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
+        
+        for x in 0..<arr1.count {
+                print("arr1,, ", arr1[x]);
+            let x : String = arr1[x]
+            for a in 0..<arr2.count {
+                print("index 2,, ", arr2[a]);
+                if x.contains(arr2[a]) {
+                    cell.textfield.text! = arr2[a]
+                    return
+                } else{
+                    cell.textfield.text! = ""
+                }
+            }
+        }
+    }
+    
     
     func imageOrientation(
       deviceOrientation: UIDeviceOrientation,
@@ -411,27 +433,35 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
       }
     }
     
-    @objc func textFieldDidChange(_ textField: UITextField) {
-//        print("textfield.. ", trimStr)
-//        print("textField.text?.count ", trimStr.count)
-        
-        
-//        print("index.. ", index)
-       
-            if textField.text!.count == 5 {
-                textField.text!.insert("-", at: textField.text!.index(textField.text!.startIndex, offsetBy: 4))
-    //            textField.text.insert("-", at: trimStr.index(trimStr.startIndex, offsetBy: 7))
-            }
-            else if textField.text!.count == 7 {
-                textField.text!.insert("-", at: textField.text!.index(textField.text!.startIndex, offsetBy: 7))
-            }
-        
-        
+    @objc func textFieldDidChange0(_ textField: UITextField) {
         checkMaxLength(textField: textField, maxLength: 10)
-        
-//        guard let text = trimStr.text else { return }
-//        textField.text = phoneFormat.addCharacter(at: text)
+        guard let text = textField.text else { return }
+        textField.text = text
+    }
+    
+    @objc func textFieldDidChange1(_ textField: UITextField) {
+        checkMaxLength(textField: textField, maxLength: 30)
+        guard let text = textField.text else { return }
+        textField.text = text
+    }
+    
+    @objc func textFieldDidChange2(_ textField: UITextField) {
+        checkMaxLength(textField: textField, maxLength: 24)
+        guard let text = textField.text else { return }
+        textField.text = text
+    }
+    
+    @objc func textFieldDidChange3(_ textField: UITextField) {
+        checkMaxLength(textField: textField, maxLength: 8)
+        guard let text = textField.text else { return }
+        textField.text = text
     }   // phoneFormat.addCharacter에 텍스트를 넣어주면 init시 넣은 character가 구분자로 들어간 값이 반환됩니다.
+    
+    @objc func textFieldDidChange6(_ textField: UITextField) {
+        checkMaxLength(textField: textField, maxLength: 30)
+        guard let text = textField.text else { return }
+        textField.text = text
+    }
 
     func checkMaxLength(textField: UITextField!, maxLength: Int) {
         if (textField.text?.count ?? 0 > maxLength) {
@@ -448,6 +478,24 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
         print("빈곳 터치 키보드 내리기")
         tableView.keyboardDismissMode = .onDrag
         self.tableView.endEditing(true)
+//
+//        let index = IndexPath(row: 3, section: 0)
+//        let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
+////        cell.textfield.text! = ""
+//        var trimStr = cell.textfield.text!
+//
+//        print("trimStr.count ", trimStr.count)
+//
+//        if trimStr.count == 8 {
+//            trimStr.insert("-", at: trimStr.index(trimStr.startIndex, offsetBy: 4))
+//            trimStr.insert("-", at: trimStr.index(trimStr.startIndex, offsetBy: 7))
+//        } else {
+//            self.normalAlert(titles: "유효기간을 정확하게 입력해주세요", messages: "ex) "+helper.formatDateToday())
+//            print("else")
+//        }
+//
+//        print("trimStr ", trimStr)
+//        cell.textfield.text! = trimStr
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -473,23 +521,26 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
         case 0:
             cell.textfield.isEnabled = true
             cell.textfield.attributedPlaceholder = NSAttributedString(string: "ex) 스타벅스", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
+            cell.textfield.addTarget(self, action: #selector(self.textFieldDidChange0(_:)), for: .editingChanged)
             cell.textfield.tag = indexPath.row
             break;
         case 1:
             cell.textfield.isEnabled = true
             cell.textfield.attributedPlaceholder = NSAttributedString(string: "ex) 뿌링클 치킨 + 콜라 1.25L", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
+            cell.textfield.addTarget(self, action: #selector(self.textFieldDidChange1(_:)), for: .editingChanged)
             cell.textfield.tag = indexPath.row
             break;
         case 2:
             cell.textfield.isEnabled = true
             cell.textfield.attributedPlaceholder = NSAttributedString(string: "ex) 1234-5678-9101 ('-'를 제외하고 입력)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
+            cell.textfield.addTarget(self, action: #selector(self.textFieldDidChange2(_:)), for: .editingChanged)
             cell.textfield.tag = indexPath.row
             break;
         case 3:
             cell.textfield.isEnabled = true
             cell.textfield.attributedPlaceholder = NSAttributedString(string: "ex) 2030-09-08 ('-'를 제외하고 입력)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
             cell.textfield.tag = indexPath.row
-            cell.textfield.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
+            cell.textfield.addTarget(self, action: #selector(self.textFieldDidChange3(_:)), for: .editingChanged)
 //            cell.textField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
             break;
         case 4:
@@ -509,6 +560,7 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
             }
             cell.textfield.attributedPlaceholder = NSAttributedString(string: "ex) ghdrlfehd@naver.com(홍길동)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
             cell.textfield.tag = indexPath.row
+            cell.textfield.addTarget(self, action: #selector(self.textFieldDidChange6(_:)), for: .editingChanged)
         default:
             print("default")
             break;
@@ -559,10 +611,10 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
             
             //이미지 clear
             print("self.nextBool false")
-            self.imageView.image = nil
+//            self.imageView.image = nil
             self.nextBool = false
             
-            self.normalAlert(titles: "바코드가 인식 되지 않았습니다", messages: "사진앨범 혹은 카메라로 바코드를 인식해주세요.")
+            self.normalAlert(titles: "바코드가 인식 되지 않는 이미지 입니다.", messages: "화질이 좋지 않은 이미지는 바코드가 인식 하지 않을수도 있습니다.\n 그래도 등록 하시겠습니까?")
             return
           }
           // Recognized barcodes
@@ -603,11 +655,13 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
                 if(error == nil){
                     print("self.nextBool true")
 //                    self.imageView.isHidden = false
-                    self.imageView.image = newImage // 받아온 이미지를 update
-                    self.nextBool = true
+//                    self.imageView.image = newImage // 받아온 이미지를 update
+//                    self.nextBool = true
                 }
             }
         } // process
+        self.imageView.image = newImage // 받아온 이미지를 update
+        self.nextBool = true
         picker.dismiss(animated: true, completion: nil) // picker를 닫아줌
         
             
@@ -633,6 +687,7 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
                 print("11111 ", cell.textfield.text!)
                 if cell.textfield.text == "" {
                     normalAlert(titles: "빈칸없이 작성 해주세요.", messages: nil)
+//                    cell.textfield.becomeFirstResponder()
                 } // 유효성 확인
             } // else
             
