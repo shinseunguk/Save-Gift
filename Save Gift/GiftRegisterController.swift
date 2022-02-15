@@ -31,6 +31,7 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
     var nextBool : Bool = false
     var s = 0
     var keyboard : Bool? = true
+    var registerDic : Dictionary = [Int:Any]()
     
     let metadataObjectTypes: [AVMetadataObject.ObjectType] = [
                                                               .upce,
@@ -53,7 +54,7 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
 
         self.imagePicker.delegate = self // picker delegate
         self.imagePicker.sourceType = .photoLibrary // 앨범에서 가져옴
-        self.imagePicker.allowsEditing = false // 수정 가능 여부
+        self.imagePicker.allowsEditing = true // 수정 가능 여부
         self.scrollView.delegate = self
         
 
@@ -576,7 +577,7 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
             var newImage: UIImage? = nil // update 할 이미지
-            picker.allowsEditing = false
+//            picker.allowsEditing = false
         
             let possibleImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
             newImage = possibleImage
@@ -593,9 +594,14 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
         guard let selectedImage = info[.originalImage] as? UIImage else {
                     fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
                 }
+        
+        guard let notOriginImage = info[.editedImage] as? UIImage else {
+                    fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
+                }
 //        readBarcode(uiImage: selectedImage)
         
-        let image = VisionImage(image: selectedImage)
+//        let image = VisionImage(image: selectedImage)
+        let image = VisionImage(image: notOriginImage)
         self.getText(image: selectedImage)
         
         let barcodeScanner = BarcodeScanner.barcodeScanner()
@@ -690,9 +696,32 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
 //                    cell.textfield.becomeFirstResponder()
                 } // 유효성 확인
             } // else
-            
+           
+            switch x {
+            case 0...3:
+                print("#@!#&*(!@ ",x)
+                let index = IndexPath(row: x, section: 0)
+                let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
+                registerDic[x] = cell.textfield.text!
+                break
+            case 4:
+                print("#@!#&*(!@ ",x)
+                let index = IndexPath(row: x, section: 0)
+                let cell: RegisterUseTableViewCell = self.tableView.cellForRow(at: index) as! RegisterUseTableViewCell
+                registerDic[x] = cell.segmentControl.selectedSegmentIndex
+                break
+            case 5...6:
+                print("#@!#&*(!@ ",x)
+                let index = IndexPath(row: x, section: 0)
+                let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
+                registerDic[x] = cell.textfield.text!
+                break
+            default:
+                print("default")
+                break
+            }
         }// for
-        
+        print("registerDic.. ", registerDic)
     }
     
 }
