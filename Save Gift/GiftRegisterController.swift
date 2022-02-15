@@ -23,6 +23,8 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
     @IBOutlet weak var scrollView: UIScrollView!
     let imagePicker = UIImagePickerController()
     let helper : Helper = Helper()
+    let localUrl : String = "".getLocalURL()
+    let deviceID : String? = UserDefaults.standard.string(forKey: "device_id")
     
     let arr = ["교환처", "상품명", "바코드 번호", "유효기간", "쿠폰상태", "등록일", "등록자"]
     var arrTextField = ["", "", "", "", "", "", ""]
@@ -75,11 +77,11 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
         let rightBarButton = UIBarButtonItem.init(image: UIImage(systemName: "plus"),  style: .plain, target: self, action: #selector(self.plusAction)) //Class.MethodName
         self.navigationItem.rightBarButtonItem = rightBarButton
         
-        let tapGR = UITapGestureRecognizer(target: self, action: #selector(self.imageTapped))
-                        imageView.addGestureRecognizer(tapGR)
-                        imageView.isUserInteractionEnabled = true
+//        let tapGR = UITapGestureRecognizer(target: self, action: #selector(self.imageTapped))
+//                        imageView.addGestureRecognizer(tapGR)
+//                        imageView.isUserInteractionEnabled = true
         
-        
+        print("deviceID : ", deviceID!)
         //버튼 점선
 //        let shapeLayer:CAShapeLayer = CAShapeLayer()
 //        let frameSize = imageView.frame.size
@@ -453,7 +455,7 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
     }
     
     @objc func textFieldDidChange3(_ textField: UITextField) {
-        checkMaxLength(textField: textField, maxLength: 8)
+        checkMaxLength(textField: textField, maxLength: 10)
         guard let text = textField.text else { return }
         textField.text = text
     }   // phoneFormat.addCharacter에 텍스트를 넣어주면 init시 넣은 character가 구분자로 들어간 값이 반환됩니다.
@@ -686,42 +688,122 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
             if x == 4 {
                 let index = IndexPath(row: x, section: 0)
                 let cell: RegisterUseTableViewCell = self.tableView.cellForRow(at: index) as! RegisterUseTableViewCell
-                print("22222222 ", cell.segmentControl.selectedSegmentIndex)
+                registerDic[x] = cell.segmentControl.selectedSegmentIndex
             } else {
                 let index = IndexPath(row: x, section: 0)
                 let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
-                print("11111 ", cell.textfield.text!)
                 if cell.textfield.text == "" {
                     normalAlert(titles: "빈칸없이 작성 해주세요.", messages: nil)
 //                    cell.textfield.becomeFirstResponder()
-                } // 유효성 확인
-            } // else
-           
-            switch x {
-            case 0...3:
-                print("#@!#&*(!@ ",x)
-                let index = IndexPath(row: x, section: 0)
-                let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
-                registerDic[x] = cell.textfield.text!
-                break
-            case 4:
-                print("#@!#&*(!@ ",x)
-                let index = IndexPath(row: x, section: 0)
-                let cell: RegisterUseTableViewCell = self.tableView.cellForRow(at: index) as! RegisterUseTableViewCell
-                registerDic[x] = cell.segmentControl.selectedSegmentIndex
-                break
-            case 5...6:
-                print("#@!#&*(!@ ",x)
-                let index = IndexPath(row: x, section: 0)
-                let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
-                registerDic[x] = cell.textfield.text!
-                break
-            default:
-                print("default")
-                break
+                } else {
+                    switch x {
+                    case 0...3:
+                        print("#@!#&*(!@ ",x)
+                        let index = IndexPath(row: x, section: 0)
+                        let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
+                        registerDic[x] = cell.textfield.text!
+                        break
+//                    case 4:
+//                        print("#@!#&*(!@ ",x)
+//                        let index = IndexPath(row: x, section: 0)
+//                        let cell: RegisterUseTableViewCell = self.tableView.cellForRow(at: index) as! RegisterUseTableViewCell
+//                        registerDic[x] = cell.segmentControl.selectedSegmentIndex
+//                        break
+                    case 5...6:
+                        print("#@!#&*(!@ ",x)
+                        let index = IndexPath(row: x, section: 0)
+                        let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
+                        registerDic[x] = cell.textfield.text!
+                        break
+                    default:
+                        print("default")
+                        break
+                    }
+                }  // 유효성 확인
             }
         }// for
-        print("registerDic.. ", registerDic)
+        print("registerDic.. 1 ", registerDic)
+        print("self.imageView.image ", self.imageView.image)
+        if  registerDic[0] != nil &&
+            registerDic[1] != nil &&
+            registerDic[2] != nil &&
+            registerDic[3] != nil &&
+            registerDic[4] != nil &&
+            registerDic[5] != nil &&
+            registerDic[6] != nil &&
+            self.imageView.image != nil    {
+            print("registerDic.. 2", registerDic)
+            requestPost(requestUrl: "/register/gift")
+        }
+    }
+    
+    func requestPost(requestUrl : String!) -> Void{
+
+//        registerDic[0] -> 교환처
+//        registerDic[1] -> 상품명
+//        registerDic[2] -> 바코드 번호
+//        registerDic[3] -> 유효기간
+//        registerDic[4] -> 쿠폰 상태
+//        registerDic[5] -> 등록일
+//        registerDic[6] -> 등록자
+
+        let param = ["user_id" : UserDefaults.standard.string(forKey: "ID"), /*"img_url" : self.imageView.image,*/ "brand" : registerDic[0], "barcode_number" : registerDic[2], "expiration_period" : registerDic[3], "registration_date" : registerDic[5], "use_yn" : registerDic[4], "device_id" : deviceID , "registrant" : registerDic[6], "product_name" : registerDic[1]] as [String : Any] // JSON 객체로 전송할 딕셔너리
+        let paramData = try! JSONSerialization.data(withJSONObject: param)
+        // URL 객체 정의
+                let url = URL(string: localUrl+requestUrl)
+
+                // URLRequest 객체를 정의
+                var request = URLRequest(url: url!)
+                request.httpMethod = "POST"
+                request.httpBody = paramData
+
+                // HTTP 메시지 헤더
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.addValue("application/json", forHTTPHeaderField: "Accept")
+//                request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+//                request.setValue(String(paramData.count), forHTTPHeaderField: "Content-Length")
+
+                // URLSession 객체를 통해 전송, 응답값 처리
+                let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                    // 서버가 응답이 없거나 통신이 실패
+                    if let e = error {
+                        print("An error has occured: \(e.localizedDescription)")
+                        return
+                    }
+
+                let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+
+                    print("회원가입 응답 처리 로직 responseString", responseString!)
+//                    print("응답 처리 로직 data", data as Any)
+//                    print("응답 처리 로직 response", response as Any)
+                    // 응답 처리 로직
+
+//                    if(responseString == "true"){
+//                        DispatchQueue.main.async{
+//                            guard let pushVC = self.storyboard?.instantiateViewController(identifier: "tabbarVC") as? CustomTabBarController else{
+//                                return
+//                            }
+//
+//                            pushVC.VC = self.VC
+//
+//                            self.navigationController?.pushViewController(pushVC, animated: true)
+//
+//
+//
+//                        // 아이디저장
+//                        UserDefaults.standard.set(email, forKey: "ID")
+//
+//                            self.requestGet(user_id : UserDefaults.standard.string(forKey: "ID")! , requestUrl : "/status")
+//                        }
+//                    } else if(responseString == "false"){
+//                        DispatchQueue.main.async{
+//                        self.normalAlert(titles: "로그인 실패", messages: "아이디와 비밀번호를 확인해주세요.")
+//                        }
+//                    }
+                }
+                // POST 전송
+                task.resume()
     }
     
 }
+
