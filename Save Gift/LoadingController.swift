@@ -22,7 +22,7 @@ class LoadingController : UIViewController {
         print("device model : ", deviceModel)
         
         // 아이디저장
-        UserDefaults.standard.set(deviceModel, forKey: "device_id")
+        UserDefaults.standard.set(deviceID, forKey: "device_id")
         
         requestNotificationPermission()
         
