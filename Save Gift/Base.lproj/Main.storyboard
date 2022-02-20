@@ -6,6 +6,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -1215,22 +1216,40 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="기프티콘 저장소 서비스 준비중입니다." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="msS-cB-HPV">
-                                <rect key="frame" x="133.66666666666669" y="413.66666666666669" width="146.66666666666669" height="69"/>
-                                <fontDescription key="fontDescription" name="NanumMuGungHwa" family="나눔손글씨 무궁화" pointSize="30"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="mAH-O8-fz1">
+                                <rect key="frame" x="0.0" y="44" width="414" height="754"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="1bW-BP-fKg">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionViewCell" id="vE7-ve-Aaq">
+                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="DJC-5B-aND">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                        <color key="backgroundColor" systemColor="systemGray2Color"/>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Qw-vq-w7D"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="msS-cB-HPV" firstAttribute="centerY" secondItem="MKE-tH-P26" secondAttribute="centerY" id="c82-Hr-s7e"/>
-                            <constraint firstItem="msS-cB-HPV" firstAttribute="centerX" secondItem="6Qw-vq-w7D" secondAttribute="centerX" id="hE9-bw-QCW"/>
+                            <constraint firstItem="6Qw-vq-w7D" firstAttribute="trailing" secondItem="mAH-O8-fz1" secondAttribute="trailing" id="Pe9-at-lCx"/>
+                            <constraint firstItem="6Qw-vq-w7D" firstAttribute="bottom" secondItem="mAH-O8-fz1" secondAttribute="bottom" constant="15" id="hDp-nL-Af6"/>
+                            <constraint firstItem="mAH-O8-fz1" firstAttribute="top" secondItem="6Qw-vq-w7D" secondAttribute="top" id="nIw-z5-4Ik"/>
+                            <constraint firstItem="mAH-O8-fz1" firstAttribute="leading" secondItem="6Qw-vq-w7D" secondAttribute="leading" id="pZ1-tf-EML"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="저장소" image="barcode" catalog="system" selectedImage="barcode" id="YpG-yn-sYN"/>
                     <connections>
+                        <outlet property="collectionView" destination="mAH-O8-fz1" id="9Tk-NW-W0q"/>
                         <outlet property="tabBar" destination="YpG-yn-sYN" id="9jg-Bf-aP8"/>
                         <outlet property="viewMain" destination="MKE-tH-P26" id="F7K-ui-Zrz"/>
                     </connections>
