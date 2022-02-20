@@ -28,6 +28,8 @@ class SettingMyInfoController : UIViewController {
         passWordTextField.textAlignment = .left
         passWordTextField.textColor = UIColor.black
         passWordTextField.attributedPlaceholder = NSAttributedString(string: "비밀번호를 입력해주세요.", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
+        
+    }
     
     //빈곳 터치 키보드 내리기
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
