@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		26CB52D26F5C9C75B7286238 /* Pods_Save_Gift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41738307E30336F24D0CDF98 /* Pods_Save_Gift.framework */; };
 		A20D2682276A151700470D06 /* Register3Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20D2681276A151700470D06 /* Register3Controller.swift */; };
-		A213100127A97C5300A98783 /* BuildFile in Embed Frameworks */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A213100127A97C5300A98783 /* (null) in Embed Frameworks */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A218F1A1276E093D00E71316 /* UnlockController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A218F1A0276E093D00E71316 /* UnlockController.swift */; };
 		A21C6D5B276F630900BDE1E4 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21C6D5A276F630900BDE1E4 /* SideMenuViewController.swift */; };
 		A21C6D5D276F646000BDE1E4 /* CustomSideMenuNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21C6D5C276F646000BDE1E4 /* CustomSideMenuNavigation.swift */; };
@@ -24,6 +24,8 @@
 		A23698AE27A97B9100C86754 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A28F4397276F44B700B5DB17 /* LocalAuthentication.framework */; };
 		A28A06B42794413000876560 /* GiftRegisterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28A06B32794413000876560 /* GiftRegisterController.swift */; };
 		A28F439A276F55B700B5DB17 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28F4399276F55B700B5DB17 /* MainController.swift */; };
+		A293992327C257F2007DD927 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A293992127C257F2007DD927 /* CollectionViewCell.swift */; };
+		A293992427C257F2007DD927 /* CollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A293992227C257F2007DD927 /* CollectionViewCell.xib */; };
 		A2AF3FD3279588510076F426 /* kakaotalk.png in Resources */ = {isa = PBXBuildFile; fileRef = A2AF3FD0279588510076F426 /* kakaotalk.png */; };
 		A2AF3FD4279588510076F426 /* naver.png in Resources */ = {isa = PBXBuildFile; fileRef = A2AF3FD1279588510076F426 /* naver.png */; };
 		A2AF3FD5279588510076F426 /* facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = A2AF3FD2279588510076F426 /* facebook.png */; };
@@ -66,7 +68,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				A213100127A97C5300A98783 /* BuildFile in Embed Frameworks */,
+				A213100127A97C5300A98783 /* (null) in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -566,6 +568,8 @@
 		A28A06B32794413000876560 /* GiftRegisterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftRegisterController.swift; sourceTree = "<group>"; };
 		A28F4397276F44B700B5DB17 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
 		A28F4399276F55B700B5DB17 /* MainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
+		A293992127C257F2007DD927 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		A293992227C257F2007DD927 /* CollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionViewCell.xib; sourceTree = "<group>"; };
 		A2AF3FD0279588510076F426 /* kakaotalk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kakaotalk.png; sourceTree = "<group>"; };
 		A2AF3FD1279588510076F426 /* naver.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = naver.png; sourceTree = "<group>"; };
 		A2AF3FD2279588510076F426 /* facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook.png; sourceTree = "<group>"; };
@@ -682,6 +686,8 @@
 				A2D33523275E474D00ECF4B1 /* UITextFiled+Extension.swift */,
 				A218F1A0276E093D00E71316 /* UnlockController.swift */,
 				A225D700275B5FD500484EAE /* ViewController.swift */,
+				A293992127C257F2007DD927 /* CollectionViewCell.swift */,
+				A293992227C257F2007DD927 /* CollectionViewCell.xib */,
 			);
 			path = "Save Gift";
 			sourceTree = "<group>";
@@ -1267,6 +1273,7 @@
 				A2DC3F2E2789A0A600D354B1 /* geulssi.ttf in Resources */,
 				A2DD0BE827A7CC580015E59B /* RegisterTableViewCell.xib in Resources */,
 				A225D704275B5FD500484EAE /* Main.storyboard in Resources */,
+				A293992427C257F2007DD927 /* CollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1338,6 +1345,7 @@
 			files = (
 				A2C5B5B627AEEDE300C65B79 /* TableViewCell.swift in Sources */,
 				A2C5B5B427AEEDCF00C65B79 /* Helper.swift in Sources */,
+				A293992327C257F2007DD927 /* CollectionViewCell.swift in Sources */,
 				A218F1A1276E093D00E71316 /* UnlockController.swift in Sources */,
 				A20D2682276A151700470D06 /* Register3Controller.swift in Sources */,
 				A2DC3F282785C47000D354B1 /* CustomTabBarController.swift in Sources */,
