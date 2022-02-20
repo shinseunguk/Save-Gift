@@ -52,13 +52,13 @@ class SettingNotiController : UIViewController {
         
         
         // 시스템의 Push가 ON/OFF
-        let isPushOn = UIApplication.shared.isRegisteredForRemoteNotifications
+//        let isPushOn = UIApplication.shared.isRegisteredForRemoteNotifications
 
-        if isPushOn {
-            arrayBoll[0] = true
-        } else {
-            arrayBoll[0] = false
-        }
+//        if isPushOn {
+//            arrayBoll[0] = true
+//        } else {
+//            arrayBoll[0] = false
+//        }
         
     }
     
@@ -70,9 +70,16 @@ class SettingNotiController : UIViewController {
             
 //            print("success")
 //            print("#########response", response)
-            dic = helper.jsonParser(stringData: response, data1: "email_yn", data2: "sms_yn");
+            dic = helper.jsonParser3(stringData: response, data1: "email_yn", data2: "sms_yn", data3: "push_yn");
             
             print(dic["email_yn"]!);
+            
+            //추가
+            if(dic["push_yn"] as! Int == 1){
+                arrayBoll[0] = true;
+            } else{
+                arrayBoll[0] = false;
+            }
             
             if(dic["email_yn"] as! Int == 1){
                 arrayBoll[1] = true;

@@ -33,6 +33,31 @@ class Helper : UIViewController{
         return oJsonDictionaryT!;
     }//func
     
+    func jsonParser3(stringData : String, data1 : String?, data2 : String?, data3 : String?) -> Dictionary<String, Any>{
+        let strJsonString = stringData
+//        print(strJsonString)
+        let oJsonDataT:Data? = strJsonString.data(using: .utf8)
+        var oJsonDictionaryT:[String:Any]?
+        
+        if let oJsonData = oJsonDataT{
+            
+            oJsonDictionaryT = try! JSONSerialization.jsonObject(with: oJsonData, options: []) as! [String:Any]
+            
+            if let oJsonDictionary = oJsonDictionaryT{
+                if let strResultCode = oJsonDictionary[data1!],
+                    let strDescription = oJsonDictionary[data2!],
+                    let strDescription2 = oJsonDictionary[data3!]
+                   {
+                    print("data1 = \(strResultCode)")
+                    print("data2 = \(strDescription)")
+                    print("data3 = \(strDescription2)")
+                }
+            }
+            return oJsonDictionaryT!;
+        }
+        return oJsonDictionaryT!;
+    }//func
+    
     func jsonParserName(stringData : String, data1 : String?) -> Dictionary<String, Any>{
         let strJsonString = stringData
 //        print(strJsonString)
