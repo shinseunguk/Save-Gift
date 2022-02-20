@@ -603,6 +603,19 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
 //        readBarcode(uiImage: selectedImage)
         
 //        let image = VisionImage(image: selectedImage)
+        
+        let imageUrl = info[UIImagePickerController.InfoKey.referenceURL] as! URL
+        let imageName = imageUrl.lastPathComponent
+        let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentationDirectory, .userDomainMask, true).first as String?
+        let photoURL = URL(fileURLWithPath: documentDirectory!)
+        let localPath = photoURL.appendingPathComponent(imageName)
+        
+        print("imageUrl ", imageUrl)
+        print("imageName ", imageName)
+        print("documentDirectory ", documentDirectory!)
+        print("photoURL ", photoURL)
+        print("localPath ", localPath)
+        
         let image = VisionImage(image: notOriginImage)
         self.getText(image: selectedImage)
         
