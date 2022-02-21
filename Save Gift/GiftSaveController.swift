@@ -21,6 +21,7 @@ class GiftSaveController : UIViewController {
     // MARK: Blur효과가 적용될 EffectView
     var viewBlurEffect:UIVisualEffectView!
     let actionButton = JJFloatingActionButton()
+    let cellHeight3 = ((UIScreen.main.bounds.width / 2) + 50) / 3
     
     
     var collectionItems = ["1","2","3","4","5","6","7","8"]
@@ -28,7 +29,7 @@ class GiftSaveController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("GiftSaveController viewDidLoad")
-        
+        print("cellWidth/3 : ", cellHeight3)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(UINib(nibName: "CollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CollectionViewCell")
@@ -59,7 +60,7 @@ class GiftSaveController : UIViewController {
         
         let halfWidth = UIScreen.main.bounds.width / 2
 //        flowLayout.itemSize = CGSize(width: halfWidth * 0.9 , height: halfWidth * 0.9)
-        flowLayout.itemSize = CGSize(width: halfWidth * 1 , height: halfWidth * 1)
+        flowLayout.itemSize = CGSize(width: halfWidth * 1 , height: halfWidth * 1 + 50)
         flowLayout.footerReferenceSize = CGSize(width: halfWidth * 3, height: 70)
         flowLayout.sectionFootersPinToVisibleBounds = true
         self.collectionView.collectionViewLayout = flowLayout
@@ -82,6 +83,8 @@ extension GiftSaveController: UICollectionViewDelegate, UICollectionViewDataSour
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
         //  Configure the Cell
         cell.collectionLabel.text = collectionItems[indexPath.row]
+        cell.layer.borderWidth = 2.0
+        cell.layer.borderColor = UIColor.red.cgColor
         return cell
     }
     
