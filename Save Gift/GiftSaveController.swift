@@ -23,8 +23,8 @@ class GiftSaveController : UIViewController {
     let actionButton = JJFloatingActionButton()
     let cellHeight3 = ((UIScreen.main.bounds.width / 2) + 50) / 3
     
-    
-    var collectionItems = ["1","2","3","4","5","6","7","8"]
+    var barndNameLabelArr = ["BHC","BBQ","피자나라 치킨공주","교촌치킨","60계치킨","처갓집양념치킨","호식이두마리치킨","꾸브라꼬숯불두마리치킨"]
+    var expirationPeriodLabelArr = ["2022-04-14","2022-04-15","2022-04-16","2022-04-19","2022-04-20","2022-05-14","2022-02-14","2022-04-30"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,18 +73,30 @@ class GiftSaveController : UIViewController {
 
 extension GiftSaveController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("collectionItems.count ", collectionItems.count)
-        return collectionItems.count
+        print("collectionItems.count ", expirationPeriodLabelArr.count)
+        return expirationPeriodLabelArr.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         print("indexPath... ", indexPath)
-        print("collectionItems[indexPath.row]... ", collectionItems[indexPath.row])
+        print("collectionItems[indexPath.row]... ", expirationPeriodLabelArr[indexPath.row])
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
         //  Configure the Cell
-        cell.collectionLabel.text = collectionItems[indexPath.row]
-        cell.layer.borderWidth = 2.0
-        cell.layer.borderColor = UIColor.red.cgColor
+        cell.brandNameLabel.text = barndNameLabelArr[indexPath.row]
+        cell.productNameLabel.text = "\("뿌링클 순살 + 1.25L 콜라 + 치즈볼")"
+        print("ddfkmweofmwlekmf ", Int(cell.productNameLabel.text!.count / 15) + 1)
+        cell.expirationPeriodLabel.text = "유효기간 : \(expirationPeriodLabelArr[indexPath.row])"
+//        cell.registrantLabel.text = "등록자 : \("ghdrlfehd@naver.com(신승욱)")"
+//        cell.layer.borderWidth = 2.0
+//        cell.layer.borderColor = UIColor.red.cgColor
+        cell.cellImageView.image = UIImage(named: "saewookkang")
+        
+//        @IBOutlet weak var brandLabel: UILabel!
+//        @IBOutlet weak var productNameLabel: UILabel!
+//        @IBOutlet weak var expirationPeriodLabel: UILabel!
+//        @IBOutlet weak var registrantLabel: UILabel!
+//        @IBOutlet weak var cellImageView: UIImageView!
+        
         return cell
     }
     
