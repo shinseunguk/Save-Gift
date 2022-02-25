@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import JJFloatingActionButton
+import DropDown
 
 
 class GiftSaveController : UIViewController {
@@ -16,6 +17,7 @@ class GiftSaveController : UIViewController {
     // MARK: EffectView가 들어갈 View
     @IBOutlet weak var viewMain: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var filterButton: UIButton!
     let sectionInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     
     // MARK: Blur효과가 적용될 EffectView
@@ -25,6 +27,7 @@ class GiftSaveController : UIViewController {
     
     var barndNameLabelArr = ["BHC","BBQ","피자나라 치킨공주","교촌치킨","60계치킨","처갓집양념치킨","호식이두마리치킨","꾸브라꼬숯불두마리치킨"]
     var expirationPeriodLabelArr = ["2022-04-14","2022-04-15","2022-04-16","2022-04-19","2022-04-20","2022-05-14","2022-02-14","2022-04-30"]
+    let dropDown = DropDown()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,10 +37,27 @@ class GiftSaveController : UIViewController {
         collectionView.dataSource = self
         collectionView.register(UINib(nibName: "CollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CollectionViewCell")
         
+        //드롭다운 btn
+        dropDown.dataSource = ["피자", "치킨", "족발보쌈", "치즈돈까스", "햄버거"]
+        
+//        let ok = UIAction(title: "유효기간 임박 순", handler: { _ in print("유효기간 임박 순") })
+//        let cancel = UIAction(title: "교환처 이름 순", attributes: .destructive, handler: { _ in print("교환처 이름 순") })
+//        let buttonMenu = UIMenu(title: "유효기간 임박 순", children: [ok, cancel])
+//        if #available(iOS 14.0, *) {
+//            filterButton.menu = buttonMenu
+//        } else {
+//            print("14. 0 under")
+//        }
+        
+        
+        
         setupFlowLayout()
     }
     
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    @IBAction func dropDownAction(_ sender: Any) {
+        dropDown.show()
+    }
+    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 //            let width = collectionView.frame.width
 //            let height = collectionView.frame.height
 //            let itemsPerRow: CGFloat = 2
