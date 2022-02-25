@@ -60,6 +60,7 @@
 	<string>Photo Library Test</string>
 	<key>UIAppFonts</key>
 	<array>
+		<string>thirFont.tff</string>
 		<string>moogoonghwa.tff</string>
 		<string>geulssi.tff</string>
 	</array>

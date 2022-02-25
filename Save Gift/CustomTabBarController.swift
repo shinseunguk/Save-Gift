@@ -33,7 +33,7 @@ class CustomTabBarController: UITabBarController, UITabBarControllerDelegate {
         lbNavTitle.numberOfLines = 0
         lbNavTitle.center = CGPoint(x: 0, y: 0)
         lbNavTitle.textAlignment = .left
-        lbNavTitle.font = UIFont(name: "나눔손글씨 무궁화", size: 28)
+        lbNavTitle.font = UIFont(name: "나눔손글씨 암스테르담", size: 24)
         lbNavTitle.text = "기프티콘 저장"
 
         self.navigationItem.titleView = lbNavTitle

@@ -16,7 +16,8 @@ target 'Save Gift' do
   pod 'GoogleMLKit/MLKitCore'
   pod 'GoogleMLKit/BarcodeScanning'
   pod 'GoogleMLKit/TextRecognition'
-  pod 'GoogleMLKit/TextRecognitionKorean', '2.3.0' 
+  pod 'GoogleMLKit/TextRecognitionKorean', '2.3.0'
+  pod 'DropDown'
   # Pods for Save Gift
 
 end
