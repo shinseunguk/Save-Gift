@@ -504,38 +504,38 @@ PODS:
   - GTMSessionFetcher/Core (1.7.0)
   - JJFloatingActionButton (2.5.0)
   - JSPhoneFormat (0.0.1)
-  - KakaoSDK (2.8.6):
-    - KakaoSDKAuth (= 2.8.6)
-    - KakaoSDKCommon (= 2.8.6)
-    - KakaoSDKLink (= 2.8.6)
-    - KakaoSDKNavi (= 2.8.6)
-    - KakaoSDKStory (= 2.8.6)
-    - KakaoSDKTalk (= 2.8.6)
-    - KakaoSDKTemplate (= 2.8.6)
-    - KakaoSDKUser (= 2.8.6)
-  - KakaoSDKAuth (2.8.6):
-    - KakaoSDKCommon (= 2.8.6)
-  - KakaoSDKCommon (2.8.6):
-    - KakaoSDKCommon/Common (= 2.8.6)
-    - KakaoSDKCommon/Network (= 2.8.6)
-  - KakaoSDKCommon/Common (2.8.6)
-  - KakaoSDKCommon/Network (2.8.6):
+  - KakaoSDK (2.8.5):
+    - KakaoSDKAuth (= 2.8.5)
+    - KakaoSDKCommon (= 2.8.5)
+    - KakaoSDKLink (= 2.8.5)
+    - KakaoSDKNavi (= 2.8.5)
+    - KakaoSDKStory (= 2.8.5)
+    - KakaoSDKTalk (= 2.8.5)
+    - KakaoSDKTemplate (= 2.8.5)
+    - KakaoSDKUser (= 2.8.5)
+  - KakaoSDKAuth (2.8.5):
+    - KakaoSDKCommon (= 2.8.5)
+  - KakaoSDKCommon (2.8.5):
+    - KakaoSDKCommon/Common (= 2.8.5)
+    - KakaoSDKCommon/Network (= 2.8.5)
+  - KakaoSDKCommon/Common (2.8.5)
+  - KakaoSDKCommon/Network (2.8.5):
     - Alamofire (~> 5.1)
-    - KakaoSDKCommon/Common (= 2.8.6)
-  - KakaoSDKLink (2.8.6):
-    - KakaoSDKCommon (= 2.8.6)
-    - KakaoSDKTemplate (= 2.8.6)
-  - KakaoSDKNavi (2.8.6):
-    - KakaoSDKCommon/Common (= 2.8.6)
-  - KakaoSDKStory (2.8.6):
-    - KakaoSDKUser (= 2.8.6)
-  - KakaoSDKTalk (2.8.6):
-    - KakaoSDKTemplate (= 2.8.6)
-    - KakaoSDKUser (= 2.8.6)
-  - KakaoSDKTemplate (2.8.6):
-    - KakaoSDKCommon/Common (= 2.8.6)
-  - KakaoSDKUser (2.8.6):
-    - KakaoSDKAuth (= 2.8.6)
+    - KakaoSDKCommon/Common (= 2.8.5)
+  - KakaoSDKLink (2.8.5):
+    - KakaoSDKCommon (= 2.8.5)
+    - KakaoSDKTemplate (= 2.8.5)
+  - KakaoSDKNavi (2.8.5):
+    - KakaoSDKCommon/Common (= 2.8.5)
+  - KakaoSDKStory (2.8.5):
+    - KakaoSDKUser (= 2.8.5)
+  - KakaoSDKTalk (2.8.5):
+    - KakaoSDKTemplate (= 2.8.5)
+    - KakaoSDKUser (= 2.8.5)
+  - KakaoSDKTemplate (2.8.5):
+    - KakaoSDKCommon/Common (= 2.8.5)
+  - KakaoSDKUser (2.8.5):
+    - KakaoSDKAuth (= 2.8.5)
   - leveldb-library (1.22.1)
   - MLImage (1.0.0-beta1)
   - MLKitBarcodeScanning (1.4.0):
@@ -661,15 +661,15 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 43748f93435c2aa068b1cbe39655aaf600652e91
   JJFloatingActionButton: fdc3aefb0f28f04d0f988fa25d5fac97028a9ea7
   JSPhoneFormat: a809ac14c7a9301690f0f0077890ebda0f775f67
-  KakaoSDK: 29ca188341fbb8994586eac73c10209f3889b574
-  KakaoSDKAuth: 53e747a3bf343a3f3e87b14478d5a865d6c2acae
-  KakaoSDKCommon: 7e56600ff4c1bd82bed93fea4299b5a37f47e6a5
-  KakaoSDKLink: 59a6bdf7abd915aacba4c2671672ffe9654798dd
-  KakaoSDKNavi: 4df155701e60822a9f4426630ae2a38328e779be
-  KakaoSDKStory: afd97ece5b6b2a6d342533397654cea773954664
-  KakaoSDKTalk: d5b5a21281fa370f7d273a9140e82ba54aa9531a
-  KakaoSDKTemplate: 23bdcba233dce91fc948353c3b03d94f928d87d1
-  KakaoSDKUser: e79480355fa789f42e628dfba359fc21e9914f4c
+  KakaoSDK: f634244173eccab9198766e5f974c605095f80e8
+  KakaoSDKAuth: a9033bd3fbbb9a8c74dcd0dbd7705f7a2bc50ff1
+  KakaoSDKCommon: b98d08cf838effdc9b82aca7dee3e50c048880ca
+  KakaoSDKLink: 0c93cf5ad2bf73c4e2cb8db5820cd71a9c97feb8
+  KakaoSDKNavi: 278b8e8435fe964bd525d683b35313257b2890a7
+  KakaoSDKStory: 65793d1dd46e01bed461a8cb453c13dbd4bc8721
+  KakaoSDKTalk: 782952e48f8343db5ff3be434cd4b9fd5fed1b1d
+  KakaoSDKTemplate: 903808a8e0bfcae8f00f8561c3e8cb9eef5ed7e6
+  KakaoSDKUser: a76667bb06c1d5072178eea5cee4ac9fdba94679
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
   MLImage: 647f3d580c10b3c9a3f6154f5d7baead60c42a0c
   MLKitBarcodeScanning: db5ca9cd47166160d70c295531436edaa12ddd50
@@ -685,4 +685,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 94f66b86076066349eb188b9d8858908e5c9b173
 
-COCOAPODS: 1.10.2
+COCOAPODS: 1.11.2
