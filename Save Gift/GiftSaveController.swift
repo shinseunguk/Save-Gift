@@ -18,6 +18,8 @@ class GiftSaveController : UIViewController {
     @IBOutlet weak var viewMain: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var filterButton: UIButton!
+    let giftReigster : GiftRegisterController = GiftRegisterController()
+    
     let sectionInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     
     // MARK: Blur효과가 적용될 EffectView
@@ -38,18 +40,19 @@ class GiftSaveController : UIViewController {
         collectionView.register(UINib(nibName: "CollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CollectionViewCell")
         
         //드롭다운 btn
-        dropDown.dataSource = ["피자", "치킨", "족발보쌈", "치즈돈까스", "햄버거"]
-        
-//        let ok = UIAction(title: "유효기간 임박 순", handler: { _ in print("유효기간 임박 순") })
-//        let cancel = UIAction(title: "교환처 이름 순", attributes: .destructive, handler: { _ in print("교환처 이름 순") })
-//        let buttonMenu = UIMenu(title: "유효기간 임박 순", children: [ok, cancel])
-//        if #available(iOS 14.0, *) {
-//            filterButton.menu = buttonMenu
-//        } else {
-//            print("14. 0 under")
-//        }
-        
-        
+        dropDown.dataSource = ["최근등록순", "등록일순", "유효기간 임박순", "상품명순", "교환처 이름순"]
+        dropDown.anchorView = filterButton
+        dropDown.bottomOffset = CGPoint(x: 0, y:(dropDown.anchorView?.plainView.bounds.height)!)
+
+        //드롭다운 선택
+        dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+            print("선택한 아이템 : \(item)")
+            print("인덱스 : \(index)")
+            self.dropDown.clearSelection()
+            filterButton.setTitle(" "+item, for: .normal)
+            
+            collectionView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+        }
         
         setupFlowLayout()
     }

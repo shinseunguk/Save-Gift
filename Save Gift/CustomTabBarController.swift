@@ -28,15 +28,17 @@ class CustomTabBarController: UITabBarController, UITabBarControllerDelegate {
         print("screenWidth : ", screenWidth)
         print("screenHeight : ", screenHeight)
         let lbNavTitle = UILabel (frame: CGRect(x: 0, y: 0, width: screenWidth-78, height: 40))
-//        lbNavTitle.backgroundColor = UIColor.white
         lbNavTitle.textColor = UIColor.black
         lbNavTitle.numberOfLines = 0
         lbNavTitle.center = CGPoint(x: 0, y: 0)
         lbNavTitle.textAlignment = .left
-        lbNavTitle.font = UIFont(name: "나눔손글씨 암스테르담", size: 24)
+//        lbNavTitle.font = UIFont(name: "나눔손글씨 암스테르담", size: 24)
+        lbNavTitle.font = UIFont(name: "나눔손글씨", size: 24)
         lbNavTitle.text = "기프티콘 저장"
 
         self.navigationItem.titleView = lbNavTitle
+        
+        self.navigationController?.navigationBar.backgroundColor = UIColor.red // 테스트중
         
         if(UserDefaults.standard.string(forKey: "ID") != nil){
             print(UserDefaults.standard.string(forKey: "ID")!,"#########")
@@ -58,6 +60,17 @@ class CustomTabBarController: UITabBarController, UITabBarControllerDelegate {
         }
         
         floatingBtn()
+    }
+    
+    @objc func plusAction() {
+        guard let pushVC = self.storyboard?.instantiateViewController(identifier: "friendVC") as? FriendController else{ // 변경해야됨
+            return
+        }
+        
+            self.navigationController?.pushViewController(pushVC, animated: true)
+        
+//        let backBarButtonItem = UIBarButtonItem(title: "친구추가", style: .plain, target: self, action: nil)
+//        self.navigationItem.backBarButtonItem = backBarButtonItem
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -83,11 +96,15 @@ extension CustomTabBarController{
         case "공유하기":
             actionButton.isHidden = true
 //            view.removeFromSuperview()
+            
+            self.navigationItem.rightBarButtonItem = nil
         if(UserDefaults.standard.string(forKey: "ID") != nil){ //로그인 O
             navigationBarSetting(navigationTitle: "기프티콘 공유")
         } else{// 로그인 X
             needLoginService("공유하기")
         }
+            
+            self.navigationItem.rightBarButtonItem = nil
         case "선물하기":
             actionButton.isHidden = true
             if(UserDefaults.standard.string(forKey: "ID") != nil){ //로그인 O
@@ -95,15 +112,30 @@ extension CustomTabBarController{
             } else{// 로그인 X
                 needLoginService("선물하기")
             }
+            
+            self.navigationItem.rightBarButtonItem = nil
         case "저장소":
             actionButton.isHidden = false
         navigationBarSetting(navigationTitle: "기프티콘 저장")
-        case "랭킹보기":
+            
+            self.navigationItem.rightBarButtonItem = nil
+        case "친구":
             actionButton.isHidden = true
-        navigationBarSetting(navigationTitle: "기프티콘 랭킹")
+            if(UserDefaults.standard.string(forKey: "ID") != nil){ //로그인 O
+                navigationBarSetting(navigationTitle: "친구")
+            } else{// 로그인 X
+                needLoginService("선물하기")
+            }
+            
+            let rightBarButton = UIBarButtonItem.init(image: UIImage(systemName: "plus"),  style: .plain, target: self, action: #selector(self.plusAction)) //Class.MethodName
+            self.navigationItem.rightBarButtonItem = rightBarButton
+            
+            navigationBarSetting(navigationTitle: "친구")
         case "환경설정":
             actionButton.isHidden = true
-        navigationBarSetting(navigationTitle: "환경설정")
+            navigationBarSetting(navigationTitle: "환경설정")
+            
+            self.navigationItem.rightBarButtonItem = nil
         default:
             self.navigationItem.leftBarButtonItem = nil
         }
@@ -115,16 +147,28 @@ extension CustomTabBarController{
     
     func navigationBarSetting(navigationTitle : String){
         let screenWidth = UIScreen.main.bounds.size.width
-        let lbNavTitle = UILabel (frame: CGRect(x: 0, y: 0, width: screenWidth-78, height: 40))
-//        lbNavTitle.backgroundColor = UIColor.white
-        lbNavTitle.textColor = UIColor.black
-        lbNavTitle.numberOfLines = 0
-        lbNavTitle.center = CGPoint(x: 0, y: 0)
-        lbNavTitle.textAlignment = .left
-        lbNavTitle.font = UIFont(name: "나눔손글씨 무궁화", size: 28)
-        lbNavTitle.text = navigationTitle
+        if(navigationTitle != "친구"){
+            let lbNavTitle = UILabel (frame: CGRect(x: 0, y: 0, width: screenWidth-78, height: 40))
+            lbNavTitle.textColor = UIColor.black
+            lbNavTitle.numberOfLines = 0
+            lbNavTitle.center = CGPoint(x: 0, y: 0)
+            lbNavTitle.textAlignment = .left
+            lbNavTitle.font = UIFont(name: "나눔손글씨 무궁화", size: 28)
+            lbNavTitle.text = navigationTitle
 
-        self.navigationItem.titleView = lbNavTitle
+            self.navigationItem.titleView = lbNavTitle
+        }else {
+            let lbNavTitle = UILabel (frame: CGRect(x: 0, y: 0, width: screenWidth-95, height: 40))
+            lbNavTitle.textColor = UIColor.black
+            lbNavTitle.numberOfLines = 0
+            lbNavTitle.center = CGPoint(x: 0, y: 0)
+            lbNavTitle.textAlignment = .left
+            lbNavTitle.font = UIFont(name: "나눔손글씨 무궁화", size: 28)
+            lbNavTitle.text = navigationTitle
+
+            self.navigationItem.titleView = lbNavTitle
+        }
+//        lbNavTitle.backgroundColor = UIColor.white
     }
     
     func needLoginService(_ VC : String){
