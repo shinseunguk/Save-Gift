@@ -38,7 +38,7 @@ class CustomTabBarController: UITabBarController, UITabBarControllerDelegate {
 
         self.navigationItem.titleView = lbNavTitle
         
-        self.navigationController?.navigationBar.backgroundColor = UIColor.red // 테스트중
+//        self.navigationController?.navigationBar.backgroundColor = UIColor.red // 테스트중
         
         if(UserDefaults.standard.string(forKey: "ID") != nil){
             print(UserDefaults.standard.string(forKey: "ID")!,"#########")
@@ -177,6 +177,7 @@ extension CustomTabBarController{
             //세번째로 이동시킴
             self.selectedIndex = 2
             self.navigationBarSetting(navigationTitle: "기프티콘 저장")
+            self.navigationItem.rightBarButtonItem = nil
         })
         alert.addAction(UIAlertAction(title: "확인", style: .default) { action in
             self.selectedIndex = 2
@@ -190,9 +191,11 @@ extension CustomTabBarController{
             
             let backBarButtonItem = UIBarButtonItem(title: "홈화면", style: .plain, target: self, action: nil)
             self.navigationItem.backBarButtonItem = backBarButtonItem
+            self.navigationItem.rightBarButtonItem = nil
         })
         self.present(alert, animated: true, completion: nil)
         actionButton.isHidden = false
+        
     }
     func floatingBtn(){
         actionButton.addItem(title: "바코드(기프티콘) 저장하기", image: UIImage(systemName: "barcode")?.withRenderingMode(.alwaysTemplate)) { item in
