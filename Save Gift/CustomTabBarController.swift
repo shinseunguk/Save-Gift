@@ -59,7 +59,7 @@ class CustomTabBarController: UITabBarController, UITabBarControllerDelegate {
             selectedIndex = 2
         }
         
-        floatingBtn()
+//        floatingBtn()
     }
     
     @objc func plusAction() {
