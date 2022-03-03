@@ -14,8 +14,5 @@ class GiftPresentController : UIViewController{
         super.viewDidLoad()
         print("GiftPresentController")
         
-        // MARK: Blur효과가 적용될 EffectView
-        var viewBlurEffect:UIVisualEffectView!
-        
     }
 }
