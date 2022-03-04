@@ -35,6 +35,7 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
     var keyboard : Bool? = true
     var registerDic : Dictionary = [Int:Any]()
     
+    let toolBar = UIToolbar()
     let metadataObjectTypes: [AVMetadataObject.ObjectType] = [
                                                               .upce,
                                                               .code39,
@@ -77,9 +78,9 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
         let rightBarButton = UIBarButtonItem.init(image: UIImage(systemName: "plus"),  style: .plain, target: self, action: #selector(self.plusAction)) //Class.MethodName
         self.navigationItem.rightBarButtonItem = rightBarButton
         
-//        let tapGR = UITapGestureRecognizer(target: self, action: #selector(self.imageTapped))
-//                        imageView.addGestureRecognizer(tapGR)
-//                        imageView.isUserInteractionEnabled = true
+        let tapGR = UITapGestureRecognizer(target: self, action: #selector(self.imageTapped))
+                        imageView.addGestureRecognizer(tapGR)
+                        imageView.isUserInteractionEnabled = true
         
         print("deviceID : ", deviceID!)
         //버튼 점선
@@ -98,6 +99,27 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
 //
 //        imageView.layer.addSublayer(shapeLayer)
         
+        toolBar.sizeToFit()
+        
+        let backBtn = UIButton.init(type: .custom)
+        backBtn.setTitle("이전", for: .normal)
+        backBtn.setTitleColor(.systemBlue, for: .normal)
+        backBtn.addTarget(self, action: #selector(self.backBtnAction(_:)), for: .touchUpInside)
+        
+        let nextBtn = UIButton.init(type: .custom)
+        nextBtn.setTitle("다음", for: .normal)
+        nextBtn.setTitleColor(.systemBlue, for: .normal)
+        nextBtn.addTarget(self, action: #selector(self.nextBtnAction(_:)), for: .touchUpInside)
+        
+        let backButton = UIBarButtonItem.init(customView: backBtn)
+        let nextButton = UIBarButtonItem.init(customView: nextBtn)
+        
+        toolBar.items = [backButton, nextButton]
+//        toolBar.barStyle = .black
+        toolBar.barTintColor = UIColor.white
+        toolBar.tintColor = .white
+        
+        
         //셀 테두리지우기
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         //테이블뷰 선택 enable
@@ -112,6 +134,16 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         plusAction()
+    }
+    
+    @objc func backBtnAction(_ textField: UITextField){
+        print("backBtnAction")
+        textField.becomeFirstResponder();
+    }
+
+    @objc func nextBtnAction(_ textField: UITextField){
+        print("nextBtnAction")
+        textField.becomeFirstResponder();
     }
     
     @objc func keyboardWillHide(_ sender: Notification) {
@@ -512,6 +544,7 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
         let cell = tableView.dequeueReusableCell(withIdentifier: "RegisterTableViewCell") as! RegisterTableViewCell
         cell.label.text = arr[indexPath.row]
         cell.textfield.text = arrTextField[indexPath.row]
+        cell.textfield.inputAccessoryView = toolBar
         
         if indexPath.row == 4 {
             let customCell = tableView.dequeueReusableCell(withIdentifier: "RegisterUseTableViewCell") as! RegisterUseTableViewCell
@@ -544,7 +577,6 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
             cell.textfield.attributedPlaceholder = NSAttributedString(string: "ex) 2030-09-08 ('-'를 제외하고 입력)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
             cell.textfield.tag = indexPath.row
             cell.textfield.addTarget(self, action: #selector(self.textFieldDidChange3(_:)), for: .editingChanged)
-//            cell.textField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
             break;
         case 4:
 //            cell.textfield.isEnabled = true
