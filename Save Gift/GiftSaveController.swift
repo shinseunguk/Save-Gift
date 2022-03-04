@@ -73,9 +73,6 @@ class GiftSaveController : UIViewController {
         
         //가운데 lock btn
         lockBtn()
-        
-        //floatingBtn
-//        floatingBtn()
     }
     
     @IBAction func dropDownAction(_ sender: Any) {
@@ -260,18 +257,18 @@ class GiftSaveController : UIViewController {
 
 extension GiftSaveController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("collectionItems.count ", expirationPeriodLabelArr.count)
+//        print("collectionItems.count ", expirationPeriodLabelArr.count)
         return expirationPeriodLabelArr.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        print("indexPath... ", indexPath)
-        print("collectionItems[indexPath.row]... ", expirationPeriodLabelArr[indexPath.row])
+//        print("indexPath... ", indexPath)
+//        print("collectionItems[indexPath.row]... ", expirationPeriodLabelArr[indexPath.row])
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
         //  Configure the Cell
         cell.brandNameLabel.text = barndNameLabelArr[indexPath.row]
         cell.productNameLabel.text = "\("뿌링클 순살 + 1.25L 콜라 + 치즈볼")"
-        print("ddfkmweofmwlekmf ", Int(cell.productNameLabel.text!.count / 15) + 1)
+//        print("ddfkmweofmwlekmf ", Int(cell.productNameLabel.text!.count / 15) + 1)
         cell.expirationPeriodLabel.text = "유효기간 : \(expirationPeriodLabelArr[indexPath.row])"
 //        cell.registrantLabel.text = "등록자 : \("ghdrlfehd@naver.com(신승욱)")"
 //        cell.layer.borderWidth = 2.0

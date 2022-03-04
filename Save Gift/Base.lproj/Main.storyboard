@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="geulssi.ttf">
+        <array key="thirdFont.ttf">
             <string>NanumAmSeuTeReuDam</string>
         </array>
     </customFonts>
@@ -1179,6 +1179,7 @@
                         <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
+                        <outlet property="uiTabBar" destination="JPL-cV-GdX" id="7nL-yq-b3f"/>
                         <segue destination="tsV-pU-TIh" kind="relationship" relationship="viewControllers" id="PCc-G0-w6c"/>
                         <segue destination="th2-OG-cHq" kind="relationship" relationship="viewControllers" id="l9w-Ku-58U"/>
                         <segue destination="yhB-Xu-vwg" kind="relationship" relationship="viewControllers" id="ieN-iX-gzU"/>
@@ -1198,6 +1199,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="pxl-WC-Ahu">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -1472,7 +1474,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="3lc-ok-42i"/>
                                 </constraints>
-                                <state key="normal" title="친구 추가" image="lock">
+                                <state key="normal" title="친구 추가">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                             </button>
@@ -1802,7 +1804,6 @@
         <image name="gift" catalog="system" width="128" height="124"/>
         <image name="info.circle" catalog="system" width="128" height="121"/>
         <image name="kakaotalk.png" width="40" height="40"/>
-        <image name="lock" width="128" height="128"/>
         <image name="lock" catalog="system" width="128" height="128"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="naver.png" width="25" height="25"/>
