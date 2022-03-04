@@ -19,12 +19,14 @@ class CustomTabBarController: UITabBarController, UITabBarControllerDelegate {
     let screenWidth = UIScreen.main.bounds.size.width
     
     let actionButton = JJFloatingActionButton()
+    let appearance = UINavigationBarAppearance()
+    
+    @IBOutlet weak var uiTabBar: UITabBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
         
-
         print("screenWidth : ", screenWidth)
         print("screenHeight : ", screenHeight)
         let lbNavTitle = UILabel (frame: CGRect(x: 0, y: 0, width: screenWidth-78, height: 40))
@@ -35,6 +37,7 @@ class CustomTabBarController: UITabBarController, UITabBarControllerDelegate {
 //        lbNavTitle.font = UIFont(name: "나눔손글씨 암스테르담", size: 24)
         lbNavTitle.font = UIFont(name: "나눔손글씨", size: 24)
         lbNavTitle.text = "기프티콘 저장"
+        
 
         self.navigationItem.titleView = lbNavTitle
         
@@ -62,6 +65,13 @@ class CustomTabBarController: UITabBarController, UITabBarControllerDelegate {
 //        floatingBtn()
     }
     
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+
+//        uiTabBar.frame.size.height = 60
+//        uiTabBar.frame.origin.y = 500
+    }
+    
     @objc func plusAction() {
         guard let pushVC = self.storyboard?.instantiateViewController(identifier: "friendVC") as? FriendController else{ // 변경해야됨
             return
@@ -75,11 +85,21 @@ class CustomTabBarController: UITabBarController, UITabBarControllerDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         print("customtabbar viewWillAppear")
+        
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .white // 네비게이션바 become black 삭제
+        appearance.shadowColor = .white // 네비게이션바 bottom 테두리 삭제
+        
         self.navigationController?.isNavigationBarHidden = false
         self.navigationController?.navigationBar.tintColor = .systemBlue
         self.navigationController?.navigationBar.barTintColor = UIColor.init(displayP3Red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
+        //
+        self.navigationController?.navigationBar.standardAppearance = appearance
+        self.navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        //
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = false
+        
         //네비게이션바 뒤로가기 삭제
         self.navigationItem.hidesBackButton = true
 //
@@ -90,7 +110,7 @@ class CustomTabBarController: UITabBarController, UITabBarControllerDelegate {
 }
 
 extension CustomTabBarController{
-
+    
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         switch item.title! {
         case "공유하기":
@@ -197,43 +217,54 @@ extension CustomTabBarController{
         actionButton.isHidden = false
         
     }
-    func floatingBtn(){
-        actionButton.addItem(title: "바코드(기프티콘) 저장하기", image: UIImage(systemName: "barcode")?.withRenderingMode(.alwaysTemplate)) { item in
-            print("바코드(기프티콘) 저장하기")
-            let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "GiftRegisterVC")
-            self.navigationController?.pushViewController(pushVC!, animated: true)
-        }
-
-        actionButton.addItem(title: "QR코드 저장하기", image: UIImage(systemName: "qrcode")?.withRenderingMode(.alwaysTemplate)) { item in
-          // do something
-            print("qrcode 2")
-        }
-        
-//        actionButton.addItem(title: "item 3", image: nil) { item in
-//          // do something
+    
+//    func floatingBtn(){
+//        actionButton.addItem(title: "바코드(기프티콘) 저장하기", image: UIImage(systemName: "barcode")?.withRenderingMode(.alwaysTemplate)) { item in
+//            print("바코드(기프티콘) 저장하기")
+//            let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "GiftRegisterVC")
+//            self.navigationController?.pushViewController(pushVC!, animated: true)
 //        }
-        
-        view.addSubview(actionButton)
-        actionButton.buttonColor = .systemBlue
-        actionButton.translatesAutoresizingMaskIntoConstraints = false
-        actionButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16).isActive = true
-        actionButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16).isActive = true
-        
-        actionButton.configureDefaultItem { item in
-//            item.titlePosition = .trailing
+//
+//        actionButton.addItem(title: "QR코드 저장하기", image: UIImage(systemName: "qrcode")?.withRenderingMode(.alwaysTemplate)) { item in
+//          // do something
+//            print("qrcode 2")
+//        }
+//
+////        actionButton.addItem(title: "item 3", image: nil) { item in
+////          // do something
+////        }
+//
+//        view.addSubview(actionButton)
+//        actionButton.buttonColor = .systemBlue
+//        actionButton.translatesAutoresizingMaskIntoConstraints = false
+//        actionButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16).isActive = true
+//        actionButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16).isActive = true
+//
+//        actionButton.configureDefaultItem { item in
+////            item.titlePosition = .trailing
+//
+//            item.titleLabel.font = .boldSystemFont(ofSize: UIFont.systemFontSize)
+//            item.titleLabel.textColor = .white
+//            item.buttonColor = .white
+//            item.buttonImageColor = .systemBlue
+//
+//            item.layer.shadowColor = UIColor.black.cgColor
+//            item.layer.shadowOffset = CGSize(width: 0, height: 1)
+//            item.layer.shadowOpacity = Float(0.4)
+//            item.layer.shadowRadius = CGFloat(2)
+//        }
+//
+//                actionButton.bottomAnchor.constraint(equalTo: view.topAnchor
+//                            ,constant: screenHeight-200).isActive = true // ---- 1
+//    }
+    
+}
 
-            item.titleLabel.font = .boldSystemFont(ofSize: UIFont.systemFontSize)
-            item.titleLabel.textColor = .white
-            item.buttonColor = .white
-            item.buttonImageColor = .systemBlue
-
-            item.layer.shadowColor = UIColor.black.cgColor
-            item.layer.shadowOffset = CGSize(width: 0, height: 1)
-            item.layer.shadowOpacity = Float(0.4)
-            item.layer.shadowRadius = CGFloat(2)
-        }
-        
-                actionButton.bottomAnchor.constraint(equalTo: view.topAnchor
-                            ,constant: screenHeight-200).isActive = true // ---- 1
-    }
+extension UITabBar {
+    override open func sizeThatFits(_ size: CGSize) -> CGSize {
+        print("sizeThatFits")
+        var sizeThatFits = super.sizeThatFits(size)
+        sizeThatFits.height = 10 // 원하는 길이
+        return sizeThatFits
+   }
 }
