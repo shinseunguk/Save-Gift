@@ -25,7 +25,10 @@ class FriendController : UIViewController {
     let phoneFormat = JSPhoneFormat.init(appenCharacter: "-")   //구분자로 사용하고싶은 캐릭터를 넣어주시면 됩니다.
     
     var dic : [String: Any] = [:];
+    var emailName : String? = nil
+        
     let helper : Helper = Helper();
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -172,7 +175,7 @@ class FriendController : UIViewController {
                     
                 let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
 
-                    print("회원가입 응답 처리 로직 responseString", responseString)
+                    print("회원가입 응답 처리 로직 responseString", responseString!)
                     print("응답 처리 로직 data", data! as Any)
                     print("응답 처리 로직 response", response! as Any)
                     // 응답 처리 로직
@@ -196,16 +199,20 @@ class FriendController : UIViewController {
                             self.findBtn.backgroundColor = UIColor.systemBlue
                             self.findLabel.textColor = UIColor.black
                             self.findBtn.backgroundColor = UIColor.systemBlue
-                            
                             self.findLabel.text = self.dic["user_id"] as! String+"(\(self.dic["name"]!))"
                             
+                            
                             if UserDefaults.standard.string(forKey: "ID") == self.dic["user_id"] as! String {
-                                self.findLabel.text = "본인은 친구추가 불가"
-                                self.findBtn.setTitle("친구추가 불가", for: .normal)
+//                                self.findLabel.text = "본인은 친구추가 불가"
+                                self.findBtn.setTitle("본인은 친구추가 불가", for: .normal)
                                 self.findBtn.isEnabled = false
                                 self.findBtn.backgroundColor = UIColor.systemGray2
+                            } else {
+                                self.requestStatusFriend(requestUrl : "/statusFriend");
+                                    // 본인이 이미 추가한 사용자
+                                    // 친구추가 거부한 사용자(기능 추가 예정)
+                                    // 친구수락 대기중인 사용자
                             }
-                            
                         }
                     }
                 }
@@ -269,11 +276,18 @@ class FriendController : UIViewController {
                             
                             self.findLabel.text = self.dic["user_id"] as! String+"(\(self.dic["name"]!))"
                             
+                            self.requestStatusFriend(requestUrl : "/statusFriend");
+                            
                             if UserDefaults.standard.string(forKey: "ID") == self.dic["user_id"] as! String {
-                                self.findLabel.text = "본인은 친구추가 불가"
-                                self.findBtn.setTitle("친구추가 불가", for: .normal)
+//                                self.findLabel.text = "본인은 친구추가 불가"
+                                self.findBtn.setTitle("본인은 친구추가 불가", for: .normal)
                                 self.findBtn.isEnabled = false
                                 self.findBtn.backgroundColor = UIColor.systemGray2
+                            } else {
+                                self.requestStatusFriend(requestUrl : "/statusFriend");
+                                    // 본인이 이미 추가한 사용자
+                                    // 친구추가 거부한 사용자(기능 추가 예정)
+                                    // 친구수락 대기중인 사용자
                             }
                             
                         }
@@ -284,4 +298,199 @@ class FriendController : UIViewController {
                 task.resume()
     }
     
+    @IBAction func addFriend(_ sender: Any) {
+        if findBtn.isEnabled {
+            print("친구 추가")
+//            requestAddFriend(requestUrl: "/addFriend")
+            requestWaitFriend(requestUrl: "/waitFriend") // url 변경해야함
+        }
+    }
+    
+    func requestStatusFriend(requestUrl : String!) -> Void{
+        emailName = findLabel.text
+        let param = ["user_id" : UserDefaults.standard.string(forKey: "ID"), "userIdName" : emailName] as [String : Any] // JSON 객체로 전송할 딕셔너리
+
+        let paramData = try! JSONSerialization.data(withJSONObject: param)
+        // URL 객체 정의
+                let url = URL(string: localUrl+requestUrl)
+
+                // URLRequest 객체를 정의
+                var request = URLRequest(url: url!)
+                request.httpMethod = "POST"
+                request.httpBody = paramData
+
+                // HTTP 메시지 헤더
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.addValue("application/json", forHTTPHeaderField: "Accept")
+//                request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+//                request.setValue(String(paramData.count), forHTTPHeaderField: "Content-Length")
+
+                // URLSession 객체를 통해 전송, 응답값 처리
+                let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                    // 서버가 응답이 없거나 통신이 실패
+                    if let e = error {
+                        print("An error has occured: \(e.localizedDescription)")
+                        return
+                    }
+                    
+                    let str = String(data:data!, encoding:.utf8)
+                    print("str ", str)
+
+                    let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+
+                    print("회원가입 응답 처리 로직 responseString", responseString)
+                    print("응답 처리 로직 data", data! as Any)
+                    print("응답 처리 로직 response", response! as Any)
+                    // 응답 처리 로직
+
+
+                    if(responseString != ""){
+                        DispatchQueue.main.async{
+                            self.findLabel.text = self.emailName
+                            if responseString! == "친구 추가"{
+                                print("친구 추가")
+                                self.findBtn.isEnabled = true
+                                self.findBtn.backgroundColor = UIColor.systemBlue
+                                self.findBtn.setTitle("친구 추가" as String, for: .normal)
+                            } else if responseString! == "already friend"{
+                                self.findBtn.isEnabled = false
+                                self.findBtn.backgroundColor = UIColor.systemGray2
+                                self.findBtn.setTitle("이미 친구인 사용자입니다" as String, for: .normal)
+                            } else if responseString! == "wait friend"{
+                                self.findBtn.isEnabled = false
+                                self.findBtn.backgroundColor = UIColor.systemGray2
+                                self.findBtn.setTitle("친구수락 대기중인 사용자입니다" as String, for: .normal)
+                            }
+                        }
+                    }
+
+                }
+                // POST 전송
+                task.resume()
+    }
+    
+    
+        func requestWaitFriend(requestUrl : String!) -> Void{
+            emailName = findLabel.text
+            let param = ["user_id" : UserDefaults.standard.string(forKey: "ID"), "userIdName" : emailName] as [String : Any] // JSON 객체로 전송할 딕셔너리
+    
+            let paramData = try! JSONSerialization.data(withJSONObject: param)
+            // URL 객체 정의
+                    let url = URL(string: localUrl+requestUrl)
+    
+                    // URLRequest 객체를 정의
+                    var request = URLRequest(url: url!)
+                    request.httpMethod = "POST"
+                    request.httpBody = paramData
+    
+                    // HTTP 메시지 헤더
+                    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                    request.addValue("application/json", forHTTPHeaderField: "Accept")
+    //                request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+    //                request.setValue(String(paramData.count), forHTTPHeaderField: "Content-Length")
+    
+                    // URLSession 객체를 통해 전송, 응답값 처리
+                    let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                        // 서버가 응답이 없거나 통신이 실패
+                        if let e = error {
+                            print("An error has occured: \(e.localizedDescription)")
+                            return
+                        }
+    
+                    let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+    
+                        print("회원가입 응답 처리 로직 responseString", responseString)
+                        print("응답 처리 로직 data", data! as Any)
+                        print("응답 처리 로직 response", response! as Any)
+                        // 응답 처리 로직
+    
+    
+    //                    if(responseString != ""){
+    //                        DispatchQueue.main.async{
+    //                            //view 추가
+    //                            self.btnView.isEnabled = true
+    //                            self.findBtn.isEnabled = true
+    //                            self.btnView.backgroundColor = UIColor.init(red: 242/255, green: 242/255, blue: 247/255, alpha: 1)
+    //                            self.findBtn.backgroundColor = UIColor.systemBlue
+    //                            self.findLabel.textColor = UIColor.black
+    //                            self.findBtn.backgroundColor = UIColor.systemBlue
+    //
+    //                            self.findLabel.text = self.dic["user_id"] as! String+"(\(self.dic["name"]!))"
+    //
+    //                            if UserDefaults.standard.string(forKey: "ID") == self.dic["user_id"] as! String {
+    //                                self.findLabel.text = "본인은 친구추가 불가"
+    //                                self.findBtn.setTitle("친구추가 불가", for: .normal)
+    //                                self.findBtn.isEnabled = false
+    //                                self.findBtn.backgroundColor = UIColor.systemGray2
+    //                            }
+    //
+    //                        }
+    //                    }
+    
+                    }
+                    // POST 전송
+                    task.resume()
+        }
+    
+//    func requestAddFriend(requestUrl : String!) -> Void{
+//        emailName = findLabel.text
+//        let param = ["user_id" : UserDefaults.standard.string(forKey: "ID"), "userIdName" : emailName] as [String : Any] // JSON 객체로 전송할 딕셔너리
+//
+//        let paramData = try! JSONSerialization.data(withJSONObject: param)
+//        // URL 객체 정의
+//                let url = URL(string: localUrl+requestUrl)
+//
+//                // URLRequest 객체를 정의
+//                var request = URLRequest(url: url!)
+//                request.httpMethod = "POST"
+//                request.httpBody = paramData
+//
+//                // HTTP 메시지 헤더
+//                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//                request.addValue("application/json", forHTTPHeaderField: "Accept")
+////                request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+////                request.setValue(String(paramData.count), forHTTPHeaderField: "Content-Length")
+//
+//                // URLSession 객체를 통해 전송, 응답값 처리
+//                let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+//                    // 서버가 응답이 없거나 통신이 실패
+//                    if let e = error {
+//                        print("An error has occured: \(e.localizedDescription)")
+//                        return
+//                    }
+//
+//                let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+//
+//                    print("회원가입 응답 처리 로직 responseString", responseString)
+//                    print("응답 처리 로직 data", data! as Any)
+//                    print("응답 처리 로직 response", response! as Any)
+//                    // 응답 처리 로직
+//
+//
+////                    if(responseString != ""){
+////                        DispatchQueue.main.async{
+////                            //view 추가
+////                            self.btnView.isEnabled = true
+////                            self.findBtn.isEnabled = true
+////                            self.btnView.backgroundColor = UIColor.init(red: 242/255, green: 242/255, blue: 247/255, alpha: 1)
+////                            self.findBtn.backgroundColor = UIColor.systemBlue
+////                            self.findLabel.textColor = UIColor.black
+////                            self.findBtn.backgroundColor = UIColor.systemBlue
+////
+////                            self.findLabel.text = self.dic["user_id"] as! String+"(\(self.dic["name"]!))"
+////
+////                            if UserDefaults.standard.string(forKey: "ID") == self.dic["user_id"] as! String {
+////                                self.findLabel.text = "본인은 친구추가 불가"
+////                                self.findBtn.setTitle("친구추가 불가", for: .normal)
+////                                self.findBtn.isEnabled = false
+////                                self.findBtn.backgroundColor = UIColor.systemGray2
+////                            }
+////
+////                        }
+////                    }
+//
+//                }
+//                // POST 전송
+//                task.resume()
+//    }
 }

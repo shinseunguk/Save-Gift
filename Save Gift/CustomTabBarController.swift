@@ -260,11 +260,11 @@ extension CustomTabBarController{
     
 }
 
-extension UITabBar {
-    override open func sizeThatFits(_ size: CGSize) -> CGSize {
-        print("sizeThatFits")
-        var sizeThatFits = super.sizeThatFits(size)
-        sizeThatFits.height = 10 // 원하는 길이
-        return sizeThatFits
-   }
-}
+//extension UITabBar {
+//    override open func sizeThatFits(_ size: CGSize) -> CGSize {
+//        print("sizeThatFits")
+//        var sizeThatFits = super.sizeThatFits(size)
+//        sizeThatFits.height = 10 // 원하는 길이
+//        return sizeThatFits
+//   }
+//}
