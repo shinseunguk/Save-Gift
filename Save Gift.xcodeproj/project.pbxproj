@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A20D2682276A151700470D06 /* Register3Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20D2681276A151700470D06 /* Register3Controller.swift */; };
-		A213100127A97C5300A98783 /* BuildFile in Embed Frameworks */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A213100127A97C5300A98783 /* (null) in Embed Frameworks */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A218F1A1276E093D00E71316 /* UnlockController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A218F1A0276E093D00E71316 /* UnlockController.swift */; };
 		A21C6D5B276F630900BDE1E4 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21C6D5A276F630900BDE1E4 /* SideMenuViewController.swift */; };
 		A21C6D5D276F646000BDE1E4 /* CustomSideMenuNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21C6D5C276F646000BDE1E4 /* CustomSideMenuNavigation.swift */; };
@@ -40,7 +40,7 @@
 		A2C5B5BA27AEEE7C00C65B79 /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2C5B5B927AEEE7C00C65B79 /* TableViewCell.xib */; };
 		A2D2FDA42777414A0036B849 /* GiftPresentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D2FDA32777414A0036B849 /* GiftPresentController.swift */; };
 		A2D2FDA6277741A30036B849 /* GiftShareController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D2FDA5277741A30036B849 /* GiftShareController.swift */; };
-		A2D2FDA8277741ED0036B849 /* GiftRankController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D2FDA7277741ED0036B849 /* GiftRankController.swift */; };
+		A2D2FDA8277741ED0036B849 /* GiftFriendController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D2FDA7277741ED0036B849 /* GiftFriendController.swift */; };
 		A2D2FDAA277742200036B849 /* GiftSaveController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D2FDA9277742200036B849 /* GiftSaveController.swift */; };
 		A2D2FDAC277742A30036B849 /* GiftSettingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D2FDAB277742A30036B849 /* GiftSettingController.swift */; };
 		A2D2FDB42778C1400036B849 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D2FDB32778C1400036B849 /* CustomCell.swift */; };
@@ -71,7 +71,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				A213100127A97C5300A98783 /* BuildFile in Embed Frameworks */,
+				A213100127A97C5300A98783 /* (null) in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -588,7 +588,7 @@
 		A2C5B5B927AEEE7C00C65B79 /* TableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
 		A2D2FDA32777414A0036B849 /* GiftPresentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftPresentController.swift; sourceTree = "<group>"; };
 		A2D2FDA5277741A30036B849 /* GiftShareController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftShareController.swift; sourceTree = "<group>"; };
-		A2D2FDA7277741ED0036B849 /* GiftRankController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftRankController.swift; sourceTree = "<group>"; };
+		A2D2FDA7277741ED0036B849 /* GiftFriendController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftFriendController.swift; sourceTree = "<group>"; };
 		A2D2FDA9277742200036B849 /* GiftSaveController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftSaveController.swift; sourceTree = "<group>"; };
 		A2D2FDAB277742A30036B849 /* GiftSettingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftSettingController.swift; sourceTree = "<group>"; };
 		A2D2FDB32778C1400036B849 /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
@@ -656,7 +656,7 @@
 				A2DFB7D62770973F00BB9D21 /* GetDeivceModel.swift */,
 				A2DC3F2D2789A0A600D354B1 /* geulssi.ttf */,
 				A2D2FDA32777414A0036B849 /* GiftPresentController.swift */,
-				A2D2FDA7277741ED0036B849 /* GiftRankController.swift */,
+				A2D2FDA7277741ED0036B849 /* GiftFriendController.swift */,
 				A28A06B32794413000876560 /* GiftRegisterController.swift */,
 				A2D2FDA9277742200036B849 /* GiftSaveController.swift */,
 				A2D2FDAB277742A30036B849 /* GiftSettingController.swift */,
@@ -1360,7 +1360,7 @@
 				A218F1A1276E093D00E71316 /* UnlockController.swift in Sources */,
 				A20D2682276A151700470D06 /* Register3Controller.swift in Sources */,
 				A2DC3F282785C47000D354B1 /* CustomTabBarController.swift in Sources */,
-				A2D2FDA8277741ED0036B849 /* GiftRankController.swift in Sources */,
+				A2D2FDA8277741ED0036B849 /* GiftFriendController.swift in Sources */,
 				A2D4935C27905FA900FB5770 /* SettingDeveloperController.swift in Sources */,
 				A2D33522275CDEA700ECF4B1 /* RegisterController.swift in Sources */,
 				A2DC3F2627817EFC00D354B1 /* LoadingController.swift in Sources */,

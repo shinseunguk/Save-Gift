@@ -8,10 +8,11 @@
 import Foundation
 import UIKit
 
-class GiftRankController : UIViewController{
+class GiftFriendController : UIViewController{
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("GiftRankController")
+        print("GiftFriendController")
     }
     
 }
