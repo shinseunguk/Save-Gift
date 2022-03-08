@@ -193,12 +193,8 @@ class FriendController : UIViewController {
                     if(responseString != ""){
                         DispatchQueue.main.async{
                             //view 추가
-                            self.btnView.isEnabled = true
-                            self.findBtn.isEnabled = true
                             self.btnView.backgroundColor = UIColor.init(red: 242/255, green: 242/255, blue: 247/255, alpha: 1)
-                            self.findBtn.backgroundColor = UIColor.systemBlue
                             self.findLabel.textColor = UIColor.black
-                            self.findBtn.backgroundColor = UIColor.systemBlue
                             self.findLabel.text = self.dic["user_id"] as! String+"(\(self.dic["name"]!))"
                             
                             
@@ -267,12 +263,9 @@ class FriendController : UIViewController {
                     if(responseString != ""){
                         DispatchQueue.main.async{
                             //view 추가
-                            self.btnView.isEnabled = true
-                            self.findBtn.isEnabled = true
+                            
                             self.btnView.backgroundColor = UIColor.init(red: 242/255, green: 242/255, blue: 247/255, alpha: 1)
-                            self.findBtn.backgroundColor = UIColor.systemBlue
                             self.findLabel.textColor = UIColor.black
-                            self.findBtn.backgroundColor = UIColor.systemBlue
                             
                             self.findLabel.text = self.dic["user_id"] as! String+"(\(self.dic["name"]!))"
                             
@@ -347,7 +340,7 @@ class FriendController : UIViewController {
                     if(responseString != ""){
                         DispatchQueue.main.async{
                             self.findLabel.text = self.emailName
-                            if responseString! == "친구 추가"{
+                            if responseString! == "친구 추가"{ // 서버쪽 수정 필요
                                 print("친구 추가")
                                 self.findBtn.isEnabled = true
                                 self.findBtn.backgroundColor = UIColor.systemBlue
