@@ -1278,7 +1278,7 @@
         <!--친구-->
         <scene sceneID="dju-LT-hgT">
             <objects>
-                <viewController storyboardIdentifier="giftRankVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="UQ6-t4-kOg" customClass="GiftRankController" customModule="Save_Gift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="giftRankVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="UQ6-t4-kOg" customClass="GiftFriendController" customModule="Save_Gift" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="aZS-Yx-78a">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
