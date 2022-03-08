@@ -75,7 +75,7 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
             arrTextField.insert("\(UserDefaults.standard.string(forKey: "ID")!)"+"(\(UserDefaults.standard.string(forKey: "name")!))", at: 6)
         }
         
-        let rightBarButton = UIBarButtonItem.init(image: UIImage(systemName: "plus"),  style: .plain, target: self, action: #selector(self.plusAction)) //Class.MethodName
+        let rightBarButton = UIBarButtonItem.init(image: UIImage(systemName: "camera"),  style: .plain, target: self, action: #selector(self.plusAction)) //Class.MethodName
         self.navigationItem.rightBarButtonItem = rightBarButton
         
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(self.imageTapped))

@@ -105,6 +105,14 @@ class CustomTabBarController: UITabBarController, UITabBarControllerDelegate {
 //
 //        self.navigationController?.navigationBar.topItem?.title = "기프티콘 저장"
         
+        if #available(iOS 15.0, *) {
+            let appearanceTabbar = UITabBarAppearance()
+            appearanceTabbar.configureWithOpaqueBackground()
+            appearanceTabbar.backgroundColor = .white
+            tabBar.standardAppearance = appearanceTabbar
+            tabBar.scrollEdgeAppearance = tabBar.standardAppearance
+        }
+        
     }
     
 }
@@ -114,7 +122,7 @@ extension CustomTabBarController{
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         switch item.title! {
         case "공유하기":
-            actionButton.isHidden = true
+//            actionButton.isHidden = true
 //            view.removeFromSuperview()
             
             self.navigationItem.rightBarButtonItem = nil
@@ -126,7 +134,7 @@ extension CustomTabBarController{
             
             self.navigationItem.rightBarButtonItem = nil
         case "선물하기":
-            actionButton.isHidden = true
+//            actionButton.isHidden = true
             if(UserDefaults.standard.string(forKey: "ID") != nil){ //로그인 O
                 navigationBarSetting(navigationTitle: "기프티콘 선물")
             } else{// 로그인 X
@@ -135,24 +143,25 @@ extension CustomTabBarController{
             
             self.navigationItem.rightBarButtonItem = nil
         case "저장소":
-            actionButton.isHidden = false
+//            actionButton.isHidden = false
         navigationBarSetting(navigationTitle: "기프티콘 저장")
             
             self.navigationItem.rightBarButtonItem = nil
         case "친구":
-            actionButton.isHidden = true
+//            actionButton.isHidden = true
             if(UserDefaults.standard.string(forKey: "ID") != nil){ //로그인 O
                 navigationBarSetting(navigationTitle: "친구")
             } else{// 로그인 X
                 needLoginService("선물하기")
             }
             
-            let rightBarButton = UIBarButtonItem.init(image: UIImage(systemName: "plus"),  style: .plain, target: self, action: #selector(self.plusAction)) //Class.MethodName
+//            let rightBarButton = UIBarButtonItem.init(image: UIImage(systemName: "plus"),  style: .plain, target: self, action: #selector(self.plusAction)) //Class.MethodName
+            let rightBarButton = UIBarButtonItem.init(title: "친구 추가", style: .plain, target: self, action: #selector(self.plusAction))
             self.navigationItem.rightBarButtonItem = rightBarButton
             
             navigationBarSetting(navigationTitle: "친구")
         case "환경설정":
-            actionButton.isHidden = true
+//            actionButton.isHidden = true
             navigationBarSetting(navigationTitle: "환경설정")
             
             self.navigationItem.rightBarButtonItem = nil
@@ -178,7 +187,7 @@ extension CustomTabBarController{
 
             self.navigationItem.titleView = lbNavTitle
         }else {
-            let lbNavTitle = UILabel (frame: CGRect(x: 0, y: 0, width: screenWidth-95, height: 40))
+            let lbNavTitle = UILabel (frame: CGRect(x: 0, y: 0, width: screenWidth-130, height: 40))
             lbNavTitle.textColor = UIColor.black
             lbNavTitle.numberOfLines = 0
             lbNavTitle.center = CGPoint(x: 0, y: 0)
@@ -214,7 +223,7 @@ extension CustomTabBarController{
             self.navigationItem.rightBarButtonItem = nil
         })
         self.present(alert, animated: true, completion: nil)
-        actionButton.isHidden = false
+//        actionButton.isHidden = false
         
     }
     
