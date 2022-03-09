@@ -10,8 +10,8 @@ import UIKit
 
 class GiftFriendController : UIViewController{
     
-    var arr1 : [String] = ["samdori96@nate.com","samdori92@nate.com","samdori96@nate.com","samdori92@nate.com","samdori96@nate.com","samdori92@nate.com"]
-    var arr2 = ["samdori96@nate.com","samdori92@nate.com","samdori96@nate.com","samdori92@nate.com","samdori96@nate.com","samdori92@nate.com"]
+    var arr1 : [String] = ["samdori96@nate.com","samdori92@nate.com","samdori96@nate.com","samdori92@nate.com"]
+    var arr2 = ["samdori96@nate.com","samdori92@nate.com","samdori96@nate.com","samdori92@nate.com","samdori96@nate.com"]
     let localUrl : String = "".getLocalURL();
     var user_id : String?
     
@@ -55,6 +55,10 @@ class GiftFriendController : UIViewController{
 //            bottomLabel.removeFromSuperview()
 //            bottomTableView.removeFromSuperview()
 //        }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        view.frame.size.height = 3000
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -151,7 +155,7 @@ extension GiftFriendController: UITableViewDelegate, UITableViewDataSource{
 //        bottomLabel.topAnchor.constraint(equalTo: topTableView.topAnchor, constant: self.topTableView.contentSize.height + 30).isActive = true
         bottomLabel.topAnchor.constraint(equalTo: topTableView.topAnchor, constant: CGFloat(self.arr1.count * 50) + 30).isActive = true
         
-        bottomTableView.frame.size.height = CGFloat(self.arr1.count * 50)
+        bottomTableView.frame.size.height = CGFloat(self.arr2.count * 50)
 //        bottomTableView.contentSize.height = 300
         
 //        uiView.frame.size.height = 300
