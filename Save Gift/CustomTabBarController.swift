@@ -110,7 +110,7 @@ class CustomTabBarController: UITabBarController, UITabBarControllerDelegate {
             appearanceTabbar.configureWithOpaqueBackground()
             appearanceTabbar.backgroundColor = .white
             tabBar.standardAppearance = appearanceTabbar
-            tabBar.scrollEdgeAppearance = tabBar.standardAppearance
+//            tabBar.scrollEdgeAppearance = tabBar.standardAppearance
         }
         
     }

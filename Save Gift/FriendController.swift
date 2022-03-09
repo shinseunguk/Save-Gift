@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import JSPhoneFormat
 
-class FriendController : UIViewController {
+class FriendController : UIViewController, UITextFieldDelegate {
     @IBOutlet weak var magnifyingGlassButton: UIButton!
     @IBOutlet weak var emailTextfield: UITextField!
     @IBOutlet weak var cellPhoneTextField: UITextField!
@@ -51,6 +51,9 @@ class FriendController : UIViewController {
         findLabel.textColor = UIColor.white
         
         
+        emailTextfield.delegate = self
+        cellPhoneTextField.delegate = self
+        
         
         
         
@@ -69,6 +72,12 @@ class FriendController : UIViewController {
             
         emailTextfield.addLeftPadding();
         cellPhoneTextField.addLeftPadding();
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool
+    {
+        emailSearch()
+        return true
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
@@ -97,9 +106,7 @@ class FriendController : UIViewController {
           self.view.endEditing(true)
     }
     
-    @IBAction func emailSearchAction(_ sender: Any) {
-        print("emailSearchAction")
-        
+    func emailSearch() {
         email = emailTextfield.text
         
         if(email != ""){
@@ -119,6 +126,11 @@ class FriendController : UIViewController {
         }
         
         self.view.endEditing(true)
+    }
+    
+    @IBAction func emailSearchAction(_ sender: Any) {
+        print("emailSearchAction")
+        emailSearch()
     }
     
     @IBAction func phoneSearchAction(_ sender: Any) {
@@ -340,7 +352,7 @@ class FriendController : UIViewController {
                     if(responseString != ""){
                         DispatchQueue.main.async{
                             self.findLabel.text = self.emailName
-                            if responseString! == "친구 추가"{ // 서버쪽 수정 필요
+                            if responseString! == "add friend"{ // 서버쪽 수정 필요
                                 print("친구 추가")
                                 self.findBtn.isEnabled = true
                                 self.findBtn.backgroundColor = UIColor.systemBlue
