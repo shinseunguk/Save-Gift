@@ -151,6 +151,11 @@ extension GiftFriendController: UITableViewDelegate, UITableViewDataSource{
 //        bottomLabel.topAnchor.constraint(equalTo: topTableView.topAnchor, constant: self.topTableView.contentSize.height + 30).isActive = true
         bottomLabel.topAnchor.constraint(equalTo: topTableView.topAnchor, constant: CGFloat(self.arr1.count * 50) + 30).isActive = true
         
+        bottomTableView.frame.size.height = CGFloat(self.arr1.count * 50)
+//        bottomTableView.contentSize.height = 300
+        
+//        uiView.frame.size.height = 300
+        
         return cell
     }
 
