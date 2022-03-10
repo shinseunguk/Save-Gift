@@ -10,8 +10,10 @@ import UIKit
 
 class GiftFriendController : UIViewController{
     
-    var arr1 : [String] = ["samdori96@nate.com","samdori92@nate.com","samdori96@nate.com","samdori92@nate.com"]
-    var arr2 = ["samdori96@nate.com","samdori92@nate.com","samdori96@nate.com","samdori92@nate.com","samdori96@nate.com"]
+//    var arr1 : [String] = ["arr1","arr2","arr3","arr4","arr5","arr6","arr7","arr8","arr9"]
+//    var arr2 : [String] = ["ARR1","ARR2","ARR3","ARR4","ARR5","ARR6"]
+    var arr1 : [String] = []
+    var arr2 : [String] = []
     let localUrl : String = "".getLocalURL();
     var user_id : String?
     
@@ -23,6 +25,7 @@ class GiftFriendController : UIViewController{
     @IBOutlet weak var topLabel: UILabel!
     @IBOutlet weak var bottomLabel: UILabel!
     @IBOutlet weak var uiView: UIView!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,24 +47,19 @@ class GiftFriendController : UIViewController{
         bottomTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         bottomTableView.isScrollEnabled = false
         
-//        if arr1.count == 0 {
-//            topLabel.removeFromSuperview()
-//            topTableView.removeFromSuperview()
-//
-//            bottomLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30)
-//        }
-//
-//        if arr2.count == 0 {
-//            bottomLabel.removeFromSuperview()
-//            bottomTableView.removeFromSuperview()
-//        }
-    }
-    
-    override func viewDidLayoutSubviews() {
-        view.frame.size.height = 3000
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
+        if arr1.count == 0{
+            arr1.append("요청된 친구가 없습니다.")
+        }
+        
+        if arr2.count == 0{
+            arr2.append("친구를 추가해 기프티콘을 선물, 공유 해보세요.")
+        }
+        
         self.requestPost(requestUrl: "/getFriend")
     }
     
@@ -136,29 +134,33 @@ extension GiftFriendController: UITableViewDelegate, UITableViewDataSource{
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
 
         if tableView == self.topTableView {
+            if arr1[0] == "요청된 친구가 없습니다."{
+                cell.textLabel?.textColor = UIColor.systemBlue
+                cell.selectionStyle = .none
+            }
             cell.textLabel?.text="\(indexPath.row)"
             cell.textLabel?.text = arr1[indexPath.row]
         }
 
         if tableView == self.bottomTableView {
+            if arr2[0] == "친구를 추가해 기프티콘을 선물, 공유 해보세요."{
+                cell.textLabel?.textColor = UIColor.systemBlue
+                cell.selectionStyle = .none
+            }
+            print("arr2[indexPath.row] ", arr2[indexPath.row])
             cell.textLabel?.text="\(indexPath.row)"
             cell.textLabel?.text = arr2[indexPath.row]
         }
         
-//        topTableView.frame.size.height = 300
-//        bottomTableView.frame.size.height = 100
-        
-        print("CGFloat(self.arr1.count * 50) ", CGFloat(self.arr1.count * 50))
-//        topTableView.frame.size.height = self.topTableView.contentSize.height
-//        bottomTableView.frame.size.height = self.bottomTableView.contentSize.height
-        
-//        bottomLabel.topAnchor.constraint(equalTo: topTableView.topAnchor, constant: self.topTableView.contentSize.height + 30).isActive = true
-        bottomLabel.topAnchor.constraint(equalTo: topTableView.topAnchor, constant: CGFloat(self.arr1.count * 50) + 30).isActive = true
-        
+//        topTableView.frame.size.height = CGFloat(self.arr1.count * 50)
         bottomTableView.frame.size.height = CGFloat(self.arr2.count * 50)
-//        bottomTableView.contentSize.height = 300
+        bottomLabel.topAnchor.constraint(equalTo: topTableView.topAnchor, constant: CGFloat(self.arr1.count * 50) + 30).isActive = true
+//        bottomTableView.topAnchor.constraint(equalTo: topTableView.topAnchor, constant: CGFloat(self.arr1.count * 50) + 60).isActive = true
         
-//        uiView.frame.size.height = 300
+        
+        var totalHeight : Double = topTableView.frame.height + bottomTableView.frame.height + topLabel.frame.height + bottomLabel.frame.height
+        print("totalHeight -----> ", totalHeight)
+        self.scrollView.contentSize = CGSize(width: self.view.frame.width, height: totalHeight + 95.0)
         
         return cell
     }
