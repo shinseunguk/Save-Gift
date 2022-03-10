@@ -160,9 +160,9 @@ extension GiftFriendController: UITableViewDelegate, UITableViewDataSource{
 //        bottomTableView.topAnchor.constraint(equalTo: topTableView.topAnchor, constant: CGFloat(self.arr1.count * 50) + 60).isActive = true
         
         
-        var totalHeight : Double = topTableView.frame.height + bottomTableView.frame.height + topLabel.frame.height + bottomLabel.frame.height
+        var totalHeight : CGFloat = CGFloat(topTableView.frame.height + bottomTableView.frame.height + topLabel.frame.height + bottomLabel.frame.height)
         print("totalHeight -----> ", totalHeight)
-        self.scrollView.contentSize = CGSize(width: self.view.frame.width, height: totalHeight + 95.0)
+        self.scrollView.contentSize = CGSize(width: self.view.frame.width, height: totalHeight + 95)
         
         return cell
     }
