@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="thirdFont.ttf">
+        <array key="geulssi.ttf">
             <string>NanumAmSeuTeReuDam</string>
         </array>
     </customFonts>
@@ -1289,24 +1289,24 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cvc-4T-k3F">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="1000"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="친구 요청" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="er3-5L-CkH">
-                                                <rect key="frame" x="26.000000000000004" y="30" width="63.333333333333343" height="21"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[친구 요청]" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="er3-5L-CkH">
+                                                <rect key="frame" x="25.999999999999996" y="30" width="62.666666666666657" height="17"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" systemColor="systemGray2Color"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ARP-Pl-oZe">
-                                                <rect key="frame" x="0.0" y="61" width="414" height="50"/>
+                                                <rect key="frame" x="0.0" y="50" width="414" height="50"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="lIS-bJ-eNq"/>
                                                 </constraints>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="UUo-gz-vth">
-                                                        <rect key="frame" x="0.0" y="44.666666030883789" width="414" height="44"/>
+                                                        <rect key="frame" x="0.0" y="44.666666030883789" width="414" height="43.666667938232422"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="UUo-gz-vth" id="fdQ-p4-k98">
-                                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </tableViewCellContentView>
                                                     </tableViewCell>
@@ -1316,14 +1316,14 @@
                                                     <outlet property="delegate" destination="UQ6-t4-kOg" id="gsc-d5-EJv"/>
                                                 </connections>
                                             </tableView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="친구 목록" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RBT-77-msh">
-                                                <rect key="frame" x="26.000000000000004" y="141" width="63.333333333333343" height="21"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[친구 목록]" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RBT-77-msh">
+                                                <rect key="frame" x="25.999999999999996" y="130" width="62.666666666666657" height="17"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" systemColor="systemGray2Color"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xv7-c1-tUO">
-                                                <rect key="frame" x="0.0" y="172" width="414" height="100"/>
+                                                <rect key="frame" x="0.0" y="150" width="414" height="100"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="100" id="XUP-xs-2tt"/>
@@ -1354,8 +1354,8 @@
                                             <constraint firstItem="er3-5L-CkH" firstAttribute="top" secondItem="cvc-4T-k3F" secondAttribute="top" constant="30" id="gVI-iO-00n"/>
                                             <constraint firstItem="RBT-77-msh" firstAttribute="top" secondItem="ARP-Pl-oZe" secondAttribute="bottom" constant="30" id="jLz-Qu-sHa"/>
                                             <constraint firstAttribute="height" constant="1000" id="l9t-FY-CB3"/>
-                                            <constraint firstItem="xv7-c1-tUO" firstAttribute="top" secondItem="RBT-77-msh" secondAttribute="bottom" constant="10" id="pfH-nC-4pe"/>
-                                            <constraint firstItem="ARP-Pl-oZe" firstAttribute="top" secondItem="er3-5L-CkH" secondAttribute="bottom" constant="10" id="ue8-zT-ON3"/>
+                                            <constraint firstItem="xv7-c1-tUO" firstAttribute="top" secondItem="RBT-77-msh" secondAttribute="bottom" constant="3" id="pfH-nC-4pe"/>
+                                            <constraint firstItem="ARP-Pl-oZe" firstAttribute="top" secondItem="er3-5L-CkH" secondAttribute="bottom" constant="3" id="ue8-zT-ON3"/>
                                             <constraint firstItem="er3-5L-CkH" firstAttribute="leading" secondItem="cvc-4T-k3F" secondAttribute="leading" constant="26" id="unr-DR-fgW"/>
                                         </constraints>
                                     </view>

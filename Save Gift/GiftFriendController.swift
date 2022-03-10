@@ -11,9 +11,11 @@ import UIKit
 class GiftFriendController : UIViewController{
     
 //    var arr1 : [String] = ["arr1","arr2","arr3","arr4","arr5","arr6","arr7","arr8","arr9"]
-//    var arr2 : [String] = ["ARR1","ARR2","ARR3","ARR4","ARR5","ARR6"]
+    var arr2 : [String] = ["ARR1","ARR2","ARR3","ARR4","ARR5","ARR6"]
+//    var arr1 : [String] = ["samdori96@nate.com"]
     var arr1 : [String] = []
-    var arr2 : [String] = []
+//    var arr2 : [String] = []
+    var status : [String] = ["친구 요청중"]
     let localUrl : String = "".getLocalURL();
     var user_id : String?
     
