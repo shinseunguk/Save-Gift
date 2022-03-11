@@ -10,12 +10,12 @@ import UIKit
 
 class GiftFriendController : UIViewController{
     
-//    var arr1 : [String] = ["arr1","arr2","arr3","arr4","arr5","arr6","arr7","arr8","arr9"]
-    var arr2 : [String] = ["ARR1","ARR2","ARR3","ARR4","ARR5","ARR6"]
+    var arr1 : [String] = ["arr1","arr2","arr3","arr4","arr5","arr6","arr1","arr2","arr3","arr4","arr5","arr6"]
+    var arr2 : [String] = ["ARR1","ARR2","ARR3","ARR4","ARR5","ARR6","ARR1","ARR2","ARR3","ARR4","ARR5","ARR6"]
 //    var arr1 : [String] = ["samdori96@nate.com"]
-    var arr1 : [String] = []
+//    var arr1 : [String] = []
 //    var arr2 : [String] = []
-    var status : [String] = ["친구 요청중"]
+    var status : [String] = ["친구 요청중","친구 요청중","친구 요청중","친구 요청중","친구 요청중","친구 요청중","친구 요청중","친구 요청중","친구 요청중","친구 요청중","친구 요청중","친구 요청중"]
     let localUrl : String = "".getLocalURL();
     var user_id : String?
     
@@ -37,16 +37,16 @@ class GiftFriendController : UIViewController{
         
         print("screenHeight : ", screenHeight)
         
-        
+
+        topTableView.register(UINib(nibName: "GetFriendTableViewCell", bundle: nil), forCellReuseIdentifier: "GetFriendTableViewCell")
+        topTableView.dataSource = self
         topTableView.delegate = self
-        topTableView.delegate = self
-        topTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+//        topTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         topTableView.isScrollEnabled = false
 
-
-        bottomTableView.delegate = self
-        bottomTableView.delegate = self
         bottomTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        bottomTableView.dataSource = self
+        bottomTableView.delegate = self
         bottomTableView.isScrollEnabled = false
         
         
@@ -118,7 +118,6 @@ class GiftFriendController : UIViewController{
 extension GiftFriendController: UITableViewDelegate, UITableViewDataSource{
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
         if tableView == topTableView {
             print("arr1.count ", arr1.count)
             return arr1.count
@@ -132,19 +131,25 @@ extension GiftFriendController: UITableViewDelegate, UITableViewDataSource{
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-
+        print("indexPath.. ", indexPath)
+        
+        var cell = self.bottomTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        
         if tableView == self.topTableView {
-            if arr1[0] == "요청된 친구가 없습니다."{
-                cell.textLabel?.textColor = UIColor.systemBlue
-                cell.selectionStyle = .none
-            }
-            cell.textLabel?.text="\(indexPath.row)"
-            cell.textLabel?.text = arr1[indexPath.row]
-        }
-
-        if tableView == self.bottomTableView {
+            print("if문")
+            var customCell = self.topTableView.dequeueReusableCell(withIdentifier: "GetFriendTableViewCell", for: indexPath) as! GetFriendTableViewCell
+                if arr1[0] == "요청된 친구가 없습니다."{
+                    customCell.textLabel?.textColor = UIColor.systemBlue
+                    customCell.statusLabel.text = ""
+                    customCell.selectionStyle = .none
+                }
+    //            cell.textLabel?.text="\(indexPath.row)"
+    //            cell.textLabel?.text = arr1[indexPath.row]
+            customCell.emailLabel.text = arr1[indexPath.row]
+            customCell.statusLabel.text = status[indexPath.row]
+            return customCell
+        } else if tableView == self.bottomTableView {
+            print("else if문")
             if arr2[0] == "친구를 추가해 기프티콘을 선물, 공유 해보세요."{
                 cell.textLabel?.textColor = UIColor.systemBlue
                 cell.selectionStyle = .none
@@ -154,13 +159,17 @@ extension GiftFriendController: UITableViewDelegate, UITableViewDataSource{
             cell.textLabel?.text = arr2[indexPath.row]
         }
         
-//        topTableView.frame.size.height = CGFloat(self.arr1.count * 50)
-        bottomTableView.frame.size.height = CGFloat(self.arr2.count * 50)
-        bottomLabel.topAnchor.constraint(equalTo: topTableView.topAnchor, constant: CGFloat(self.arr1.count * 50) + 30).isActive = true
-//        bottomTableView.topAnchor.constraint(equalTo: topTableView.topAnchor, constant: CGFloat(self.arr1.count * 50) + 60).isActive = true
+        //        topTableView.frame.size.height = CGFloat(self.arr1.count * 50)
+                bottomTableView.frame.size.height = CGFloat(self.arr2.count * 50)
+                bottomLabel.topAnchor.constraint(equalTo: topTableView.topAnchor, constant: CGFloat(self.arr1.count * 50) + 30).isActive = true
+        //        bottomTableView.topAnchor.constraint(equalTo: topTableView.topAnchor, constant: CGFloat(self.arr1.count * 50) + 60).isActive = true
+                
+        print("topTableView.frame.height ", topTableView.frame.height)
+        print("topTableView.frame.height ", bottomTableView.frame.height)
+        print("topTableView.frame.height ", topLabel.frame.height)
+        print("topTableView.frame.height ", bottomLabel.frame.height)
         
-        
-        var totalHeight : CGFloat = CGFloat(topTableView.frame.height + bottomTableView.frame.height + topLabel.frame.height + bottomLabel.frame.height)
+        var totalHeight = topTableView.frame.height + bottomTableView.frame.height + topLabel.frame.height + bottomLabel.frame.height
         print("totalHeight -----> ", totalHeight)
         self.scrollView.contentSize = CGSize(width: self.view.frame.width, height: totalHeight + 95)
         
@@ -170,7 +179,7 @@ extension GiftFriendController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
            return 50
        }
-
+  
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
     }
