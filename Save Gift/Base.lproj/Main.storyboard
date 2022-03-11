@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="geulssi.ttf">
+        <array key="thirdFont.ttf">
             <string>NanumAmSeuTeReuDam</string>
         </array>
     </customFonts>
@@ -1302,7 +1302,7 @@
                                                     <constraint firstAttribute="height" constant="50" id="lIS-bJ-eNq"/>
                                                 </constraints>
                                                 <prototypes>
-                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="UUo-gz-vth">
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="GetFriendTableViewCell" id="UUo-gz-vth" customClass="GetFriendTableViewCell" customModule="Save_Gift" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="44.666666030883789" width="414" height="43.666667938232422"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="UUo-gz-vth" id="fdQ-p4-k98">
@@ -1311,10 +1311,6 @@
                                                         </tableViewCellContentView>
                                                     </tableViewCell>
                                                 </prototypes>
-                                                <connections>
-                                                    <outlet property="dataSource" destination="UQ6-t4-kOg" id="ikP-Nt-Bpa"/>
-                                                    <outlet property="delegate" destination="UQ6-t4-kOg" id="gsc-d5-EJv"/>
-                                                </connections>
                                             </tableView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[친구 목록]" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RBT-77-msh">
                                                 <rect key="frame" x="25.999999999999996" y="130" width="62.666666666666657" height="17"/>
@@ -1338,10 +1334,6 @@
                                                         </tableViewCellContentView>
                                                     </tableViewCell>
                                                 </prototypes>
-                                                <connections>
-                                                    <outlet property="dataSource" destination="UQ6-t4-kOg" id="0Qg-ae-Xuw"/>
-                                                    <outlet property="delegate" destination="UQ6-t4-kOg" id="4aJ-G1-FSH"/>
-                                                </connections>
                                             </tableView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
