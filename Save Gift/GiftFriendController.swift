@@ -13,8 +13,8 @@ class GiftFriendController : UIViewController{
 //    var arr1 : [String] = ["arr1","arr2","arr3","arr4","arr5","arr6","arr1","arr2","arr3","arr4","arr5","arr6"]
 //    var arr2 : [String] = ["ARR1","ARR2","ARR3","ARR4","ARR5","ARR6","ARR7","ARR8","ARR9","ARR10","ARR11","ARR12"]
 //    var arr1 : [String] = ["samdori96@nate.com"]
-    var arr1 : [String] = []
-    var arr2 : [String] = []
+    var arr1 : [String] = ["요청된 친구가 없습니다."]
+    var arr2 : [String] = ["친구를 추가해 기프티콘을 선물, 공유 해보세요."]
     var status : [String] = []
 //    var status : [String] = ["친구 요청중","친구 요청중","친구 요청중","친구 요청중","친구 요청중","친구 요청중","친구 요청중","친구 요청중","친구 요청중","친구 요청중","친구 요청중","친구 요청중"]
     let localUrl : String = "".getLocalURL();
@@ -90,14 +90,15 @@ class GiftFriendController : UIViewController{
                         if(responseString != ""){
                             //view 추가
                             //값이있을때 배열에 넣기
-                        } else{
-                            print("responseString == arr1")
-                            if self.arr1.count == 0 {
-                                print("요청된 친구가 없습니다.")
-                                self.arr1.append("요청된 친구가 없습니다.")
-                                self.status.append("")
-                            }
                         }
+//                        else{
+//                            print("responseString == arr1")
+//                            if self.arr1.count == 0 {
+//                                print("요청된 친구가 없습니다.")
+//                                self.arr1.append("요청된 친구가 없습니다.")
+//                                self.status.append("")
+//                            }
+//                        }
                         
                         self.topTableView.register(UINib(nibName: "GetFriendTableViewCell", bundle: nil), forCellReuseIdentifier: "GetFriendTableViewCell")
                         self.topTableView.dataSource = self
@@ -156,11 +157,12 @@ class GiftFriendController : UIViewController{
                                 print("dic###1 ", self.dic["friend"] as! String)
                                 print("self.arr2 ", self.arr2[0])
                                 print("arr2### ", self.arr2)
-                        } else {
-                            if self.arr2.count == 0{
-                                self.arr2.append("친구를 추가해 기프티콘을 선물, 공유 해보세요.")
-                            }
                         }
+//                        else {
+//                            if self.arr2.count == 0{
+//                                self.arr2.append("친구를 추가해 기프티콘을 선물, 공유 해보세요.")
+//                            }
+//                        }
                     
                     self.bottomTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
                     self.bottomTableView.dataSource = self
@@ -197,11 +199,12 @@ extension GiftFriendController: UITableViewDelegate, UITableViewDataSource{
         
         if tableView == topTableView {
             let customCell = self.topTableView.dequeueReusableCell(withIdentifier: "GetFriendTableViewCell", for: indexPath) as! GetFriendTableViewCell
-            print("arr1[0] ", arr1[0])
+            print("arr1[indexPath.row] ", arr1[indexPath.row])
                 if arr1[0] == "요청된 친구가 없습니다."{
                         print("status[0]")
                         customCell.emailLabel?.textColor = UIColor.systemBlue
                         customCell.statusLabel.text = ""
+                        customCell.emailLabel.text = "요청된 친구가 없습니다."
                         customCell.selectionStyle = .none
                 }
             
@@ -212,7 +215,7 @@ extension GiftFriendController: UITableViewDelegate, UITableViewDataSource{
             
             
             self.topTableView.frame.size.height = CGFloat(arr1.count * 50)
-            var totalHeight = CGFloat(arr1.count * 50) + CGFloat(arr2.count * 50) + 34
+            let totalHeight = CGFloat(arr1.count * 50) + CGFloat(arr2.count * 50) + 34
             print("totalHeight -----> ", totalHeight)
             self.scrollView.contentSize = CGSize(width: self.view.frame.width, height: totalHeight + 95)
             
