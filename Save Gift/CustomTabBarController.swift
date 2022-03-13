@@ -56,6 +56,9 @@ class CustomTabBarController: UITabBarController, UITabBarControllerDelegate {
             } else if VC! == "선물하기"{
                 selectedIndex = 1
                 lbNavTitle.text = "기프티콘 선물"
+            } else if VC! == "친구"{ // 수정 필요
+                selectedIndex = 2
+                lbNavTitle.text = "기프티콘 저장"
             }
         }else{
             //세번째로 이동시킴
@@ -152,7 +155,7 @@ extension CustomTabBarController{
             if(UserDefaults.standard.string(forKey: "ID") != nil){ //로그인 O
                 navigationBarSetting(navigationTitle: "친구")
             } else{// 로그인 X
-                needLoginService("선물하기")
+                needLoginService("친구")
             }
             
 //            let rightBarButton = UIBarButtonItem.init(image: UIImage(systemName: "plus"),  style: .plain, target: self, action: #selector(self.plusAction)) //Class.MethodName
