@@ -255,11 +255,15 @@ extension GiftFriendController: UITableViewDelegate, UITableViewDataSource{
         tableView.deselectRow(at: indexPath, animated: false)
         
         if tableView == topTableView {
-            print("click.. ", arr1[indexPath.row])
-            self.alert(email: arr1[indexPath.row])
+            if arr1[indexPath.row] != "요청된 친구가 없습니다."{
+                print("click.. ", arr1[indexPath.row])
+                self.alert(email: arr1[indexPath.row])
+            }
         }
         if tableView == bottomTableView {
-            print("click.. ", arr2[indexPath.row])
+            if arr2[indexPath.row] != "친구를 추가해 기프티콘을 선물, 공유 해보세요."{
+                print("click.. ", arr2[indexPath.row])
+            }
         }
     }
 
@@ -277,12 +281,35 @@ extension GiftFriendController: UITableViewDelegate, UITableViewDataSource{
         let alert = UIAlertController(title: "알림", message: "\(email)님이 친구를 요청했습니다. 수락하시겠습니까?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "거절", style: .default) { action in
             print("거절")
+            self.reAlert(email: email)
             //DB delete
         })
         alert.addAction(UIAlertAction(title: "수락", style: .default) { action in
             print("수락")
+            //DB delete후
             //DB insert
         })
+        // 기능추가 예정
+//        alert.addAction(UIAlertAction(title: "이 사용자 차단", style: .default) { action in
+//            print("이 사용자 차단")
+//        })
+        self.present(alert, animated: true, completion: nil)
+//        actionButton.isHidden = false
+        
+    }
+    
+    func reAlert(email : String){
+        let alert = UIAlertController(title: "알림", message: "정말로 \(email)님을 거절 하시겠습니까?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "아니오", style: .default) { action in
+            print("아니오")
+            //DB delete
+        })
+        alert.addAction(UIAlertAction(title: "거절", style: .default) { action in
+            print("거절")
+            //DB delete후
+            //DB insert
+        })
+        // 기능추가 예정
 //        alert.addAction(UIAlertAction(title: "이 사용자 차단", style: .default) { action in
 //            print("이 사용자 차단")
 //        })
