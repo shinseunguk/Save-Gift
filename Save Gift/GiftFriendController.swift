@@ -252,11 +252,14 @@ extension GiftFriendController: UITableViewDelegate, UITableViewDataSource{
   
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        tableView.deselectRow(at: indexPath, animated: false)
+        
         if tableView == topTableView {
-            print("topTableView")
+            print("click.. ", arr1[indexPath.row])
+            self.alert(email: arr1[indexPath.row])
         }
         if tableView == bottomTableView {
-            print("bottomTableView")
+            print("click.. ", arr2[indexPath.row])
         }
     }
 
@@ -268,6 +271,24 @@ extension GiftFriendController: UITableViewDelegate, UITableViewDataSource{
     //cell 여백 삭제
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         .leastNormalMagnitude
+    }
+    
+    func alert(email : String){
+        let alert = UIAlertController(title: "알림", message: "\(email)님이 친구를 요청했습니다. 수락하시겠습니까?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "거절", style: .default) { action in
+            print("거절")
+            //DB delete
+        })
+        alert.addAction(UIAlertAction(title: "수락", style: .default) { action in
+            print("수락")
+            //DB insert
+        })
+//        alert.addAction(UIAlertAction(title: "이 사용자 차단", style: .default) { action in
+//            print("이 사용자 차단")
+//        })
+        self.present(alert, animated: true, completion: nil)
+//        actionButton.isHidden = false
+        
     }
 
 }
