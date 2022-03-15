@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="thirdFont.ttf">
+        <array key="geulssi.ttf">
             <string>NanumAmSeuTeReuDam</string>
         </array>
     </customFonts>
@@ -206,7 +206,7 @@
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="nP9-8k-Wkw"/>
-                        <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" red="0.99993699790000001" green="1" blue="0.99987250569999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Ul7-dk-Px3" firstAttribute="centerX" secondItem="nP9-8k-Wkw" secondAttribute="centerX" id="1G1-aJ-EBX"/>
