@@ -13,6 +13,7 @@ class GiftFriendController : UIViewController{
 //    var arr1 : [String] = ["arr1","arr2","arr3","arr4","arr5","arr6","arr1","arr2","arr3","arr4","arr5","arr6"]
 //    var arr2 : [String] = ["ARR1","ARR2","ARR3","ARR4","ARR5","ARR6","ARR7","ARR8","ARR9","ARR10","ARR11","ARR12"]
 //    var arr1 : [String] = ["samdori96@nate.com"]
+    var tempArray : [String] = []
     var arr1 : [String] = ["요청된 친구가 없습니다."]
     var arr2 : [String] = ["친구를 추가해 기프티콘을 선물, 공유 해보세요."]
     var status : [String] = []
@@ -33,7 +34,9 @@ class GiftFriendController : UIViewController{
     var getFriend : String?
     
     let helper : Helper = Helper();
-    var dic : [String: Any] = [:];
+    var dic : [String : Any] = [:];
+    var dic2 : [String : Any] = [:];
+    var stringDic : [String : String] = [:];
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,15 +96,27 @@ class GiftFriendController : UIViewController{
                         if(responseString != ""){
                             //view 추가
                             //값이있을때 배열에 넣기
+                            self.tempArray = (responseString?.components(separatedBy: "}"))!
+                            self.tempArray.remove(at: self.tempArray.count-1)
+                            print("self.tempArray ", self.tempArray)
+                            print("self.tempArray.count ", self.tempArray.count)
+                            
+                            for x in 0...self.tempArray.count-1 {
+                                self.tempArray[x] = self.tempArray[x].replacingOccurrences(of: "{", with: "").replacingOccurrences(of: "[", with: "")
+                                print("self.tempArray[x] ",self.tempArray[x])
+                                
+                                if x != 0{
+                                    let startIndex = self.tempArray[x].index(self.tempArray[x].startIndex, offsetBy: 1)
+                                    let range = startIndex...
+                                    print("str[range] ", self.tempArray[x][range])
+                                } else {
+//                                    stringDic = self.tempArray[x]
+                                }
+                                
+                                
+                            }
+                            
                         }
-//                        else{
-//                            print("responseString == arr1")
-//                            if self.arr1.count == 0 {
-//                                print("요청된 친구가 없습니다.")
-//                                self.arr1.append("요청된 친구가 없습니다.")
-//                                self.status.append("")
-//                            }
-//                        }
                         
                         self.topTableView.register(UINib(nibName: "GetFriendTableViewCell", bundle: nil), forCellReuseIdentifier: "GetFriendTableViewCell")
                         self.topTableView.dataSource = self
@@ -152,12 +167,12 @@ class GiftFriendController : UIViewController{
                     DispatchQueue.main.async{
                         if responseString != "" {
                             
-                                self.dic = self.helper.jsonParserName(stringData: responseString as! String, data1: "friend");
-                                self.getFriend = self.dic["friend"] as! String
+                                self.dic2 = self.helper.jsonParserName(stringData: responseString as! String, data1: "friend");
+                                self.getFriend = self.dic2["friend"] as! String
                             
                                 self.arr2 = (self.getFriend?.components(separatedBy: "&"))!
                                 
-                                print("dic###1 ", self.dic["friend"] as! String)
+                                print("dic###1 ", self.dic2["friend"] as! String)
                                 print("self.arr2 ", self.arr2[0])
                                 print("arr2### ", self.arr2)
                         }
