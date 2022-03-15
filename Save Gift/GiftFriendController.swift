@@ -96,27 +96,15 @@ class GiftFriendController : UIViewController{
                         if(responseString != ""){
                             //view 추가
                             //값이있을때 배열에 넣기
-                            self.tempArray = (responseString?.components(separatedBy: "}"))!
-                            self.tempArray.remove(at: self.tempArray.count-1)
-                            print("self.tempArray ", self.tempArray)
-                            print("self.tempArray.count ", self.tempArray.count)
-                            
-                            for x in 0...self.tempArray.count-1 {
-                                self.tempArray[x] = self.tempArray[x].replacingOccurrences(of: "{", with: "").replacingOccurrences(of: "[", with: "")
-                                print("self.tempArray[x] ",self.tempArray[x])
-                                
-                                if x != 0{
-                                    let startIndex = self.tempArray[x].index(self.tempArray[x].startIndex, offsetBy: 1)
-                                    let range = startIndex...
-                                    print("str[range] ", self.tempArray[x][range])
-                                } else {
-//                                    stringDic = self.tempArray[x]
-                                }
-                                
-                                
-                            }
-                            
                         }
+//                        else{
+//                            print("responseString == arr1")
+//                            if self.arr1.count == 0 {
+//                                print("요청된 친구가 없습니다.")
+//                                self.arr1.append("요청된 친구가 없습니다.")
+//                                self.status.append("")
+//                            }
+//                        }
                         
                         self.topTableView.register(UINib(nibName: "GetFriendTableViewCell", bundle: nil), forCellReuseIdentifier: "GetFriendTableViewCell")
                         self.topTableView.dataSource = self
