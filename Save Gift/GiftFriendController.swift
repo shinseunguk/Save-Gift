@@ -88,6 +88,7 @@ class GiftFriendController : UIViewController{
                     
                 let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
 
+                    var responseData : String = responseString as! String
                     print("requestGetFriendTop responseString", responseString!)
                     print("응답 처리 로직 data", data! as Any)
                     print("응답 처리 로직 response", response! as Any)
@@ -96,6 +97,17 @@ class GiftFriendController : UIViewController{
                         if(responseString != ""){
                             //view 추가
                             //값이있을때 배열에 넣기
+                            let result = responseData.split(separator: "#", maxSplits: 1)
+                            print("result ", result)
+                            print("result[0] ", result[0])
+                            print("result[1] ", result[1])
+                            
+                            self.arr1 = result[0].components(separatedBy: "&")
+                            self.status = result[1].components(separatedBy: "&")
+                            
+                            print("self.arr1 ", self.arr1[0])
+                            print("self.arr1 ", self.arr1)
+                            
                         }
 //                        else{
 //                            print("responseString == arr1")
@@ -216,7 +228,9 @@ extension GiftFriendController: UITableViewDelegate, UITableViewDataSource{
             
             customCell.emailLabel.text = arr1[indexPath.row]
             if status.count != 0 {
-                customCell.statusLabel.text = status[indexPath.row]
+                if status[indexPath.row] == "W"{
+                    customCell.statusLabel.text = "친구 요청중"
+                }
             }
             
             
