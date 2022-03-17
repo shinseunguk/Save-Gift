@@ -37,7 +37,6 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
     
     // 날짜 정규식
     let datePattern: String = "(?<year>[0-9]{4})[-/.](?<month>[0-9]{2})[-/.](?<date>[0-9]{2})"
-    let pattern = "^[0-9~!@#$%^&*]{0,}$"
 
 
     
@@ -504,8 +503,13 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
     @objc func textFieldDidEndEditing(_ textField: UITextField) {
         checkMaxLength(textField: textField, maxLength: 10)
         guard let text = textField.text else { return }
+        
         if text.count == 8{ // 유효기간 formatting
-            textField.text = text.substring(from: 0, to: 3)+"-"+text.substring(from: 4, to: 5)+"-"+text.substring(from: 6, to: 7)
+            if !isValidPhone(phone: text){ //숫자 정규식
+                normalAlert(titles: "알림", messages: "유효기간을 숫자로만 입력해주세요")
+            } else{
+                textField.text = text.substring(from: 0, to: 3)+"-"+text.substring(from: 4, to: 5)+"-"+text.substring(from: 6, to: 7)
+            }
         } else if text.count == 10{
             
         } else{
@@ -516,18 +520,31 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
         print("textField.count ", text.count)
     }
     
-    func dateCheck(str : String){
-        let regex = try? NSRegularExpression(pattern: datePattern, options: [])
-        if let result = regex?.matches(in: str, options: [], range: NSRange(location: 0, length: str.count)) {
-            let rexStrings = result.map { (element) -> String in
-                let yearRange = Range(element.range(withName: "year"), in: str)!
-                let monthRange = Range(element.range(withName: "month"), in: str)!
-                let dateRange = Range(element.range(withName: "date"), in: str)!
-                return "\(str[yearRange])-\(str[monthRange])-\(str[dateRange])"
-            }
-            print(rexStrings) //["2021-11-29"] }
-        }
+    @objc func textFieldDidBigin(_ textField: UITextField) {
+        guard let text = textField.text else { return }
+        textField.text = text.replacingOccurrences(of: "-", with: "")
     }
+    
+//    func dateCheck(str : String){
+//        let regex = try? NSRegularExpression(pattern: datePattern, options: [])
+//        if let result = regex?.matches(in: str, options: [], range: NSRange(location: 0, length: str.count)) {
+//            let rexStrings = result.map { (element) -> String in
+//                let yearRange = Range(element.range(withName: "year"), in: str)!
+//                let monthRange = Range(element.range(withName: "month"), in: str)!
+//                let dateRange = Range(element.range(withName: "date"), in: str)!
+//                return "\(str[yearRange])-\(str[monthRange])-\(str[dateRange])"
+//            }
+//            print(rexStrings) //["2021-11-29"] }
+//        }
+//    }
+    
+    func isValidPhone(phone: String?) -> Bool {
+            guard phone != nil else { return false }
+
+            let phoneRegEx = "[0-9]{8}"
+            let pred = NSPredicate(format:"SELF MATCHES %@", phoneRegEx)
+            return pred.evaluate(with: phone)
+        }
     
     @objc func textFieldDidChange6(_ textField: UITextField) {
         checkMaxLength(textField: textField, maxLength: 30)
@@ -615,6 +632,7 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
             cell.textfield.tag = indexPath.row
             cell.textfield.addTarget(self, action: #selector(self.textFieldDidChange3(_:)), for: .editingChanged)
             cell.textfield.addTarget(self, action: #selector(self.textFieldDidEndEditing(_:)), for: .editingDidEnd)
+            cell.textfield.addTarget(self, action: #selector(self.textFieldDidBigin(_:)), for: .editingDidBegin)
             cell.textfield.keyboardType = .numberPad
             cell.textfield.delegate = self
             break;
