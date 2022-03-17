@@ -35,6 +35,12 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
     var keyboard : Bool? = true
     var registerDic : Dictionary = [Int:Any]()
     
+    // 날짜 정규식
+    let datePattern: String = "(?<year>[0-9]{4})[-/.](?<month>[0-9]{2})[-/.](?<date>[0-9]{2})"
+    let pattern = "^[0-9~!@#$%^&*]{0,}$"
+
+
+    
     let toolBar = UIToolbar()
     let metadataObjectTypes: [AVMetadataObject.ObjectType] = [
                                                               .upce,
@@ -246,6 +252,9 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
         } else if titles == "빈칸없이 작성 해주세요." {
             let cancelAction = UIAlertAction(title: "확인", style: .default, handler : nil)
             alert.addAction(cancelAction)
+        } else { // 유효기간 formatting
+            let defaultAction = UIAlertAction(title: "확인", style: .default, handler : nil)
+            alert.addAction(defaultAction)
         }
         
         present(alert, animated: true, completion: nil)
@@ -487,10 +496,38 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
     }
     
     @objc func textFieldDidChange3(_ textField: UITextField) {
-        checkMaxLength(textField: textField, maxLength: 10)
+        checkMaxLength(textField: textField, maxLength: 8)
         guard let text = textField.text else { return }
         textField.text = text
     }   // phoneFormat.addCharacter에 텍스트를 넣어주면 init시 넣은 character가 구분자로 들어간 값이 반환됩니다.
+    
+    @objc func textFieldDidEndEditing(_ textField: UITextField) {
+        checkMaxLength(textField: textField, maxLength: 10)
+        guard let text = textField.text else { return }
+        if text.count == 8{ // 유효기간 formatting
+            textField.text = text.substring(from: 0, to: 3)+"-"+text.substring(from: 4, to: 5)+"-"+text.substring(from: 6, to: 7)
+        } else if text.count == 10{
+            
+        } else{
+            normalAlert(titles: "알림", messages: "유효기간을 다시 확인해주세요.")
+            textField.becomeFirstResponder()
+        }
+        
+        print("textField.count ", text.count)
+    }
+    
+    func dateCheck(str : String){
+        let regex = try? NSRegularExpression(pattern: datePattern, options: [])
+        if let result = regex?.matches(in: str, options: [], range: NSRange(location: 0, length: str.count)) {
+            let rexStrings = result.map { (element) -> String in
+                let yearRange = Range(element.range(withName: "year"), in: str)!
+                let monthRange = Range(element.range(withName: "month"), in: str)!
+                let dateRange = Range(element.range(withName: "date"), in: str)!
+                return "\(str[yearRange])-\(str[monthRange])-\(str[dateRange])"
+            }
+            print(rexStrings) //["2021-11-29"] }
+        }
+    }
     
     @objc func textFieldDidChange6(_ textField: UITextField) {
         checkMaxLength(textField: textField, maxLength: 30)
@@ -577,6 +614,9 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
             cell.textfield.attributedPlaceholder = NSAttributedString(string: "ex) 2030-09-08 ('-'를 제외하고 입력)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
             cell.textfield.tag = indexPath.row
             cell.textfield.addTarget(self, action: #selector(self.textFieldDidChange3(_:)), for: .editingChanged)
+            cell.textfield.addTarget(self, action: #selector(self.textFieldDidEndEditing(_:)), for: .editingDidEnd)
+            cell.textfield.keyboardType = .numberPad
+            cell.textfield.delegate = self
             break;
         case 4:
 //            cell.textfield.isEnabled = true
