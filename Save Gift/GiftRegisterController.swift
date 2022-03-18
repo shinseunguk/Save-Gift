@@ -504,21 +504,31 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
         checkMaxLength(textField: textField, maxLength: 10)
         guard let text = textField.text else { return }
         
-        if text.count == 8{ // 유효기간 formatting
-            if !isValidPhone(phone: text){ //숫자 정규식
-                normalAlert(titles: "알림", messages: "유효기간을 숫자로만 입력해주세요")
+        if text.count != 0 {
+            if !isValidPhone(phone: text.replacingOccurrences(of: "-", with: "")){ //숫자 정규식
+                normalAlert(titles: "알림", messages: "유효기간을 숫자로만 입력해주세요 ('-'를 제외하고 입력)")
+            } else if false{// 날짜 정규식dk
+                
             } else{
-                textField.text = text.substring(from: 0, to: 3)+"-"+text.substring(from: 4, to: 5)+"-"+text.substring(from: 6, to: 7)
+                switch (text.count) {
+                case 1..<8:
+                    normalAlert(titles: "알림", messages: "유효기간을 다시 확인해주세요.\n 2030-09-08 ('-'를 제외하고 입력)")
+                    textField.becomeFirstResponder()
+                    break;
+                    
+                case 8:// 20210515
+                    textField.text = text.replacingOccurrences(of: "-", with: "").substring(from: 0, to: 3)+"-"+text.replacingOccurrences(of: "-", with: "").substring(from: 4, to: 5)+"-"+text.replacingOccurrences(of: "-", with: "").substring(from: 6, to: 7)
+                    break;
+                    
+                default:
+                    print("default")
+                    break;
+                }
             }
-        } else if text.count == 10{
-            
-        } else{
-            normalAlert(titles: "알림", messages: "유효기간을 다시 확인해주세요.")
-            textField.becomeFirstResponder()
         }
         
-        print("textField.count ", text.count)
-        print("test")
+        
+//            normalAlert(titles: "알림", messages: "유효기간을 다시 확인해주세요.")
     }
     
     @objc func textFieldDidBigin(_ textField: UITextField) {
@@ -542,7 +552,7 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
     func isValidPhone(phone: String?) -> Bool {
             guard phone != nil else { return false }
 
-            let phoneRegEx = "[0-9]{8}"
+            let phoneRegEx = "[0-9]{1,8}"
             let pred = NSPredicate(format:"SELF MATCHES %@", phoneRegEx)
             return pred.evaluate(with: phone)
         }
