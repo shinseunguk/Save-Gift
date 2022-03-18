@@ -518,6 +518,7 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
         }
         
         print("textField.count ", text.count)
+        print("test")
     }
     
     @objc func textFieldDidBigin(_ textField: UITextField) {
