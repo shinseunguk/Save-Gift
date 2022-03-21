@@ -96,8 +96,9 @@ extension String {
         }
     
     func getLocalURL() -> String{
-        return "http://175.212.211.98:8008"
+        return "http://175.212.211.98:8008" //집 공유기
 //        return "http://172.30.1.50:8008"
+//        return "http://192.168.0.39:8008"
     }
 }
 

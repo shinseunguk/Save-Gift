@@ -3,7 +3,7 @@
 //  Save Gift
 //
 //  Created by ukBook on 2022/02/27.
-//
+//  가입된 친구 검색
 
 import Foundation
 import UIKit
@@ -76,7 +76,11 @@ class FriendController : UIViewController, UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool
     {
-        emailSearch()
+        let text = textField.text
+        
+        if ((text?.contains("@")) != nil){
+            emailSearch()
+        }
         return true
     }
     
@@ -152,10 +156,28 @@ class FriendController : UIViewController, UITextFieldDelegate {
     
     func normalAlert(titles:String, messages:String?) -> Void{
         let alert = UIAlertController(title: titles, message: messages, preferredStyle: UIAlertController.Style.alert)
-        let cancelAction = UIAlertAction(title: "확인", style: .default, handler : nil)
-        alert.addAction(cancelAction)
+        if messages != "친구 추가 완료" {
+            let cancelAction = UIAlertAction(title: "확인", style: .default, handler : nil)
+            alert.addAction(cancelAction)
+        }else {
+            let cancelAction = UIAlertAction(title: "확인", style: .default, handler : {_ in self.navPop()})
+            alert.addAction(cancelAction)
+        }
+        
         
         present(alert, animated: true, completion: nil)
+    }
+    
+    @objc
+    func navPop() -> Void{
+        //nav pop
+        //self.navigationController?.popViewController(animated: true)
+        guard let pushVC = self.storyboard?.instantiateViewController(identifier: "tabbarVC") as? CustomTabBarController else{
+            return
+        }
+        pushVC.VC = "친구"
+        
+        self.navigationController?.pushViewController(pushVC, animated: true)
     }
     
     func requestPost1(requestUrl : String!) -> Void{
@@ -404,33 +426,28 @@ class FriendController : UIViewController, UITextFieldDelegate {
     
                     let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
     
-                        print("회원가입 응답 처리 로직 responseString", responseString)
+                        print("/waitFriend ----> ", responseString!)
                         print("응답 처리 로직 data", data! as Any)
                         print("응답 처리 로직 response", response! as Any)
                         // 응답 처리 로직
     
     
-    //                    if(responseString != ""){
-    //                        DispatchQueue.main.async{
-    //                            //view 추가
-    //                            self.btnView.isEnabled = true
-    //                            self.findBtn.isEnabled = true
-    //                            self.btnView.backgroundColor = UIColor.init(red: 242/255, green: 242/255, blue: 247/255, alpha: 1)
-    //                            self.findBtn.backgroundColor = UIColor.systemBlue
-    //                            self.findLabel.textColor = UIColor.black
-    //                            self.findBtn.backgroundColor = UIColor.systemBlue
-    //
-    //                            self.findLabel.text = self.dic["user_id"] as! String+"(\(self.dic["name"]!))"
-    //
-    //                            if UserDefaults.standard.string(forKey: "ID") == self.dic["user_id"] as! String {
-    //                                self.findLabel.text = "본인은 친구추가 불가"
-    //                                self.findBtn.setTitle("친구추가 불가", for: .normal)
-    //                                self.findBtn.isEnabled = false
-    //                                self.findBtn.backgroundColor = UIColor.systemGray2
-    //                            }
-    //
-    //                        }
-    //                    }
+                            if responseString! == "1" {
+                            DispatchQueue.main.async{
+                                //view 추가
+                                print("responseString! == 1")
+                                self.findBtn.isEnabled = false
+                                self.findBtn.backgroundColor = UIColor.systemGray2
+                                self.findBtn.setTitle("친구 추가 완료", for: .normal)
+                                
+                                self.normalAlert(titles: "알림", messages: "친구 추가 완료")
+                                }
+                            }else {
+                                print("responseString! != 1")
+                                self.findBtn.isEnabled = false
+                                self.findBtn.backgroundColor = UIColor.systemGray2
+                                self.findBtn.setTitle("친구 추가 실패", for: .normal)
+                            }
     
                     }
                     // POST 전송
