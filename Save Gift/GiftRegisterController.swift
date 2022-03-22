@@ -3,7 +3,7 @@
 //  Save Gift
 //
 //  Created by ukBook on 2022/01/16.
-//
+//  기프티콘 등록 화면
 
 import Foundation
 import UIKit
@@ -37,7 +37,6 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
     
     // 날짜 정규식
     let datePattern: String = "(?<year>[0-9]{4})[-/.](?<month>[0-9]{2})[-/.](?<date>[0-9]{2})"
-
 
     
     let toolBar = UIToolbar()
@@ -507,16 +506,14 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
         if text.count != 0 {
             if !isValidPhone(phone: text.replacingOccurrences(of: "-", with: "")){ //숫자 정규식
                 normalAlert(titles: "알림", messages: "유효기간을 숫자로만 입력해주세요 ('-'를 제외하고 입력)")
-            } else if false{// 날짜 정규식dk
-                
-            } else{
+            }else {
                 switch (text.count) {
                 case 1..<8:
                     normalAlert(titles: "알림", messages: "유효기간을 다시 확인해주세요.\n 2030-09-08 ('-'를 제외하고 입력)")
                     textField.becomeFirstResponder()
                     break;
                     
-                case 8:// 20210515
+                case 8:// 20210515 날짜 정규식 추가 예정
                     textField.text = text.replacingOccurrences(of: "-", with: "").substring(from: 0, to: 3)+"-"+text.replacingOccurrences(of: "-", with: "").substring(from: 4, to: 5)+"-"+text.replacingOccurrences(of: "-", with: "").substring(from: 6, to: 7)
                     break;
                     

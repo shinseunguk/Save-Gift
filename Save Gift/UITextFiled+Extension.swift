@@ -82,6 +82,33 @@ extension String {
         }
     }
     
+    // 패스워드 정규성 체크
+    func validateDate(_ input: String) -> Bool {
+        let regex = "(?<year>[0-9]{4})[-/.](?<month>[0-9]{2})[-/.](?<date>[0-9]{2})" // 8자리 ~ 50자리 영어+숫자+특수문자
+
+        let predicate = NSPredicate(format: "validateDate %@", regex)
+        let isValid = predicate.evaluate(with: input)
+
+        if isValid {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    func hasCharacters() -> Bool {
+        do {
+            let regex = try NSRegularExpression(pattern: "^[0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ`~!@#$%^&*()\\-_=+\\[{\\]}\\\\|;:'\",<.>/?\\s]$", options: .caseInsensitive)
+            if let _ = regex.firstMatch(in: self, options: NSRegularExpression.MatchingOptions.reportCompletion, range: NSMakeRange(0, self.count)) {
+                return true
+            }
+        }catch {
+            return false
+        }
+        return false
+    }
+
+    
     func substring(from: Int, to: Int) -> String {
             guard from < count, to >= 0, to - from >= 0 else {
                 return ""
