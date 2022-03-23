@@ -205,7 +205,7 @@ extension CustomTabBarController{
     
     func needLoginService(_ VC : String){
         let alert = UIAlertController(title: "로그인", message: "로그인이 필요한 서비스입니다. \n 로그인 화면으로 이동하시겠습니까?", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "취소", style: .default) { action in
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel) { action in
             //세번째로 이동시킴
             self.selectedIndex = 2
             self.navigationBarSetting(navigationTitle: "기프티콘 저장")

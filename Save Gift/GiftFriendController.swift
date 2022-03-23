@@ -301,7 +301,7 @@ extension GiftFriendController: UITableViewDelegate, UITableViewDataSource{
         }
         if tableView == bottomTableView {
             if arr2[indexPath.row] != "친구를 추가해 기프티콘을 선물, 공유 해보세요."{
-                print("click.. ", arr2[indexPath.row])
+                self.normalActionSheet(title: "기프티콘 저장소", message: arr2[indexPath.row])
             }
         }
     }
@@ -319,10 +319,10 @@ extension GiftFriendController: UITableViewDelegate, UITableViewDataSource{
     func normalAlert(title : String, message : String, email : String?){
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         if message == "친구가 수락 대기중입니다. 친구요청을 취소 하시겠습니까?" {
-            alert.addAction(UIAlertAction(title: "아니오", style: .default) { action in
+            alert.addAction(UIAlertAction(title: "아니오", style: .destructive) { action in
                 print("아니오")
             })
-            alert.addAction(UIAlertAction(title: "요청취소", style: .default) { action in
+            alert.addAction(UIAlertAction(title: "예", style: .default) { action in
                 print("요청취소")
                 self.requestDeleteFriendWait(requestUrl: "/deleteFriendWait", friend: email!, index: "me")
             })
@@ -338,7 +338,7 @@ extension GiftFriendController: UITableViewDelegate, UITableViewDataSource{
     
     func alert(email : String){
         let alert = UIAlertController(title: "알림", message: "\(email)님이 친구를 요청했습니다. 수락 하시겠습니까?", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "거절", style: .default) { action in
+        alert.addAction(UIAlertAction(title: "거절", style: .destructive) { action in
             print("거절")
             self.reAlert(email: email)
             //DB delete
@@ -360,12 +360,12 @@ extension GiftFriendController: UITableViewDelegate, UITableViewDataSource{
     
     func reAlert(email : String){
         let alert = UIAlertController(title: "알림", message: "정말로 \(email)님을 거절 하시겠습니까?", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "아니오", style: .default) { action in
+        alert.addAction(UIAlertAction(title: "아니오", style: .destructive) { action in
             print("아니오")
             //DB delete
         })
-        alert.addAction(UIAlertAction(title: "거절", style: .default) { action in
-            print("거절")
+        alert.addAction(UIAlertAction(title: "예", style: .default) { action in
+            print("예")
             self.requestDeleteFriendWait(requestUrl: "/deleteFriendWait", friend: email, index: nil)
             //DB delete후
             //DB insert
@@ -377,6 +377,24 @@ extension GiftFriendController: UITableViewDelegate, UITableViewDataSource{
         self.present(alert, animated: true, completion: nil)
 //        actionButton.isHidden = false
         
+    }
+    
+    func normalActionSheet(title : String?, message : String?){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+            alert.addAction(UIAlertAction(title: "선물하기(선물)", style: .default) { action in
+                print("선물하기")
+            })
+            alert.addAction(UIAlertAction(title: "파티초대(공유)", style: .default) { action in
+                print("파티초대")
+            })
+        alert.addAction(UIAlertAction(title: "친구삭제", style: .destructive) { action in
+            print("친구삭제")
+        })
+            alert.addAction(UIAlertAction(title: "취소", style: .cancel) { action in
+                print("취소")
+            })
+            
+        self.present(alert, animated: true, completion: nil)
     }
     
     func requestAddFriend(requestUrl : String!, friend : String) -> Void{
