@@ -3,7 +3,8 @@
 //  Save Gift
 //
 //  Created by ukBook on 2021/12/25.
-//  기프티콘 사용법ㅋ
+//  기프티콘 사용법
+// ViewPager url : https://lidium.tistory.com/14
 
 import Foundation
 import UIKit
@@ -35,7 +36,8 @@ class GiftSaveController : UIViewController {
     //기기 가로길이 구하기
     let screenWidth = UIScreen.main.bounds.size.width
     
-    var viewPagerArr = ["미사용+사t용 기프티콘", "미사용 기프티콘", "사용한 기프티콘"]
+//    var viewPagerArr = ["미사용+사용 기프티콘", "미사용 기프티콘", "사용 기프티콘"]
+    var viewPagerArr = ["All", "Unused", "Used"]
     var barndNameLabelArr = ["BHC","BBQ","피자나라 치킨공주","교촌치킨","60계치킨","처갓집양념치킨","호식이두마리치킨","꾸브라꼬숯불두마리치킨"]
     var expirationPeriodLabelArr = ["2022-04-14","2022-04-15","2022-04-16","2022-04-19","2022-04-20","2022-05-14","2022-02-14","2022-04-30"]
     
@@ -323,7 +325,8 @@ extension GiftSaveController: UICollectionViewDelegate, UICollectionViewDataSour
             let cellTop = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewTopCell", for: indexPath) as! CollectionViewTopCell
             print("self.collectionViewTop")
             cellTop.viewPagerLabel.text = viewPagerArr[indexPath.row]
-            cellTop.layer.borderColor = UIColor.red.cgColor
+//            cellTop.layer.borderColor = UIColor.red.cgColor
+//            cellTop.layer.borderWidth = 1.0
             
             return cellTop
         }
