@@ -18,6 +18,8 @@ class GiftSaveController : UIViewController {
     @IBOutlet weak var viewMain: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var filterButton: UIButton!
+    @IBOutlet weak var collectionViewTop: UICollectionView!
+    @IBOutlet weak var cellTopText: UILabel!
     let giftReigster : GiftRegisterController = GiftRegisterController()
     
     let sectionInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
@@ -33,6 +35,7 @@ class GiftSaveController : UIViewController {
     //기기 가로길이 구하기
     let screenWidth = UIScreen.main.bounds.size.width
     
+    var viewPagerArr = ["미사용+사t용 기프티콘", "미사용 기프티콘", "사용한 기프티콘"]
     var barndNameLabelArr = ["BHC","BBQ","피자나라 치킨공주","교촌치킨","60계치킨","처갓집양념치킨","호식이두마리치킨","꾸브라꼬숯불두마리치킨"]
     var expirationPeriodLabelArr = ["2022-04-14","2022-04-15","2022-04-16","2022-04-19","2022-04-20","2022-05-14","2022-02-14","2022-04-30"]
     
@@ -49,6 +52,12 @@ class GiftSaveController : UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(UINib(nibName: "CollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CollectionViewCell")
+        
+        collectionViewTop.delegate = self
+        collectionViewTop.dataSource = self
+        collectionViewTop.register(UINib(nibName: "CollectionViewTopCell", bundle: nil), forCellWithReuseIdentifier: "CollectionViewTopCell")
+        collectionViewTop.isScrollEnabled = false
+        
         
         //드롭다운 btn
         dropDown.dataSource = ["최근등록순", "등록일순", "유효기간 임박순", "상품명순", "교환처 이름순"]
@@ -67,6 +76,8 @@ class GiftSaveController : UIViewController {
         
         //collectionview layout
         setupFlowLayout()
+        
+        setupFlowLayoutTop()
         
         //blur효과
         btnBlurCreate()
@@ -145,6 +156,24 @@ class GiftSaveController : UIViewController {
         flowLayout.footerReferenceSize = CGSize(width: halfWidth * 3, height: 70)
         flowLayout.sectionFootersPinToVisibleBounds = true
         self.collectionView.collectionViewLayout = flowLayout
+    }
+    
+    private func setupFlowLayoutTop() {
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.sectionInset = UIEdgeInsets.zero
+        
+        flowLayout.minimumInteritemSpacing = 0 // 좌우 margin
+        flowLayout.minimumLineSpacing = 0 // 위아래 margin
+        
+        
+        let halfWidth = UIScreen.main.bounds.width / 3
+//        flowLayout.itemSize = CGSize(width: halfWidth * 0.9 , height: halfWidth * 0.9)
+        flowLayout.itemSize = CGSize(width: halfWidth * 1 , height: 50)
+        print("UIScreen.main.bounds.width ", UIScreen.main.bounds.width)
+        print("halfWidth ", halfWidth)
+        flowLayout.footerReferenceSize = CGSize(width: halfWidth * 3, height: 70)
+        flowLayout.sectionFootersPinToVisibleBounds = true
+        self.collectionViewTop.collectionViewLayout = flowLayout
     }
     
     // MARK: 블루 추가 버튼
@@ -258,30 +287,48 @@ class GiftSaveController : UIViewController {
 extension GiftSaveController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 //        print("collectionItems.count ", expirationPeriodLabelArr.count)
-        return expirationPeriodLabelArr.count
+        if collectionView == self.collectionView{
+            print("self.collectionView ", expirationPeriodLabelArr.count)
+            return expirationPeriodLabelArr.count
+        }
+        if collectionView == self.collectionViewTop{
+            print("self.collectionViewTop ", viewPagerArr.count)
+            return viewPagerArr.count
+        }
+        
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        print("indexPath... ", indexPath)
-//        print("collectionItems[indexPath.row]... ", expirationPeriodLabelArr[indexPath.row])
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
-        //  Configure the Cell
-        cell.brandNameLabel.text = barndNameLabelArr[indexPath.row]
-        cell.productNameLabel.text = "\("뿌링클 순살 + 1.25L 콜라 + 치즈볼")"
-//        print("ddfkmweofmwlekmf ", Int(cell.productNameLabel.text!.count / 15) + 1)
-        cell.expirationPeriodLabel.text = "유효기간 : \(expirationPeriodLabelArr[indexPath.row])"
-//        cell.registrantLabel.text = "등록자 : \("ghdrlfehd@naver.com(신승욱)")"
-//        cell.layer.borderWidth = 2.0
-//        cell.layer.borderColor = UIColor.red.cgColor
-        cell.cellImageView.image = UIImage(named: "saewookkang")
         
-//        @IBOutlet weak var brandLabel: UILabel!
-//        @IBOutlet weak var productNameLabel: UILabel!
-//        @IBOutlet weak var expirationPeriodLabel: UILabel!
-//        @IBOutlet weak var registrantLabel: UILabel!
-//        @IBOutlet weak var cellImageView: UIImageView!
+        //        print("indexPath... ", indexPath)
+        //        print("collectionItems[indexPath.row]... ", expirationPeriodLabelArr[indexPath.row])
         
-        return cell
+        if collectionView == self.collectionView{
+            print("self.collectionView")
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
+            //  Configure the Cell
+            cell.brandNameLabel.text = barndNameLabelArr[indexPath.row]
+            cell.productNameLabel.text = "\("뿌링클 순살 + 1.25L 콜라 + 치즈볼")"
+    //        print("ddfkmweofmwlekmf ", Int(cell.productNameLabel.text!.count / 15) + 1)
+            cell.expirationPeriodLabel.text = "유효기간 : \(expirationPeriodLabelArr[indexPath.row])"
+    //        cell.registrantLabel.text = "등록자 : \("ghdrlfehd@naver.com(신승욱)")"
+    //        cell.layer.borderWidth = 2.0
+    //        cell.layer.borderColor = UIColor.red.cgColor
+            cell.cellImageView.image = UIImage(named: "saewookkang")
+            
+            return cell
+        }
+        if collectionView == self.collectionViewTop{
+            let cellTop = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewTopCell", for: indexPath) as! CollectionViewTopCell
+            print("self.collectionViewTop")
+            cellTop.viewPagerLabel.text = viewPagerArr[indexPath.row]
+            cellTop.layer.borderColor = UIColor.red.cgColor
+            
+            return cellTop
+        }
+        
+        return UICollectionViewCell()
     }
     
     

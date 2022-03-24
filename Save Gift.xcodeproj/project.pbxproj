@@ -9,8 +9,10 @@
 /* Begin PBXBuildFile section */
 		041E83CF27D9DD7600AEB546 /* GetFriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041E83CD27D9DD7600AEB546 /* GetFriendTableViewCell.swift */; };
 		041E83D027D9DD7600AEB546 /* GetFriendTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 041E83CE27D9DD7600AEB546 /* GetFriendTableViewCell.xib */; };
+		048124F327EC1F07003DF866 /* CollectionViewTopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048124F127EC1F07003DF866 /* CollectionViewTopCell.swift */; };
+		048124F427EC1F07003DF866 /* CollectionViewTopCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048124F227EC1F07003DF866 /* CollectionViewTopCell.xib */; };
 		A20D2682276A151700470D06 /* Register3Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20D2681276A151700470D06 /* Register3Controller.swift */; };
-		A213100127A97C5300A98783 /* BuildFile in Embed Frameworks */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A213100127A97C5300A98783 /* (null) in Embed Frameworks */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A218F1A1276E093D00E71316 /* UnlockController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A218F1A0276E093D00E71316 /* UnlockController.swift */; };
 		A21C6D5B276F630900BDE1E4 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21C6D5A276F630900BDE1E4 /* SideMenuViewController.swift */; };
 		A21C6D5D276F646000BDE1E4 /* CustomSideMenuNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21C6D5C276F646000BDE1E4 /* CustomSideMenuNavigation.swift */; };
@@ -73,7 +75,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				A213100127A97C5300A98783 /* BuildFile in Embed Frameworks */,
+				A213100127A97C5300A98783 /* (null) in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -83,6 +85,8 @@
 /* Begin PBXFileReference section */
 		041E83CD27D9DD7600AEB546 /* GetFriendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetFriendTableViewCell.swift; sourceTree = "<group>"; };
 		041E83CE27D9DD7600AEB546 /* GetFriendTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GetFriendTableViewCell.xib; sourceTree = "<group>"; };
+		048124F127EC1F07003DF866 /* CollectionViewTopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewTopCell.swift; sourceTree = "<group>"; };
+		048124F227EC1F07003DF866 /* CollectionViewTopCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionViewTopCell.xib; sourceTree = "<group>"; };
 		45BFE925B26CCF47D171DCB5 /* Pods-Save Gift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Save Gift.debug.xcconfig"; path = "Target Support Files/Pods-Save Gift/Pods-Save Gift.debug.xcconfig"; sourceTree = "<group>"; };
 		79A38683125D429C450580ED /* Pods_Save_Gift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Save_Gift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A20D2681276A151700470D06 /* Register3Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Register3Controller.swift; sourceTree = "<group>"; };
@@ -702,6 +706,8 @@
 				A27F4BE727CA90B700F9ED4A /* FriendController.swift */,
 				041E83CD27D9DD7600AEB546 /* GetFriendTableViewCell.swift */,
 				041E83CE27D9DD7600AEB546 /* GetFriendTableViewCell.xib */,
+				048124F127EC1F07003DF866 /* CollectionViewTopCell.swift */,
+				048124F227EC1F07003DF866 /* CollectionViewTopCell.xib */,
 			);
 			path = "Save Gift";
 			sourceTree = "<group>";
@@ -1275,6 +1281,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				041E83D027D9DD7600AEB546 /* GetFriendTableViewCell.xib in Resources */,
+				048124F427EC1F07003DF866 /* CollectionViewTopCell.xib in Resources */,
 				A2AF3FD4279588510076F426 /* naver.png in Resources */,
 				A2B6C2E327A8239600B8617B /* RegisterBarcodeTableViewCell.xib in Resources */,
 				A2B6C2DF27A81E2100B8617B /* RegisterUseTableViewCell.xib in Resources */,
@@ -1382,6 +1389,7 @@
 				A2D33524275E474D00ECF4B1 /* UITextFiled+Extension.swift in Sources */,
 				A225D701275B5FD500484EAE /* ViewController.swift in Sources */,
 				A2D2FDA42777414A0036B849 /* GiftPresentController.swift in Sources */,
+				048124F327EC1F07003DF866 /* CollectionViewTopCell.swift in Sources */,
 				A2D493642790624C00FB5770 /* SettingSecessionController.swift in Sources */,
 				A27F4BE827CA90B700F9ED4A /* FriendController.swift in Sources */,
 				A21C6D5D276F646000BDE1E4 /* CustomSideMenuNavigation.swift in Sources */,
