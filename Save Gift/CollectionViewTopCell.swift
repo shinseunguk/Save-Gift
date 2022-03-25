@@ -14,5 +14,22 @@ class CollectionViewTopCell: UICollectionViewCell {
         super.awakeFromNib()
         // Initialization code
     }
+    
+    override var isSelected: Bool {
+        willSet {
+            if newValue {
+                viewPagerLabel.textColor = .red
+                
+            } else {
+                viewPagerLabel.textColor = .lightGray
+            }
+        }
+    }
+    
+    override func prepareForReuse() {
+        isSelected = false
+    }
 
 }
+
+
