@@ -5,6 +5,8 @@
 //  Created by ukBook on 2021/12/25.
 //  기프티콘 사용법
 // ViewPager url : https://lidium.tistory.com/14
+// https://lidium.tistory.com/13
+// https://nsios.tistory.com/44
 
 import Foundation
 import UIKit
@@ -78,8 +80,11 @@ class GiftSaveController : UIViewController {
         
         //collectionview layout
         setupFlowLayout()
-        
+
+        //collectionViewTop css 설정
         setupFlowLayoutTop()
+        //collectionViewTop 초기 설정
+        setTabbar()
         
         //blur효과
         btnBlurCreate()
@@ -87,6 +92,18 @@ class GiftSaveController : UIViewController {
         //가운데 lock btn
         lockBtn()
     }
+    
+    func setTabbar() {
+        collectionViewTop.delegate = self
+        collectionViewTop.dataSource = self
+
+        let firstIndexPath = IndexPath(item: 0, section: 0)
+        // delegate 호출
+        collectionView(collectionViewTop, didSelectItemAt: firstIndexPath)
+        // cell select®
+        collectionViewTop.selectItem(at: firstIndexPath, animated: false, scrollPosition: .right)
+    }
+
     
     @IBAction func dropDownAction(_ sender: Any) {
         dropDown.show()
@@ -332,6 +349,36 @@ extension GiftSaveController: UICollectionViewDelegate, UICollectionViewDataSour
         }
         
         return UICollectionViewCell()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == self.collectionView {
+            print("collectionView didSelectItemAt.... ", indexPath.row)
+        }else if collectionView == self.collectionViewTop {
+            print("self.collectionViewTop ", indexPath.row)
+//            let index = IndexPath(row: indexPath.row, section: 0)
+//            let cellTop: CollectionViewTopCell = self.tableView.cellForRow(at: index) as! CollectionViewTopCell
+//            switch indexPath.row {
+//            case 0:
+//                cellTop
+//            case 1:
+//                cellTop.viewPagerLabel.textColor = UIColor.lightGray
+//            case 2:
+//                cellTop.viewPagerLabel.textColor = UIColor.lightGray
+//            default:
+//                print("default")
+//            }
+            
+//            highlightView.translatesAutoresizingMaskIntoConstraints = false
+//            constraints = [
+//                highlightView.leadingAnchor.constraint(equalTo: cell.leadingAnchor),
+//                highlightView.trailingAnchor.constraint(equalTo: cell.trailingAnchor)
+//            ] NSLayoutConstraint.activate(constraints)
+//            UIView.animate(withDuration: 0.3) {
+//                self.view.layoutIfNeeded()
+//
+//            }
+        }
     }
     
     
