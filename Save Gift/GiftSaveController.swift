@@ -7,6 +7,7 @@
 // ViewPager url : https://lidium.tistory.com/14
 // https://lidium.tistory.com/13
 // https://nsios.tistory.com/44
+// https://dongminyoon.tistory.com/24 -----------> 2022 03 26
 
 import Foundation
 import UIKit
@@ -53,33 +54,11 @@ class GiftSaveController : UIViewController {
         super.viewDidLoad()
         print("GiftSaveController viewDidLoad")
         print("cellWidth/3 : ", cellHeight3)
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.register(UINib(nibName: "CollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CollectionViewCell")
         
         collectionViewTop.delegate = self
         collectionViewTop.dataSource = self
         collectionViewTop.register(UINib(nibName: "CollectionViewTopCell", bundle: nil), forCellWithReuseIdentifier: "CollectionViewTopCell")
         collectionViewTop.isScrollEnabled = false
-        
-        
-        //드롭다운 btn
-        dropDown.dataSource = ["최근등록순", "등록일순", "유효기간 임박순", "상품명순", "교환처 이름순"]
-        dropDown.anchorView = filterButton
-        dropDown.bottomOffset = CGPoint(x: 0, y:(dropDown.anchorView?.plainView.bounds.height)!)
-
-        //드롭다운 선택
-        dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
-            print("선택한 아이템 : \(item)")
-            print("인덱스 : \(index)")
-            self.dropDown.clearSelection()
-            filterButton.setTitle(" "+item, for: .normal)
-            
-            collectionView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
-        }
-        
-        //collectionview layout
-        setupFlowLayout()
 
         //collectionViewTop css 설정
         setupFlowLayoutTop()
@@ -101,7 +80,7 @@ class GiftSaveController : UIViewController {
         // delegate 호출
         collectionView(collectionViewTop, didSelectItemAt: firstIndexPath)
         // cell select®
-        collectionViewTop.selectItem(at: firstIndexPath, animated: false, scrollPosition: .right)
+        collectionViewTop.selectItem(at: firstIndexPath, animated: false, scrollPosition: .bottom)
     }
 
     
@@ -304,6 +283,7 @@ class GiftSaveController : UIViewController {
 }
 
 extension GiftSaveController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 //        print("collectionItems.count ", expirationPeriodLabelArr.count)
         if collectionView == self.collectionView{
@@ -323,21 +303,21 @@ extension GiftSaveController: UICollectionViewDelegate, UICollectionViewDataSour
         //        print("indexPath... ", indexPath)
         //        print("collectionItems[indexPath.row]... ", expirationPeriodLabelArr[indexPath.row])
         
-        if collectionView == self.collectionView{
-            print("self.collectionView")
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
-            //  Configure the Cell
-            cell.brandNameLabel.text = barndNameLabelArr[indexPath.row]
-            cell.productNameLabel.text = "\("뿌링클 순살 + 1.25L 콜라 + 치즈볼")"
-    //        print("ddfkmweofmwlekmf ", Int(cell.productNameLabel.text!.count / 15) + 1)
-            cell.expirationPeriodLabel.text = "유효기간 : \(expirationPeriodLabelArr[indexPath.row])"
-    //        cell.registrantLabel.text = "등록자 : \("ghdrlfehd@naver.com(신승욱)")"
-    //        cell.layer.borderWidth = 2.0
-    //        cell.layer.borderColor = UIColor.red.cgColor
-            cell.cellImageView.image = UIImage(named: "saewookkang")
-            
-            return cell
-        }
+//        if collectionView == self.collectionView{
+//            print("self.collectionView")
+//            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
+//            //  Configure the Cell
+//            cell.brandNameLabel.text = barndNameLabelArr[indexPath.row]
+//            cell.productNameLabel.text = "\("뿌링클 순살 + 1.25L 콜라 + 치즈볼")"
+//    //        print("ddfkmweofmwlekmf ", Int(cell.productNameLabel.text!.count / 15) + 1)
+//            cell.expirationPeriodLabel.text = "유효기간 : \(expirationPeriodLabelArr[indexPath.row])"
+//    //        cell.registrantLabel.text = "등록자 : \("ghdrlfehd@naver.com(신승욱)")"
+//    //        cell.layer.borderWidth = 2.0
+//    //        cell.layer.borderColor = UIColor.red.cgColor
+//            cell.cellImageView.image = UIImage(named: "saewookkang")
+//
+//            return cell
+//        }
         if collectionView == self.collectionViewTop{
             let cellTop = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewTopCell", for: indexPath) as! CollectionViewTopCell
             print("self.collectionViewTop")
@@ -352,33 +332,84 @@ extension GiftSaveController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        var delegate: PagingTabbarDelegate?
         if collectionView == self.collectionView {
             print("collectionView didSelectItemAt.... ", indexPath.row)
         }else if collectionView == self.collectionViewTop {
             print("self.collectionViewTop ", indexPath.row)
-//            let index = IndexPath(row: indexPath.row, section: 0)
-//            let cellTop: CollectionViewTopCell = self.tableView.cellForRow(at: index) as! CollectionViewTopCell
-//            switch indexPath.row {
-//            case 0:
-//                cellTop
-//            case 1:
-//                cellTop.viewPagerLabel.textColor = UIColor.lightGray
-//            case 2:
-//                cellTop.viewPagerLabel.textColor = UIColor.lightGray
-//            default:
-//                print("default")
-//            }
-            
-//            highlightView.translatesAutoresizingMaskIntoConstraints = false
-//            constraints = [
-//                highlightView.leadingAnchor.constraint(equalTo: cell.leadingAnchor),
-//                highlightView.trailingAnchor.constraint(equalTo: cell.trailingAnchor)
-//            ] NSLayoutConstraint.activate(constraints)
-//            UIView.animate(withDuration: 0.3) {
-//                self.view.layoutIfNeeded()
-//
-//            }
+            delegate?.scrollToIndex(to: indexPath.row)
         }
+    }
+        
+    // 콘텐츠 뷰에 따라 페이지를 바꾸어주는 코드
+    func scroll(to index: Int) {
+        self.collectionViewTop.selectItem(at: IndexPath(row: index, section: 0), animated: true, scrollPosition: [])
+    }
+    
+    
+}
+
+class Page1VC: UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource {
+    
+    var pageDelegate: PagingTabbarDelegate?
+    var identifiers: NSArray = ["AllVC", "UnusedVC", "UsedVC"]
+    
+    lazy var VCArray: [UIViewController] = {
+        return [self.VCInstance(name: "AllVC"),
+                self.VCInstance(name: "UnusedVC"),
+                self.VCInstance(name: "UsedVC")]
+    }()
+    
+    required init?(coder aDecoder: NSCoder) {
+          super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+          
+    }
+    
+    private func VCInstance(name: String) -> UIViewController {
+        return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: name)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.dataSource = self
+        self.delegate = self
+        
+        if let firstVC = VCArray.first{
+            
+            setViewControllers([firstVC], direction: .forward, animated: true, completion: nil)
+        }
+    }
+    
+    
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        guard let viewControllerIndex = VCArray.firstIndex(of: viewController) else { return nil }
+        
+               let previousIndex = viewControllerIndex - 1
+            //test
+            print("pageIndex1 ",previousIndex)
+               
+               if previousIndex < 0 {
+                   return VCArray.last
+               } else {
+                   return VCArray[previousIndex]
+               }
+    }
+    
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        guard let viewControllerIndex = VCArray.firstIndex(of: viewController) else { return nil }
+               
+               let nextIndex = viewControllerIndex + 1
+            
+        //test
+        print("pageIndex2 ",nextIndex)
+               
+               if nextIndex >= VCArray.count {
+                   return VCArray.first
+               } else {
+                   return VCArray[nextIndex]
+               }
     }
     
     
