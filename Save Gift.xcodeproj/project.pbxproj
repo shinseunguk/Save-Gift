@@ -30,6 +30,9 @@
 		A27F4BE827CA90B700F9ED4A /* FriendController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27F4BE727CA90B700F9ED4A /* FriendController.swift */; };
 		A28A06B42794413000876560 /* GiftRegisterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28A06B32794413000876560 /* GiftRegisterController.swift */; };
 		A28F439A276F55B700B5DB17 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28F4399276F55B700B5DB17 /* MainController.swift */; };
+		A2907E1827EF86E90001148D /* Page1Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2907E1727EF86E90001148D /* Page1Controller.swift */; };
+		A2907E1A27EF879C0001148D /* Page2Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2907E1927EF879C0001148D /* Page2Controller.swift */; };
+		A2907E1C27EF87A20001148D /* Page3Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2907E1B27EF87A20001148D /* Page3Controller.swift */; };
 		A293992327C257F2007DD927 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A293992127C257F2007DD927 /* CollectionViewCell.swift */; };
 		A293992427C257F2007DD927 /* CollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A293992227C257F2007DD927 /* CollectionViewCell.xib */; };
 		A293992827C7A79E007DD927 /* saewookkang.png in Resources */ = {isa = PBXBuildFile; fileRef = A293992727C7A79E007DD927 /* saewookkang.png */; };
@@ -582,6 +585,9 @@
 		A28A06B32794413000876560 /* GiftRegisterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftRegisterController.swift; sourceTree = "<group>"; };
 		A28F4397276F44B700B5DB17 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
 		A28F4399276F55B700B5DB17 /* MainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
+		A2907E1727EF86E90001148D /* Page1Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page1Controller.swift; sourceTree = "<group>"; };
+		A2907E1927EF879C0001148D /* Page2Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page2Controller.swift; sourceTree = "<group>"; };
+		A2907E1B27EF87A20001148D /* Page3Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page3Controller.swift; sourceTree = "<group>"; };
 		A293992127C257F2007DD927 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		A293992227C257F2007DD927 /* CollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionViewCell.xib; sourceTree = "<group>"; };
 		A293992727C7A79E007DD927 /* saewookkang.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = saewookkang.png; sourceTree = "<group>"; };
@@ -708,6 +714,9 @@
 				041E83CE27D9DD7600AEB546 /* GetFriendTableViewCell.xib */,
 				048124F127EC1F07003DF866 /* CollectionViewTopCell.swift */,
 				048124F227EC1F07003DF866 /* CollectionViewTopCell.xib */,
+				A2907E1727EF86E90001148D /* Page1Controller.swift */,
+				A2907E1927EF879C0001148D /* Page2Controller.swift */,
+				A2907E1B27EF87A20001148D /* Page3Controller.swift */,
 			);
 			path = "Save Gift";
 			sourceTree = "<group>";
@@ -1396,13 +1405,16 @@
 				A2D493622790620400FB5770 /* SettingHowToUseController.swift in Sources */,
 				A21FB36B27983673003821C6 /* SettingMyInfo2Controller.swift in Sources */,
 				A2DFB7D72770973F00BB9D21 /* GetDeivceModel.swift in Sources */,
+				A2907E1C27EF87A20001148D /* Page3Controller.swift in Sources */,
 				A225D6FD275B5FD500484EAE /* AppDelegate.swift in Sources */,
 				A2D4935A27905EF300FB5770 /* SettingMyInfoController.swift in Sources */,
+				A2907E1827EF86E90001148D /* Page1Controller.swift in Sources */,
 				A21C6D5B276F630900BDE1E4 /* SideMenuViewController.swift in Sources */,
 				041E83CF27D9DD7600AEB546 /* GetFriendTableViewCell.swift in Sources */,
 				A225D6FF275B5FD500484EAE /* SceneDelegate.swift in Sources */,
 				A2D2FDA6277741A30036B849 /* GiftShareController.swift in Sources */,
 				A2B6C2E227A8239600B8617B /* RegisterBarcodeTableViewCell.swift in Sources */,
+				A2907E1A27EF879C0001148D /* Page2Controller.swift in Sources */,
 				A28A06B42794413000876560 /* GiftRegisterController.swift in Sources */,
 				A2D493602790618F00FB5770 /* SettingAppVersionController.swift in Sources */,
 			);
