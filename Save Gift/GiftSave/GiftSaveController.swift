@@ -235,15 +235,23 @@ class GiftSaveController : UIViewController {
         auth()
     }
     
+    // 얼굴이 인식되지 않음
+    // 다시 시도
+    // Face ID를 다시 시도하십시오.
+    // 취소
+    // Face ID 시도 횟수 초과됨
+    // Face ID를 사용할 수 없습니다.
     func auth() {
         
         let authContext = LAContext()
         var error: NSError?
         var description: String!
+        
+        var authCount : Int = 0
 
 //        if authContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
         if authContext.canEvaluatePolicy(.deviceOwnerAuthentication, error: &error) {
-            print("authContext.biometryType ", authContext.biometryType)
+//            print("authContext.biometryType ", authContext.biometryType)
             switch authContext.biometryType {
             case .faceID:
                 description = "서비스를 이용하기 위해 인증 합니다."
@@ -271,7 +279,13 @@ class GiftSaveController : UIViewController {
                 } else {
                     print("인증 실패")
                     if let error = error {
-                        print(error.localizedDescription)
+                        if authCount < 3 {
+                            self.auth()
+                        }else {
+                            print(error.localizedDescription)
+                        }
+                        
+                        authCount += 1
                     }
                 }
                 
