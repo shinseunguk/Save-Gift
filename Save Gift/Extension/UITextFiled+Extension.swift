@@ -109,6 +109,7 @@ extension String {
     }
 
     
+    // 문자열 자르기
     func substring(from: Int, to: Int) -> String {
             guard from < count, to >= 0, to - from >= 0 else {
                 return ""
