@@ -10,6 +10,7 @@ import UIKit
 protocol PagingTabbarDelegate {
     func scrollToIndex(to index: Int)
 }
+
 class CollectionViewTopCell: UICollectionViewCell {
     
     var delegate: PagingTabbarDelegate?
@@ -28,11 +29,26 @@ class CollectionViewTopCell: UICollectionViewCell {
                 viewPagerLabel.textColor = .red
                 viewPagerLabel.font = .boldSystemFont(ofSize: 14)
                 self.menuUnderBar.layer.borderWidth = 1.3
+                print("viewPagerLabel.text ", viewPagerLabel.text!)
             } else {
                 viewPagerLabel.textColor = .lightGray
                 viewPagerLabel.font = .boldSystemFont(ofSize: 13)
                 self.menuUnderBar.layer.borderWidth = 0.0
             }
+//                switch viewPagerLabel.text! {
+//                case "All":
+//                    print("All...")
+//                    break
+//                case "Unused":
+//                    print("Unused...")
+//                    break
+//                case "Used":
+//                    print("Used...")
+//                    break
+//                default:
+//                    print("default")
+//                }
+            delegate?.scrollToIndex(to: 3)
         }
         
         didSet {

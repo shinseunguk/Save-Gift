@@ -14,6 +14,7 @@ import UIKit
 import JJFloatingActionButton
 import DropDown
 import LocalAuthentication
+import Protobuf
 
 class GiftSaveController : UIViewController {
     
@@ -24,6 +25,7 @@ class GiftSaveController : UIViewController {
     @IBOutlet weak var filterButton: UIButton!
     @IBOutlet weak var collectionViewTop: UICollectionView!
     @IBOutlet weak var cellTopText: UILabel!
+    @IBOutlet weak var viewPager: UIView!
     let giftReigster : GiftRegisterController = GiftRegisterController()
     
     let sectionInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
@@ -58,7 +60,7 @@ class GiftSaveController : UIViewController {
         collectionViewTop.delegate = self
         collectionViewTop.dataSource = self
         collectionViewTop.register(UINib(nibName: "CollectionViewTopCell", bundle: nil), forCellWithReuseIdentifier: "CollectionViewTopCell")
-        collectionViewTop.isScrollEnabled = false
+//        collectionViewTop.isScrollEnabled = false
 
         //collectionViewTop css 설정
         setupFlowLayoutTop()
@@ -248,6 +250,7 @@ class GiftSaveController : UIViewController {
         var description: String!
         
         var authCount : Int = 0
+        authContext.localizedCancelTitle = "취소"
 
 //        if authContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
         if authContext.canEvaluatePolicy(.deviceOwnerAuthentication, error: &error) {
@@ -305,7 +308,7 @@ extension GiftSaveController: UICollectionViewDelegate, UICollectionViewDataSour
             return expirationPeriodLabelArr.count
         }
         if collectionView == self.collectionViewTop{
-            print("self.collectionViewTop ", viewPagerArr.count)
+//            print("self.collectionViewTop ", viewPagerArr.count)
             return viewPagerArr.count
         }
         
@@ -334,7 +337,7 @@ extension GiftSaveController: UICollectionViewDelegate, UICollectionViewDataSour
 //        }
         if collectionView == self.collectionViewTop{
             let cellTop = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewTopCell", for: indexPath) as! CollectionViewTopCell
-            print("self.collectionViewTop")
+//            print("self.collectionViewTop")
             cellTop.viewPagerLabel.text = viewPagerArr[indexPath.row]
 //            cellTop.layer.borderColor = UIColor.red.cgColor
 //            cellTop.layer.borderWidth = 1.0
@@ -349,22 +352,36 @@ extension GiftSaveController: UICollectionViewDelegate, UICollectionViewDataSour
         
         var delegate: PagingTabbarDelegate?
         if collectionView == self.collectionView {
-            print("collectionView didSelectItemAt.... ", indexPath.row)
+//            print("collectionView didSelectItemAt.... ", indexPath.row)
         }else if collectionView == self.collectionViewTop {
-            print("self.collectionViewTop ", indexPath.row)
-            delegate?.scrollToIndex(to: indexPath.row)
+            switch indexPath.row {
+            case 0:
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+            default:
+                print("default")
+                break;
+            }
         }
     }
         
     // 콘텐츠 뷰에 따라 페이지를 바꾸어주는 코드
     func scroll(to index: Int) {
-        self.collectionViewTop.selectItem(at: IndexPath(row: index, section: 0), animated: true, scrollPosition: [])
+        self.collectionViewTop.selectItem(at: IndexPath(row: index, section: 0), animated: true, scrollPosition: .bottom)
     }
     
     
 }
 
-class Page1VC: UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource {
+class Page1VC:UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource, PagingTabbarDelegate{
+    var collectionViewTopCell : CollectionViewTopCell?
+    
+    func scrollToIndex(to index: Int) {
+        print("scrollToIndex ", index)
+    }
     
     var pageDelegate: PagingTabbarDelegate?
     var identifiers: NSArray = ["AllVC", "UnusedVC", "UsedVC"]
@@ -401,8 +418,6 @@ class Page1VC: UIPageViewController, UIPageViewControllerDelegate, UIPageViewCon
         guard let viewControllerIndex = VCArray.firstIndex(of: viewController) else { return nil }
         
                let previousIndex = viewControllerIndex - 1
-            //test
-            print("pageIndex1 ",previousIndex)
                
                if previousIndex < 0 {
                    return VCArray.last
@@ -415,9 +430,6 @@ class Page1VC: UIPageViewController, UIPageViewControllerDelegate, UIPageViewCon
         guard let viewControllerIndex = VCArray.firstIndex(of: viewController) else { return nil }
                
                let nextIndex = viewControllerIndex + 1
-            
-        //test
-        print("pageIndex2 ",nextIndex)
                
                if nextIndex >= VCArray.count {
                    return VCArray.first
