@@ -96,7 +96,7 @@ extension Page1Controller: UICollectionViewDelegate, UICollectionViewDataSource 
         //        print("indexPath... ", indexPath)
         //        print("collectionItems[indexPath.row]... ", expirationPeriodLabelArr[indexPath.row])
         
-            print("self.collectionView")
+//            print("self.collectionView")
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
             //  Configure the Cell
             cell.brandNameLabel.text = barndNameLabelArr[indexPath.row]
