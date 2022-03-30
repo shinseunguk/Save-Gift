@@ -371,6 +371,7 @@ extension GiftSaveController: UICollectionViewDelegate, UICollectionViewDataSour
     // 콘텐츠 뷰에 따라 페이지를 바꾸어주는 코드
     func scroll(to index: Int) {
         self.collectionViewTop.selectItem(at: IndexPath(row: index, section: 0), animated: true, scrollPosition: .bottom)
+        print("scrollIndex ", index)
     }
     
     
@@ -378,6 +379,7 @@ extension GiftSaveController: UICollectionViewDelegate, UICollectionViewDataSour
 
 class Page1VC:UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource, PagingTabbarDelegate{
     var collectionViewTopCell : CollectionViewTopCell?
+    var scrollDelegate : scrollDelegate?
     
     func scrollToIndex(to index: Int) {
         print("scrollToIndex ", index)
