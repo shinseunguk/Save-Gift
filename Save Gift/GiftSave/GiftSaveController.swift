@@ -379,7 +379,6 @@ extension GiftSaveController: UICollectionViewDelegate, UICollectionViewDataSour
 
 class Page1VC:UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource, PagingTabbarDelegate{
     var collectionViewTopCell : CollectionViewTopCell?
-    var scrollDelegate : scrollDelegate?
     
     func scrollToIndex(to index: Int) {
         print("scrollToIndex ", index)
