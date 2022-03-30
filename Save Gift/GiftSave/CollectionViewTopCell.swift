@@ -3,7 +3,8 @@
 //  Save Gift
 //
 //  Created by mac on 2022/03/24.
-//
+//  https://eastbyeden.tistory.com/11
+// github.com/rising-jun/BasicUI
 
 import UIKit
 
@@ -33,12 +34,15 @@ class CollectionViewTopCell: UICollectionViewCell {
                 switch viewPagerLabel.text! {
                 case "All":
                     print("All...")
+                    self.scrollToIndexFunc(page: 0)
                     break
                 case "Unused":
                     print("Unused...")
+                    self.scrollToIndexFunc(page: 1)
                     break
                 case "Used":
                     print("Used...")
+                    self.scrollToIndexFunc(page: 2)
                     break
                 default:
                     print("default")
@@ -48,8 +52,6 @@ class CollectionViewTopCell: UICollectionViewCell {
                 viewPagerLabel.font = .boldSystemFont(ofSize: 13)
                 self.menuUnderBar.layer.borderWidth = 0.0
             }
-                
-            delegate?.scrollToIndex(to: 3)
         }
         
         didSet {
@@ -73,10 +75,14 @@ class CollectionViewTopCell: UICollectionViewCell {
             }
     }
     
-    
     override func prepareForReuse() {
         isSelected = false
         print("prepareForReuse")
+    }
+    
+    func scrollToIndexFunc(page : Int) {
+        self.delegate?.scrollToIndex(to: page);
+        print("scrollToIndexFunc")
     }
 
 }
