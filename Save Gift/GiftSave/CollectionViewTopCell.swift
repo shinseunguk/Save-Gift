@@ -8,14 +8,8 @@
 
 import UIKit
 
-protocol PagingTabbarDelegate : AnyObject {
-    func scrollToIndex(to index: Int)
-}
-
 class CollectionViewTopCell: UICollectionViewCell {
     
-    var delegate: PagingTabbarDelegate?
-
     @IBOutlet weak var viewPagerLabel: UILabel!
     @IBOutlet weak var menuUnderBar: UIView!
     override func awakeFromNib() {
@@ -30,19 +24,19 @@ class CollectionViewTopCell: UICollectionViewCell {
                 viewPagerLabel.textColor = .red
                 viewPagerLabel.font = .boldSystemFont(ofSize: 14)
                 self.menuUnderBar.layer.borderWidth = 1.3
-                print("viewPagerLabel.text ", viewPagerLabel.text!)
+//                print("viewPagerLabel.text ", viewPagerLabel.text!)
                 switch viewPagerLabel.text! {
                 case "All":
 //                    print("All...")
-                    self.scrollToIndexFunc(page: 0)
+//                    self.scrollToIndexFunc(page: 0)
                     break
                 case "Unused":
 //                    print("Unused...")
-                    self.scrollToIndexFunc(page: 1)
+//                    self.scrollToIndexFunc(page: 1)
                     break
                 case "Used":
 //                    print("Used...")
-                    self.scrollToIndexFunc(page: 2)
+//                    self.scrollToIndexFunc(page: 2)
                     break
                 default:
                     print("default")
@@ -80,10 +74,6 @@ class CollectionViewTopCell: UICollectionViewCell {
         print("prepareForReuse")
     }
     
-    func scrollToIndexFunc(page : Int) {
-        self.delegate?.scrollToIndex(to: page);
-    }
-
 }
 
 

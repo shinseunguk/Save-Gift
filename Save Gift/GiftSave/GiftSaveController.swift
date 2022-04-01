@@ -16,6 +16,11 @@ import DropDown
 import LocalAuthentication
 import Protobuf
 
+
+protocol PagingTabbarDelegate : AnyObject {
+    func scrollToIndex(to index: Int)
+}
+
 class GiftSaveController : UIViewController {
     
     @IBOutlet weak var tabBar: UITabBarItem!
@@ -26,6 +31,8 @@ class GiftSaveController : UIViewController {
     @IBOutlet weak var collectionViewTop: UICollectionView!
     @IBOutlet weak var cellTopText: UILabel!
     @IBOutlet weak var viewPager: UIView!
+    
+    public weak var delegate : PagingTabbarDelegate?
     let giftReigster : GiftRegisterController = GiftRegisterController()
     
     let sectionInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
@@ -75,9 +82,6 @@ class GiftSaveController : UIViewController {
     }
     
     func setTabbar() {
-        collectionViewTop.delegate = self
-        collectionViewTop.dataSource = self
-
         let firstIndexPath = IndexPath(item: 0, section: 0)
         // delegate 호출
         collectionView(collectionViewTop, didSelectItemAt: firstIndexPath)
@@ -350,21 +354,11 @@ extension GiftSaveController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        var delegate: PagingTabbarDelegate?
         if collectionView == self.collectionView {
 //            print("collectionView didSelectItemAt.... ", indexPath.row)
         }else if collectionView == self.collectionViewTop {
-            switch indexPath.row {
-            case 0:
-                break;
-            case 1:
-                break;
-            case 2:
-                break;
-            default:
-                print("default")
-                break;
-            }
+            print("collectionView didSelectItemAt", indexPath.row)
+            self.delegate?.scrollToIndex(to: indexPath.row)
         }
     }
         
@@ -438,6 +432,5 @@ class Page1VC:UIPageViewController, UIPageViewControllerDelegate, UIPageViewCont
                    return VCArray[nextIndex]
                }
     }
-    
     
 }
