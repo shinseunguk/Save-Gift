@@ -53,7 +53,7 @@ class Page1Controller : UIViewController{
         flowLayout.sectionInset = UIEdgeInsets.zero
         
         flowLayout.minimumInteritemSpacing = 0 // 좌우 margin
-        flowLayout.minimumLineSpacing = 0 // 위아래 margin
+        flowLayout.minimumLineSpacing = 20 // 위아래 margin
         
         let halfWidth = UIScreen.main.bounds.width / 2
 //        flowLayout.itemSize = CGSize(width: halfWidth * 0.9 , height: halfWidth * 0.9)
