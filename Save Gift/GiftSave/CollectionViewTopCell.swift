@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol PagingTabbarDelegate {
+protocol PagingTabbarDelegate : AnyObject {
     func scrollToIndex(to index: Int)
 }
 
@@ -33,15 +33,15 @@ class CollectionViewTopCell: UICollectionViewCell {
                 print("viewPagerLabel.text ", viewPagerLabel.text!)
                 switch viewPagerLabel.text! {
                 case "All":
-                    print("All...")
+//                    print("All...")
                     self.scrollToIndexFunc(page: 0)
                     break
                 case "Unused":
-                    print("Unused...")
+//                    print("Unused...")
                     self.scrollToIndexFunc(page: 1)
                     break
                 case "Used":
-                    print("Used...")
+//                    print("Used...")
                     self.scrollToIndexFunc(page: 2)
                     break
                 default:
@@ -82,7 +82,6 @@ class CollectionViewTopCell: UICollectionViewCell {
     
     func scrollToIndexFunc(page : Int) {
         self.delegate?.scrollToIndex(to: page);
-        print("scrollToIndexFunc")
     }
 
 }

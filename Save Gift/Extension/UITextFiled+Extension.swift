@@ -130,5 +130,31 @@ extension String {
     }
 }
 
-
+extension UIImage {
+    func resizeImage(image : UIImage, width : Float, height : Float) -> UIImage? {
+         let cgWidth = CGFloat(width)
+         let cgHeight = CGFloat(height)
+        
+            print("cgWdith ",cgWidth)
+            print("cgHeight ",cgHeight)
+         
+         // Begine Context
+         UIGraphicsBeginImageContext(CGSize(width: cgWidth, height: cgHeight))
+         // Get Current Context
+         let context = UIGraphicsGetCurrentContext()
+         context?.translateBy(x : 0.0, y : cgHeight)
+         context?.scaleBy(x: 1.0, y: -1.0)
+         context?.draw(image.cgImage!, in: CGRect(x: 0.0, y: 0.0, width: cgWidth, height: cgHeight))
+         let scaledImage : UIImage? = UIGraphicsGetImageFromCurrentImageContext()
+         // End Context
+         UIGraphicsEndImageContext()
+         
+         if (scaledImage != nil) {
+             return scaledImage
+         }
+         else {
+             return nil
+         }
+     }
+}
 
