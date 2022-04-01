@@ -8,6 +8,7 @@
 // https://lidium.tistory.com/13
 // https://nsios.tistory.com/44
 // https://dongminyoon.tistory.com/24 -----------> 2022 03 26
+// https://ichi.pro/ko/swift-5eseo-byu-peijeoleul-mandeuneun-bangbeob-203355326765416 -------------> 2022 04 01
 
 import Foundation
 import UIKit
@@ -16,12 +17,19 @@ import DropDown
 import LocalAuthentication
 import Protobuf
 
-
 protocol PagingTabbarDelegate : AnyObject {
-    func scrollToIndex(to index: Int)
+    func scrollToIndex(index: Int)
 }
 
-class GiftSaveController : UIViewController {
+protocol TabbedViewDelegate: AnyObject {
+    func didMoveToTab(index: Int)
+}
+
+class GiftSaveController : UIViewController, TabbedViewDelegate{
+    func didMoveToTab(index: Int) {
+        print("didMoveToTab")
+    }
+    
     
     @IBOutlet weak var tabBar: UITabBarItem!
     // MARK: EffectView가 들어갈 View
@@ -33,6 +41,7 @@ class GiftSaveController : UIViewController {
     @IBOutlet weak var viewPager: UIView!
     
     public weak var delegate : PagingTabbarDelegate?
+    
     let giftReigster : GiftRegisterController = GiftRegisterController()
     
     let sectionInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
@@ -68,7 +77,10 @@ class GiftSaveController : UIViewController {
         collectionViewTop.dataSource = self
         collectionViewTop.register(UINib(nibName: "CollectionViewTopCell", bundle: nil), forCellWithReuseIdentifier: "CollectionViewTopCell")
 //        collectionViewTop.isScrollEnabled = false
-
+        
+        guard let vController = self.storyboard?.instantiateViewController(withIdentifier: "Page1VC") as? Page1VC else {return}
+        vController.tabbedViewDelegate = self
+        
         //collectionViewTop css 설정
         setupFlowLayoutTop()
         //collectionViewTop 초기 설정
@@ -358,7 +370,7 @@ extension GiftSaveController: UICollectionViewDelegate, UICollectionViewDataSour
 //            print("collectionView didSelectItemAt.... ", indexPath.row)
         }else if collectionView == self.collectionViewTop {
             print("collectionView didSelectItemAt", indexPath.row)
-            self.delegate?.scrollToIndex(to: indexPath.row)
+            self.delegate?.scrollToIndex(index: indexPath.row)
         }
     }
         
@@ -373,13 +385,9 @@ extension GiftSaveController: UICollectionViewDelegate, UICollectionViewDataSour
 
 class Page1VC:UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource, PagingTabbarDelegate{
     var collectionViewTopCell : CollectionViewTopCell?
-    
-    func scrollToIndex(to index: Int) {
-        print("scrollToIndex ", index)
-    }
-    
-    var pageDelegate: PagingTabbarDelegate?
     var identifiers: NSArray = ["AllVC", "UnusedVC", "UsedVC"]
+    
+    var tabbedViewDelegate : TabbedViewDelegate?
     
     lazy var VCArray: [UIViewController] = {
         return [self.VCInstance(name: "AllVC"),
@@ -402,18 +410,25 @@ class Page1VC:UIPageViewController, UIPageViewControllerDelegate, UIPageViewCont
         self.dataSource = self
         self.delegate = self
         
+        guard let vController = self.storyboard?.instantiateViewController(withIdentifier: "giftSaveVC") as? GiftSaveController else {return}
+        vController.delegate = self
+        
+        
         if let firstVC = VCArray.first{
             
             setViewControllers([firstVC], direction: .forward, animated: true, completion: nil)
         }
     }
     
+    func scrollToIndex(index: Int) {
+        print("scrollToIndex ", index)
+    }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let viewControllerIndex = VCArray.firstIndex(of: viewController) else { return nil }
         
                let previousIndex = viewControllerIndex - 1
-               
+                self.tabbedViewDelegate?.didMoveToTab(index: previousIndex)
                if previousIndex < 0 {
                    return VCArray.last
                } else {
@@ -425,7 +440,7 @@ class Page1VC:UIPageViewController, UIPageViewControllerDelegate, UIPageViewCont
         guard let viewControllerIndex = VCArray.firstIndex(of: viewController) else { return nil }
                
                let nextIndex = viewControllerIndex + 1
-               
+                self.tabbedViewDelegate?.didMoveToTab(index: nextIndex)
                if nextIndex >= VCArray.count {
                    return VCArray.first
                } else {
