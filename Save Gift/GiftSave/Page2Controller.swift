@@ -57,7 +57,7 @@ class Page2Controller : UIViewController{
         
         let halfWidth = UIScreen.main.bounds.width / 2
 //        flowLayout.itemSize = CGSize(width: halfWidth * 0.9 , height: halfWidth * 0.9)
-        flowLayout.itemSize = CGSize(width: halfWidth * 1 , height: halfWidth * 1 + 50)
+        flowLayout.itemSize = CGSize(width: halfWidth * 1 , height: halfWidth * 2)
         flowLayout.footerReferenceSize = CGSize(width: halfWidth * 3, height: 70)
         flowLayout.sectionFootersPinToVisibleBounds = true
         self.collectionView.collectionViewLayout = flowLayout
@@ -106,7 +106,8 @@ extension Page2Controller: UICollectionViewDelegate, UICollectionViewDataSource 
     //        cell.registrantLabel.text = "등록자 : \("ghdrlfehd@naver.com(신승욱)")"
     //        cell.layer.borderWidth = 2.0
     //        cell.layer.borderColor = UIColor.red.cgColor
-            cell.cellImageView.image = UIImage(named: "saewookkang")
+            cell.cellImageView.contentMode = .scaleAspectFit
+            cell.cellImageView.image = UIImage(named: "candy.png")
 
             return cell
     }
