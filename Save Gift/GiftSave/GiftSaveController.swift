@@ -4,11 +4,12 @@
 //
 //  Created by ukBook on 2021/12/25.
 //  기프티콘 사용법
-// ViewPager url : https://lidium.tistory.com/14
-// https://lidium.tistory.com/13
-// https://nsios.tistory.com/44
-// https://dongminyoon.tistory.com/24 -----------> 2022 03 26
-// https://ichi.pro/ko/swift-5eseo-byu-peijeoleul-mandeuneun-bangbeob-203355326765416 -------------> 2022 04 01
+
+// TabMan
+// https://developer-p.tistory.com/161
+
+// ios to server send image
+// https://eastroot1590.tistory.com/entry/IOS-Training-%EC%84%9C%EB%B2%84%EC%97%90-%EC%A0%80%EC%9E%A5%EB%90%9C-%EC%9D%B4%EB%AF%B8%EC%A7%80%EB%A1%9C-view-update
 
 import Foundation
 import UIKit
@@ -16,6 +17,8 @@ import JJFloatingActionButton
 import DropDown
 import LocalAuthentication
 import Protobuf
+import Tabman
+import Pageboy
 
 protocol PagingTabbarDelegate : AnyObject {
     func scrollToIndex(index: Int)
@@ -25,28 +28,20 @@ protocol TabbedViewDelegate: AnyObject {
     func didMoveToTab(index: Int)
 }
 
-class GiftSaveController : UIViewController, TabbedViewDelegate{
-    func didMoveToTab(index: Int) {
-        print("didMoveToTab")
-    }
+class GiftSaveController : TabmanViewController{
     
+    private var viewControllers: Array<UIViewController> = []
     
-    @IBOutlet weak var tabBar: UITabBarItem!
+    @IBOutlet weak var tempView: UIView! // 상단 탭바 들어갈 자리
+    
+    @IBOutlet weak var countZeroLabel: UILabel!
     // MARK: EffectView가 들어갈 View
     @IBOutlet weak var viewMain: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var filterButton: UIButton!
-    @IBOutlet weak var collectionViewTop: UICollectionView!
-    @IBOutlet weak var cellTopText: UILabel!
     @IBOutlet weak var viewPager: UIView!
     
-    public weak var delegate : PagingTabbarDelegate?
-    
-    let giftReigster : GiftRegisterController = GiftRegisterController()
-    
     let sectionInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-    
-    let customTabBarC : CustomTabBarController = CustomTabBarController()
     
     // MARK: Blur효과가 적용될 EffectView
     var viewBlurEffect:UIVisualEffectView!
@@ -59,8 +54,6 @@ class GiftSaveController : UIViewController, TabbedViewDelegate{
     
 //    var viewPagerArr = ["미사용+사용 기프티콘", "미사용 기프티콘", "사용 기프티콘"]
     var viewPagerArr = ["All", "Unused", "Used"]
-    var barndNameLabelArr = ["BHC","BBQ","피자나라 치킨공주","교촌치킨","60계치킨","처갓집양념치킨","호식이두마리치킨","꾸브라꼬숯불두마리치킨"]
-    var expirationPeriodLabelArr = ["2022-04-14","2022-04-15","2022-04-16","2022-04-19","2022-04-20","2022-05-14","2022-02-14","2022-04-30"]
     
     //cocoa pod
     let dropDown = DropDown()
@@ -73,18 +66,8 @@ class GiftSaveController : UIViewController, TabbedViewDelegate{
         print("GiftSaveController viewDidLoad")
         print("cellWidth/3 : ", cellHeight3)
         
-        collectionViewTop.delegate = self
-        collectionViewTop.dataSource = self
-        collectionViewTop.register(UINib(nibName: "CollectionViewTopCell", bundle: nil), forCellWithReuseIdentifier: "CollectionViewTopCell")
-//        collectionViewTop.isScrollEnabled = false
-        
-        guard let vController = self.storyboard?.instantiateViewController(withIdentifier: "Page1VC") as? Page1VC else {return}
-        vController.tabbedViewDelegate = self
-        
-        //collectionViewTop css 설정
-        setupFlowLayoutTop()
-        //collectionViewTop 초기 설정
-        setTabbar()
+        //tabbar setting(TabMan)
+        setTabMan()
         
         //blur효과
         btnBlurCreate()
@@ -93,14 +76,41 @@ class GiftSaveController : UIViewController, TabbedViewDelegate{
         lockBtn()
     }
     
-    func setTabbar() {
-        let firstIndexPath = IndexPath(item: 0, section: 0)
-        // delegate 호출
-        collectionView(collectionViewTop, didSelectItemAt: firstIndexPath)
-        // cell select®
-        collectionViewTop.selectItem(at: firstIndexPath, animated: false, scrollPosition: .bottom)
-    }
+    func setTabMan() {
+        let AllVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AllVC") as! Page1Controller
+        let UnusedVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "UnusedVC") as! Page2Controller
+        let UsedVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "UsedVC") as! Page3Controller
+                    
+        viewControllers.append(AllVC)
+        viewControllers.append(UnusedVC)
+        viewControllers.append(UsedVC)
+        
+        self.dataSource = self
 
+        // Create bar
+        let bar = TMBar.ButtonBar()
+//        let bar = TMBar.TabBar()
+        bar.backgroundView.style = .blur(style: .regular)
+        bar.layout.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
+        bar.buttons.customize { (button) in
+            button.tintColor = UIColor.systemGray2 // 선택 안되어 있을 때
+            button.selectedTintColor = .red // 선택 되어 있을 때
+            button.font = UIFont.systemFont(ofSize: 13)
+        }
+        // 인디케이터 조정
+        bar.indicator.weight = .light
+        bar.indicator.tintColor = .red
+        bar.indicator.overscrollBehavior = .compress
+        bar.layout.alignment = .centerDistributed
+        bar.layout.contentMode = .fit
+        bar.layout.interButtonSpacing = 20 // 버튼 사이 간격
+    
+        bar.layout.transitionStyle = .snap // Customize
+
+        // Add to view
+        addBar(bar, dataSource: self, at: .custom(view: tempView, layout: nil)) // .custom을 통해 원하는 뷰에 삽입함. BarLocatio https://github.com/uias/Tabman/blob/main/Sources/Tabman/TabmanViewController.swift#L27-L32
+    }
+    
     
     @IBAction func dropDownAction(_ sender: Any) {
         dropDown.show()
@@ -117,10 +127,6 @@ class GiftSaveController : UIViewController, TabbedViewDelegate{
           // do something
             print("qrcode 2")
         }
-        
-//        actionButton.addItem(title: "item 3", image: nil) { item in
-//          // do something
-//        }
         
         view.addSubview(actionButton)
         actionButton.buttonColor = .systemBlue
@@ -144,52 +150,6 @@ class GiftSaveController : UIViewController, TabbedViewDelegate{
         
                 actionButton.bottomAnchor.constraint(equalTo: view.topAnchor
                             ,constant: screenHeight-200).isActive = true // ---- 1
-    }
-    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//            let width = collectionView.frame.width
-//            let height = collectionView.frame.height
-//            let itemsPerRow: CGFloat = 2
-//            let widthPadding = sectionInsets.left * (itemsPerRow + 1)
-//            let itemsPerColumn: CGFloat = 3
-//            let heightPadding = sectionInsets.top * (itemsPerColumn + 1)
-//            let cellWidth = (width - widthPadding) / itemsPerRow
-//            let cellHeight = (height - heightPadding) / itemsPerColumn
-//
-//            return CGSize(width: cellWidth, height: cellHeight)
-//
-//        }
-    
-    private func setupFlowLayout() {
-        let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.sectionInset = UIEdgeInsets.zero
-        
-        flowLayout.minimumInteritemSpacing = 0 // 좌우 margin
-        flowLayout.minimumLineSpacing = 0 // 위아래 margin
-        
-        let halfWidth = UIScreen.main.bounds.width / 2
-//        flowLayout.itemSize = CGSize(width: halfWidth * 0.9 , height: halfWidth * 0.9)
-        flowLayout.itemSize = CGSize(width: halfWidth * 1 , height: halfWidth * 1 + 50)
-        flowLayout.footerReferenceSize = CGSize(width: halfWidth * 3, height: 70)
-        flowLayout.sectionFootersPinToVisibleBounds = true
-        self.collectionView.collectionViewLayout = flowLayout
-    }
-    
-    private func setupFlowLayoutTop() {
-        let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.sectionInset = UIEdgeInsets.zero
-        
-        flowLayout.minimumInteritemSpacing = 0 // 좌우 margin
-        flowLayout.minimumLineSpacing = 0 // 위아래 margin
-        
-        
-        let halfWidth = UIScreen.main.bounds.width / 3
-//        flowLayout.itemSize = CGSize(width: halfWidth * 0.9 , height: halfWidth * 0.9)
-        flowLayout.itemSize = CGSize(width: halfWidth * 1 , height: 50)
-        print("UIScreen.main.bounds.width ", UIScreen.main.bounds.width)
-        print("halfWidth ", halfWidth)
-        flowLayout.footerReferenceSize = CGSize(width: halfWidth * 3, height: 70)
-        flowLayout.sectionFootersPinToVisibleBounds = true
-        self.collectionViewTop.collectionViewLayout = flowLayout
     }
     
     // MARK: 블루 추가 버튼
@@ -315,137 +275,35 @@ class GiftSaveController : UIViewController, TabbedViewDelegate{
 
 }
 
-extension GiftSaveController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension GiftSaveController: PageboyViewControllerDataSource, TMBarDataSource{
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        print("collectionItems.count ", expirationPeriodLabelArr.count)
-        if collectionView == self.collectionView{
-            print("self.collectionView ", expirationPeriodLabelArr.count)
-            return expirationPeriodLabelArr.count
+    func barItem(for bar: TMBar, at index: Int) -> TMBarItemable {
+        
+            // MARK: - Tab 안 글씨들
+            switch index {
+            case 0:
+                return TMBarItem(title: viewPagerArr[0])
+            case 1:
+                return TMBarItem(title: viewPagerArr[1])
+            case 2:
+                return TMBarItem(title: viewPagerArr[2])
+            default:
+                let title = "Page \(index)"
+                return TMBarItem(title: title)
+            }
+
         }
-        if collectionView == self.collectionViewTop{
-//            print("self.collectionViewTop ", viewPagerArr.count)
+        
+        func numberOfViewControllers(in pageboyViewController: PageboyViewController) -> Int {
             return viewPagerArr.count
         }
         
-        return 0
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        //        print("indexPath... ", indexPath)
-        //        print("collectionItems[indexPath.row]... ", expirationPeriodLabelArr[indexPath.row])
-        
-//        if collectionView == self.collectionView{
-//            print("self.collectionView")
-//            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
-//            //  Configure the Cell
-//            cell.brandNameLabel.text = barndNameLabelArr[indexPath.row]
-//            cell.productNameLabel.text = "\("뿌링클 순살 + 1.25L 콜라 + 치즈볼")"
-//    //        print("ddfkmweofmwlekmf ", Int(cell.productNameLabel.text!.count / 15) + 1)
-//            cell.expirationPeriodLabel.text = "유효기간 : \(expirationPeriodLabelArr[indexPath.row])"
-//    //        cell.registrantLabel.text = "등록자 : \("ghdrlfehd@naver.com(신승욱)")"
-//    //        cell.layer.borderWidth = 2.0
-//    //        cell.layer.borderColor = UIColor.red.cgColor
-//            cell.cellImageView.image = UIImage(named: "saewookkang")
-//
-//            return cell
-//        }
-        if collectionView == self.collectionViewTop{
-            let cellTop = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewTopCell", for: indexPath) as! CollectionViewTopCell
-//            print("self.collectionViewTop")
-            cellTop.viewPagerLabel.text = viewPagerArr[indexPath.row]
-//            cellTop.layer.borderColor = UIColor.red.cgColor
-//            cellTop.layer.borderWidth = 1.0
-            
-            return cellTop
+        func viewController(for pageboyViewController: PageboyViewController, at index: PageboyViewController.PageIndex) -> UIViewController? {
+            return viewControllers[index]
         }
         
-        return UICollectionViewCell()
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        if collectionView == self.collectionView {
-//            print("collectionView didSelectItemAt.... ", indexPath.row)
-        }else if collectionView == self.collectionViewTop {
-            print("collectionView didSelectItemAt", indexPath.row)
-            self.delegate?.scrollToIndex(index: indexPath.row)
+        func defaultPage(for pageboyViewController: PageboyViewController) -> PageboyViewController.Page? {
+            return nil
         }
-    }
-        
-    // 콘텐츠 뷰에 따라 페이지를 바꾸어주는 코드
-    func scroll(to index: Int) {
-        self.collectionViewTop.selectItem(at: IndexPath(row: index, section: 0), animated: true, scrollPosition: .bottom)
-        print("scrollIndex ", index)
-    }
-    
-    
-}
-
-class Page1VC:UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource, PagingTabbarDelegate{
-    var collectionViewTopCell : CollectionViewTopCell?
-    var identifiers: NSArray = ["AllVC", "UnusedVC", "UsedVC"]
-    
-    var tabbedViewDelegate : TabbedViewDelegate?
-    
-    lazy var VCArray: [UIViewController] = {
-        return [self.VCInstance(name: "AllVC"),
-                self.VCInstance(name: "UnusedVC"),
-                self.VCInstance(name: "UsedVC")]
-    }()
-    
-    required init?(coder aDecoder: NSCoder) {
-          super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
-          
-    }
-    
-    private func VCInstance(name: String) -> UIViewController {
-        return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: name)
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        self.dataSource = self
-        self.delegate = self
-        
-        guard let vController = self.storyboard?.instantiateViewController(withIdentifier: "giftSaveVC") as? GiftSaveController else {return}
-        vController.delegate = self
-        
-        
-        if let firstVC = VCArray.first{
-            
-            setViewControllers([firstVC], direction: .forward, animated: true, completion: nil)
-        }
-    }
-    
-    func scrollToIndex(index: Int) {
-        print("scrollToIndex ", index)
-    }
-    
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        guard let viewControllerIndex = VCArray.firstIndex(of: viewController) else { return nil }
-        
-               let previousIndex = viewControllerIndex - 1
-                self.tabbedViewDelegate?.didMoveToTab(index: previousIndex)
-               if previousIndex < 0 {
-                   return VCArray.last
-               } else {
-                   return VCArray[previousIndex]
-               }
-    }
-    
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        guard let viewControllerIndex = VCArray.firstIndex(of: viewController) else { return nil }
-               
-               let nextIndex = viewControllerIndex + 1
-                self.tabbedViewDelegate?.didMoveToTab(index: nextIndex)
-               if nextIndex >= VCArray.count {
-                   return VCArray.first
-               } else {
-                   return VCArray[nextIndex]
-               }
-    }
     
 }
