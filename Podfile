@@ -18,6 +18,7 @@ target 'Save Gift' do
   pod 'GoogleMLKit/TextRecognition'
   pod 'GoogleMLKit/TextRecognitionKorean', '2.3.0'
   pod 'DropDown'
+  pod 'Tabman'
   # Pods for Save Gift
 
 end

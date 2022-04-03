@@ -34,6 +34,7 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
     var s = 0
     var keyboard : Bool? = true
     var registerDic : Dictionary = [Int:Any]()
+    var regularBool : Bool = false
     
     // 날짜 정규식
     let datePattern: String = "(?<year>[0-9]{4})[-/.](?<month>[0-9]{2})[-/.](?<date>[0-9]{2})"
@@ -506,14 +507,25 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
         if text.count != 0 {
             if !isValidPhone(phone: text.replacingOccurrences(of: "-", with: "")){ //숫자 정규식
                 normalAlert(titles: "알림", messages: "유효기간을 숫자로만 입력해주세요 ('-'를 제외하고 입력)")
+                regularBool = false
             }else {
                 switch (text.count) {
                 case 1..<8:
                     normalAlert(titles: "알림", messages: "유효기간을 다시 확인해주세요.\n 2030-09-08 ('-'를 제외하고 입력)")
                     textField.becomeFirstResponder()
+                    regularBool = false
                     break;
                     
                 case 8:// 20210515 날짜 정규식 추가 예정
+                    let regularExpression = text.validateDate(text.replacingOccurrences(of: "-", with: ""))
+                    print("regularExpression ",regularExpression)
+                    if regularExpression != ""{
+                        normalAlert(titles: "알림", messages: regularExpression)
+                        regularBool = false
+                    }else {
+                        regularBool = true
+                    }
+                    
                     textField.text = text.replacingOccurrences(of: "-", with: "").substring(from: 0, to: 3)+"-"+text.replacingOccurrences(of: "-", with: "").substring(from: 4, to: 5)+"-"+text.replacingOccurrences(of: "-", with: "").substring(from: 6, to: 7)
                     break;
                     
@@ -809,7 +821,7 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
                 } else {
                     switch x {
                     case 0...3:
-                        print("#@!#&*(!@ ",x)
+//                        print("#@!#&*(!@ ",x)
                         let index = IndexPath(row: x, section: 0)
                         let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
                         registerDic[x] = cell.textfield.text!
@@ -821,7 +833,7 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
 //                        registerDic[x] = cell.segmentControl.selectedSegmentIndex
 //                        break
                     case 5...6:
-                        print("#@!#&*(!@ ",x)
+//                        print("#@!#&*(!@ ",x)
                         let index = IndexPath(row: x, section: 0)
                         let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
                         registerDic[x] = cell.textfield.text!
@@ -835,14 +847,19 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
         }// for
         print("registerDic.. 1 ", registerDic)
         print("self.imageView.image ", self.imageView.image)
-        if  registerDic[0] != nil &&
-            registerDic[1] != nil &&
-            registerDic[2] != nil &&
-            registerDic[3] != nil &&
-            registerDic[4] != nil &&
-            registerDic[5] != nil &&
-            registerDic[6] != nil &&
-            self.imageView.image != nil    {
+        
+        if !regularBool {
+            normalAlert(titles: "알림", messages: "유효기간을 확인해주세요.")
+        }else if registerDic[0] == nil ||
+            registerDic[1] == nil ||
+            registerDic[2] == nil ||
+            registerDic[3] == nil ||
+            registerDic[4] == nil ||
+            registerDic[5] == nil ||
+            registerDic[6] == nil ||
+            self.imageView.image == nil {
+            normalAlert(titles: "알림", messages: "빈칸없이 작성 해주세요.")
+        }else {
             print("registerDic.. 2", registerDic)
             requestPost(requestUrl: "/register/gift")
         }

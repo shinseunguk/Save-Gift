@@ -573,9 +573,12 @@ PODS:
     - nanopb/encode (= 2.30908.0)
   - nanopb/decode (2.30908.0)
   - nanopb/encode (2.30908.0)
+  - Pageboy (3.6.2)
   - PromisesObjC (2.0.0)
   - Protobuf (3.19.4)
   - SideMenu (6.5.0)
+  - Tabman (2.12.0):
+    - Pageboy (~> 3.6.0)
 
 DEPENDENCIES:
   - DropDown
@@ -591,6 +594,7 @@ DEPENDENCIES:
   - JSPhoneFormat
   - KakaoSDK
   - SideMenu
+  - Tabman
 
 SPEC REPOS:
   trunk:
@@ -634,9 +638,11 @@ SPEC REPOS:
     - MLKitTextRecognitionKorean
     - MLKitVision
     - nanopb
+    - Pageboy
     - PromisesObjC
     - Protobuf
     - SideMenu
+    - Tabman
 
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
@@ -679,10 +685,12 @@ SPEC CHECKSUMS:
   MLKitTextRecognitionKorean: ceebd06e79c539f813a4f6e6f10f078abf196995
   MLKitVision: 26da299aef93291f24f5200e8372919f73abf3b5
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
+  Pageboy: cf121b9dd48c63f3f281b2a9ec93d02e0f23879b
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   Protobuf: 235750e4696ff59fb07d949a9dbbc92b3c0700fe
   SideMenu: f583187d21c5b1dd04c72002be544b555a2627a2
+  Tabman: 447a50447ed2869c39ab3b1a779327e43e067c4e
 
-PODFILE CHECKSUM: 94f66b86076066349eb188b9d8858908e5c9b173
+PODFILE CHECKSUM: bfc402963dcfbeb74967b01957f738d2876d9a60
 
-COCOAPODS: 1.10.2
+COCOAPODS: 1.11.2
