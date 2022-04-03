@@ -4,6 +4,8 @@
 //
 //  Created by ukBook on 2022/01/16.
 //  기프티콘 등록 화면
+// https://ios-development.tistory.com/769   ------> Firebase Storage
+// https://fomaios.tistory.com/entry/Swift-Storage%EC%97%90%EC%84%9C-%EC%9D%B4%EB%AF%B8%EC%A7%80-%EC%97%85%EB%A1%9C%EB%93%9C-%EB%B0%8F-%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C%ED%95%98%EA%B8%B0
 
 import Foundation
 import UIKit
@@ -15,6 +17,7 @@ import Firebase
 import MLKitBarcodeScanning
 import Vision
 import VisionKit
+import FirebaseStorage
 
 class GiftRegisterController : UIViewController, UITextFieldDelegate{
     
