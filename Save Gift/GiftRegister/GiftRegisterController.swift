@@ -39,6 +39,8 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
     var registerDic : Dictionary = [Int:Any]()
     var regularBool : Bool = false
     
+    var newImage: UIImage? = nil // update 할 이미지
+    
     // 날짜 정규식
     let datePattern: String = "(?<year>[0-9]{4})[-/.](?<month>[0-9]{2})[-/.](?<date>[0-9]{2})"
 
@@ -690,12 +692,7 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
    }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
-            var newImage: UIImage? = nil // update 할 이미지
 //            picker.allowsEditing = false
-        
-            let possibleImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
-            newImage = possibleImage
         
 //            if let possibleImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
 //                print("수정된 이미지")
@@ -864,6 +861,7 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
             normalAlert(titles: "알림", messages: "빈칸없이 작성 해주세요.")
         }else {
             print("registerDic.. 2", registerDic)
+            FirebaseStorageManager.uploadImage(image: self.newImage!)
             requestPost(requestUrl: "/register/gift")
         }
     }
