@@ -38,6 +38,7 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
     var keyboard : Bool? = true
     var registerDic : Dictionary = [Int:Any]()
     var regularBool : Bool = false
+    var result : Bool?
     
     var newImage: UIImage? = nil // update 할 이미지
     
@@ -353,6 +354,7 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
                                 let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
                                 cell.textfield.text! = trimStr16TO8
                             }
+                            self.regularBool = true
                         }
                         
                     }
@@ -861,8 +863,15 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
             normalAlert(titles: "알림", messages: "빈칸없이 작성 해주세요.")
         }else {
             print("registerDic.. 2", registerDic)
-            FirebaseStorageManager.uploadImage(image: self.newImage!)
-            requestPost(requestUrl: "/register/gift")
+            
+            result = FirebaseStorageManager.uploadImage(image: self.newImage!)
+            if result! {
+                requestPost(requestUrl: "/register/gift")
+                print("GiftRegister 서버 통신 성공")
+            }else {
+                print("GiftRegister 서버 통신 실패")
+            }
+            
         }
     }
     

@@ -90,4 +90,15 @@ class Helper : UIViewController{
         return str
     }
     
+    //오늘날짜 가져오기
+    func formatDateTime() -> String{
+        let formatter = DateFormatter() //객체 생성
+        formatter.dateStyle = .long
+        formatter.timeStyle = .medium
+        formatter.dateFormat = "yyyyMMddHHmm" //데이터 포멧 설정
+        let str = formatter.string(from: Date()) //문자열로 바꾸기
+        
+        return str
+    }
+    
 }
