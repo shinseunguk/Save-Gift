@@ -30,6 +30,8 @@ protocol TabbedViewDelegate: AnyObject {
 
 class GiftSaveController : TabmanViewController{
     
+    let helper : Helper = Helper()
+    
     private var viewControllers: Array<UIViewController> = []
     
     @IBOutlet weak var tempView: UIView! // 상단 탭바 들어갈 자리
@@ -65,6 +67,8 @@ class GiftSaveController : TabmanViewController{
         super.viewDidLoad()
         print("GiftSaveController viewDidLoad")
         print("cellWidth/3 : ", cellHeight3)
+        
+        print("helper.formatDateTime() ", helper.formatDateTime())
         
         //tabbar setting(TabMan)
         setTabMan()
