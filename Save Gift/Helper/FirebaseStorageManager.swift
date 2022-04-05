@@ -27,7 +27,13 @@ class FirebaseStorageManager {
         firebaseReference.putData(imageData, metadata: metaData) { metaData, error in
             firebaseReference.downloadURL { url, _ in
                 print("url ", url!)
-                UserDefaults.standard.set(url!.absoluteString, forKey: "FirebaseURL")
+                if(UserDefaults.standard.string(forKey: "imageName") != nil){
+                    UserDefaults.standard.removeObject(forKey: "imageName")
+                    UserDefaults.standard.set(imageName, forKey: "imageName")
+                }else {
+                    UserDefaults.standard.set(imageName, forKey: "imageName")
+                }
+                print("imageName ", imageName)
             }
         }
         return true
@@ -46,11 +52,13 @@ class FirebaseStorageManager {
         }
     }
     
-//    func downloadimage(imgview:UIImageView){
-//        storage.reference(forURL: "gs://save-gift.appspot.com/DD15A014-F02C-4F28-BD0F-249B307BFA7A_202204042255").downloadURL { (url, error) in
-//                           let data = NSData(contentsOf: url!)
-//                           let image = UIImage(data: data! as Data)
-//                            imgview.image = image
-//            }
-//    }
+    func downloadimage(imgview:UIImageView, urlString: String){
+        //"gs://save-gift.appspot.com/DD15A014-F02C-4F28-BD0F-249B307BFA7A_202204042255"
+        Storage.storage().reference(forURL: "gs://save-gift.appspot.com/" + urlString).downloadURL { (url, error) in
+            let data = NSData(contentsOf: url!)
+            let image = UIImage(data: data! as Data)
+            imgview.image = image
+        }
+    }
+    
 }
