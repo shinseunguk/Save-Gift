@@ -38,7 +38,7 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
     var keyboard : Bool? = true
     var registerDic : Dictionary = [Int:Any]()
     var regularBool : Bool = false
-    var result : Bool?
+    var result : Bool = false
     
     var newImage: UIImage? = nil // update 할 이미지
     
@@ -864,14 +864,27 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
         }else {
             print("registerDic.. 2", registerDic)
             
-            result = FirebaseStorageManager.uploadImage(image: self.newImage!)
-            if result! {
-                requestPost(requestUrl: "/register/gift")
-                print("GiftRegister 서버 통신 성공")
-            }else {
-                print("GiftRegister 서버 통신 실패")
-            }
+            var param = [
+                "user_id" : UserDefaults.standard.string(forKey: "ID"),
+//                "img_url" : "gs://save-gift.appspot.com/\(UserDefaults.standard.string(forKey: "imageName")!)",
+                "brand" : registerDic[0]!,
+                "barcode_number" : registerDic[2]!,
+                "expiration_period" : registerDic[3]!,
+                "registration_date" : registerDic[5]!,
+                "use_yn" : registerDic[4]!,
+                "device_id" : deviceID!,
+                "registrant" : registerDic[6]!,
+                "product_name" : registerDic[1]!
+            ] as [String : Any] // JSON 객체로 전송할 딕셔너리
             
+            result = FirebaseStorageManager.uploadImage(image: self.newImage!, param: &param)
+//            print("result ~!~!~! ", result)
+//            if result != "" {
+//                requestPost(requestUrl: "/register/gift")
+//                print("GiftRegister 서버 통신 성공")
+//            }else {
+//                print("GiftRegister 서버 통신 실패")
+//            }
         }
     }
     
@@ -898,7 +911,7 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
             "product_name" : registerDic[1]!
         ] as [String : Any] // JSON 객체로 전송할 딕셔너리
         
-        print("param ..... ", param)
+//        print("param ..... ", param)
         let paramData = try! JSONSerialization.data(withJSONObject: param)
         // URL 객체 정의r
                 let url = URL(string: localUrl+requestUrl)
