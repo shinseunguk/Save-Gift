@@ -95,7 +95,7 @@ class Helper : UIViewController{
         let formatter = DateFormatter() //객체 생성
         formatter.dateStyle = .long
         formatter.timeStyle = .medium
-        formatter.dateFormat = "yyyyMMdd_HHmm" //데이터 포멧 설정
+        formatter.dateFormat = "yyyyMMdd_HHmmss" //데이터 포멧 설정
         let str = formatter.string(from: Date()) //문자열로 바꾸기
         
         return str
