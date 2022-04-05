@@ -885,9 +885,22 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
 //        registerDic[5] -> 등록일
 //        registerDic[6] -> 등록자
 
-        let param = ["user_id" : UserDefaults.standard.string(forKey: "ID"), /*"img_url" : self.imageView.image,*/ "brand" : registerDic[0], "barcode_number" : registerDic[2], "expiration_period" : registerDic[3], "registration_date" : registerDic[5], "use_yn" : registerDic[4], "device_id" : deviceID , "registrant" : registerDic[6], "product_name" : registerDic[1]] as [String : Any] // JSON 객체로 전송할 딕셔너리
+        let param = [
+            "user_id" : UserDefaults.standard.string(forKey: "ID"),
+            "img_url" : "gs://save-gift.appspot.com/\(UserDefaults.standard.string(forKey: "imageName")!)",
+            "brand" : registerDic[0]!,
+            "barcode_number" : registerDic[2]!,
+            "expiration_period" : registerDic[3]!,
+            "registration_date" : registerDic[5]!,
+            "use_yn" : registerDic[4]!,
+            "device_id" : deviceID!,
+            "registrant" : registerDic[6]!,
+            "product_name" : registerDic[1]!
+        ] as [String : Any] // JSON 객체로 전송할 딕셔너리
+        
+        print("param ..... ", param)
         let paramData = try! JSONSerialization.data(withJSONObject: param)
-        // URL 객체 정의
+        // URL 객체 정의r
                 let url = URL(string: localUrl+requestUrl)
 
                 // URLRequest 객체를 정의

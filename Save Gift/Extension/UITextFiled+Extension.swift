@@ -110,7 +110,7 @@ extension String {
         let todayDay = date.substring(from: 6, to: 7) // today 일
         
         if !validateYear(text: input) { // 정규식 이상있음.
-            return "\(todayYear)년 이후로 입력해주세요."
+            return "2000년 이후로 입력해주세요."
         } else if !validateMonth(text: input) {
             return "1월 ~ 12월을 입력해주세요."
         } else if validateDay(text: input) != ""{
@@ -129,7 +129,7 @@ extension String {
         print("todayYear ", todayYear)
         print("inputYear ", inputYear)
         
-        if todayYear <= inputYear { // 정규식 이상없음.
+        if 2000 <= Int(inputYear)! { // 정규식 이상없음.
             return true
         }else {
             return false
