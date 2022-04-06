@@ -118,10 +118,10 @@ class Page1Controller : UIViewController{
         let halfWidth = UIScreen.main.bounds.width / 2
 //        flowLayout.itemSize = CGSize(width: halfWidth * 0.9 , height: halfWidth * 0.9)
 //        flowLayout.itemSize = CGSize(width: halfWidth * 1 , height: halfWidth * 1 + 50)
-        flowLayout.itemSize = CGSize(width: halfWidth * 1 - 15, height: halfWidth * 2)
+        flowLayout.itemSize = CGSize(width: halfWidth * 1 , height: halfWidth * 2)
         flowLayout.footerReferenceSize = CGSize(width: halfWidth * 3, height: 70)
         flowLayout.sectionFootersPinToVisibleBounds = true
-        flowLayout.sectionInset = UIEdgeInsets(top:5, left:15, bottom:5, right:7.5);
+//        flowLayout.sectionInset = UIEdgeInsets(top:5, left:15, bottom:5, right:7.5);
         
         self.collectionView.collectionViewLayout = flowLayout
     }
@@ -161,6 +161,7 @@ extension Page1Controller: UICollectionViewDelegate, UICollectionViewDataSource 
             cell.brandNameLabel.text = barndNameLabelArr[indexPath.row]
             cell.productNameLabel.text = productNameLabelArr[indexPath.row]
             cell.expirationPeriodLabel.text = "유효기간 : \(expirationPeriodLabelArr[indexPath.row])"
+        cell.seqLabel.text = "1"
             cell.cellImageView.image = UIImage(named: cellImageViewArr[indexPath.row])
             cell.cellImageView.contentMode = .scaleAspectFit
 //        cell.layer.borderWidth = 1.0
