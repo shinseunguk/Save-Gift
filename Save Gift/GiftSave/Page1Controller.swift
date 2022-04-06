@@ -30,6 +30,7 @@ class Page1Controller : UIViewController{
     var expirationPeriodLabelArr = ["2022-04-14","2022-04-15","2022-04-16","2022-04-19","2022-04-20","2022-05-14","2022-02-14","2022-04-30"]
     var productNameLabelArr = ["뿌링클 순살 + 1L 콜라 + 치즈볼", "뿌링클 순살 + 2L 콜라 + 치즈볼", "뿌링클 순살 + 3L 콜라 + 치즈볼" ,"뿌링클 순살 + 4L 콜라 + 치즈볼", "뿌링클 순살 + 5L 콜라 + 치즈볼", "뿌링클 순살 + 6L 콜라 + 치즈볼", "뿌링클 순살 + 7L 콜라 + 치즈볼", "뿌링클 순살 + 8L 콜라 + 치즈볼"]
     var cellImageViewArr = ["chicken.jpg", "chicken.jpg", "chicken.jpg", "chicken.jpg", "chicken.jpg", "chicken.jpg", "chicken.jpg", "chicken.jpg"]
+    var seqArr = ["1", "2", "3", "4", "5", "6", "7", "8"]
     
     // test Array
 //        var barndNameLabelArr : [String] = []
@@ -161,7 +162,6 @@ extension Page1Controller: UICollectionViewDelegate, UICollectionViewDataSource 
             cell.brandNameLabel.text = barndNameLabelArr[indexPath.row]
             cell.productNameLabel.text = productNameLabelArr[indexPath.row]
             cell.expirationPeriodLabel.text = "유효기간 : \(expirationPeriodLabelArr[indexPath.row])"
-        cell.seqLabel.text = "1"
             cell.cellImageView.image = UIImage(named: cellImageViewArr[indexPath.row])
             cell.cellImageView.contentMode = .scaleAspectFit
 //        cell.layer.borderWidth = 1.0
@@ -171,7 +171,7 @@ extension Page1Controller: UICollectionViewDelegate, UICollectionViewDataSource 
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
             print("collectionView didSelectItemAt.... ", indexPath.row)
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
         
         //click animate
         if let cell = collectionView.cellForItem(at: indexPath) {
