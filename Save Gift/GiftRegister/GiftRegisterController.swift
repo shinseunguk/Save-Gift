@@ -703,8 +703,10 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
             if let possibleImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
                     print("원본 이미지")
                     newImage = possibleImage // 원본 이미지가 있을 경우
-                }
-            
+            }
+        
+        print("DB 중복값 확인할 것 ", info[UIImagePickerController.InfoKey.referenceURL]) // DB랑 중복값 확인해야함
+              
         guard let selectedImage = info[.originalImage] as? UIImage else {
                     fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
                 }

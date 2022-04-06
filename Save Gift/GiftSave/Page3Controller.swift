@@ -13,9 +13,12 @@ class Page3Controller : UIViewController{
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var filterButton: UIButton!
+    let label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
     
     let sectionInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     let cellHeight3 = ((UIScreen.main.bounds.width / 2) + 50) / 3
+    
+    var index : Int = 0
     
     //기기 세로길이
     let screenHeight = UIScreen.main.bounds.size.height
@@ -23,8 +26,16 @@ class Page3Controller : UIViewController{
     let screenWidth = UIScreen.main.bounds.size.width
     
     var viewPagerArr = ["All", "Unused", "Used"]
-    var barndNameLabelArr = ["Page3","BBQ","피자나라 치킨공주","교촌치킨","60계치킨","처갓집양념치킨","호식이두마리치킨","꾸브라꼬숯불두마리치킨"]
-    var expirationPeriodLabelArr = ["2022-04-14","2022-04-15","2022-04-16","2022-04-19","2022-04-20","2022-05-14","2022-02-14","2022-04-30"]
+//    var barndNameLabelArr = ["Page1","BBQ","피자나라 치킨공주","교촌치킨","60계치킨","처갓집양념치킨","호식이두마리치킨","꾸브라꼬숯불두마리치킨"]
+//    var expirationPeriodLabelArr = ["2022-04-14","2022-04-15","2022-04-16","2022-04-19","2022-04-20","2022-05-14","2022-02-14","2022-04-30"]
+//    var productNameLabelArr = ["뿌링클 순살 + 1L 콜라 + 치즈볼", "뿌링클 순살 + 2L 콜라 + 치즈볼", "뿌링클 순살 + 3L 콜라 + 치즈볼" ,"뿌링클 순살 + 4L 콜라 + 치즈볼", "뿌링클 순살 + 5L 콜라 + 치즈볼", "뿌링클 순살 + 6L 콜라 + 치즈볼", "뿌링클 순살 + 7L 콜라 + 치즈볼", "뿌링클 순살 + 8L 콜라 + 치즈볼"]
+//    var cellImageViewArr = ["chicken.jpg", "chicken.jpg", "chicken.jpg", "chicken.jpg", "chicken.jpg", "chicken.jpg", "chicken.jpg", "chicken.jpg"]
+    
+    // test Array
+        var barndNameLabelArr : [String] = []
+        var expirationPeriodLabelArr : [String] = []
+        var productNameLabelArr : [String] = []
+        var cellImageViewArr : [String] = []
     
     //cocoa pod
     let dropDown = DropDown()
@@ -42,6 +53,44 @@ class Page3Controller : UIViewController{
         setupFlowLayout()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        //서버통신후 getGifty
+        getGifty()
+    }
+    
+    
+    func getGifty(){
+        if barndNameLabelArr.count == 0 &&  expirationPeriodLabelArr.count == 0{
+            print("Page3 기프티콘이 존재하지 않음.")
+            label.isHidden = false
+            collectionView.isHidden = true
+            filterButton.isHidden = true
+            
+            // 화면 처음그릴때만 add subView
+            print("index ", index)
+            if index == 0 {
+                let label = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 21))
+                label.numberOfLines = 2
+                label.font = UIFont(name: "NanumAmSeuTeReuDam", size: 24)
+                label.textColor = .black
+                label.center = self.view.center
+                label.textAlignment = .center
+//                label.text = "기프티콘을 추가해 \n 관리, 공유, 선물해보세요"
+                label.text = "사용하지 않은 기프티콘이 없습니다."
+                
+                self.view.addSubview(label)
+                index += 1
+            }
+        }else {
+            print("기프티콘이 존재.")
+            collectionView.isHidden = false
+            filterButton.isHidden = false
+            label.isHidden = true
+        }
+    }
+    
     func collectionViewInit(){
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -57,6 +106,7 @@ class Page3Controller : UIViewController{
         
         let halfWidth = UIScreen.main.bounds.width / 2
 //        flowLayout.itemSize = CGSize(width: halfWidth * 0.9 , height: halfWidth * 0.9)
+//        flowLayout.itemSize = CGSize(width: halfWidth * 1 , height: halfWidth * 1 + 50)
         flowLayout.itemSize = CGSize(width: halfWidth * 1 , height: halfWidth * 2)
         flowLayout.footerReferenceSize = CGSize(width: halfWidth * 3, height: 70)
         flowLayout.sectionFootersPinToVisibleBounds = true
@@ -92,29 +142,20 @@ extension Page3Controller: UICollectionViewDelegate, UICollectionViewDataSource 
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        //        print("indexPath... ", indexPath)
-        //        print("collectionItems[indexPath.row]... ", expirationPeriodLabelArr[indexPath.row])
-        
-//            print("self.collectionView")
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
+        
             //  Configure the Cell
             cell.brandNameLabel.text = barndNameLabelArr[indexPath.row]
-            cell.productNameLabel.text = "\("뿌링클 순살 + 1.25L 콜라 + 치즈볼")"
-    //        print("ddfkmweofmwlekmf ", Int(cell.productNameLabel.text!.count / 15) + 1)
+            cell.productNameLabel.text = productNameLabelArr[indexPath.row]
             cell.expirationPeriodLabel.text = "유효기간 : \(expirationPeriodLabelArr[indexPath.row])"
-    //        cell.registrantLabel.text = "등록자 : \("ghdrlfehd@naver.com(신승욱)")"
-    //        cell.layer.borderWidth = 2.0
-    //        cell.layer.borderColor = UIColor.red.cgColor
+            cell.cellImageView.image = UIImage(named: cellImageViewArr[indexPath.row])
             cell.cellImageView.contentMode = .scaleAspectFit
-            cell.cellImageView.image = UIImage(named: "ppae.jpg")
-
             return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
             print("collectionView didSelectItemAt.... ", indexPath.row)
-        }
+    }
     
 }
 
