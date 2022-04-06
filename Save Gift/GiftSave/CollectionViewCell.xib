@@ -39,6 +39,13 @@
                         <color key="textColor" systemColor="linkColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U9C-XZ-81J">
+                        <rect key="frame" x="307" y="331" width="42" height="21"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
@@ -61,6 +68,7 @@
                 <outlet property="cellImageView" destination="2PP-1r-7jp" id="U0E-0t-WHL"/>
                 <outlet property="expirationPeriodLabel" destination="uUd-UH-B3L" id="qht-aZ-cWL"/>
                 <outlet property="productNameLabel" destination="X6F-qH-yNa" id="B0X-Gc-KaK"/>
+                <outlet property="seqLabel" destination="U9C-XZ-81J" id="QHr-6f-fRa"/>
             </connections>
             <point key="canvasLocation" x="345.6521739130435" y="195.53571428571428"/>
         </collectionViewCell>
