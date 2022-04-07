@@ -4,6 +4,7 @@
 //
 //  Created by ukBook on 2022/03/27.
 //
+// https://mr-jang.tistory.com/5  -----------> modal
 
 import Foundation
 import UIKit
@@ -173,15 +174,20 @@ extension Page1Controller: UICollectionViewDelegate, UICollectionViewDataSource 
             print("collectionView didSelectItemAt.... ", indexPath.row)
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
         
+        
         //click animate
         if let cell = collectionView.cellForItem(at: indexPath) {
                cell.backgroundColor = cell.isSelected ? .systemGray2 : .white
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.05) {
                 cell.backgroundColor = UIColor.white
+                
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "GiftDetailVC") as! GiftDetailControoler
+//                vc.modalPresentationStyle = .fullScreen
+//                vc.definesPresentationContext = true
+//                vc.modalPresentationStyle = .overCurrentContext
+                self.present(vc, animated: true, completion: nil)
             }
         }
-        
-        
     }
     
 }

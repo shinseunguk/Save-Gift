@@ -20,14 +20,6 @@ import Protobuf
 import Tabman
 import Pageboy
 
-protocol PagingTabbarDelegate : AnyObject {
-    func scrollToIndex(index: Int)
-}
-
-protocol TabbedViewDelegate: AnyObject {
-    func didMoveToTab(index: Int)
-}
-
 class GiftSaveController : TabmanViewController{
     
     let helper : Helper = Helper()
@@ -198,7 +190,7 @@ class GiftSaveController : TabmanViewController{
 //        nextButton.imageView?.widthAnchor
         
         //set image
-        nextButton.setImage(UIImage(systemName: "lock"), for: .normal)
+        nextButton.setImage(UIImage(systemName: "lock.open.fill"), for: .normal)
         
         //imageview image size
         nextButton.setPreferredSymbolConfiguration(.init(pointSize: 35, weight: .regular, scale: .default), forImageIn: .normal)
