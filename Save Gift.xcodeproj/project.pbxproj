@@ -13,6 +13,8 @@
 		041E83CF27D9DD7600AEB546 /* GetFriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041E83CD27D9DD7600AEB546 /* GetFriendTableViewCell.swift */; };
 		041E83D027D9DD7600AEB546 /* GetFriendTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 041E83CE27D9DD7600AEB546 /* GetFriendTableViewCell.xib */; };
 		042C0FB627FE73C5005EDA8E /* GiftDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042C0FB527FE73C5005EDA8E /* GiftDetailController.swift */; };
+		042C0FB927FFB93B005EDA8E /* GiftDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042C0FB727FFB93B005EDA8E /* GiftDetailTableViewCell.swift */; };
+		042C0FBA27FFB93B005EDA8E /* GiftDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 042C0FB827FFB93B005EDA8E /* GiftDetailTableViewCell.xib */; };
 		046F706427F14A57008CF3F6 /* moogoonghwa.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 046F706127F14A56008CF3F6 /* moogoonghwa.ttf */; };
 		046F706527F14A57008CF3F6 /* geulssi.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 046F706227F14A57008CF3F6 /* geulssi.ttf */; };
 		046F706627F14A57008CF3F6 /* thirdFont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 046F706327F14A57008CF3F6 /* thirdFont.ttf */; };
@@ -103,6 +105,8 @@
 		041E83CD27D9DD7600AEB546 /* GetFriendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetFriendTableViewCell.swift; sourceTree = "<group>"; };
 		041E83CE27D9DD7600AEB546 /* GetFriendTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GetFriendTableViewCell.xib; sourceTree = "<group>"; };
 		042C0FB527FE73C5005EDA8E /* GiftDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftDetailController.swift; sourceTree = "<group>"; };
+		042C0FB727FFB93B005EDA8E /* GiftDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftDetailTableViewCell.swift; sourceTree = "<group>"; };
+		042C0FB827FFB93B005EDA8E /* GiftDetailTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GiftDetailTableViewCell.xib; sourceTree = "<group>"; };
 		046F706127F14A56008CF3F6 /* moogoonghwa.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = moogoonghwa.ttf; path = "Save Gift/Font/moogoonghwa.ttf"; sourceTree = SOURCE_ROOT; };
 		046F706227F14A57008CF3F6 /* geulssi.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = geulssi.ttf; path = "Save Gift/Font/geulssi.ttf"; sourceTree = SOURCE_ROOT; };
 		046F706327F14A57008CF3F6 /* thirdFont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = thirdFont.ttf; path = "Save Gift/Font/thirdFont.ttf"; sourceTree = SOURCE_ROOT; };
@@ -740,6 +744,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		042C0FBF27FFF58B005EDA8E /* GiftDetail */ = {
+			isa = PBXGroup;
+			children = (
+				042C0FB527FE73C5005EDA8E /* GiftDetailController.swift */,
+				042C0FB727FFB93B005EDA8E /* GiftDetailTableViewCell.swift */,
+				042C0FB827FFB93B005EDA8E /* GiftDetailTableViewCell.xib */,
+			);
+			path = GiftDetail;
+			sourceTree = "<group>";
+		};
 		046F706727F14A74008CF3F6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -809,7 +823,6 @@
 				A2907E1727EF86E90001148D /* Page1Controller.swift */,
 				A2907E1927EF879C0001148D /* Page2Controller.swift */,
 				A2907E1B27EF87A20001148D /* Page3Controller.swift */,
-				042C0FB527FE73C5005EDA8E /* GiftDetailController.swift */,
 			);
 			path = GiftSave;
 			sourceTree = "<group>";
@@ -928,6 +941,7 @@
 		A225D6FB275B5FD500484EAE /* Save Gift */ = {
 			isa = PBXGroup;
 			children = (
+				042C0FBF27FFF58B005EDA8E /* GiftDetail */,
 				046F707327F14EC1008CF3F6 /* Login */,
 				046F707227F14E84008CF3F6 /* GiftRegister */,
 				046F707127F14E5D008CF3F6 /* GiftShare */,
@@ -1599,6 +1613,7 @@
 				A2C5B5BA27AEEE7C00C65B79 /* TableViewCell.xib in Resources */,
 				046F706427F14A57008CF3F6 /* moogoonghwa.ttf in Resources */,
 				A2DD0BE827A7CC580015E59B /* RegisterTableViewCell.xib in Resources */,
+				042C0FBA27FFB93B005EDA8E /* GiftDetailTableViewCell.xib in Resources */,
 				046F706527F14A57008CF3F6 /* geulssi.ttf in Resources */,
 				04D2D82127F67EB30052D877 /* bbq.jpg in Resources */,
 				04D2D81A27F53DFF0052D877 /* apple.png in Resources */,
@@ -1701,6 +1716,7 @@
 				A2B6C2DE27A81E2100B8617B /* RegisterUseTableViewCell.swift in Sources */,
 				A2D33524275E474D00ECF4B1 /* UITextFiled+Extension.swift in Sources */,
 				A225D701275B5FD500484EAE /* ViewController.swift in Sources */,
+				042C0FB927FFB93B005EDA8E /* GiftDetailTableViewCell.swift in Sources */,
 				A2D2FDA42777414A0036B849 /* GiftPresentController.swift in Sources */,
 				048124F327EC1F07003DF866 /* CollectionViewTopCell.swift in Sources */,
 				A2D493642790624C00FB5770 /* SettingSecessionController.swift in Sources */,
