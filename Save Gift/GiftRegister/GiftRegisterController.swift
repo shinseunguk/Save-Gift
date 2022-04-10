@@ -40,7 +40,11 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
     var regularBool : Bool = false
     var result : Bool = false
     
+    var imgLocalUrl : String? = nil
+    
     var newImage: UIImage? = nil // update 할 이미지
+    
+    var barcodeImage: UIImage? = nil
     
     // 날짜 정규식
     let datePattern: String = "(?<year>[0-9]{4})[-/.](?<month>[0-9]{2})[-/.](?<date>[0-9]{2})"
@@ -254,17 +258,21 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
             alert.addAction(cancelAction)
             alert.addAction(defaultAction)
             alert.addAction(defaultAction1)
-        } else if titles == "빈칸없이 작성 해주세요." {
+        }else if titles == "빈칸없이 작성 해주세요." {
             let cancelAction = UIAlertAction(title: "확인", style: .default, handler : nil)
             alert.addAction(cancelAction)
-        } else { // 유효기간 formatting
+        }else if messages == "이미 등록된 이미지입니다."{
+            let cancelAction = UIAlertAction(title: "확인", style: .default,  handler : {_ in self.plusAction()})
+            alert.addAction(cancelAction)
+        }else { // 유효기간 formatting
             let defaultAction = UIAlertAction(title: "확인", style: .default, handler : nil)
             alert.addAction(defaultAction)
         }
         
+        
         present(alert, animated: true, completion: nil)
     }
-
+    
     func getText(image: UIImage) {
         let dateYear : String = helper.formatDateToday()
         let endIdx: String.Index = dateYear.index(dateYear.startIndex, offsetBy: 3)
@@ -594,24 +602,6 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
         print("빈곳 터치 키보드 내리기")
         tableView.keyboardDismissMode = .onDrag
         self.tableView.endEditing(true)
-//
-//        let index = IndexPath(row: 3, section: 0)
-//        let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
-////        cell.textfield.text! = ""
-//        var trimStr = cell.textfield.text!
-//
-//        print("trimStr.count ", trimStr.count)
-//
-//        if trimStr.count == 8 {
-//            trimStr.insert("-", at: trimStr.index(trimStr.startIndex, offsetBy: 4))
-//            trimStr.insert("-", at: trimStr.index(trimStr.startIndex, offsetBy: 7))
-//        } else {
-//            self.normalAlert(titles: "유효기간을 정확하게 입력해주세요", messages: "ex) "+helper.formatDateToday())
-//            print("else")
-//        }
-//
-//        print("trimStr ", trimStr)
-//        cell.textfield.text! = trimStr
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -703,9 +693,10 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
             if let possibleImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
                     print("원본 이미지")
                     newImage = possibleImage // 원본 이미지가 있을 경우
+                barcodeImage = possibleImage
             }
         
-        print("DB 중복값 확인할 것 ", info[UIImagePickerController.InfoKey.referenceURL]) // DB랑 중복값 확인해야함
+        print("DB 중복값 확인할 것1 ", info[UIImagePickerController.InfoKey.referenceURL]!) // DB랑 중복값 확인해야함
               
         guard let selectedImage = info[.originalImage] as? UIImage else {
                     fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
@@ -714,89 +705,36 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
         guard let notOriginImage = info[.editedImage] as? UIImage else {
                     fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
                 }
-//        readBarcode(uiImage: selectedImage)
         
-//        let image = VisionImage(image: selectedImage)
+//        imgLocalUrl = info[UIImagePickerController.InfoKey.referenceURL] as? NSURL
         
-        let imageUrl = info[UIImagePickerController.InfoKey.referenceURL] as! URL
-        let imageName = imageUrl.lastPathComponent
-        let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentationDirectory, .userDomainMask, true).first as String?
-        let photoURL = URL(fileURLWithPath: documentDirectory!)
-        let localPath = photoURL.appendingPathComponent(imageName)
-        
-        print("imageUrl ", imageUrl)
-        print("imageName ", imageName)
-        print("documentDirectory ", documentDirectory!)
-        print("photoURL ", photoURL)
-        print("localPath ", localPath)
-        
-        let image = VisionImage(image: notOriginImage)
-        self.getText(image: selectedImage)
-        
-        let barcodeScanner = BarcodeScanner.barcodeScanner()
-        barcodeScanner.process(image) { barcodes, error in
-          guard error == nil, let barcodes = barcodes, !barcodes.isEmpty else {
-            // Error handling
+        if let referenceUrl = info[UIImagePickerController.InfoKey.referenceURL] as? NSURL {
+               //access the file name
+            imgLocalUrl = referenceUrl.absoluteString
             
-            //바코드 인식 -> setText
-            let index = IndexPath(row: 2, section: 0)
-            let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
-            cell.textfield.text! = ""
-            cell.textfield.isEnabled = true
+            registerDic[7] = imgLocalUrl
+            print("imgLocalUrl ", registerDic[7]!)
             
-            //이미지 clear
-            print("self.nextBool false")
-//            self.imageView.image = nil
-            self.nextBool = false
-            
-            self.normalAlert(titles: "바코드가 인식 되지 않는 이미지 입니다.", messages: "화질이 좋지 않은 이미지는 바코드가 인식 하지 않을수도 있습니다.\n 그래도 등록 하시겠습니까?")
-            return
-          }
-          // Recognized barcodes
-            for barcode in barcodes {
-                //OCR
-              let corners = barcode.cornerPoints
-
-              let displayValue = barcode.displayValue
-              let rawValue = barcode.rawValue
-                
-                print("corners ##### ", corners!)
-                print("displayValue ##### ", displayValue!)
-                print("rawValue ##### ", rawValue!)
-                
-                let index = IndexPath(row: 2, section: 0)
-                let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
-                cell.textfield.text! = displayValue!
-                cell.textfield.isEnabled = false
-                
-                
-              let valueType = barcode.valueType
-                print("valueType### ", valueType)
-              switch valueType {
-              case .wiFi:
-                let ssid = barcode.wifi?.ssid
-                let password = barcode.wifi?.password
-                let encryptionType = barcode.wifi?.type
-              case .URL:
-                let title = barcode.url!.title
-                let url = barcode.url!.url
-                print("url .. ", url!)
-                print("title .. ", title!)
-              default:
-                print("default")
-                // See API reference for all supported value types
-              
-              } //swtich
-                if(error == nil){
-                    print("self.nextBool true")
-//                    self.imageView.isHidden = false
-//                    self.imageView.image = newImage // 받아온 이미지를 update
-//                    self.nextBool = true
-                }
-            }
-        } // process
-        self.imageView.image = newImage // 받아온 이미지를 update
-        self.nextBool = true
+            requestPostOverlap(requestUrl: "/overlap/photo", url : imgLocalUrl)
+           }
+        
+        
+        
+        
+//        let imageUrl = info[UIImagePickerController.InfoKey.referenceURL] as! URL
+//        let imageName = imageUrl.lastPathComponent
+//        let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentationDirectory, .userDomainMask, true).first as String?
+//        let photoURL = URL(fileURLWithPath: documentDirectory!)
+//        let localPath = photoURL.appendingPathComponent(imageName)
+//
+//        print("imageUrl ", imageUrl)
+//        print("imageName ", imageName)
+//        print("documentDirectory ", documentDirectory!)
+//        print("photoURL ", photoURL)
+//        print("localPath ", localPath)
+        
+//        let image = VisionImage(image: (info[UIImagePickerController.InfoKey.originalImage] as? UIImage)!)
+        
         picker.dismiss(animated: true, completion: nil) // picker를 닫아줌
         
             
@@ -868,7 +806,7 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
             
             var param = [
                 "user_id" : UserDefaults.standard.string(forKey: "ID"),
-//                "img_url" : "gs://save-gift.appspot.com/\(UserDefaults.standard.string(forKey: "imageName")!)",
+//                "img_url" : "gs://save-gift.appspot.com/\(UserDefaults.standard.string(forKey: "imageName")!)", //FireBase URL로 등록
                 "brand" : registerDic[0]!,
                 "barcode_number" : registerDic[2]!,
                 "expiration_period" : registerDic[3]!,
@@ -876,7 +814,8 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
                 "use_yn" : registerDic[4]!,
                 "device_id" : deviceID!,
                 "registrant" : registerDic[6]!,
-                "product_name" : registerDic[1]!
+                "product_name" : registerDic[1]!,
+                "img_local_url" : registerDic[7]!
             ] as [String : Any] // JSON 객체로 전송할 딕셔너리
             
             result = FirebaseStorageManager.uploadImage(image: self.newImage!, param: &param)
@@ -966,6 +905,144 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
 //                        self.normalAlert(titles: "로그인 실패", messages: "아이디와 비밀번호를 확인해주세요.")
 //                        }
 //                    }
+                }
+                // POST 전송
+                task.resume()
+    }
+    
+    func requestPostOverlap(requestUrl : String!, url : String!) -> Void{
+
+//        registerDic[0] -> 교환처
+//        registerDic[1] -> 상품명
+//        registerDic[2] -> 바코드 번호
+//        registerDic[3] -> 유효기간
+//        registerDic[4] -> 쿠폰 상태
+//        registerDic[5] -> 등록일
+//        registerDic[6] -> 등록자
+
+        let param = [
+            "img_local_url" : url
+        ] as [String : Any] // JSON 객체로 전송할 딕셔너리
+        
+//        print("param ..... ", param)
+        let paramData = try! JSONSerialization.data(withJSONObject: param)
+        // URL 객체 정의r
+                let url = URL(string: localUrl+requestUrl)
+
+                // URLRequest 객체를 정의
+                var request = URLRequest(url: url!)
+                request.httpMethod = "POST"
+                request.httpBody = paramData
+
+                // HTTP 메시지 헤더
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.addValue("application/json", forHTTPHeaderField: "Accept")
+//                request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+//                request.setValue(String(paramData.count), forHTTPHeaderField: "Content-Length")
+
+                // URLSession 객체를 통해 전송, 응답값 처리
+                let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                    // 서버가 응답이 없거나 통신이 실패
+                    if let e = error {
+                        print("An error has occured: \(e.localizedDescription)")
+                        return
+                    }
+
+                let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+
+                    print("회원가입 응답 처리 로직 responseString", responseString!)
+//                    print("응답 처리 로직 data", data as Any)
+//                    print("응답 처리 로직 response", response as Any)
+                    // 응답 처리 로직
+
+                if(responseString != "0"){
+                        DispatchQueue.main.async{
+                            self.imageView.image = nil
+                            self.normalAlert(titles: "알림", messages: "이미 등록된 이미지입니다.")
+                            
+                            for x in 0...3 {
+                                let index = IndexPath(row: x, section: 0)
+                                let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
+                                cell.textfield.text! = ""
+                                cell.textfield.isEnabled = true
+                            }
+                            
+                            self.nextBool = false
+                        }
+                }else {
+                    DispatchQueue.main.async{
+                        self.imageView.image = self.newImage // 받아온 이미지를 update
+                        self.nextBool = true
+                        
+                        let image = VisionImage(image: self.barcodeImage!)
+                        self.getText(image: self.barcodeImage!)
+                        
+                        let barcodeScanner = BarcodeScanner.barcodeScanner()
+                        barcodeScanner.process(image) { barcodes, error in
+                          guard error == nil, let barcodes = barcodes, !barcodes.isEmpty else {
+                            // Error handling
+                            
+                            //바코드 인식 -> setText
+                            let index = IndexPath(row: 2, section: 0)
+                            let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
+                            cell.textfield.text! = ""
+                            cell.textfield.isEnabled = true
+                            
+                            //이미지 clear
+                            print("self.nextBool false")
+                //            self.imageView.image = nil
+                            self.nextBool = false
+                            
+                            self.normalAlert(titles: "바코드가 인식 되지 않는 이미지 입니다.", messages: "화질이 좋지 않은 이미지는 바코드가 인식 하지 않을수도 있습니다.\n 그래도 등록 하시겠습니까?")
+                            return
+                          }
+                          // Recognized barcodes
+                            for barcode in barcodes {
+                                //OCR
+                              let corners = barcode.cornerPoints
+
+                              let displayValue = barcode.displayValue
+                              let rawValue = barcode.rawValue
+                                
+                                print("corners ##### ", corners!)
+                                print("displayValue ##### ", displayValue!)
+                                print("rawValue ##### ", rawValue!)
+                                
+                                let index = IndexPath(row: 2, section: 0)
+                                let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
+                                cell.textfield.text! = displayValue!
+                                cell.textfield.isEnabled = false
+                                
+                                
+                              let valueType = barcode.valueType
+                                print("valueType### ", valueType)
+                              switch valueType {
+                              case .wiFi:
+                                let ssid = barcode.wifi?.ssid
+                                let password = barcode.wifi?.password
+                                let encryptionType = barcode.wifi?.type
+                              case .URL:
+                                let title = barcode.url!.title
+                                let url = barcode.url!.url
+                                print("url .. ", url!)
+                                print("title .. ", title!)
+                              default:
+                                print("default")
+                                // See API reference for all supported value types
+                              
+                              } //swtich
+                                if(error == nil){
+                                    print("self.nextBool true")
+                //                    self.imageView.isHidden = false
+                //                    self.imageView.image = newImage // 받아온 이미지를 update
+                //                    self.nextBool = true
+                                }
+                            }
+                        } // process
+                        
+                    }
+                }
+                    
                 }
                 // POST 전송
                 task.resume()

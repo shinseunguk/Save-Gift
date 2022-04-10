@@ -47,7 +47,7 @@ class GiftSaveController : TabmanViewController{
     let screenWidth = UIScreen.main.bounds.size.width
     
 //    var viewPagerArr = ["미사용+사용 기프티콘", "미사용 기프티콘", "사용 기프티콘"]
-    var viewPagerArr = ["All", "Unused", "Used"]
+    var viewPagerArr = ["Unused", "Used", "All"]
     
     //cocoa pod
     let dropDown = DropDown()

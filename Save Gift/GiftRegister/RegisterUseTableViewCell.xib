@@ -29,8 +29,8 @@
                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="L7j-uN-J4h">
                         <rect key="frame" x="115" y="6.5" width="186" height="32"/>
                         <segments>
-                            <segment title="미사용"/>
-                            <segment title="사용"/>
+                            <segment title="사용가능"/>
+                            <segment title="사용불가"/>
                         </segments>
                     </segmentedControl>
                 </subviews>
