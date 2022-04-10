@@ -11,6 +11,7 @@ class GiftDetailTableViewCell: UITableViewCell {
     @IBOutlet weak var firstLabel: UILabel!
     @IBOutlet weak var secondLabel: UILabel!
     @IBOutlet weak var copyBtn: UIButton!
+    @IBOutlet weak var dDayLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
