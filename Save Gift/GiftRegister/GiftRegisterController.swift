@@ -24,8 +24,10 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var registerBtn: UIButton!
     let imagePicker = UIImagePickerController()
     let helper : Helper = Helper()
+    let giftDetailController : GiftDetailControoler = GiftDetailControoler()
     let localUrl : String = "".getLocalURL()
     let deviceID : String? = UserDefaults.standard.string(forKey: "device_id")
     
@@ -33,22 +35,23 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
     var arrTextField = ["", "", "", "", "", "", ""]
     var segmentStatus : Int = 0
     var registerButton = UIButton()
-    var nextBool : Bool = false
     var s = 0
     var keyboard : Bool? = true
     var registerDic : Dictionary = [Int:Any]()
-    var regularBool : Bool = false
+    
     var result : Bool = false
     
+    
+    var imageBool : Bool = false
+    var emptyBool : Bool = false
+    var regularStatusBool : Bool = false
+    var regularBool : Bool = false
+
+    
     var imgLocalUrl : String? = nil
-    
     var newImage: UIImage? = nil // update 할 이미지
-    
     var barcodeImage: UIImage? = nil
     
-    // 날짜 정규식
-    let datePattern: String = "(?<year>[0-9]{4})[-/.](?<month>[0-9]{2})[-/.](?<date>[0-9]{2})"
-
     
     let toolBar = UIToolbar()
     let metadataObjectTypes: [AVMetadataObject.ObjectType] = [
@@ -75,45 +78,45 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
         self.imagePicker.allowsEditing = true // 수정 가능 여부
         self.scrollView.delegate = self
         
-
-        self.navigationController?.navigationBar.tintColor = .systemBlue
-        self.navigationController?.navigationBar.barTintColor = UIColor.init(displayP3Red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.black]
-        self.navigationItem.title = "기프티콘 등록 화면"
+        //btn layout setting
+        setupLayout()
         
-        // 등록일 Default Setting
-        arrTextField.insert(helper.formatDateToday(), at: 5)
-        // 등록자 Default Setting
-        if(UserDefaults.standard.string(forKey: "ID") != nil){ //로그인 O
-            arrTextField.insert("\(UserDefaults.standard.string(forKey: "ID")!)"+"(\(UserDefaults.standard.string(forKey: "name")!))", at: 6)
-        }
+        //네비게이션바 setting
+        setupNavigationBar()
         
-        let rightBarButton = UIBarButtonItem.init(image: UIImage(systemName: "camera"),  style: .plain, target: self, action: #selector(self.plusAction)) //Class.MethodName
-        self.navigationItem.rightBarButtonItem = rightBarButton
+        //툴바 setting
+        setupToolBar()
+        
+        //등록일, 등록자 default setting
+        deafultSetting()
+        
+        //테이블뷰 setup
+        setupTableView()
         
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(self.imageTapped))
                         imageView.addGestureRecognizer(tapGR)
                         imageView.isUserInteractionEnabled = true
         
         print("deviceID : ", deviceID!)
-        //버튼 점선
-//        let shapeLayer:CAShapeLayer = CAShapeLayer()
-//        let frameSize = imageView.frame.size
-//        let shapeRect = CGRect(x: 0, y: 0, width: frameSize.width, height: frameSize.height)
-//
-//        shapeLayer.bounds = shapeRect
-//                shapeLayer.position = CGPoint(x: frameSize.width/2, y: frameSize.height/2)
-//                shapeLayer.fillColor = UIColor.clear.cgColor
-//                shapeLayer.strokeColor = UIColor.systemBlue.cgColor
-//                shapeLayer.lineWidth = 2
-//                shapeLayer.lineJoin = CAShapeLayerLineJoin.round
-//                shapeLayer.lineDashPattern = [6,3]
-//                shapeLayer.path = UIBezierPath(roundedRect: shapeRect, cornerRadius: 4).cgPath
-//
-//        imageView.layer.addSublayer(shapeLayer)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification , object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        plusAction()
+    }
+    
+    func setupTableView(){
+        //셀 테두리지우기
+        tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
+        //테이블뷰 선택 enable
+        tableView.allowsSelection = false
+        
+        //Specify the xib file to use
+        tableView.register(UINib(nibName: "RegisterTableViewCell", bundle: nil), forCellReuseIdentifier: "RegisterTableViewCell")
+        tableView.register(UINib(nibName: "RegisterUseTableViewCell", bundle: nil), forCellReuseIdentifier: "RegisterUseTableViewCell")
+    }
+    
+    func setupToolBar(){
         toolBar.sizeToFit()
         
         let backBtn = UIButton.init(type: .custom)
@@ -133,22 +136,33 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
 //        toolBar.barStyle = .black
         toolBar.barTintColor = UIColor.white
         toolBar.tintColor = .white
+    }
+    
+    func deafultSetting(){
+        // 등록일 Default Setting
+        arrTextField.insert(helper.formatDateToday(), at: 5)
+        
+        // 등록자 Default Setting
+        if(UserDefaults.standard.string(forKey: "ID") != nil){ //로그인 O
+            arrTextField.insert("\(UserDefaults.standard.string(forKey: "ID")!)"+"(\(UserDefaults.standard.string(forKey: "name")!))", at: 6)
+        }
+    }
+    
+    func setupLayout(){
+        registerBtn.layer.cornerRadius = 5
+    }
+    
+    func setupNavigationBar(){
+        self.navigationController?.navigationBar.tintColor = .systemBlue
+        self.navigationController?.navigationBar.barTintColor = UIColor.init(displayP3Red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.black]
+        self.navigationItem.title = "기프티콘 등록 화면"
         
         
-        //셀 테두리지우기
-        tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
-        //테이블뷰 선택 enable
-        tableView.allowsSelection = false
-        
-        //Specify the xib file to use
-        tableView.register(UINib(nibName: "RegisterTableViewCell", bundle: nil), forCellReuseIdentifier: "RegisterTableViewCell")
-        tableView.register(UINib(nibName: "RegisterUseTableViewCell", bundle: nil), forCellReuseIdentifier: "RegisterUseTableViewCell")
-        
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification , object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-        
-        plusAction()
+        let rightBarButton = UIBarButtonItem.init(image: UIImage(systemName: "camera"),  style: .plain, target: self, action: #selector(self.plusAction)) //Class.MethodName
+        self.navigationItem.rightBarButtonItem = rightBarButton
     }
     
     @objc func backBtnAction(_ textField: UITextField){
@@ -190,8 +204,7 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
         }
     }
     
-    @objc
-    func imageTapped(sender: UITapGestureRecognizer) {
+    @objc func imageTapped(sender: UITapGestureRecognizer) {
                 if sender.state == .ended {
                     print("imageTapped")
                     self.view.endEditing(true)
@@ -261,7 +274,7 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
         }else if titles == "빈칸없이 작성 해주세요." {
             let cancelAction = UIAlertAction(title: "확인", style: .default, handler : nil)
             alert.addAction(cancelAction)
-        }else if messages == "이미 등록된 이미지입니다."{
+        }else if messages == "이미 등록된 이미지입니다." || messages == "기프티콘 이미지를 등록해주세요."{
             let cancelAction = UIAlertAction(title: "확인", style: .default,  handler : {_ in self.plusAction()})
             alert.addAction(cancelAction)
         }else { // 유효기간 formatting
@@ -271,6 +284,17 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
         
         
         present(alert, animated: true, completion: nil)
+    }
+    
+    func normalAlert(titles:String, messages:String?,_ textfield : UITextField) -> Void{
+        let alert = UIAlertController(title: titles, message: messages, preferredStyle: UIAlertController.Style.alert)
+        if messages == "유효기간이 지난 기프티콘 입니다.\n 그래도 등록하시겠습니까?"{
+            let okAction = UIAlertAction(title: "확인", style: .default,  handler : {_ in self.segmentChange()})
+            let cancelAction = UIAlertAction(title: "취소", style: .cancel,  handler : {_ in self.textFieldClean(textfield)})
+            alert.addAction(okAction)
+            alert.addAction(cancelAction)
+        present(alert, animated: true, completion: nil)
+        }
     }
     
     func getText(image: UIImage) {
@@ -292,14 +316,6 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
             }
             //결과값 출력
             let str = result.text
-//                print("resultText: \(str)")
-            
-//            let deciphered = resultText.split(separator: "\n").reduce(into: [String: AnyObject]()) {
-//                let resultText = $1.split(separator: ":")
-//                if let first = resultText.first, let value = resultText.last{
-//                    $0[String(first)] = value as AnyObject
-//                }
-//            }
             
             let deciphered = str.split(separator: "\n").reduce(into: [String: AnyObject]()) {
                 let str = $1.split(separator: ":")
@@ -362,7 +378,6 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
                                 let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
                                 cell.textfield.text! = trimStr16TO8
                             }
-                            self.regularBool = true
                         }
                         
                     }
@@ -532,16 +547,31 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
                     break;
                     
                 case 8:// 20210515 날짜 정규식 추가 예정
+                    textField.text = text.replacingOccurrences(of: "-", with: "").substring(from: 0, to: 3)+"-"+text.replacingOccurrences(of: "-", with: "").substring(from: 4, to: 5)+"-"+text.replacingOccurrences(of: "-", with: "").substring(from: 6, to: 7)
+                    
                     let regularExpression = text.validateDate(text.replacingOccurrences(of: "-", with: ""))
                     print("regularExpression ",regularExpression)
                     if regularExpression != ""{
                         normalAlert(titles: "알림", messages: regularExpression)
                         regularBool = false
-                    }else {
+                    }else { // 날짜 정규식은 이상 없음 -> 이후 오늘날짜와 유효기간을 비교
                         regularBool = true
+                        print("text ---------> 545line -----> ", textField.text! )
+                        
+                        let resultDDay : Int = giftDetailController.calculateDays(availableDate: textField.text!)
+                        if resultDDay == 0 {
+                            print("resultDDay")
+                            regularStatusBool = true
+                        }else if resultDDay > 0 {
+                            normalAlert(titles: "알림", messages: "유효기간이 지난 기프티콘 입니다.\n 그래도 등록하시겠습니까?", textField)
+                            //regularStatusBool = false
+                        }else if resultDDay < 0 {
+                            print("resultDDay < 0")
+                            regularStatusBool = true
+                        }
+                        
                     }
                     
-                    textField.text = text.replacingOccurrences(of: "-", with: "").substring(from: 0, to: 3)+"-"+text.replacingOccurrences(of: "-", with: "").substring(from: 4, to: 5)+"-"+text.replacingOccurrences(of: "-", with: "").substring(from: 6, to: 7)
                     break;
                     
                 default:
@@ -555,23 +585,25 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
 //            normalAlert(titles: "알림", messages: "유효기간을 다시 확인해주세요.")
     }
     
+    @objc func segmentChange(){
+        print("segmentChange")
+        
+        let customCell = tableView.dequeueReusableCell(withIdentifier: "RegisterUseTableViewCell") as! RegisterUseTableViewCell
+        customCell.segmentControl.selectedSegmentIndex = 1
+        customCell.segmentControl.sendActions(for: .valueChanged)
+        
+        tableView.refreshControl?.sendActions(for: .valueChanged)
+    }
+    
+    @objc func textFieldClean(_ textField: UITextField){
+        guard let text = textField.text else { return }
+        textField.text = ""
+    }
+    
     @objc func textFieldDidBigin(_ textField: UITextField) {
         guard let text = textField.text else { return }
         textField.text = text.replacingOccurrences(of: "-", with: "")
     }
-    
-//    func dateCheck(str : String){
-//        let regex = try? NSRegularExpression(pattern: datePattern, options: [])
-//        if let result = regex?.matches(in: str, options: [], range: NSRange(location: 0, length: str.count)) {
-//            let rexStrings = result.map { (element) -> String in
-//                let yearRange = Range(element.range(withName: "year"), in: str)!
-//                let monthRange = Range(element.range(withName: "month"), in: str)!
-//                let dateRange = Range(element.range(withName: "date"), in: str)!
-//                return "\(str[yearRange])-\(str[monthRange])-\(str[dateRange])"
-//            }
-//            print(rexStrings) //["2021-11-29"] }
-//        }
-//    }
     
     func isValidPhone(phone: String?) -> Bool {
             guard phone != nil else { return false }
@@ -748,60 +780,60 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
     }
     
     @IBAction func registerAction(_ sender: Any) {
-        print("print registerAction")
         for x in 0...6 {
-            if x == 4 {
-                let index = IndexPath(row: x, section: 0)
-                let cell: RegisterUseTableViewCell = self.tableView.cellForRow(at: index) as! RegisterUseTableViewCell
-                registerDic[x] = cell.segmentControl.selectedSegmentIndex
-            } else {
-                let index = IndexPath(row: x, section: 0)
-                let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
-                if cell.textfield.text == "" {
-                    normalAlert(titles: "빈칸없이 작성 해주세요.", messages: nil)
-//                    cell.textfield.becomeFirstResponder()
-                } else {
-                    switch x {
-                    case 0...3:
-//                        print("#@!#&*(!@ ",x)
-                        let index = IndexPath(row: x, section: 0)
-                        let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
+//            let index = IndexPath(row: x, section: 0)
+//            let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
+//            if cell.textfield.text != "" {
+                switch x {
+                case 0...3:
+                    let index = IndexPath(row: x, section: 0)
+                    let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
+                    if cell.textfield.text != ""{
                         registerDic[x] = cell.textfield.text!
-                        break
-//                    case 4:
-//                        print("#@!#&*(!@ ",x)
-//                        let index = IndexPath(row: x, section: 0)
-//                        let cell: RegisterUseTableViewCell = self.tableView.cellForRow(at: index) as! RegisterUseTableViewCell
-//                        registerDic[x] = cell.segmentControl.selectedSegmentIndex
-//                        break
-                    case 5...6:
-//                        print("#@!#&*(!@ ",x)
-                        let index = IndexPath(row: x, section: 0)
-                        let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
-                        registerDic[x] = cell.textfield.text!
-                        break
-                    default:
-                        print("default")
-                        break
                     }
-                }  // 유효성 확인
-            }
+                    break
+                case 4:
+                    let index = IndexPath(row: x, section: 0)
+                    let cell: RegisterUseTableViewCell = self.tableView.cellForRow(at: index) as! RegisterUseTableViewCell
+                    registerDic[x] = cell.segmentControl.selectedSegmentIndex
+                    break
+                case 5...6:
+                    let index = IndexPath(row: x, section: 0)
+                    let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
+                    if cell.textfield.text != ""{
+                        registerDic[x] = cell.textfield.text!
+                    }
+                    break
+                default:
+                    print("default")
+                    break
+                }
+//            }else {
+////                    cell.textfield.becomeFirstResponder()
+//            }
         }// for
+        
+        if  registerDic[0] != nil &&
+            registerDic[1] != nil &&
+            registerDic[2] != nil &&
+            registerDic[3] != nil &&
+            registerDic[5] != nil &&
+            registerDic[6] != nil {
+            print("emptybool ---------> true")
+            emptyBool = true
+        }
+        
         print("registerDic.. 1 ", registerDic)
         print("self.imageView.image ", self.imageView.image)
-        
-        if !regularBool {
-            normalAlert(titles: "알림", messages: "유효기간을 확인해주세요.")
-        }else if registerDic[0] == nil ||
-            registerDic[1] == nil ||
-            registerDic[2] == nil ||
-            registerDic[3] == nil ||
-            registerDic[4] == nil ||
-            registerDic[5] == nil ||
-            registerDic[6] == nil ||
-            self.imageView.image == nil {
+        if self.imageView.image == nil{ // 이미지가 없을경우
+            normalAlert(titles: "알림", messages: "기프티콘 이미지를 등록해주세요.")
+        }else if !emptyBool { // 하나라도 빈칸일 경우
             normalAlert(titles: "알림", messages: "빈칸없이 작성 해주세요.")
-        }else {
+        }else if !regularBool { // 유효기간이 유효하지 않을경우
+            normalAlert(titles: "알림", messages: "유효기간을 확인해주세요.")
+        }else if !regularStatusBool && segmentStatus == 0{
+            normalAlert(titles: "알림", messages: "유효기간이 지난 기프티콘 입니다. \n 쿠폰상태를 확인해주세요.")
+        }else { // firebase 서버 request
             print("registerDic.. 2", registerDic)
             
             var param = [
@@ -967,12 +999,10 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
                                 cell.textfield.isEnabled = true
                             }
                             
-                            self.nextBool = false
                         }
                 }else {
                     DispatchQueue.main.async{
                         self.imageView.image = self.newImage // 받아온 이미지를 update
-                        self.nextBool = true
                         
                         let image = VisionImage(image: self.barcodeImage!)
                         self.getText(image: self.barcodeImage!)
@@ -988,10 +1018,7 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
                             cell.textfield.text! = ""
                             cell.textfield.isEnabled = true
                             
-                            //이미지 clear
-                            print("self.nextBool false")
                 //            self.imageView.image = nil
-                            self.nextBool = false
                             
                             self.normalAlert(titles: "바코드가 인식 되지 않는 이미지 입니다.", messages: "화질이 좋지 않은 이미지는 바코드가 인식 하지 않을수도 있습니다.\n 그래도 등록 하시겠습니까?")
                             return
@@ -1032,10 +1059,8 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
                               
                               } //swtich
                                 if(error == nil){
-                                    print("self.nextBool true")
                 //                    self.imageView.isHidden = false
                 //                    self.imageView.image = newImage // 받아온 이미지를 update
-                //                    self.nextBool = true
                                 }
                             }
                         } // process
