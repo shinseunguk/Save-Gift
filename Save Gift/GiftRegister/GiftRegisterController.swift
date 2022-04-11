@@ -274,7 +274,7 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
         }else if titles == "빈칸없이 작성 해주세요." {
             let cancelAction = UIAlertAction(title: "확인", style: .default, handler : nil)
             alert.addAction(cancelAction)
-        }else if messages == "이미 등록된 이미지입니다." || messages == "기프티콘 이미지를 등록해주세요."{
+        }else if messages == "이미 등록된 기프티콘입니다." || messages == "기프티콘 이미지를 등록해주세요."{
             let cancelAction = UIAlertAction(title: "확인", style: .default,  handler : {_ in self.plusAction()})
             alert.addAction(cancelAction)
         }else { // 유효기간 formatting
@@ -309,7 +309,7 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
         let visionImage = VisionImage(image: image)
         visionImage.orientation = image.imageOrientation
         
-        textRecognizer.process(visionImage) { result, error in
+        textRecognizer.process(visionImage) { [self] result, error in
             guard error == nil, let result = result else {
                 //error handling
                 return
@@ -367,6 +367,30 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
                                 let index = IndexPath(row: 3, section: 0)
                                 let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
                                 cell.textfield.text! = trimStr
+                                
+                                let regularExpression = trimStr.validateDate(trimStr.replacingOccurrences(of: "-", with: ""))
+                                print("regularExpression ",regularExpression)
+                                if regularExpression != ""{
+                                    self.normalAlert(titles: "알림", messages: regularExpression)
+                                    self.regularBool = false
+                                }else { // 날짜 정규식은 이상 없음 -> 이후 오늘날짜와 유효기간을 비교
+                                    self.regularBool = true
+                                    print("text ---------> 388line -----> ", trimStr)
+                                    
+                                    let resultDDayBarcode1 : Int = self.giftDetailController.calculateDays(availableDate: trimStr)
+                                    if resultDDayBarcode1 == 0 {
+                                        print("resultDDayBarcode1")
+                                        self.regularStatusBool = true
+                                    }else if resultDDayBarcode1 > 0 {
+                                        print("resultDDayBarcode1 > 0")
+                                        self.normalAlert(titles: "알림", messages: "유효기간이 지난 기프티콘 입니다.\n 그래도 등록하시겠습니까?", cell.textfield)
+                                        //regularStatusBool = false
+                                    }else if resultDDayBarcode1 < 0 {
+                                        print("resultDDayBarcode1 < 0")
+                                        self.regularStatusBool = true
+                                    }
+                                }
+                                
                             } else if (trimStr.count == 16){// 20210908
                                 let indexTrim = str.index(str.startIndex, offsetBy: 8)
 //                                print("16,,,, ", trimStr.substring(from: indexTrim))  // Swift
@@ -377,6 +401,29 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
                                 let index = IndexPath(row: 3, section: 0)
                                 let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
                                 cell.textfield.text! = trimStr16TO8
+                                
+                                    let regularExpression = trimStr16TO8.validateDate(trimStr16TO8.replacingOccurrences(of: "-", with: ""))
+                                    print("regularExpression ",regularExpression)
+                                    if regularExpression != ""{
+                                        self.normalAlert(titles: "알림", messages: regularExpression)
+                                        self.regularBool = false
+                                    }else { // 날짜 정규식은 이상 없음 -> 이후 오늘날짜와 유효기간을 비교
+                                        self.regularBool = true
+                                        print("text ---------> 388line -----> ", trimStr16TO8)
+                                        
+                                        let resultDDayBarcode2 : Int = self.giftDetailController.calculateDays(availableDate: trimStr16TO8)
+                                        if resultDDayBarcode2 == 0 {
+                                            print("resultDDayBarcode2")
+                                            self.regularStatusBool = true
+                                        }else if resultDDayBarcode2 > 0 {
+                                            self.normalAlert(titles: "알림", messages: "유효기간이 지난 기프티콘 입니다.\n 그래도 등록하시겠습니까?", cell.textfield)
+                                            print("resultDDayBarcode2 > 0")
+                                            //regularStatusBool = false
+                                        }else if resultDDayBarcode2 < 0 {
+                                            print("resultDDayBarcode2 < 0")
+                                            self.regularStatusBool = true
+                                        }
+                                    }
                             }
                         }
                         
@@ -558,16 +605,27 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
                         regularBool = true
                         print("text ---------> 545line -----> ", textField.text! )
                         
-                        let resultDDay : Int = giftDetailController.calculateDays(availableDate: textField.text!)
-                        if resultDDay == 0 {
-                            print("resultDDay")
-                            regularStatusBool = true
-                        }else if resultDDay > 0 {
-                            normalAlert(titles: "알림", messages: "유효기간이 지난 기프티콘 입니다.\n 그래도 등록하시겠습니까?", textField)
-                            //regularStatusBool = false
-                        }else if resultDDay < 0 {
-                            print("resultDDay < 0")
-                            regularStatusBool = true
+                        let regularExpression = text.validateDate(text.replacingOccurrences(of: "-", with: ""))
+                        print("regularExpression ",regularExpression)
+                        if regularExpression != ""{
+                            normalAlert(titles: "알림", messages: regularExpression)
+                            regularBool = false
+                        }else { // 날짜 정규식은 이상 없음 -> 이후 오늘날짜와 유효기간을 비교
+                            regularBool = true
+                            print("text ---------> 545line -----> ", textField.text! )
+                            
+                            let resultDDay : Int = giftDetailController.calculateDays(availableDate: textField.text!)
+                            if resultDDay == 0 {
+                                print("resultDDay")
+                                regularStatusBool = true
+                            }else if resultDDay > 0 {
+                                normalAlert(titles: "알림", messages: "유효기간이 지난 기프티콘 입니다.\n 그래도 등록하시겠습니까?", textField)
+                                //regularStatusBool = false
+                            }else if resultDDay < 0 {
+                                print("resultDDay < 0")
+                                regularStatusBool = true
+                            }
+                            
                         }
                         
                     }
@@ -990,7 +1048,7 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
                 if(responseString != "0"){
                         DispatchQueue.main.async{
                             self.imageView.image = nil
-                            self.normalAlert(titles: "알림", messages: "이미 등록된 이미지입니다.")
+                            self.normalAlert(titles: "알림", messages: "이미 등록된 기프티콘입니다.")
                             
                             for x in 0...3 {
                                 let index = IndexPath(row: x, section: 0)
