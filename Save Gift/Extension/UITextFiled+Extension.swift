@@ -283,6 +283,7 @@ extension String {
         return String(self[startIndex ..< endIndex])
     }
     
+    //포트 포워딩 https://blog.projectdh.link/4 ----> 내ip확인 :포트번호
     func getLocalURL() -> String{
         return "http://175.212.211.98:8088" //집 공유기
 //        return "http://172.30.1.50:8088"
