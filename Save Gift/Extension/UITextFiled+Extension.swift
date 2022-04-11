@@ -84,24 +84,6 @@ extension String {
     
     // 날짜 정규식 체크
     func validateDate(_ input: String) -> String {
-//        let datePattern: String = "(?<year>[0-9]{2,4})[-/.](?<month>[0-9]{2})[-/.](?<date>[0-9]{2})"
-//        let regex = try? NSRegularExpression(pattern: datePattern, options: [])
-//
-//        if let result = regex?.matches(in: input, options: [], range: NSRange(location: 0, length: input.count)) {
-//            let rexStrings = result.map { (element) -> String in
-//                let yearRange = Range(element.range(withName: "year"), in: input)!
-//                let monthRange = Range(element.range(withName: "month"), in: input)!
-//                let dateRange = Range(element.range(withName: "date"), in: input)!
-////                validateMonth(input[yearRange])
-//                return "\(input[yearRange])\(input[monthRange])\(input[dateRange])"
-//            }
-//            print("rexStrings  ",rexStrings)
-//        }
-//        if isValid {
-//            return true
-//        } else {
-//            return false
-//        }
         
         let helper : Helper = Helper()
         let date = helper.formatDateToday()

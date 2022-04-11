@@ -176,8 +176,8 @@ extension GiftDetailControoler : UITableViewDelegate, UITableViewDataSource{
         formatter.dateFormat = "yyyy-MM-dd" //데이터 포멧 설정
         let dateString = formatter.string(from: date) //문자열로 바꾸기
         
-        var dateInt1 : Int = Int(date1.replacingOccurrences(of: "-", with: ""))!
-        var dateInt2 : Int = Int(dateString.replacingOccurrences(of: "-", with: ""))!
+        let dateInt1 : Int = Int(date1.replacingOccurrences(of: "-", with: ""))!
+        let dateInt2 : Int = Int(dateString.replacingOccurrences(of: "-", with: ""))!
         
         print("date1Int1 -----> 오늘    날짜 -->", dateInt1)
         print("date1Int2 -----> 유효기간 날짜 -->", dateInt2)
