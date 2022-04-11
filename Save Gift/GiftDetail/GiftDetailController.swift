@@ -8,6 +8,9 @@
 import Foundation
 import UIKit
 
+import FirebaseStorage
+import Firebase
+
 class GiftDetailControoler : UIViewController{
     
     
@@ -32,6 +35,13 @@ class GiftDetailControoler : UIViewController{
 
     override func viewDidLoad(){
         super.viewDidLoad()
+        
+        //test url
+        Storage.storage().reference(forURL: "gs://save-gift.appspot.com/DD15A014-F02C-4F28-BD0F-249B307BFA7A_20220411_230031").downloadURL { (url, error) in
+            let data = NSData(contentsOf: url!)
+            let image = UIImage(data: data! as Data)
+            self.imageView.image = image
+        }
         
         setupLayout()
 //        calculateDays()
