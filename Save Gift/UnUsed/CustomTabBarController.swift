@@ -108,13 +108,17 @@ class CustomTabBarController: UITabBarController, UITabBarControllerDelegate {
 //
 //        self.navigationController?.navigationBar.topItem?.title = "기프티콘 저장"
         
-        if #available(iOS 15.0, *) {
+//        if #available(iOS 15.0, *) {
             let appearanceTabbar = UITabBarAppearance()
             appearanceTabbar.configureWithOpaqueBackground()
             appearanceTabbar.backgroundColor = .white
-            tabBar.standardAppearance = appearanceTabbar
+            uiTabBar.standardAppearance = appearanceTabbar
 //            tabBar.scrollEdgeAppearance = tabBar.standardAppearance
-        }
+//        }
+        uiTabBar.layer.borderWidth = 0.50
+        uiTabBar.layer.borderColor = UIColor.clear.cgColor
+        uiTabBar.clipsToBounds = true
+        
         
     }
     

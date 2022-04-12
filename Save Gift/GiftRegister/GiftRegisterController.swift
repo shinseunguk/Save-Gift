@@ -75,7 +75,7 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
 
         self.imagePicker.delegate = self // picker delegate
         self.imagePicker.sourceType = .photoLibrary // 앨범에서 가져옴
-        self.imagePicker.allowsEditing = true // 수정 가능 여부
+        self.imagePicker.allowsEditing = false // 수정 가능 여부
         self.scrollView.delegate = self
         
         //btn layout setting
@@ -896,7 +896,7 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
             
             var param = [
                 "user_id" : UserDefaults.standard.string(forKey: "ID"),
-//                "img_url" : "gs://save-gift.appspot.com/\(UserDefaults.standard.string(forKey: "imageName")!)", //FireBase URL로 등록
+//                "img_url" : "gs://save-gift-e3710.appspot.com/\(UserDefaults.standard.string(forKey: "imageName")!)", //FireBase URL로 등록
                 "brand" : registerDic[0]!,
                 "barcode_number" : registerDic[2]!,
                 "expiration_period" : registerDic[3]!,
@@ -931,7 +931,7 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
 
         let param = [
             "user_id" : UserDefaults.standard.string(forKey: "ID"),
-            "img_url" : "gs://save-gift.appspot.com/\(UserDefaults.standard.string(forKey: "imageName")!)",
+            "img_url" : "gs://save-gift-e3710.appspot.com/\(UserDefaults.standard.string(forKey: "imageName")!)",
             "brand" : registerDic[0]!,
             "barcode_number" : registerDic[2]!,
             "expiration_period" : registerDic[3]!,
