@@ -4,6 +4,7 @@
 //
 //  Created by mac on 2022/04/04.
 //
+// https://www.sentinelstand.com/article/guide-to-firebase-storage-download-urls-tokens
 
 import UIKit
 import FirebaseStorage
@@ -23,7 +24,7 @@ class FirebaseStorageManager {
         //파일명(변경필요함)
         let imageName = deviceID! + "_" + helper.formatDateTime()
         print("imageName ", imageName)
-        param["img_url"] = "gs://save-gift.appspot.com/"+imageName
+        param["img_url"] = "gs://save-gift-e3710.appspot.com/"+imageName
         print("param .....1 ",param)
         
         let firebaseReference = Storage.storage().reference().child("\(imageName)")
@@ -51,8 +52,8 @@ class FirebaseStorageManager {
 //    }
     
     func downloadimage(imgview:UIImageView, urlString: String){
-        //"gs://save-gift.appspot.com/DD15A014-F02C-4F28-BD0F-249B307BFA7A_202204042255"
-        Storage.storage().reference(forURL: "gs://save-gift.appspot.com/" + urlString).downloadURL { (url, error) in
+        //"gs://save-gift-e3710.appspot.com/DD15A014-F02C-4F28-BD0F-249B307BFA7A_202204042255"
+        Storage.storage().reference(forURL: "gs://save-gift-e3710.appspot.com/" + urlString).downloadURL { (url, error) in
             let data = NSData(contentsOf: url!)
             let image = UIImage(data: data! as Data)
             imgview.image = image
@@ -127,5 +128,6 @@ class FirebaseStorageManager {
                 // POST 전송
                 task.resume()
     }
+//    allow read, write
     
 }

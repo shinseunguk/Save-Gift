@@ -36,12 +36,19 @@ class GiftDetailControoler : UIViewController{
     override func viewDidLoad(){
         super.viewDidLoad()
         
-        //test url
-        Storage.storage().reference(forURL: "gs://save-gift.appspot.com/DD15A014-F02C-4F28-BD0F-249B307BFA7A_20220411_230031").downloadURL { (url, error) in
-            let data = NSData(contentsOf: url!)
-            let image = UIImage(data: data! as Data)
-            self.imageView.image = image
-        }
+        //test url https://firebasestorage.googleapis.com/v0/b/save-gift-e3710.appspot.com/o/bhc.jpg?alt=media&token=54938b56-88bf-4a0f-acc4-98222e1412ac
+//        Storage.storage().reference(forURL: "gs://save-gift-e3710.appspot.com/bhc.jpg").downloadURL { (url, error) in
+//            let data = NSData(contentsOf: url!)
+//            let image = UIImage(data: data! as Data)
+//            self.imageView.image = image
+//        }
+        
+        //https://firebasestorage.googleapis.com/v0/b/save-gift-e3710.appspot.com/o/candy.png?alt=media&token=4fc9190b-1ac1-451a-a40f-c7a12be44de9
+        
+        let url = URL(string: "https://firebasestorage.googleapis.com/v0/b/save-gift-e3710.appspot.com/o/bhc.jpg?alt=media&token=54938b56-88bf-4a0f-acc4-98222e1412ac")!
+//        if let data = try? Data(contentsOf: url) {
+        imageView.image = UIImage(data: try! Data(contentsOf: url))
+//        }
         
         setupLayout()
 //        calculateDays()
