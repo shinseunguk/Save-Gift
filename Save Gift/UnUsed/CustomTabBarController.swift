@@ -111,11 +111,11 @@ class CustomTabBarController: UITabBarController, UITabBarControllerDelegate {
 //        if #available(iOS 15.0, *) {
             let appearanceTabbar = UITabBarAppearance()
             appearanceTabbar.configureWithOpaqueBackground()
-            appearanceTabbar.backgroundColor = .white
+            appearanceTabbar.backgroundColor = UIColor.init(displayP3Red: 242/255, green: 242/255, blue: 247/255, alpha: 1)
             uiTabBar.standardAppearance = appearanceTabbar
 //            tabBar.scrollEdgeAppearance = tabBar.standardAppearance
 //        }
-        uiTabBar.layer.borderWidth = 0.50
+        uiTabBar.layer.borderWidth = 0.30
         uiTabBar.layer.borderColor = UIColor.clear.cgColor
         uiTabBar.clipsToBounds = true
         
