@@ -31,6 +31,8 @@ class Page2Controller : UIViewController{
     var productNameLabelArr = ["뿌링클 순살 + 1L 콜라 + 치즈볼", "뿌링클 순살 + 2L 콜라 + 치즈볼", "뿌링클 순살 + 3L 콜라 + 치즈볼" ,"뿌링클 순살 + 4L 콜라 + 치즈볼", "뿌링클 순살 + 5L 콜라 + 치즈볼", "뿌링클 순살 + 6L 콜라 + 치즈볼", "뿌링클 순살 + 7L 콜라 + 치즈볼", "뿌링클 순살 + 8L 콜라 + 치즈볼"]
     var cellImageViewArr = ["ppae.jpg", "ppae.jpg", "ppae.jpg", "ppae.jpg", "ppae.jpg", "ppae.jpg", "ppae.jpg", "ppae.jpg"]
     
+    var thumbnail: Array<UIImage> = []
+    
     // test Array
 //        var barndNameLabelArr : [String] = []
 //        var expirationPeriodLabelArr : [String] = []
@@ -51,6 +53,22 @@ class Page2Controller : UIViewController{
         
         //setupFlowLayout
         setupFlowLayout()
+        
+        let url = URL(string: "https://firebasestorage.googleapis.com/v0/b/save-gift-e3710.appspot.com/o/bhc.jpg?alt=media&token=54938b56-88bf-4a0f-acc4-98222e1412ac")!
+//        if let data = try? Data(contentsOf: url) {
+//        thumbnail[0] = UIImage(data: try! Data(contentsOf: url))!
+//        thumbnail[1] = UIImage(data: try! Data(contentsOf: url))!
+//        thumbnail[2] = UIImage(data: try! Data(contentsOf: url))!
+//        thumbnail[3] = UIImage(data: try! Data(contentsOf: url))!
+//        thumbnail[4] = UIImage(data: try! Data(contentsOf: url))!
+//        thumbnail[5] = UIImage(data: try! Data(contentsOf: url))!
+//        thumbnail[6] = UIImage(data: try! Data(contentsOf: url))!
+//        thumbnail[7] = UIImage(data: try! Data(contentsOf: url))!
+        
+        for x in 0...7 {
+            thumbnail.append(UIImage(data: try! Data(contentsOf: url))!)
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -150,7 +168,9 @@ extension Page2Controller: UICollectionViewDelegate, UICollectionViewDataSource 
             cell.brandNameLabel.text = barndNameLabelArr[indexPath.row]
             cell.productNameLabel.text = productNameLabelArr[indexPath.row]
             cell.expirationPeriodLabel.text = "유효기간 : \(expirationPeriodLabelArr[indexPath.row])"
-            cell.cellImageView.image = UIImage(named: cellImageViewArr[indexPath.row])
+//            cell.cellImageView.image = UIImage(named: cellImageViewArr[indexPath.row])
+            cell.cellImageView.image = thumbnail[indexPath.row]
+        
             cell.cellImageView.contentMode = .scaleAspectFit
 //        cell.layer.borderWidth = 1.0
 //        cell.layer.borderColor = UIColor.black.cgColor
