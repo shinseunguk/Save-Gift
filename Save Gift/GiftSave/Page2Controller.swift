@@ -54,21 +54,6 @@ class Page2Controller : UIViewController{
         //setupFlowLayout
         setupFlowLayout()
         
-        let url = URL(string: "https://firebasestorage.googleapis.com/v0/b/save-gift-e3710.appspot.com/o/bhc.jpg?alt=media&token=54938b56-88bf-4a0f-acc4-98222e1412ac")!
-//        if let data = try? Data(contentsOf: url) {
-//        thumbnail[0] = UIImage(data: try! Data(contentsOf: url))!
-//        thumbnail[1] = UIImage(data: try! Data(contentsOf: url))!
-//        thumbnail[2] = UIImage(data: try! Data(contentsOf: url))!
-//        thumbnail[3] = UIImage(data: try! Data(contentsOf: url))!
-//        thumbnail[4] = UIImage(data: try! Data(contentsOf: url))!
-//        thumbnail[5] = UIImage(data: try! Data(contentsOf: url))!
-//        thumbnail[6] = UIImage(data: try! Data(contentsOf: url))!
-//        thumbnail[7] = UIImage(data: try! Data(contentsOf: url))!
-        
-        for x in 0...7 {
-            thumbnail.append(UIImage(data: try! Data(contentsOf: url))!)
-        }
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -168,8 +153,8 @@ extension Page2Controller: UICollectionViewDelegate, UICollectionViewDataSource 
             cell.brandNameLabel.text = barndNameLabelArr[indexPath.row]
             cell.productNameLabel.text = productNameLabelArr[indexPath.row]
             cell.expirationPeriodLabel.text = "유효기간 : \(expirationPeriodLabelArr[indexPath.row])"
-//            cell.cellImageView.image = UIImage(named: cellImageViewArr[indexPath.row])
-            cell.cellImageView.image = thumbnail[indexPath.row]
+            cell.cellImageView.image = UIImage(named: cellImageViewArr[indexPath.row])
+//            cell.cellImageView.image = thumbnail[indexPath.row]
         
             cell.cellImageView.contentMode = .scaleAspectFit
 //        cell.layer.borderWidth = 1.0

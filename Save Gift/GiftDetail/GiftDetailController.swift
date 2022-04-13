@@ -4,6 +4,7 @@
 //
 //  Created by mac on 2022/04/07.
 //
+// https://shimjifam.tistory.com/101 ------------> v28ue 세팅값
 
 import Foundation
 import UIKit

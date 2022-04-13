@@ -1172,7 +1172,7 @@
         <scene sceneID="fPc-Or-YjR">
             <objects>
                 <tabBarController storyboardIdentifier="tabbarVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="QrM-yv-B43" customClass="CustomTabBarController" customModule="Save_Gift" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="JPL-cV-GdX">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="JPL-cV-GdX">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
