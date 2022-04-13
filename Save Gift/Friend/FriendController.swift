@@ -44,6 +44,8 @@ class FriendController : UIViewController, UITextFieldDelegate {
         cellPhoneTextField.textColor = UIColor.black
         cellPhoneTextField.attributedPlaceholder = NSAttributedString(string: "숫자만 입력해주세요.", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
         
+        findBtn.layer.cornerRadius = 5
+        
         btnView.isEnabled = false
         findBtn.isEnabled = false
         btnView.backgroundColor = UIColor.white

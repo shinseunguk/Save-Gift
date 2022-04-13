@@ -14,9 +14,8 @@ class GiftSettingController : UIViewController{
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var loginBtn: UIButton!
     @IBOutlet weak var loginLabel: UILabel!
-    let arr = ["내정보", "개발자", "알림설정", "앱버전", "기프티콘 사용법", "회원탈퇴"]
-    let emoji = ["barcode", "gift", "square.and.arrow.up", "crown", "scroll", "gear"]
-    
+    @IBOutlet weak var lockImageView: UIImageView!
+    var arr = ["로그아웃", "내정보", "개발자", "알림설정", "앱버전", "기프티콘 사용법", "회원탈퇴"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,24 +33,6 @@ class GiftSettingController : UIViewController{
     }
     
     @IBAction func loginAction(_ sender: Any) {
-        if(UserDefaults.standard.string(forKey: "ID") != nil){
-            UserDefaults.standard.removeObject(forKey: "ID")
-            
-            let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "tabbarVC")
-                    self.navigationController?.pushViewController(pushVC!, animated: true)
-        }else{
-            guard let pushVC = self.storyboard?.instantiateViewController(identifier: "viewVC") as? ViewController else{
-                return
-            }
-            
-//            pushVC.pushYn = push
-//            pushVC.emailYn = email
-//            pushVC.smsYn = sms
-                    self.navigationController?.pushViewController(pushVC, animated: true)
-            
-            let backBarButtonItem = UIBarButtonItem(title: "설정", style: .plain, target: self, action: nil)
-            self.navigationItem.backBarButtonItem = backBarButtonItem
-        }
 
     }
     
@@ -64,12 +45,18 @@ class GiftSettingController : UIViewController{
         //네비게이션바 뒤로가기 삭제
         self.navigationItem.hidesBackButton = true
         
-        if(UserDefaults.standard.string(forKey: "ID") != nil){
-            print(UserDefaults.standard.string(forKey: "ID")!,"#########")
-//            self.loginLabel.text = "UserDefaults.standard.string(forKey: "ID")!+"님 반갑습니다.""
-            self.loginLabel.text = "로그아웃"
-        }else{
-            self.loginLabel.text = "로그인"
+        if(UserDefaults.standard.string(forKey: "ID") != nil){ // 로그인 상태
+            arr[0] = "로그아웃"
+            loginBtn.isHidden = false
+            loginLabel.isHidden = false
+            lockImageView.isHidden = false
+            self.loginLabel.text = UserDefaults.standard.string(forKey: "ID")!
+        }else{ // 비로그인
+            arr[0] = "로그인"
+            loginBtn.isHidden = true
+            loginLabel.isHidden = true
+            lockImageView.isHidden = true
+//            self.loginLabel.text = "로그인"
         }
         
     }
@@ -77,30 +64,16 @@ class GiftSettingController : UIViewController{
 }
 
 extension GiftSettingController: UITableViewDelegate, UITableViewDataSource{
-    
-    //for문 느낌
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        return 2
-//    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return arr.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        //cell.textLabel?.font = UIFont(name: "나눔손글씨 무궁화", size: 20)
-        cell.textLabel?.text="\(indexPath.row)"
+        if indexPath.row == 0{
+            cell.textLabel?.textColor = .red
+        }
         cell.textLabel?.text = arr[indexPath.row]
-        
-        
-//        cell.cellImageView?.image = UIImage(named: emoji[indexPath.row])
-        
-//        let customCell = tableView.dequeueReusableCell(withIdentifier: "customCell", for: indexPath) as! CustomCell
-//        customCell.imageviewCustom.image = UIImage(systemName: emoji[indexPath.row])
-//        customCell.labelCustom.text = arr[indexPath.row]
-        
-        
         
         return cell
     }
@@ -115,26 +88,45 @@ extension GiftSettingController: UITableViewDelegate, UITableViewDataSource{
             
             print("Click Cell Number: " + String(indexPath.row))
         
-        if indexPath.row == 0{ //내정보
+        if indexPath.row == 0{ //회원탈퇴
+            if(UserDefaults.standard.string(forKey: "ID") != nil){
+                UserDefaults.standard.removeObject(forKey: "ID")
+                
+                let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "tabbarVC")
+                        self.navigationController?.pushViewController(pushVC!, animated: true)
+            }else{
+                guard let pushVC = self.storyboard?.instantiateViewController(identifier: "viewVC") as? ViewController else{
+                    return
+                }
+                
+    //            pushVC.pushYn = push
+    //            pushVC.emailYn = email
+    //            pushVC.smsYn = sms
+                        self.navigationController?.pushViewController(pushVC, animated: true)
+                
+                let backBarButtonItem = UIBarButtonItem(title: "설정", style: .plain, target: self, action: nil)
+                self.navigationItem.backBarButtonItem = backBarButtonItem
+            }
+        }else if indexPath.row == 1{ //내정보
             if(UserDefaults.standard.string(forKey: "ID") != nil){ //로그인 O
                 let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "SettingMyInfoVC")
                 self.navigationController?.pushViewController(pushVC!, animated: true)
             }else{// 로그인 X
                 needLoginService()
             }
-        } else if indexPath.row == 1{ //개발자
+        }else if indexPath.row == 2 { //개발자
             let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "SettingDeveloperVC")
             self.navigationController?.pushViewController(pushVC!, animated: true)
-        } else if indexPath.row == 2{ //알림설정
+        }else if indexPath.row == 3 { //알림설정
                 let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "SettingNotiControllerVC")
                 self.navigationController?.pushViewController(pushVC!, animated: true)
-        } else if indexPath.row == 3{ //앱버전
+        }else if indexPath.row == 4 { //앱버전
             let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "SettingAppVersionVC")
             self.navigationController?.pushViewController(pushVC!, animated: true)
-        } else if indexPath.row == 4{ //기프티콘 사용법
+        }else if indexPath.row == 5 { //기프티콘 사용법
             let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "SettingHowToUseVC")
             self.navigationController?.pushViewController(pushVC!, animated: true)
-        } else if indexPath.row == 5{ //회원탈퇴
+        }else if indexPath.row == 6 { //회원탈퇴
             if(UserDefaults.standard.string(forKey: "ID") != nil){ //로그인 O
                 let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "SettingSecessionVC")
                 self.navigationController?.pushViewController(pushVC!, animated: true)
@@ -142,7 +134,6 @@ extension GiftSettingController: UITableViewDelegate, UITableViewDataSource{
                 needLoginService()
             }
         }
-            
     }
     
     func needLoginService(){

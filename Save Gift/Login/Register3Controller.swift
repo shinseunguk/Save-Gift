@@ -50,6 +50,8 @@ class Register3Controller: UIViewController, UITextFieldDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupLayout()
+        
         emailCheckText!.text! = ""
         btnConfirm.isEnabled = false
         print("Register3Controller")
@@ -128,6 +130,10 @@ class Register3Controller: UIViewController, UITextFieldDelegate{
         telInput.keyboardType = .phonePad
         
         
+    }
+    
+    func setupLayout(){
+        btnConfirm.layer.cornerRadius = 5
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {

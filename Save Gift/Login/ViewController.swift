@@ -116,8 +116,26 @@ class ViewController: UIViewController, ASAuthorizationControllerDelegate, ASAut
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
+        idTextField.addLeftPadding();
+        idTextField.textAlignment = .left
+        idTextField.textColor = UIColor.black
+        idTextField.attributedPlaceholder = NSAttributedString(string: "아이디를 입력해주세요.", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
+//        idTextField.tintColor = UIColor.systemBlue
         
-//        appTitle.font = UIFont(name:"HelveticaNeue-Bold", size: 33.0)
+        passwordTextField.addLeftPadding();
+//        passwordTextField.borderStyle = .none
+//        border2.frame = CGRect(x: 0, y: passwordTextField.frame.size.height-1, width: passwordTextField.frame.width, height: 1)
+//        border2.backgroundColor = UIColor.lightGray.cgColor
+//        passwordTextField.layer.addSublayer((border2))
+        passwordTextField.textAlignment = .left
+        passwordTextField.textColor = UIColor.black
+//        passwordTextField.placeholder = "PASSWORD"
+        passwordTextField.attributedPlaceholder = NSAttributedString(string: "비밀번호를 입력해주세요.", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
+//        passwordTextField.tintColor = UIColor.systemBlue
+
+    }
+    
+    func setupLayout(){
         
         btnLogin.layer.cornerRadius = 10
         btnLogin.layer.borderWidth = 0
@@ -145,23 +163,8 @@ class ViewController: UIViewController, ASAuthorizationControllerDelegate, ASAut
         btnFacebookLogin.layer.borderWidth = 0
         btnFacebookLogin.adjustsImageWhenHighlighted = false
         
-        idTextField.addLeftPadding();
-        idTextField.textAlignment = .left
-        idTextField.textColor = UIColor.black
-        idTextField.attributedPlaceholder = NSAttributedString(string: "아이디를 입력해주세요.", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
-//        idTextField.tintColor = UIColor.systemBlue
-        
-        passwordTextField.addLeftPadding();
-//        passwordTextField.borderStyle = .none
-//        border2.frame = CGRect(x: 0, y: passwordTextField.frame.size.height-1, width: passwordTextField.frame.width, height: 1)
-//        border2.backgroundColor = UIColor.lightGray.cgColor
-//        passwordTextField.layer.addSublayer((border2))
-        passwordTextField.textAlignment = .left
-        passwordTextField.textColor = UIColor.black
-//        passwordTextField.placeholder = "PASSWORD"
-        passwordTextField.attributedPlaceholder = NSAttributedString(string: "비밀번호를 입력해주세요.", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
-//        passwordTextField.tintColor = UIColor.systemBlue
-
+        btnRegister.layer.cornerRadius = 5
+        btnLogin.layer.cornerRadius = 5
     }
 
     @IBAction func loginAction(_ sender: Any) {
