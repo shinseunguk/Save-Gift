@@ -29,6 +29,8 @@ class RegisterController: UIViewController {
         super.viewDidLoad()
         print("RegisterController viewDidLoad")
         
+        setupLayout()
+        
         self.navigationController?.isNavigationBarHidden = false
         self.navigationController?.navigationBar.tintColor = .systemBlue
         self.navigationController?.navigationBar.barTintColor = UIColor.init(displayP3Red: 242/255, green: 242/255, blue: 247/255, alpha: 1)
@@ -44,6 +46,10 @@ class RegisterController: UIViewController {
         secondButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 18, bottom: 0, right: 0)
         secondButton.titleEdgeInsets  = UIEdgeInsets(top: 0, left: 26.5, bottom: 0, right: 0)
         thirdButton.titleEdgeInsets  = UIEdgeInsets(top: 30, left: 20, bottom: 0, right: 0)
+    }
+    
+    func setupLayout(){
+        nextButton.layer.cornerRadius = 5
     }
     
     override func viewDidLayoutSubviews() {

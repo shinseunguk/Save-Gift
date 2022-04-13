@@ -9,6 +9,8 @@ import Foundation
 import UIKit
 
 class SettingSecessionController : UIViewController {
+    @IBOutlet weak var secessionBtn: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -18,7 +20,14 @@ class SettingSecessionController : UIViewController {
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.black]
         self.navigationItem.title = "회원탈퇴"
+        
+        setupLayout()
     }
+    
+    func setupLayout(){
+        secessionBtn.layer.cornerRadius = 5
+    }
+    
     @IBAction func secessionAction(_ sender: Any) {
         print("탈퇴")
     }

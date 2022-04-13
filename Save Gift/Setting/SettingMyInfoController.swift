@@ -10,6 +10,7 @@ import UIKit
 
 class SettingMyInfoController : UIViewController {
     @IBOutlet weak var passWordTextField: UITextField!
+    @IBOutlet weak var confirmBtn: UIButton!
     
     let localUrl = "".getLocalURL();
     
@@ -23,6 +24,7 @@ class SettingMyInfoController : UIViewController {
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.black]
         self.navigationItem.title = "내정보 확인"
+        confirmBtn.layer.cornerRadius = 5
         
         passWordTextField.addLeftPadding();
         passWordTextField.textAlignment = .left
