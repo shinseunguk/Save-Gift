@@ -71,11 +71,11 @@ class GiftDetailControoler : UIViewController{
     }
     
     @IBAction func editAction(_ sender: Any) {
-        actionSheetAlert(title: "쿠폰 편집하기", content1: "쿠폰 삭제", content2: "쿠폰 편집")
+        actionSheetAlert(title: "기프티콘 편집하기", content1: "기프티콘 삭제", content2: "기프티콘 수정")
     }
     
     @IBAction func presentAction(_ sender: Any) {
-        actionSheetAlert(title: "쿠폰 선물하기", content1: "쿠폰 공유", content2: "쿠폰 선물")
+        actionSheetAlert(title: "기프티콘 선물하기", content1: "기프티콘 공유", content2: "기프티콘 선물")
     }
     
     @IBAction func useynAction(_ sender: Any) {
