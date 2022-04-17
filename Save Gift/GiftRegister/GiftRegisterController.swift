@@ -18,6 +18,7 @@ import MLKitBarcodeScanning
 import Vision
 import VisionKit
 import FirebaseStorage
+import Alamofire
 
 class GiftRegisterController : UIViewController, UITextFieldDelegate{
     
@@ -792,9 +793,9 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
                     fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
                 }
         
-        guard let notOriginImage = info[.editedImage] as? UIImage else {
-                    fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
-                }
+//        guard let notOriginImage = info[.editedImage] as? UIImage else {
+//                    fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
+//                }
         
 //        imgLocalUrl = info[UIImagePickerController.InfoKey.referenceURL] as? NSURL
         
@@ -908,7 +909,9 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
                 "img_local_url" : registerDic[7]!
             ] as [String : Any] // JSON 객체로 전송할 딕셔너리
             
-            result = FirebaseStorageManager.uploadImage(image: self.newImage!, param: &param)
+            uploadDiary(date: helper.formatDateToday(), self.newImage!, requestUrl: "/register/image")
+            
+//            result = FirebaseStorageManager.uploadImage(image: self.newImage!, param: &param)
 //            print("result ~!~!~! ", result)
 //            if result != "" {
 //                requestPost(requestUrl: "/register/gift")
@@ -944,7 +947,10 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
         
 //        print("param ..... ", param)
         let paramData = try! JSONSerialization.data(withJSONObject: param)
-        // URL 객체 정의r
+        // URL 객체 정의
+        
+        let boundary = "Boundary-\(UUID().uuidString)"
+        
                 let url = URL(string: localUrl+requestUrl)
 
                 // URLRequest 객체를 정의
@@ -953,8 +959,10 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
                 request.httpBody = paramData
 
                 // HTTP 메시지 헤더
+                request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
                 request.addValue("application/json", forHTTPHeaderField: "Content-Type")
                 request.addValue("application/json", forHTTPHeaderField: "Accept")
+//                request.addValue("application/json", forHTTPHeaderField: "Accept")
 //                request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
 //                request.setValue(String(paramData.count), forHTTPHeaderField: "Content-Length")
 
@@ -1131,5 +1139,51 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
                 task.resume()
     }
     
+    func uploadDiary(date: String, _ photo : UIImage, requestUrl : String){
+                //함수 매개변수는 POST할 데이터, url
+                print("url -------> ", "".getLocalURL()+requestUrl)
+                
+                let fileName : String = self.deviceID! + "_" + self.helper.formatDateTime()
+                let headers: HTTPHeaders = [
+                        "Content-Type" : "multipart/form-data",
+                        "accept" : "application/json"
+                ]//HTTP 헤더
+                
+                let body : Parameters = [
+                    "date" : date,
+                    "user" : UserDefaults.standard.string(forKey: "ID")!,
+                    "device_id" : deviceID!,
+                    "file_name" : fileName
+                ]    //POST 함수로 전달할 String 데이터, 이미지 데이터는 제외하고 구성
+                
+                //multipart 업로드
+                AF.upload(multipartFormData: { (multipart) in
+                    if let imageData = photo.jpegData(compressionQuality: 1) {
+                        multipart.append(imageData, withName: "photo", fileName: "\(fileName).jpg", mimeType: "image/jpeg")
+                        //이미지 데이터를 POST할 데이터에 덧붙임
+                    }
+                    for (key, value) in body {
+                        multipart.append("\(value)".data(using: .utf8, allowLossyConversion: false)!, withName: "\(key)")
+                        //이미지 데이터 외에 같이 전달할 데이터 (여기서는 user, emoji, date, content 등)
+                    }
+                }, to: "".getLocalURL()+requestUrl    //전달할 url
+                ,method: .post        //전달 방식
+                ,headers: headers).responseString(completionHandler: { (response) in    //헤더와 응답 처리
+                    print("response --------> \n", response)
+                    
+                    if let err = response.error{    //응답 에러
+                        print("error --------> \n", err)
+                        return
+                    }
+                    print("success")        //응답 성공
+                    
+                    let json = response.data
+                    
+                    if (json != nil){
+                        print("json --------> \n", json!)
+                    }
+                })
+                
+    }
 }
 
