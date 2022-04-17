@@ -52,6 +52,8 @@ class ViewController: UIViewController, ASAuthorizationControllerDelegate, ASAut
         super.viewDidLoad()
         print("ViewController viewDidLoad")
         
+        setupLayout()
+        
         if VC != nil{
             print("### ",VC!)
             
@@ -178,10 +180,10 @@ class ViewController: UIViewController, ASAuthorizationControllerDelegate, ASAut
         }
         
         //ㅌㅅㅌ용
-        if id == "1" && pw == "1"{
-            let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "tabbarVC")
-                    self.navigationController?.pushViewController(pushVC!, animated: true)
-        }
+//        if id == "1" && pw == "1"{
+//            let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "tabbarVC")
+//                    self.navigationController?.pushViewController(pushVC!, animated: true)
+//        }
     }
     
     func requestPost(requestUrl : String!) -> Void{
