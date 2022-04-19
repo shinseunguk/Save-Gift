@@ -27,19 +27,19 @@ class Page1Controller : UIViewController{
     let screenWidth = UIScreen.main.bounds.size.width
     
     var viewPagerArr = ["Unused", "Used", "All"]
-    var barndNameLabelArr = ["Page1","BBQ","피자나라 치킨공주","교촌치킨","60계치킨","처갓집양념치킨","호식이두마리치킨","꾸브라꼬숯불두마리치킨"]
-    var expirationPeriodLabelArr = ["2022-04-14","2022-04-15","2022-04-16","2022-04-19","2022-04-20","2022-05-14","2022-02-14","2022-04-30"]
-    var productNameLabelArr = ["뿌링클 순살 + 1L 콜라 + 치즈볼", "뿌링클 순살 + 2L 콜라 + 치즈볼", "뿌링클 순살 + 3L 콜라 + 치즈볼" ,"뿌링클 순살 + 4L 콜라 + 치즈볼", "뿌링클 순살 + 5L 콜라 + 치즈볼", "뿌링클 순살 + 6L 콜라 + 치즈볼", "뿌링클 순살 + 7L 콜라 + 치즈볼", "뿌링클 순살 + 8L 콜라 + 치즈볼"]
-    var cellImageViewArr = ["chicken.jpg", "chicken.jpg", "chicken.jpg", "chicken.jpg", "chicken.jpg", "chicken.jpg", "chicken.jpg", "chicken.jpg"]
-    var seqArr = ["1", "2", "3", "4", "5", "6", "7", "8"]
+//    var barndNameLabelArr = ["Page1","BBQ","피자나라 치킨공주","교촌치킨","60계치킨","처갓집양념치킨","호식이두마리치킨","꾸브라꼬숯불두마리치킨"]
+//    var expirationPeriodLabelArr = ["2022-04-14","2022-04-15","2022-04-16","2022-04-19","2022-04-20","2022-05-14","2022-02-14","2022-04-30"]
+//    var productNameLabelArr = ["뿌링클 순살 + 1L 콜라 + 치즈볼", "뿌링클 순살 + 2L 콜라 + 치즈볼", "뿌링클 순살 + 3L 콜라 + 치즈볼" ,"뿌링클 순살 + 4L 콜라 + 치즈볼", "뿌링클 순살 + 5L 콜라 + 치즈볼", "뿌링클 순살 + 6L 콜라 + 치즈볼", "뿌링클 순살 + 7L 콜라 + 치즈볼", "뿌링클 순살 + 8L 콜라 + 치즈볼"]
+//    var cellImageViewArr = ["chicken.jpg", "chicken.jpg", "chicken.jpg", "chicken.jpg", "chicken.jpg", "chicken.jpg", "chicken.jpg", "chicken.jpg"]
+//    var seqArr = ["1", "2", "3", "4", "5", "6", "7", "8"]
     
     var thumbnail: Array<UIImage> = []
     
     // test Array
-//        var barndNameLabelArr : [String] = []
-//        var expirationPeriodLabelArr : [String] = []
-//        var productNameLabelArr : [String] = []
-//        var cellImageViewArr : [String] = []
+        var barndNameLabelArr : [String] = []
+        var expirationPeriodLabelArr : [String] = []
+        var productNameLabelArr : [String] = []
+        var cellImageViewArr : [String] = []
     
     //cocoa pod
     let dropDown = DropDown()
@@ -109,14 +109,17 @@ class Page1Controller : UIViewController{
             // 화면 처음그릴때만 add subView
             print("index ", index)
             if index == 0 {
-                let label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+                let label = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 61))
                 label.numberOfLines = 2
                 label.font = UIFont(name: "NanumAmSeuTeReuDam", size: 24)
                 label.textColor = .black
                 label.center = self.view.center
                 label.textAlignment = .center
-//                label.text = "기프티콘을 추가해 \n 관리, 공유, 선물해보세요"
-                label.text = "기프티콘을 추가해보세요."
+                label.text = """
+                기프티콘을 추가해
+                관리, 공유, 선물해보세요
+                """
+//                label.text = "기프티콘을 추가해보세요."
                 
                 self.view.addSubview(label)
                 index += 1
