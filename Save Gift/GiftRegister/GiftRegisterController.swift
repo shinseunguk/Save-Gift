@@ -1141,8 +1141,6 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
     
     func uploadDiary(date: String, _ photo : UIImage, requestUrl : String){
                 //함수 매개변수는 POST할 데이터, url
-                print("url -------> ", "".getLocalURL()+requestUrl)
-                
                 let fileName : String = self.deviceID! + "_" + self.helper.formatDateTime()
                 let headers: HTTPHeaders = [
                         "Content-Type" : "multipart/form-data",

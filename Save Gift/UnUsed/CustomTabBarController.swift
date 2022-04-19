@@ -53,9 +53,9 @@ class CustomTabBarController: UITabBarController, UITabBarControllerDelegate {
             if VC! == "공유하기" {
                 selectedIndex = 0
                 lbNavTitle.text = "기프티콘 공유"
-            } else if VC! == "선물하기"{
+            } else if VC! == "선물함"{
                 selectedIndex = 1
-                lbNavTitle.text = "기프티콘 선물"
+                lbNavTitle.text = "선물함"
             } else if VC! == "친구"{ // 수정 필요
                 selectedIndex = 2
                 lbNavTitle.text = "기프티콘 저장"
@@ -140,12 +140,12 @@ extension CustomTabBarController{
         }
             
             self.navigationItem.rightBarButtonItem = nil
-        case "선물하기":
+        case "선물함":
 //            actionButton.isHidden = true
             if(UserDefaults.standard.string(forKey: "ID") != nil){ //로그인 O
-                navigationBarSetting(navigationTitle: "기프티콘 선물")
+                navigationBarSetting(navigationTitle: "선물함")
             } else{// 로그인 X
-                needLoginService("선물하기")
+                needLoginService("선물함")
             }
             
             self.navigationItem.rightBarButtonItem = nil
