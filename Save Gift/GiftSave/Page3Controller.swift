@@ -84,7 +84,7 @@ class Page3Controller : UIViewController{
                 index += 1
             }
         }else {
-            print("기프티콘이 존재.")
+            print("All 기프티콘이 존재.")
             collectionView.isHidden = false
             filterButton.isHidden = false
             label.isHidden = true

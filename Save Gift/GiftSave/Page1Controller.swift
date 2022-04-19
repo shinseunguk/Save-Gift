@@ -122,7 +122,7 @@ class Page1Controller : UIViewController{
                 index += 1
             }
         }else {
-            print("기프티콘이 존재.")
+            print("Unused 기프티콘이 존재.")
             collectionView.isHidden = false
             filterButton.isHidden = false
             label.isHidden = true
