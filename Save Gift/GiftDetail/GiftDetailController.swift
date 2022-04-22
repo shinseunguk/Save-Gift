@@ -30,6 +30,8 @@ class GiftDetailControoler : UIViewController{
     let dateFormatter = DateFormatter()
     let helper : Helper = Helper()
     
+    let nowBrightness : CGFloat = UIScreen.main.brightness;
+    
     var daysCount:Int = 0
     
     
@@ -57,6 +59,14 @@ class GiftDetailControoler : UIViewController{
         
         tableView.register(UINib(nibName: "GiftDetailBarcodeTableViewCell", bundle: nil), forCellReuseIdentifier: "GiftDetailBarcodeTableViewCell")
         tableView.register(UINib(nibName: "GiftDetailTableViewCell", bundle: nil), forCellReuseIdentifier: "GiftDetailTableViewCell")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        UIScreen.main.brightness = 1.0
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        UIScreen.main.brightness = nowBrightness
     }
     
     func setupLayout(){
