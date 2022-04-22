@@ -5,6 +5,9 @@
 //  Created by ukBook on 2021/12/25.
 //  기프티콘 사용법
 
+// 생체인증
+// https://m.blog.naver.com/go4693/221208533076
+
 // TabMan
 // https://developer-p.tistory.com/161
 
@@ -52,8 +55,15 @@ class GiftSaveController : TabmanViewController{
     //cocoa pod
     let dropDown = DropDown()
     let actionButton = JJFloatingActionButton()
-    
+    let authContext = LAContext()
     var nextButton = UIButton()
+    
+    enum BiometryType {
+        case faceId
+        case touchId
+        case none
+    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,6 +71,14 @@ class GiftSaveController : TabmanViewController{
         print("cellWidth/3 : ", cellHeight3)
         
         print("helper.formatDateTime() ", helper.formatDateTime())
+        
+        if canEvaluatePolicy() {
+            print("생체인식 가능 기기")
+        } else{
+            self.btnBlurRemove()
+            self.nextButton.removeFromSuperview()
+            self.floatingBtn()
+        }
         
         //tabbar setting(TabMan)
         setTabMan()
@@ -70,6 +88,17 @@ class GiftSaveController : TabmanViewController{
         
         //가운데 lock btn
         lockBtn()
+        
+        let type = self.getBiometryType()
+        if type == .faceId {
+            nextButton.setImage(UIImage(systemName: "faceid"), for: .normal)
+        } else if type == .touchId {
+            nextButton.setImage(UIImage(systemName: "touchid"), for: .normal)
+        } else {
+            self.btnBlurRemove()
+            self.nextButton.removeFromSuperview()
+            self.floatingBtn()
+        }
     }
     
     func setTabMan() {
@@ -190,7 +219,7 @@ class GiftSaveController : TabmanViewController{
 //        nextButton.imageView?.widthAnchor
         
         //set image
-        nextButton.setImage(UIImage(systemName: "lock.open.fill"), for: .normal)
+//        nextButton.setImage(UIImage(systemName: "lock.open.fill"), for: .normal)
         
         //imageview image size
         nextButton.setPreferredSymbolConfiguration(.init(pointSize: 35, weight: .regular, scale: .default), forImageIn: .normal)
@@ -217,58 +246,103 @@ class GiftSaveController : TabmanViewController{
     // Face ID를 사용할 수 없습니다.
     func auth() {
         
-        let authContext = LAContext()
         var error: NSError?
         var description: String!
         
         var authCount : Int = 0
-        authContext.localizedCancelTitle = "취소"
-
-//        if authContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
-        if authContext.canEvaluatePolicy(.deviceOwnerAuthentication, error: &error) {
-//            print("authContext.biometryType ", authContext.biometryType)
-            switch authContext.biometryType {
-            case .faceID:
-                description = "서비스를 이용하기 위해 인증 합니다."
-                break
-            case .touchID:
-                description = "서비스를 이용하기 위해 인증 합니다."
-                break
-            case .none:
-                description = "서비스를 이용하기 위해 인증 합니다."
-                break
-            default:
-                print("default")
-                break
-            }
+//        authContext.localizedCancelTitle = "취소"
+//        self.btnBlurRemove()
+//        self.nextButton.removeFromSuperview()
+//        self.floatingBtn()
+        
+//        let type = self.getBiometryType()
+//        if type == .faceId {
+//            nextButton.setImage(UIImage(systemName: "faceid"), for: .normal)
+//        } else if type == .touchId {
+//            nextButton.setImage(UIImage(systemName: "touchid"), for: .normal)
+//        } else {
+//            self.btnBlurRemove()
+//            self.nextButton.removeFromSuperview()
+//            self.floatingBtn()
+//        }
+        
+        if authContext.canEvaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+        authContext.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "서비스를 이용하기 위해 인증 합니다.") { (success, error) in
+            print("인증결과", success, error)
+            //Face ID 시도 횟수가 초과됨 \n Face ID를 사용할 수 없습니다.
+            //스마트폰 Face ID가 잠겨있습니다. 잠금해제 후 다시 시도 해주세요.
+            //스마트폰에 Face ID가 등록되어 있지 않습니다. Face ID 등록 후 다시 시도해주시기 바랍니다.
             
-//            authContext.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: description) { (success, error) in
-            authContext.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: description) { (success, error) in
-                if success {
-                    print("인증 성공")
-                    DispatchQueue.main.async{
-                        self.btnBlurRemove()
-                        self.nextButton.removeFromSuperview()
-                        self.floatingBtn()
-                    }
-                } else {
-                    print("인증 실패")
-                    if let error = error {
-                        if authCount < 3 {
-                            self.auth()
-                        }else {
-                            print(error.localizedDescription)
-                        }
-                        
-                        authCount += 1
-                    }
+            
+            if success {
+                DispatchQueue.main.async{
+                    self.btnBlurRemove()
+                    self.nextButton.removeFromSuperview()
+                    self.floatingBtn()
                 }
-                
+            }else {
+                switch error! {
+                // 시스템(운영체제)에 의해 인증 과정이 종료 LAError.systemCancel:
+                case LAError.systemCancel:
+                    self.notifyUser(msg: "시스템에 의해 중단되었습니다.", err: error?.localizedDescription)
+                // 사용자가 취소함 LAError.userCancel
+                case LAError.userCancel:
+                    self.notifyUser(msg: "인증이 취소 되었습니다.", err: error?.localizedDescription)
+                // 터치아이디 대신 암호 입력 버튼을 누른경우(터치아이디 1회 틀리면 암호 입력 버튼 나옴) LAError.userFallback
+                case LAError.userFallback:
+                    self.notifyUser(msg: "터치 아이디 인증", err: "암호 입력을 선택했습니다.")
+                default:
+                    self.notifyUser(msg: "인증 실패", err: error?.localizedDescription)
+                }
             }
-
+        }
+    }else {
+        // 터치 아이디 사용할 수 없음
+        switch error! {
+        // 터치 아이디로 등록한 지문이 없다.
+        case LAError.biometryNotEnrolled:
+            self.notifyUser(msg: "터치아이디 지문이 없습니다.", err: error?.localizedDescription)
+        // 디바이스의 패스코드를 설정 하지 않았다.
+        case LAError.passcodeNotSet:
+            self.notifyUser(msg: "설정된 패스코드가 없습니다.", err: error?.localizedDescription)
+        default:
+            self.notifyUser(msg: "터치아이디를 사용할 수 없습니다.", err: error?.localizedDescription)
+        }
     }
-}
+        
 
+        
+    }
+    
+    func canEvaluatePolicy() -> Bool {
+        let can = authContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil)
+        return can
+    }
+
+    
+    func getBiometryType() -> BiometryType {
+        switch authContext.biometryType {
+            case .faceID:
+                return .faceId
+            case .touchID:
+                return .touchId
+            default:
+                return .none
+        }
+        
+    }
+    
+    func notifyUser(msg: String, err: String?) {
+        DispatchQueue.main.async{
+            let alert =  UIAlertController(title: msg, message: err, preferredStyle: .alert)
+            
+            let cancelAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            
+            alert.addAction(cancelAction)
+            
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
 }
 
 extension GiftSaveController: PageboyViewControllerDataSource, TMBarDataSource{
