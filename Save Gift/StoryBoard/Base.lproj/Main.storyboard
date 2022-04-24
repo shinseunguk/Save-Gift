@@ -1874,13 +1874,13 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="1300"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OC3-Wz-8sb">
-                                                <rect key="frame" x="10" y="5" width="394" height="700"/>
+                                                <rect key="frame" x="10" y="0.0" width="394" height="700"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="700" id="75I-SG-CUC"/>
                                                 </constraints>
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Fr-kB-Qrn">
-                                                <rect key="frame" x="20" y="720" width="374" height="40"/>
+                                                <rect key="frame" x="20" y="715" width="374" height="40"/>
                                                 <color key="backgroundColor" systemColor="systemBlueColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="rfO-6M-GwF"/>
@@ -1892,7 +1892,7 @@
                                                 </connections>
                                             </button>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="3yh-hY-XX3">
-                                                <rect key="frame" x="20" y="790" width="354" height="350"/>
+                                                <rect key="frame" x="20" y="785" width="354" height="350"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="350" id="9Fg-tV-SDC"/>
@@ -1913,7 +1913,7 @@
                                                 </connections>
                                             </tableView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SK3-2X-Iez">
-                                                <rect key="frame" x="20" y="1170" width="177" height="36"/>
+                                                <rect key="frame" x="20" y="1165" width="177" height="36"/>
                                                 <color key="backgroundColor" systemColor="systemGray2Color"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="ffd-pm-zqx"/>
@@ -1925,7 +1925,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XpA-uS-VCx">
-                                                <rect key="frame" x="217" y="1170" width="177" height="80"/>
+                                                <rect key="frame" x="217" y="1165" width="177" height="80"/>
                                                 <color key="backgroundColor" systemColor="systemBlueColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="80" id="Wyf-F3-XUX"/>
@@ -1937,7 +1937,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PA8-PA-O7N">
-                                                <rect key="frame" x="20" y="1214" width="177" height="36"/>
+                                                <rect key="frame" x="20" y="1209" width="177" height="36"/>
                                                 <color key="backgroundColor" systemColor="systemBlueColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="99O-5y-kVf"/>
@@ -1963,7 +1963,7 @@
                                             <constraint firstItem="PA8-PA-O7N" firstAttribute="top" secondItem="SK3-2X-Iez" secondAttribute="bottom" constant="8" id="NdQ-cb-Xbs"/>
                                             <constraint firstItem="OC3-Wz-8sb" firstAttribute="leading" secondItem="wwB-2s-6QJ" secondAttribute="leading" constant="10" id="QWz-9u-FeU"/>
                                             <constraint firstItem="3yh-hY-XX3" firstAttribute="top" secondItem="1Fr-kB-Qrn" secondAttribute="bottom" constant="30" id="TuX-QU-pgd"/>
-                                            <constraint firstItem="OC3-Wz-8sb" firstAttribute="top" secondItem="wwB-2s-6QJ" secondAttribute="top" constant="5" id="UqU-QL-ndp"/>
+                                            <constraint firstItem="OC3-Wz-8sb" firstAttribute="top" secondItem="wwB-2s-6QJ" secondAttribute="top" id="UqU-QL-ndp"/>
                                             <constraint firstItem="PA8-PA-O7N" firstAttribute="leading" secondItem="wwB-2s-6QJ" secondAttribute="leading" constant="20" id="Yrz-el-Ohv"/>
                                             <constraint firstAttribute="height" constant="1300" id="dfV-wv-r5D"/>
                                             <constraint firstItem="XpA-uS-VCx" firstAttribute="leading" secondItem="SK3-2X-Iez" secondAttribute="trailing" constant="20" id="fIB-29-EGd"/>
@@ -2033,6 +2033,9 @@
                         <outlet property="presentBtn" destination="PA8-PA-O7N" id="USY-lu-NAK"/>
                         <outlet property="tableView" destination="3yh-hY-XX3" id="cNT-Lt-Adk"/>
                         <outlet property="useynBtn" destination="XpA-uS-VCx" id="IRY-T5-aad"/>
+                        <outlet property="vBrandLabel" destination="7Cf-lo-ecW" id="RAG-ih-xXG"/>
+                        <outlet property="vExpirationLabel" destination="eLs-nk-KRP" id="Su3-Hm-1qU"/>
+                        <outlet property="vProductLabel" destination="sHG-HF-tos" id="l9D-mv-noh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FxC-pg-6gD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

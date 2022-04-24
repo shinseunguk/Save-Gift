@@ -69,8 +69,6 @@ class Page1Controller : UIViewController{
         //드롭다운 btnInit
         dropDownInit()
         
-        //컬렉션뷰 Init
-        collectionViewInit()
         
         //setupFlowLayout
         setupFlowLayout()
@@ -155,7 +153,7 @@ class Page1Controller : UIViewController{
                         
                         print("responseStringA ---- > \n",responseStringA)
                         
-                        var arr = responseStringA.components(separatedBy: "},")
+                        let arr = responseStringA.components(separatedBy: "},")
     //                    print("arr0 --->", arr[0])
     //                    print("arr1 --->", arr[1])
     //                    print("arr2 --->", arr[2])
@@ -231,7 +229,9 @@ class Page1Controller : UIViewController{
             label.isHidden = true
         }
         
-        self.collectionView.reloadData()
+//        self.collectionView.reloadData()//이거말고
+        //컬렉션뷰 Init
+        collectionViewInit()
     }
     
     
