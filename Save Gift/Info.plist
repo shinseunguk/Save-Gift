@@ -53,11 +53,11 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>Camera Test</string>
+	<string>사진 및 동영상 촬영을 위한 카메라 사용 권한</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>Use Face ID instead of a password to access your account.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Photo Library Test</string>
+	<string>사진 및 동영상 첨부를 위한 앨범 사용 권한</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>thirFont.tff</string>

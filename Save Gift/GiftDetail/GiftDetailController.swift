@@ -14,6 +14,9 @@ import Firebase
 
 class GiftDetailControoler : UIViewController{
     
+    @IBOutlet weak var vBrandLabel: UILabel!
+    @IBOutlet weak var vProductLabel: UILabel!
+    @IBOutlet weak var vExpirationLabel: UILabel!
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var imageExpandBtn: UIButton!
@@ -22,8 +25,11 @@ class GiftDetailControoler : UIViewController{
     @IBOutlet weak var presentBtn: UIButton!
     @IBOutlet weak var useynBtn: UIButton!
     
+    let localUrl : String = "".getLocalURL()
+    
     let categoryArr = ["바코드 번호", "교환처", "상품명", "유효기간", "쿠폰상태", "등록일", "등록자"]
     var contentArr =  ["1234567890123", "호식이두마리치킨", "후라이드+양념치킨+500ml", "2022-04-09", "사용가능", "2022-04-08", "ghdrlfehd@naver.com(홍길동)"]
+//    var contentArr : [Any] = []
     
     let calendar = Calendar.current
     let currentDate = Date()
@@ -36,6 +42,9 @@ class GiftDetailControoler : UIViewController{
 
     var imageUrl : String? = nil
     var seq : Int? = nil
+    
+    var param : Dictionary<String, Any> = [:]
+    var dic : Dictionary<String, Any> = [:]
     
     
 
@@ -51,11 +60,11 @@ class GiftDetailControoler : UIViewController{
 //        calculateDays()
         tableView.allowsSelection = false
         
-        tableView.register(UINib(nibName: "GiftDetailBarcodeTableViewCell", bundle: nil), forCellReuseIdentifier: "GiftDetailBarcodeTableViewCell")
-        tableView.register(UINib(nibName: "GiftDetailTableViewCell", bundle: nil), forCellReuseIdentifier: "GiftDetailTableViewCell")
     }
     
     func Init(){
+        param["seq"] = seq
+        
         let url = URL(string: "".getLocalURL()+"/images/\(imageUrl!)")
         DispatchQueue.global().async {
             let data = try? Data(contentsOf: url!)
@@ -63,6 +72,8 @@ class GiftDetailControoler : UIViewController{
                 self.imageView.image = UIImage(data: data!)
             }
         }
+        
+        requestPost(requestUrl: "/gift/detail", param: param)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -122,6 +133,82 @@ class GiftDetailControoler : UIViewController{
         alert.addAction(cancelAction)
         present(alert, animated: true, completion: nil)
     }
+    
+    func requestPost(requestUrl : String!, param : Dictionary<String, Any>) -> Void{
+        print("param.... ", param)
+        let paramData = try! JSONSerialization.data(withJSONObject: param)
+        // URL 객체 정의
+                let url = URL(string: localUrl+requestUrl)
+
+                // URLRequest 객체를 정의
+                var request = URLRequest(url: url!)
+                request.httpMethod = "POST"
+                request.httpBody = paramData
+
+                // HTTP 메시지 헤더
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.addValue("application/json", forHTTPHeaderField: "Accept")
+//                request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+//                request.setValue(String(paramData.count), forHTTPHeaderField: "Content-Length")
+
+                // URLSession 객체를 통해 전송, 응답값 처리
+                let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                    // 서버가 응답이 없거나 통신이 실패
+                    if let e = error {
+                        print("An error has occured: \(e.localizedDescription)")
+                        return
+                    }
+
+                var responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+
+                    print("GiftDetail responseString \n", responseString!)
+                    print("/gift/detail data ----> \n", data! as Any)
+                    print("/gift/detail response ----> \n", response! as Any)
+                    
+                    var responseStringA = responseString as! String
+                    print("responseStringA ===> ", responseStringA)
+//
+                    if responseStringA.count != 2{
+
+                        responseStringA = responseStringA.replacingOccurrences(of: "]", with: "")
+                        responseStringA = responseStringA.replacingOccurrences(of: "[", with: "")
+
+                        print("responseStringA ---- > \n",responseStringA)
+
+                        let arr = responseStringA.components(separatedBy: "},")
+                        print("arr0 --->", arr[0])
+
+                        self.dic = self.helper.jsonParser7(stringData: arr[0] as! String, data1: "barcode_number", data2: "brand", data3: "product_name", data4: "expiration_period", data5: "use_yn", data6:"registration_date", data7: "registrant");
+
+                        print("self.dic ----> \n", self.dic)
+
+                        DispatchQueue.main.async {
+                            self.vBrandLabel.text = self.dic["brand"] as! String
+                            self.vProductLabel.text = self.dic["product_name"] as! String
+                            self.vExpirationLabel.text = "유효기간 : \(self.dic["expiration_period"] as! String)"
+                            
+                            self.contentArr[0] = "0"
+                            self.contentArr[1] = "1"
+                            self.contentArr[2] = "2"
+                            self.contentArr[3] = "3"
+                            self.contentArr[4] = "4"
+                            self.contentArr[5] = "5"
+                            self.contentArr[6] = "6"
+                            
+                            self.tableView.register(UINib(nibName: "GiftDetailBarcodeTableViewCell", bundle: nil), forCellReuseIdentifier: "GiftDetailBarcodeTableViewCell")
+                            self.tableView.register(UINib(nibName: "GiftDetailTableViewCell", bundle: nil), forCellReuseIdentifier: "GiftDetailTableViewCell")
+                        }
+                        
+                    }
+                    //서버통신후 getGifty
+                    DispatchQueue.main.async {
+//                        self.getGifty()
+                    }
+                }
+                // POST 전송
+                task.resume()
+    }
+    
 }
 
 extension GiftDetailControoler : UITableViewDelegate, UITableViewDataSource{
@@ -131,6 +218,9 @@ extension GiftDetailControoler : UITableViewDelegate, UITableViewDataSource{
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "GiftDetailTableViewCell") as! GiftDetailTableViewCell
+        
+        print("dic 1-> ", dic)
+        
         
         cell.copyBtn.layer.cornerRadius = 5
         cell.copyBtn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
