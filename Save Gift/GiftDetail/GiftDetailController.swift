@@ -28,7 +28,7 @@ class GiftDetailControoler : UIViewController{
     let localUrl : String = "".getLocalURL()
     
     let categoryArr = ["바코드 번호", "교환처", "상품명", "유효기간", "쿠폰상태", "등록일", "등록자"]
-    var contentArr =  ["1234567890123", "호식이두마리치킨", "후라이드+양념치킨+500ml", "2022-04-09", "사용가능", "2022-04-08", "ghdrlfehd@naver.com(홍길동)"]
+    var contentArr =  ["", "", "", "", "", "", ""]
 //    var contentArr : [Any] = []
     
     let calendar = Calendar.current
@@ -187,13 +187,22 @@ class GiftDetailControoler : UIViewController{
                             self.vProductLabel.text = self.dic["product_name"] as! String
                             self.vExpirationLabel.text = "유효기간 : \(self.dic["expiration_period"] as! String)"
                             
-                            self.contentArr[0] = "0"
-                            self.contentArr[1] = "1"
-                            self.contentArr[2] = "2"
-                            self.contentArr[3] = "3"
-                            self.contentArr[4] = "4"
-                            self.contentArr[5] = "5"
-                            self.contentArr[6] = "6"
+                            self.contentArr[0] = self.dic["barcode_number"] as! String
+                            self.contentArr[1] = self.dic["brand"] as! String
+                            self.contentArr[2] = self.dic["product_name"] as! String
+                            self.contentArr[3] = self.dic["expiration_period"] as! String
+                            
+                            if self.dic["use_yn"] as! Int == 1{
+                                self.contentArr[4] = "사용완료"
+                            }else {
+                                self.contentArr[4] = "사용불가"
+                            }
+                            
+                            self.contentArr[5] = self.dic["registration_date"] as! String
+                            self.contentArr[6] = self.dic["registrant"] as! String
+                            
+                            self.tableView.dataSource = self
+                            self.tableView.delegate = self
                             
                             self.tableView.register(UINib(nibName: "GiftDetailBarcodeTableViewCell", bundle: nil), forCellReuseIdentifier: "GiftDetailBarcodeTableViewCell")
                             self.tableView.register(UINib(nibName: "GiftDetailTableViewCell", bundle: nil), forCellReuseIdentifier: "GiftDetailTableViewCell")
