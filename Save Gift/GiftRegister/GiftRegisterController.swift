@@ -896,7 +896,7 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
             print("registerDic.. 2", registerDic)
             
             var param = [
-                "user_id" : UserDefaults.standard.string(forKey: "ID"),
+                "user_id" : UserDefaults.standard.string(forKey: "ID")!,
 //                "img_url" : "gs://save-gift-e3710.appspot.com/\(UserDefaults.standard.string(forKey: "imageName")!)", //FireBase URL로 등록
                 "brand" : registerDic[0]!,
                 "barcode_number" : registerDic[2]!,
@@ -906,19 +906,11 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
                 "device_id" : deviceID!,
                 "registrant" : registerDic[6]!,
                 "product_name" : registerDic[1]!,
-                "img_local_url" : registerDic[7]!
+                "img_local_url" : registerDic[7]!,
+                "file_name" : self.deviceID! + "_" + self.helper.formatDateTime()
             ] as [String : Any] // JSON 객체로 전송할 딕셔너리
+            uploadDiary(date: helper.formatDateToday(), self.newImage!, requestUrl: "/register/image", param: param)
             
-            uploadDiary(date: helper.formatDateToday(), self.newImage!, requestUrl: "/register/image")
-            
-//            result = FirebaseStorageManager.uploadImage(image: self.newImage!, param: &param)
-//            print("result ~!~!~! ", result)
-//            if result != "" {
-//                requestPost(requestUrl: "/register/gift")
-//                print("GiftRegister 서버 통신 성공")
-//            }else {
-//                print("GiftRegister 서버 통신 실패")
-//            }
         }
     }
     
@@ -1139,28 +1131,21 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
                 task.resume()
     }
     
-    func uploadDiary(date: String, _ photo : UIImage, requestUrl : String){
+    func uploadDiary(date: String, _ photo : UIImage, requestUrl : String, param : Dictionary<String, Any>){
                 //함수 매개변수는 POST할 데이터, url
-                let fileName : String = self.deviceID! + "_" + self.helper.formatDateTime()
+                
                 let headers: HTTPHeaders = [
                         "Content-Type" : "multipart/form-data",
                         "accept" : "application/json"
                 ]//HTTP 헤더
-                
-                let body : Parameters = [
-                    "date" : date,
-                    "user" : UserDefaults.standard.string(forKey: "ID")!,
-                    "device_id" : deviceID!,
-                    "file_name" : fileName
-                ]    //POST 함수로 전달할 String 데이터, 이미지 데이터는 제외하고 구성
-                
+        
                 //multipart 업로드
                 AF.upload(multipartFormData: { (multipart) in
                     if let imageData = photo.jpegData(compressionQuality: 1) {
-                        multipart.append(imageData, withName: "photo", fileName: "\(fileName).jpg", mimeType: "image/jpeg")
+                        multipart.append(imageData, withName: "photo", fileName: "\(param["file_name"]).jpg", mimeType: "image/jpeg")
                         //이미지 데이터를 POST할 데이터에 덧붙임
                     }
-                    for (key, value) in body {
+                    for (key, value) in param {
                         multipart.append("\(value)".data(using: .utf8, allowLossyConversion: false)!, withName: "\(key)")
                         //이미지 데이터 외에 같이 전달할 데이터 (여기서는 user, emoji, date, content 등)
                     }
@@ -1169,11 +1154,23 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
                 ,headers: headers).responseString(completionHandler: { (response) in    //헤더와 응답 처리
                     print("response --------> \n", response)
                     
+                    print("response.value ", response.value!)
+                    
+                    if response.value! == "success"{
+                        DispatchQueue.main.async{
+//                            self.navigationController?.popViewController(animated: true)
+                            let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "tabbarVC")
+                            self.navigationController?.pushViewController(pushVC!, animated: true)
+                            print("화면 이동")
+                            }
+                    }else {
+                        self.normalAlert(titles: "알림", messages: "네트워크 오류")
+                    }
+                    
                     if let err = response.error{    //응답 에러
                         print("error --------> \n", err)
                         return
                     }
-                    print("success")        //응답 성공
                     
                     let json = response.data
                     

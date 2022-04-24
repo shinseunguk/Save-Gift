@@ -33,32 +33,36 @@ class GiftDetailControoler : UIViewController{
     let nowBrightness : CGFloat = UIScreen.main.brightness;
     
     var daysCount:Int = 0
+
+    var imageUrl : String? = nil
+    var seq : Int? = nil
     
     
 
     override func viewDidLoad(){
         super.viewDidLoad()
         
-        //test url https://firebasestorage.googleapis.com/v0/b/save-gift-e3710.appspot.com/o/bhc.jpg?alt=media&token=54938b56-88bf-4a0f-acc4-98222e1412ac
-//        Storage.storage().reference(forURL: "gs://save-gift-e3710.appspot.com/bhc.jpg").downloadURL { (url, error) in
-//            let data = NSData(contentsOf: url!)
-//            let image = UIImage(data: data! as Data)
-//            self.imageView.image = image
-//        }
+        print("imageUrl --- > ", "".getLocalURL()+"/images/\(imageUrl!)")
+        print("seq --- > ", seq!)
         
-        //https://firebasestorage.googleapis.com/v0/b/save-gift-e3710.appspot.com/o/candy.png?alt=media&token=4fc9190b-1ac1-451a-a40f-c7a12be44de9
-        
-        let url = URL(string: "https://firebasestorage.googleapis.com/v0/b/save-gift-e3710.appspot.com/o/bhc.jpg?alt=media&token=54938b56-88bf-4a0f-acc4-98222e1412ac")!
-//        if let data = try? Data(contentsOf: url) {
-        imageView.image = UIImage(data: try! Data(contentsOf: url))
-//        }
-        
+        Init()
+
         setupLayout()
 //        calculateDays()
         tableView.allowsSelection = false
         
         tableView.register(UINib(nibName: "GiftDetailBarcodeTableViewCell", bundle: nil), forCellReuseIdentifier: "GiftDetailBarcodeTableViewCell")
         tableView.register(UINib(nibName: "GiftDetailTableViewCell", bundle: nil), forCellReuseIdentifier: "GiftDetailTableViewCell")
+    }
+    
+    func Init(){
+        let url = URL(string: "".getLocalURL()+"/images/\(imageUrl!)")
+        DispatchQueue.global().async {
+            let data = try? Data(contentsOf: url!)
+            DispatchQueue.main.async {
+                self.imageView.image = UIImage(data: data!)
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -245,10 +249,9 @@ extension GiftDetailControoler : UITableViewDelegate, UITableViewDataSource{
         
         print("components --------> ", components)
     }
-
     
     @objc func normalAlert(){
-        let alert = UIAlertController(title: "알림", message: "바코드 번호가 클립보드에 복사되었습니다.", preferredStyle: UIAlertController.Style.alert)
+        let alert = UIAlertController(title: "알림", message: "바코드 번호가\n 클립보드에 복사되었습니다.", preferredStyle: UIAlertController.Style.alert)
         let defaultAction = UIAlertAction(title: "확인", style: .default, handler : nil)
         alert.addAction(defaultAction)
         present(alert, animated: true, completion: nil)

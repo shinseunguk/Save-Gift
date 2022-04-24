@@ -58,6 +58,62 @@ class Helper : UIViewController{
         return oJsonDictionaryT!;
     }//func
     
+    func jsonParser4(stringData : String, data1 : String?, data2 : String?, data3 : String?, data4 : String?) -> Dictionary<String, Any>{
+        let strJsonString = stringData
+//        print(strJsonString)
+        let oJsonDataT:Data? = strJsonString.data(using: .utf8)
+        var oJsonDictionaryT:[String:Any]?
+        
+        if let oJsonData = oJsonDataT{
+            
+            oJsonDictionaryT = try! JSONSerialization.jsonObject(with: oJsonData, options: []) as! [String:Any]
+            
+            if let oJsonDictionary = oJsonDictionaryT{
+                if let strResultCode = oJsonDictionary[data1!],
+                    let strDescription = oJsonDictionary[data2!],
+                    let strDescription2 = oJsonDictionary[data3!],
+                    let strDescription3 = oJsonDictionary[data4!]
+                   {
+                    print("data1 = \(strResultCode)")
+                    print("data2 = \(strDescription)")
+                    print("data3 = \(strDescription2)")
+                    print("data4 = \(strDescription3)")
+                }
+            }
+            return oJsonDictionaryT!;
+        }
+        return oJsonDictionaryT!;
+    }//func
+    
+    func jsonParser5(stringData : String, data1 : String?, data2 : String?, data3 : String?, data4 : String?, data5 : String?) -> Dictionary<String, Any>{
+        let strJsonString = stringData
+//        print(strJsonString)
+        let oJsonDataT:Data? = strJsonString.data(using: .utf8)
+        var oJsonDictionaryT:[String:Any]?
+        
+        if let oJsonData = oJsonDataT{
+            
+            oJsonDictionaryT = try! JSONSerialization.jsonObject(with: oJsonData, options: []) as! [String:Any]
+            
+            if let oJsonDictionary = oJsonDictionaryT{
+                if let strResultCode = oJsonDictionary[data1!],
+                    let strDescription = oJsonDictionary[data2!],
+                    let strDescription2 = oJsonDictionary[data3!],
+                    let strDescription3 = oJsonDictionary[data4!],
+                    let strDescription4 = oJsonDictionary[data5!]
+                   {
+                    print("data1 = \(strResultCode)")
+                    print("data2 = \(strDescription)")
+                    print("data3 = \(strDescription2)")
+                    print("data4 = \(strDescription3)")
+                    print("data5 = \(strDescription4)")
+                }
+            }
+            return oJsonDictionaryT!;
+        }
+        return oJsonDictionaryT!;
+    }//func
+    
     func jsonParserName(stringData : String, data1 : String?) -> Dictionary<String, Any>{
         let strJsonString = stringData
 //        print(strJsonString)

@@ -38,6 +38,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
     
+    func applicationWillTerminate(_ application: UIApplication) {
+        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        print("앱 종료")
+        UserDefaults.standard.removeObject(forKey: "lock")
+    }
+    
  }
 
 
