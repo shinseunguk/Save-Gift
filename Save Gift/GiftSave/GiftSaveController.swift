@@ -67,6 +67,9 @@ class GiftSaveController : TabmanViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("lock --> ", UserDefaults.standard.bool(forKey: "lock"))
+        
         print("GiftSaveController viewDidLoad")
         print("cellWidth/3 : ", cellHeight3)
         
@@ -89,16 +92,26 @@ class GiftSaveController : TabmanViewController{
         //가운데 lock btn
         lockBtn()
         
-        let type = self.getBiometryType()
-        if type == .faceId {
-            nextButton.setImage(UIImage(systemName: "faceid"), for: .normal)
-        } else if type == .touchId {
-            nextButton.setImage(UIImage(systemName: "touchid"), for: .normal)
-        } else {
+        if UserDefaults.standard.bool(forKey: "lock"){ //한번이라도 푼적 있음.
             self.btnBlurRemove()
             self.nextButton.removeFromSuperview()
             self.floatingBtn()
+        }else {
+            let type = self.getBiometryType()
+            if type == .faceId {
+                nextButton.setImage(UIImage(systemName: "faceid"), for: .normal)
+            } else if type == .touchId {
+                nextButton.setImage(UIImage(systemName: "touchid"), for: .normal)
+            } else {
+                self.btnBlurRemove()
+                self.nextButton.removeFromSuperview()
+                self.floatingBtn()
+            }
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        print("GiftSave viewWillAppear")
     }
     
     func setTabMan() {
@@ -279,6 +292,8 @@ class GiftSaveController : TabmanViewController{
                     self.btnBlurRemove()
                     self.nextButton.removeFromSuperview()
                     self.floatingBtn()
+                    
+                    UserDefaults.standard.set(true, forKey: "lock")
                 }
             }else {
                 switch error! {

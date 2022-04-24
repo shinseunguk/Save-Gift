@@ -14,12 +14,20 @@ class Page1Controller : UIViewController{
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var filterButton: UIButton!
-    let label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
     
-    let sectionInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-    let cellHeight3 = ((UIScreen.main.bounds.width / 2) + 50) / 3
+    let helper : Helper = Helper()
+    
+    var dic : Dictionary<String, Any> = [:]
+
+    let deviceID : String? = UserDefaults.standard.string(forKey: "device_id")
+    let localUrl : String = "".getLocalURL()
+    let label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+
+    var param : Dictionary<String, Any> = [:]
     
     var index : Int = 0
+    
+    var dicArr : [String] = []
     
     //기기 세로길이
     let screenHeight = UIScreen.main.bounds.size.height
@@ -27,7 +35,7 @@ class Page1Controller : UIViewController{
     let screenWidth = UIScreen.main.bounds.size.width
     
     var viewPagerArr = ["Unused", "Used", "All"]
-//    var barndNameLabelArr = ["Page1","BBQ","피자나라 치킨공주","교촌치킨","60계치킨","처갓집양념치킨","호식이두마리치킨","꾸브라꼬숯불두마리치킨"]
+//    var brandNameLabelArr = ["Page1","BBQ","피자나라 치킨공주","교촌치킨","60계치킨","처갓집양념치킨","호식이두마리치킨","꾸브라꼬숯불두마리치킨"]
 //    var expirationPeriodLabelArr = ["2022-04-14","2022-04-15","2022-04-16","2022-04-19","2022-04-20","2022-05-14","2022-02-14","2022-04-30"]
 //    var productNameLabelArr = ["뿌링클 순살 + 1L 콜라 + 치즈볼", "뿌링클 순살 + 2L 콜라 + 치즈볼", "뿌링클 순살 + 3L 콜라 + 치즈볼" ,"뿌링클 순살 + 4L 콜라 + 치즈볼", "뿌링클 순살 + 5L 콜라 + 치즈볼", "뿌링클 순살 + 6L 콜라 + 치즈볼", "뿌링클 순살 + 7L 콜라 + 치즈볼", "뿌링클 순살 + 8L 콜라 + 치즈볼"]
 //    var cellImageViewArr = ["chicken.jpg", "chicken.jpg", "chicken.jpg", "chicken.jpg", "chicken.jpg", "chicken.jpg", "chicken.jpg", "chicken.jpg"]
@@ -36,10 +44,11 @@ class Page1Controller : UIViewController{
     var thumbnail: Array<UIImage> = []
     
     // test Array
-        var barndNameLabelArr : [String] = []
+        var brandNameLabelArr : [String] = []
         var expirationPeriodLabelArr : [String] = []
         var productNameLabelArr : [String] = []
         var cellImageViewArr : [String] = []
+        var seqArr : [Int] = []
     
     //cocoa pod
     let dropDown = DropDown()
@@ -47,7 +56,7 @@ class Page1Controller : UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if barndNameLabelArr.count == 0 &&  expirationPeriodLabelArr.count == 0{
+        if brandNameLabelArr.count == 0 &&  expirationPeriodLabelArr.count == 0{
             label.isHidden = false
             collectionView.isHidden = true
             filterButton.isHidden = true
@@ -56,23 +65,6 @@ class Page1Controller : UIViewController{
             collectionView.isHidden = false
             filterButton.isHidden = false
         }
-        
-//        let url = URL(string: "https://firebasestorage.googleapis.com/v0/b/save-gift-e3710.appspot.com/o/bhc.jpg?alt=media&token=54938b56-88bf-4a0f-acc4-98222e1412ac")!
-////        if let data = try? Data(contentsOf: url) {
-////        thumbnail[0] = UIImage(data: try! Data(contentsOf: url))!
-////        thumbnail[1] = UIImage(data: try! Data(contentsOf: url))!
-////        thumbnail[2] = UIImage(data: try! Data(contentsOf: url))!
-////        thumbnail[3] = UIImage(data: try! Data(contentsOf: url))!
-////        thumbnail[4] = UIImage(data: try! Data(contentsOf: url))!
-////        thumbnail[5] = UIImage(data: try! Data(contentsOf: url))!
-////        thumbnail[6] = UIImage(data: try! Data(contentsOf: url))!
-////        thumbnail[7] = UIImage(data: try! Data(contentsOf: url))!
-//
-//        for x in 0...7 {
-//            thumbnail.append(UIImage(data: try! Data(contentsOf: url))!)
-//        }
-        
-        
         
         //드롭다운 btnInit
         dropDownInit()
@@ -87,20 +79,128 @@ class Page1Controller : UIViewController{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        //서버 통신후 사용자 혹은 로컬기기 -> DB에 저장되어 있는 값 가져오기
-        setupInit()
+        if UserDefaults.standard.string(forKey: "ID") != nil { //로그인
+            //서버 통신후 사용자 혹은 로컬기기 -> DB에 저장되어 있는 값 가져오기
+            LoginSetupInit()
+        }else { //비로그인
+            bLoginSetupInit()
+        }
         
-        //서버통신후 getGifty
-        getGifty()
     }
     
-    func setupInit(){
+    override func viewWillDisappear(_ animated: Bool) {
+        brandNameLabelArr.removeAll()
+        expirationPeriodLabelArr.removeAll()
+        productNameLabelArr.removeAll()
+        cellImageViewArr.removeAll()
+        seqArr.removeAll()
+    }
+    
+    func LoginSetupInit(){
+        print("로그인 setUP")
         
+        // 로그인
+        param["user_id"] = UserDefaults.standard.string(forKey: "ID")!
+        param["index"] = "login"
+        param["use_yn"] = "All"
+        requestPost(requestUrl: "/gift/save", param: param)
+    }
+    
+    func bLoginSetupInit(){
+        print("비로그인 setUP")
+        
+        param["device_id"] = deviceID!
+        param["index"] = "blogin"
+        param["use_yn"] = "All"
+        requestPost(requestUrl: "/gift/save", param: param)
+    }
+    
+    func requestPost(requestUrl : String!, param : Dictionary<String, Any>) -> Void{
+        print("param.... ", param)
+        let paramData = try! JSONSerialization.data(withJSONObject: param)
+        // URL 객체 정의
+                let url = URL(string: localUrl+requestUrl)
+
+                // URLRequest 객체를 정의
+                var request = URLRequest(url: url!)
+                request.httpMethod = "POST"
+                request.httpBody = paramData
+
+                // HTTP 메시지 헤더
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.addValue("application/json", forHTTPHeaderField: "Accept")
+//                request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+//                request.setValue(String(paramData.count), forHTTPHeaderField: "Content-Length")
+
+                // URLSession 객체를 통해 전송, 응답값 처리
+                let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                    // 서버가 응답이 없거나 통신이 실패
+                    if let e = error {
+                        print("An error has occured: \(e.localizedDescription)")
+                        return
+                    }
+
+                var responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+
+                    print("회원가입 응답 처리 로직 responseString \n", responseString!)
+                    print("/giftsave data ----> \n", data! as Any)
+                    print("/giftsave response ----> \n", response! as Any)
+                    
+                    var responseStringA = responseString as! String
+                    
+                    if responseStringA.count != 2{
+                    
+                        responseStringA = responseStringA.replacingOccurrences(of: "]", with: "")
+                        responseStringA = responseStringA.replacingOccurrences(of: "[", with: "")
+                        
+                        print("responseStringA ---- > \n",responseStringA)
+                        
+                        var arr = responseStringA.components(separatedBy: "},")
+    //                    print("arr0 --->", arr[0])
+    //                    print("arr1 --->", arr[1])
+    //                    print("arr2 --->", arr[2])
+                        
+                        for x in 0...arr.count-1{
+                            
+                            
+                            if x != arr.count-1 {
+                                self.dic = self.helper.jsonParser5(stringData: arr[x]+"}" as! String, data1: "seq", data2: "brand", data3: "expiration_period", data4: "img_url", data5: "product_name");
+                            }else {
+                                self.dic = self.helper.jsonParser5(stringData: arr[x] as! String, data1: "seq", data2: "brand", data3: "expiration_period", data4: "img_url", data5: "product_name");
+                            }
+                            
+                            print("self.dic ----> \n", self.dic)
+                            
+                            if self.dic["seq"] is Int{
+                                print("int")
+                            }else {
+                                print("else")
+                            }
+                            self.brandNameLabelArr.append(self.dic["brand"] as! String)
+                            self.expirationPeriodLabelArr.append(self.dic["expiration_period"] as! String)
+                            self.productNameLabelArr.append(self.dic["product_name"] as! String)
+                            self.cellImageViewArr.append(self.dic["img_url"] as! String)
+                            self.seqArr.append(self.dic["seq"] as! Int)
+                            
+                        }
+                    }
+                    //서버통신후 getGifty
+                    DispatchQueue.main.async {
+                        self.getGifty()
+                    }
+                    
+                    
+//                    print("cellImageviewarr ", self.cellImageViewArr)
+//                    print("arr.length --->", arr.count)
+                    
+                }
+                // POST 전송
+                task.resume()
     }
     
     
     func getGifty(){
-        if barndNameLabelArr.count == 0 &&  expirationPeriodLabelArr.count == 0{
+        if brandNameLabelArr.count == 0 &&  expirationPeriodLabelArr.count == 0{
             print("Page1 기프티콘이 존재하지 않음.")
             label.isHidden = false
             collectionView.isHidden = true
@@ -130,6 +230,8 @@ class Page1Controller : UIViewController{
             filterButton.isHidden = false
             label.isHidden = true
         }
+        
+        self.collectionView.reloadData()
     }
     
     
@@ -189,13 +291,28 @@ extension Page1Controller: UICollectionViewDelegate, UICollectionViewDataSource 
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
         
             //  Configure the Cell
-            cell.brandNameLabel.text = barndNameLabelArr[indexPath.row]
+            cell.brandNameLabel.text = brandNameLabelArr[indexPath.row]
             cell.productNameLabel.text = productNameLabelArr[indexPath.row]
             cell.expirationPeriodLabel.text = "유효기간 : \(expirationPeriodLabelArr[indexPath.row])"
         
+//            let url = URL(string: "".getLocalURL()+"/images/DD15A014-F02C-4F28-BD0F-249B307BFA7A_20220423_170711.jpg")
+//            DispatchQueue.global().async {
+//                let data = try? Data(contentsOf: url!)
+//                DispatchQueue.main.async {
+//                    self.imageView.image = UIImage(data: data!)
+//                }
+//            }
         
-            cell.cellImageView.image = UIImage(named: cellImageViewArr[indexPath.row])
-            cell.cellImageView.contentMode = .scaleAspectFit
+        let url = URL(string: "".getLocalURL()+"/images/\(cellImageViewArr[indexPath.row])")
+        DispatchQueue.global().async {
+                let data = try? Data(contentsOf: url!)
+                DispatchQueue.main.async {
+//                    self.imageView.image = UIImage(data: data!)
+                    cell.cellImageView.image =  UIImage(data: data!)
+                    cell.cellImageView.contentMode = .scaleAspectFit
+                }
+        }
+//            cell.cellImageView.image = UIImage(named: cellImageViewArr[indexPath.row])
 //        cell.layer.borderWidth = 1.0
 //        cell.layer.borderColor = UIColor.black.cgColor
             return cell
@@ -213,6 +330,8 @@ extension Page1Controller: UICollectionViewDelegate, UICollectionViewDataSource 
                 cell.backgroundColor = UIColor.white
                 
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "GiftDetailVC") as! GiftDetailControoler
+                vc.imageUrl = self.cellImageViewArr[indexPath.row]
+                vc.seq = self.seqArr[indexPath.row]
 //                vc.modalPresentationStyle = .fullScreen
 //                vc.definesPresentationContext = true
 //                vc.modalPresentationStyle = .overCurrentContext
@@ -220,5 +339,4 @@ extension Page1Controller: UICollectionViewDelegate, UICollectionViewDataSource 
             }
         }
     }
-    
 }
