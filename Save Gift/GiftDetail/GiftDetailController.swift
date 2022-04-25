@@ -46,6 +46,10 @@ class GiftDetailControoler : UIViewController{
     var param : Dictionary<String, Any> = [:]
     var dic : Dictionary<String, Any> = [:]
     
+    var brandName : String? = nil
+    var productName : String? = nil
+    var expirationPeriod : String? = nil
+    
     
 
     override func viewDidLoad(){
@@ -55,16 +59,21 @@ class GiftDetailControoler : UIViewController{
         print("seq --- > ", seq!)
         
         Init()
-
+        viewLabelSetup()
         setupLayout()
 //        calculateDays()
         tableView.allowsSelection = false
         
     }
     
+    func viewLabelSetup(){
+        vBrandLabel.text = brandName
+        vProductLabel.text = productName
+        vExpirationLabel.text = "유효기간 : \(expirationPeriod!)"
+    }
+    
     func Init(){
         param["seq"] = seq
-        
         let url = URL(string: "".getLocalURL()+"/images/\(imageUrl!)")
         DispatchQueue.global().async {
             let data = try? Data(contentsOf: url!)
@@ -183,9 +192,6 @@ class GiftDetailControoler : UIViewController{
                         print("self.dic ----> \n", self.dic)
 
                         DispatchQueue.main.async {
-                            self.vBrandLabel.text = self.dic["brand"] as! String
-                            self.vProductLabel.text = self.dic["product_name"] as! String
-                            self.vExpirationLabel.text = "유효기간 : \(self.dic["expiration_period"] as! String)"
                             
                             self.contentArr[0] = self.dic["barcode_number"] as! String
                             self.contentArr[1] = self.dic["brand"] as! String
