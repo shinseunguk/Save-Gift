@@ -332,6 +332,9 @@ extension Page1Controller: UICollectionViewDelegate, UICollectionViewDataSource 
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "GiftDetailVC") as! GiftDetailControoler
                 vc.imageUrl = self.cellImageViewArr[indexPath.row]
                 vc.seq = self.seqArr[indexPath.row]
+                vc.brandName = self.brandNameLabelArr[indexPath.row]
+                vc.productName = self.productNameLabelArr[indexPath.row]
+                vc.expirationPeriod = self.expirationPeriodLabelArr[indexPath.row]
 //                vc.modalPresentationStyle = .fullScreen
 //                vc.definesPresentationContext = true
 //                vc.modalPresentationStyle = .overCurrentContext
