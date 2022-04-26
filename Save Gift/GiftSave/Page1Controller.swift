@@ -49,6 +49,7 @@ class Page1Controller : UIViewController{
         var productNameLabelArr : [String] = []
         var cellImageViewArr : [String] = []
         var seqArr : [Int] = []
+        var useYn : [Int] = []
     
     //cocoa pod
     let dropDown = DropDown()
@@ -160,11 +161,10 @@ class Page1Controller : UIViewController{
                         
                         for x in 0...arr.count-1{
                             
-                            
                             if x != arr.count-1 {
-                                self.dic = self.helper.jsonParser5(stringData: arr[x]+"}" as! String, data1: "seq", data2: "brand", data3: "expiration_period", data4: "img_url", data5: "product_name");
+                                self.dic = self.helper.jsonParser6(stringData: arr[x]+"}" as! String, data1: "seq", data2: "brand", data3: "expiration_period", data4: "img_url", data5: "product_name", data6: "use_yn");
                             }else {
-                                self.dic = self.helper.jsonParser5(stringData: arr[x] as! String, data1: "seq", data2: "brand", data3: "expiration_period", data4: "img_url", data5: "product_name");
+                                self.dic = self.helper.jsonParser6(stringData: arr[x] as! String, data1: "seq", data2: "brand", data3: "expiration_period", data4: "img_url", data5: "product_name", data6: "use_yn");
                             }
                             
                             print("self.dic ----> \n", self.dic)
@@ -179,6 +179,7 @@ class Page1Controller : UIViewController{
                             self.productNameLabelArr.append(self.dic["product_name"] as! String)
                             self.cellImageViewArr.append(self.dic["img_url"] as! String)
                             self.seqArr.append(self.dic["seq"] as! Int)
+                            self.useYn.append(self.dic["use_yn"] as! Int)
                             
                         }
                     }
@@ -335,6 +336,7 @@ extension Page1Controller: UICollectionViewDelegate, UICollectionViewDataSource 
                 vc.brandName = self.brandNameLabelArr[indexPath.row]
                 vc.productName = self.productNameLabelArr[indexPath.row]
                 vc.expirationPeriod = self.expirationPeriodLabelArr[indexPath.row]
+                vc.use_yn = self.useYn[indexPath.row]
 //                vc.modalPresentationStyle = .fullScreen
 //                vc.definesPresentationContext = true
 //                vc.modalPresentationStyle = .overCurrentContext
