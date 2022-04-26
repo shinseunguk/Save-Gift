@@ -49,6 +49,9 @@ class GiftDetailControoler : UIViewController{
     var brandName : String? = nil
     var productName : String? = nil
     var expirationPeriod : String? = nil
+    var use_yn : Int? = nil // 넘겨준 이유 --> 하단 버튼 enable 처리 때문
+    
+    let LOG_TAG : String = "GiftDetailControoler"
     
     
 
@@ -57,6 +60,8 @@ class GiftDetailControoler : UIViewController{
         
         print("imageUrl --- > ", "".getLocalURL()+"/images/\(imageUrl!)")
         print("seq --- > ", seq!)
+        
+        print("\(LOG_TAG) use_yn --> ", use_yn!)
         
         Init()
         viewLabelSetup()
@@ -69,7 +74,7 @@ class GiftDetailControoler : UIViewController{
     func viewLabelSetup(){
         vBrandLabel.text = brandName
         vProductLabel.text = productName
-        vExpirationLabel.text = "유효기간 : \(expirationPeriod!)"
+        vExpirationLabel.text = "~ \(expirationPeriod!)"
     }
     
     func Init(){
@@ -98,6 +103,14 @@ class GiftDetailControoler : UIViewController{
         editBtn.layer.cornerRadius = 5
         presentBtn.layer.cornerRadius = 5
         useynBtn.layer.cornerRadius = 5
+        
+        if use_yn == 1{ //사용 했음
+            self.presentBtn.removeFromSuperview()
+            self.editBtn.removeFromSuperview()
+            self.useynBtn.setTitle("미사용 처리", for: .highlighted)
+        }else { // 사용 안했음
+            
+        }
     }
     
     @IBAction func imageExpandAction(_ sender: Any) {
@@ -327,7 +340,7 @@ extension GiftDetailControoler : UITableViewDelegate, UITableViewDataSource{
             return 0
         }else if dateInt1 > dateInt2 {
             print("dateInt1 > dateInt2")
-            return calendar.dateComponents([.day], from: date, to: currentDate).day! + 1
+            return calendar.dateComponents([.day], from: date, to: currentDate).day!
         }else if dateInt1 < dateInt2 {
             print("dateInt1 < dateInt2") // 오늘날짜 < 유효기간 날짜
             if calendar.dateComponents([.day], from: date, to: currentDate).day! == 0 {
