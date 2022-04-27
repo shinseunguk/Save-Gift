@@ -75,14 +75,6 @@ class GiftSaveController : TabmanViewController{
         
         print("helper.formatDateTime() ", helper.formatDateTime())
         
-        if canEvaluatePolicy() {
-            print("생체인식 가능 기기")
-        } else{
-            self.btnBlurRemove()
-            self.nextButton.removeFromSuperview()
-            self.floatingBtn()
-        }
-        
         //tabbar setting(TabMan)
         setTabMan()
         
