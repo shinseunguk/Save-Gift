@@ -104,6 +104,8 @@ class GiftDetailControoler : UIViewController{
         presentBtn.layer.cornerRadius = 5
         useynBtn.layer.cornerRadius = 5
         
+        print("use_yn ----> ",use_yn!)
+        
         if use_yn == 1{ //사용 했음
             self.presentBtn.removeFromSuperview()
             self.editBtn.removeFromSuperview()
@@ -211,10 +213,11 @@ class GiftDetailControoler : UIViewController{
                             self.contentArr[2] = self.dic["product_name"] as! String
                             self.contentArr[3] = self.dic["expiration_period"] as! String
                             
+                            //여기서 날짜에 따른 쿠폰 상태 확인해주고 set text
                             if self.dic["use_yn"] as! Int == 1{
-                                self.contentArr[4] = "사용완료"
-                            }else {
                                 self.contentArr[4] = "사용불가"
+                            }else {
+                                self.contentArr[4] = "사용가능"
                             }
                             
                             self.contentArr[5] = self.dic["registration_date"] as! String
@@ -295,7 +298,7 @@ extension GiftDetailControoler : UITableViewDelegate, UITableViewDataSource{
                 contentArr[4] = "사용불가"
             }else if resultDDay < 0 {
                 cell.dDayLabel.textColor = UIColor.systemGreen
-                cell.dDayLabel.text = "(D-\(resultDDay))"
+                cell.dDayLabel.text = "(D\(resultDDay))"
             }
         }
         cell.firstLabel.text = categoryArr[indexPath.row]
@@ -326,8 +329,8 @@ extension GiftDetailControoler : UITableViewDelegate, UITableViewDataSource{
         formatter.dateFormat = "yyyy-MM-dd" //데이터 포멧 설정
         let dateString = formatter.string(from: date) //문자열로 바꾸기
         
-        let dateInt1 : Int = Int(date1.replacingOccurrences(of: "-", with: ""))!
-        let dateInt2 : Int = Int(dateString.replacingOccurrences(of: "-", with: ""))!
+        let dateInt1 : Int = Int(date1.replacingOccurrences(of: "-", with: ""))! //오늘 날짜
+        let dateInt2 : Int = Int(dateString.replacingOccurrences(of: "-", with: ""))! //입력된 날짜
         
         print("date1Int1 -----> 오늘    날짜 -->", dateInt1)
         print("date1Int2 -----> 유효기간 날짜 -->", dateInt2)
@@ -343,29 +346,17 @@ extension GiftDetailControoler : UITableViewDelegate, UITableViewDataSource{
             return calendar.dateComponents([.day], from: date, to: currentDate).day!
         }else if dateInt1 < dateInt2 {
             print("dateInt1 < dateInt2") // 오늘날짜 < 유효기간 날짜
-            if calendar.dateComponents([.day], from: date, to: currentDate).day! == 0 {
-                return 1
-            }else {
-               return -calendar.dateComponents([.day], from: date, to: currentDate).day!
-            }
+            print("log....1 ", calendar.dateComponents([.day], from: date, to: currentDate).day!-1)
+            print("log....2 ", -(calendar.dateComponents([.day], from: date, to: currentDate).day!-1))
+            print("log....3 ", calendar.dateComponents([.day], from: date, to: currentDate).day!)
+//            if calendar.dateComponents([.day], from: date, to: currentDate).day! == 0 {
+//                return 1
+//            }else {
+               return calendar.dateComponents([.day], from: date, to: currentDate).day!-1
+//            }
         }
         
         return calendar.dateComponents([.day], from: date, to: currentDate).day!
-    }
-    
-    func daysBetweenDates(startDate: Date, endDate: Date) -> Void
-    {
-        print("startDate ", startDate)
-        print("endDate ", endDate)
-        
-        let calendar = Calendar.current
-        // Replace the hour (time) of both dates with 00:00
-        let date1 = calendar.startOfDay(for: startDate)
-        let date2 = calendar.startOfDay(for: endDate)
-
-        let components = calendar.dateComponents([.day], from: date1, to: date2)
-        
-        print("components --------> ", components)
     }
     
     @objc func normalAlert(){

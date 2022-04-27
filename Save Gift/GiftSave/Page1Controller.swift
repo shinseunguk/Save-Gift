@@ -11,7 +11,7 @@ import UIKit
 import DropDown
 
 class Page1Controller : UIViewController{
-    
+    let LOG_TAG : String = "Page1Controller"
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var filterButton: UIButton!
     
