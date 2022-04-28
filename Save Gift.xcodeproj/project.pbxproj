@@ -23,6 +23,8 @@
 		046F706627F14A57008CF3F6 /* thirdFont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 046F706327F14A57008CF3F6 /* thirdFont.ttf */; };
 		048124F327EC1F07003DF866 /* CollectionViewTopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048124F127EC1F07003DF866 /* CollectionViewTopCell.swift */; };
 		048124F427EC1F07003DF866 /* CollectionViewTopCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048124F227EC1F07003DF866 /* CollectionViewTopCell.xib */; };
+		04BE84B4281A316D005FE5FC /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BE84B2281A316D005FE5FC /* SettingTableViewCell.swift */; };
+		04BE84B5281A316D005FE5FC /* SettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04BE84B3281A316D005FE5FC /* SettingTableViewCell.xib */; };
 		04D2D81427F53DFF0052D877 /* kakaotalk.png in Resources */ = {isa = PBXBuildFile; fileRef = 04D2D80B27F53DFF0052D877 /* kakaotalk.png */; };
 		04D2D81527F53DFF0052D877 /* apple1.png in Resources */ = {isa = PBXBuildFile; fileRef = 04D2D80C27F53DFF0052D877 /* apple1.png */; };
 		04D2D81627F53DFF0052D877 /* barcodeLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 04D2D80D27F53DFF0052D877 /* barcodeLogo.png */; };
@@ -38,7 +40,7 @@
 		04F9F4AD27FA916B00DC1273 /* FirebaseStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F9F4AC27FA916B00DC1273 /* FirebaseStorageManager.swift */; };
 		569AF6CE632D6ED62284C13D /* Pods_Save_Gift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BC036B16908ED54967AD5EC /* Pods_Save_Gift.framework */; };
 		A20D2682276A151700470D06 /* Register3Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20D2681276A151700470D06 /* Register3Controller.swift */; };
-		A213100127A97C5300A98783 /* BuildFile in Embed Frameworks */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A213100127A97C5300A98783 /* (null) in Embed Frameworks */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A218F1A1276E093D00E71316 /* UnlockController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A218F1A0276E093D00E71316 /* UnlockController.swift */; };
 		A21C6D5B276F630900BDE1E4 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21C6D5A276F630900BDE1E4 /* SideMenuViewController.swift */; };
 		A21C6D5D276F646000BDE1E4 /* CustomSideMenuNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21C6D5C276F646000BDE1E4 /* CustomSideMenuNavigation.swift */; };
@@ -77,7 +79,6 @@
 		A2D4935A27905EF300FB5770 /* SettingMyInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D4935927905EF300FB5770 /* SettingMyInfoController.swift */; };
 		A2D4935C27905FA900FB5770 /* SettingDeveloperController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D4935B27905FA900FB5770 /* SettingDeveloperController.swift */; };
 		A2D4935E2790615600FB5770 /* SettingNotiController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D4935D2790615600FB5770 /* SettingNotiController.swift */; };
-		A2D493602790618F00FB5770 /* SettingAppVersionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D4935F2790618F00FB5770 /* SettingAppVersionController.swift */; };
 		A2D493622790620400FB5770 /* SettingHowToUseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D493612790620400FB5770 /* SettingHowToUseController.swift */; };
 		A2D493642790624C00FB5770 /* SettingSecessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D493632790624C00FB5770 /* SettingSecessionController.swift */; };
 		A2DC3F2627817EFC00D354B1 /* LoadingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2DC3F2527817EFC00D354B1 /* LoadingController.swift */; };
@@ -94,7 +95,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				A213100127A97C5300A98783 /* BuildFile in Embed Frameworks */,
+				A213100127A97C5300A98783 /* (null) in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -118,6 +119,8 @@
 		046F706327F14A57008CF3F6 /* thirdFont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = thirdFont.ttf; path = "Save Gift/Font/thirdFont.ttf"; sourceTree = SOURCE_ROOT; };
 		048124F127EC1F07003DF866 /* CollectionViewTopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewTopCell.swift; sourceTree = "<group>"; };
 		048124F227EC1F07003DF866 /* CollectionViewTopCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionViewTopCell.xib; sourceTree = "<group>"; };
+		04BE84B2281A316D005FE5FC /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
+		04BE84B3281A316D005FE5FC /* SettingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingTableViewCell.xib; sourceTree = "<group>"; };
 		04D2D80B27F53DFF0052D877 /* kakaotalk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kakaotalk.png; sourceTree = "<group>"; };
 		04D2D80C27F53DFF0052D877 /* apple1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = apple1.png; sourceTree = "<group>"; };
 		04D2D80D27F53DFF0052D877 /* barcodeLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = barcodeLogo.png; sourceTree = "<group>"; };
@@ -726,7 +729,6 @@
 		A2D4935927905EF300FB5770 /* SettingMyInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingMyInfoController.swift; sourceTree = "<group>"; };
 		A2D4935B27905FA900FB5770 /* SettingDeveloperController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingDeveloperController.swift; sourceTree = "<group>"; };
 		A2D4935D2790615600FB5770 /* SettingNotiController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingNotiController.swift; sourceTree = "<group>"; };
-		A2D4935F2790618F00FB5770 /* SettingAppVersionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingAppVersionController.swift; sourceTree = "<group>"; };
 		A2D493612790620400FB5770 /* SettingHowToUseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingHowToUseController.swift; sourceTree = "<group>"; };
 		A2D493632790624C00FB5770 /* SettingSecessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingSecessionController.swift; sourceTree = "<group>"; };
 		A2DC3F2527817EFC00D354B1 /* LoadingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingController.swift; sourceTree = "<group>"; };
@@ -775,13 +777,14 @@
 				A2C5B5B527AEEDE300C65B79 /* TableViewCell.swift */,
 				A2C5B5B927AEEE7C00C65B79 /* TableViewCell.xib */,
 				A2D2FDAB277742A30036B849 /* GiftSettingController.swift */,
-				A2D4935F2790618F00FB5770 /* SettingAppVersionController.swift */,
 				A2D4935B27905FA900FB5770 /* SettingDeveloperController.swift */,
 				A2D493612790620400FB5770 /* SettingHowToUseController.swift */,
 				A21FB36A27983673003821C6 /* SettingMyInfo2Controller.swift */,
 				A2D4935927905EF300FB5770 /* SettingMyInfoController.swift */,
 				A2D4935D2790615600FB5770 /* SettingNotiController.swift */,
 				A2D493632790624C00FB5770 /* SettingSecessionController.swift */,
+				04BE84B2281A316D005FE5FC /* SettingTableViewCell.swift */,
+				04BE84B3281A316D005FE5FC /* SettingTableViewCell.xib */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -1613,6 +1616,7 @@
 				048124F427EC1F07003DF866 /* CollectionViewTopCell.xib in Resources */,
 				04D2D81627F53DFF0052D877 /* barcodeLogo.png in Resources */,
 				04D2D82227F67EB30052D877 /* shake.png in Resources */,
+				04BE84B5281A316D005FE5FC /* SettingTableViewCell.xib in Resources */,
 				A2B6C2E327A8239600B8617B /* RegisterBarcodeTableViewCell.xib in Resources */,
 				A2B6C2DF27A81E2100B8617B /* RegisterUseTableViewCell.xib in Resources */,
 				A225D709275B5FD600484EAE /* LaunchScreen.storyboard in Resources */,
@@ -1733,6 +1737,7 @@
 				A21C6D5D276F646000BDE1E4 /* CustomSideMenuNavigation.swift in Sources */,
 				A2D493622790620400FB5770 /* SettingHowToUseController.swift in Sources */,
 				A21FB36B27983673003821C6 /* SettingMyInfo2Controller.swift in Sources */,
+				04BE84B4281A316D005FE5FC /* SettingTableViewCell.swift in Sources */,
 				0451DD4B280E668E0084F184 /* GiftPresentPage2Controller.swift in Sources */,
 				A2DFB7D72770973F00BB9D21 /* GetDeivceModel.swift in Sources */,
 				A2907E1C27EF87A20001148D /* Page3Controller.swift in Sources */,
@@ -1748,7 +1753,6 @@
 				0451DD49280E66260084F184 /* GiftPresentPage1Controller.swift in Sources */,
 				A2907E1A27EF879C0001148D /* Page2Controller.swift in Sources */,
 				A28A06B42794413000876560 /* GiftRegisterController.swift in Sources */,
-				A2D493602790618F00FB5770 /* SettingAppVersionController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1902,7 +1906,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Save Gift/Save Gift.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = S3JUP5Z7K9;
+				DEVELOPMENT_TEAM = 26YT5P58T8;
 				EXCLUDED_ARCHS = "$(STANDARD_ARCHS)";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_NO_COMMON_BLOCKS = NO;
@@ -2051,7 +2055,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Save Gift/Save Gift.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = S3JUP5Z7K9;
+				DEVELOPMENT_TEAM = 26YT5P58T8;
 				EXCLUDED_ARCHS = "$(STANDARD_ARCHS)";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_NO_COMMON_BLOCKS = NO;

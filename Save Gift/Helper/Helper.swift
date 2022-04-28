@@ -10,6 +10,8 @@ import UIKit
 
 class Helper : UIViewController{
     
+    let localUrl : String = "".getLocalURL()
+    
     func jsonParser(stringData : String, data1 : String?, data2 : String?) -> Dictionary<String, Any>{
         let strJsonString = stringData
 //        print(strJsonString)
@@ -220,5 +222,24 @@ class Helper : UIViewController{
         
         return str
     }
-    
+
+    func getVersion(requestUrl : String!) -> String{
+        do {
+            // URL 설정 GET 방식으로 호출
+            let url = URL(string: localUrl+requestUrl)
+            let response = try String(contentsOf: url!)
+            
+//            print("success")
+//            print("#########response", response)
+//            print(type(of: response))
+            
+//            recentVersion.text = "최신 버전 : \(response)"
+            
+            return response
+            
+        } catch let e as NSError {
+            print(e.localizedDescription)
+            return e.localizedDescription
+        }
+    }
 }
