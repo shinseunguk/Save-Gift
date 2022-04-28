@@ -11,11 +11,21 @@ import UIKit
 class GiftSettingController : UIViewController{
     
 //    @IBOutlet weak var cell: UITableViewCell!
+    let helper : Helper = Helper()
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var loginBtn: UIButton!
     @IBOutlet weak var loginLabel: UILabel!
     @IBOutlet weak var lockImageView: UIImageView!
     var arr = ["로그아웃", "내정보", "개발자", "알림설정", "앱버전", "기프티콘 사용법", "회원탈퇴", "테스트화면"]
+    
+    var version: String? {
+        guard let dictionary = Bundle.main.infoDictionary,
+              let version = dictionary["CFBundleShortVersionString"] as? String,
+              let build = dictionary["CFBundleVersion"] as? String else {return nil}
+        let versionAndBuild: String = "version: \(version), build: \(build)"
+        return version
+    }
+    var dbVersion : String? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +36,8 @@ class GiftSettingController : UIViewController{
 //        tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         //스크롤 enable
         tableView.isScrollEnabled = false
+
+        self.tableView.register(UINib(nibName: "SettingTableViewCell", bundle: nil), forCellReuseIdentifier: "SettingTableViewCell")
         
         //cell 여백 삭제
         tableView.contentInset = .zero
@@ -69,11 +81,18 @@ extension GiftSettingController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SettingTableViewCell", for: indexPath) as! SettingTableViewCell
+        cell.rightLabel.isHidden = true // 앱버전
+        
         if indexPath.row == 0{
-            cell.textLabel?.textColor = .red
+            cell.leftLabel.textColor = .red
         }
-        cell.textLabel?.text = arr[indexPath.row]
+        if indexPath.row == 4{
+            cell.rightLabel.isHidden = false
+            cell.rightLabel.text = version
+        }
+        
+        cell.leftLabel.text = arr[indexPath.row]
         
         return cell
     }
@@ -121,8 +140,13 @@ extension GiftSettingController: UITableViewDelegate, UITableViewDataSource{
                 let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "SettingNotiControllerVC")
                 self.navigationController?.pushViewController(pushVC!, animated: true)
         }else if indexPath.row == 4 { //앱버전
-            let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "SettingAppVersionVC")
-            self.navigationController?.pushViewController(pushVC!, animated: true)
+            dbVersion = helper.getVersion(requestUrl: "/version")
+
+            if Double(dbVersion!) == Double(self.version!){ //동일 버전
+                self.showAlert(title: "알림", message: "최신 버전 입니다.")
+            }else if Double(dbVersion!)! > Double(self.version!)!{
+                self.showAlert(title: "알림", message: "업데이트가 필요합니다.")
+            }
         }else if indexPath.row == 5 { //기프티콘 사용법
             let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "SettingHowToUseVC")
             self.navigationController?.pushViewController(pushVC!, animated: true)
@@ -162,6 +186,13 @@ extension GiftSettingController: UITableViewDelegate, UITableViewDataSource{
     //cell 여백 삭제
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         .leastNormalMagnitude
+    }
+    
+    func showAlert(title: String, message: String){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        let defaultAction = UIAlertAction(title: "확인", style: .default, handler : nil)
+        alert.addAction(defaultAction)
+        present(alert, animated: true, completion: nil)
     }
     
 }

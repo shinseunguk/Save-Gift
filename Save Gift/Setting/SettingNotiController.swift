@@ -10,10 +10,13 @@ import UIKit
 
 class SettingNotiController : UIViewController {
     
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableViewFirst: UITableView!
+    @IBOutlet weak var tableViewSecond: UITableView!
     
-    var arr = ["알림설정","이메일","SMS(문자)"];
-    var arrayBoll = [true, false, false];
+    var arr1 = ["알림설정","30일 전부터 알림", "7일 전부터 알림", "1일 전부터 알림"]
+    var arr2 = ["이메일","SMS(문자)"];
+    var arrayBoll1 = [true, false, false, true];
+    var arrayBoll2 = [true, true];
     let localUrl = "".getLocalURL();
     
     let helper : Helper = Helper();
@@ -34,32 +37,18 @@ class SettingNotiController : UIViewController {
         self.navigationItem.title = "알림설정"
         
         //셀 테두리지우기
-        tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
+        tableViewFirst.separatorStyle = UITableViewCell.SeparatorStyle.none
+        tableViewSecond.separatorStyle = UITableViewCell.SeparatorStyle.none
         //스크롤 enable
-        tableView.isScrollEnabled = false
+        tableViewFirst.isScrollEnabled = false
+        tableViewSecond.isScrollEnabled = false
         //테이블뷰 선택 enable
-        tableView.allowsSelection = false
+        tableViewFirst.allowsSelection = false
+        tableViewSecond.allowsSelection = false
         
         //Specify the xib file to use
-        tableView.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: "TableViewCell")
-        
-        if(UserDefaults.standard.string(forKey: "ID") != nil){ //로그인 O
-            requestGet(user_id : UserDefaults.standard.string(forKey: "ID")! , requestUrl : "/status")
-        }else{
-            arr.remove(at: 1)
-            arr.remove(at: 1)
-        }
-        
-        
-        // 시스템의 Push가 ON/OFF
-//        let isPushOn = UIApplication.shared.isRegisteredForRemoteNotifications
-
-//        if isPushOn {
-//            arrayBoll[0] = true
-//        } else {
-//            arrayBoll[0] = false
-//        }
-        
+        tableViewFirst.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: "TableViewCell")
+        tableViewSecond.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: "TableViewCell")
     }
     
     func requestGet(user_id : String!, requestUrl : String!){
@@ -75,23 +64,23 @@ class SettingNotiController : UIViewController {
             print(dic["email_yn"]!);
             
             //추가
-            if(dic["push_yn"] as! Int == 1){
-                arrayBoll[0] = true;
-            } else{
-                arrayBoll[0] = false;
-            }
-            
-            if(dic["email_yn"] as! Int == 1){
-                arrayBoll[1] = true;
-            } else{
-                arrayBoll[1] = false;
-            }
-            
-            if(dic["sms_yn"] as! Int == 1){
-                arrayBoll[2] = true;
-            } else{
-                arrayBoll[2] = false;
-            }
+//            if(dic["push_yn"] as! Int == 1){
+//                arrayBoll[0] = true;
+//            } else{
+//                arrayBoll[0] = false;
+//            }
+//
+//            if(dic["email_yn"] as! Int == 1){
+//                arrayBoll[1] = true;
+//            } else{
+//                arrayBoll[1] = false;
+//            }
+//
+//            if(dic["sms_yn"] as! Int == 1){
+//                arrayBoll[2] = true;
+//            } else{
+//                arrayBoll[2] = false;
+//            }
             
         } catch let e as NSError {
             print(e.localizedDescription)
@@ -102,7 +91,12 @@ class SettingNotiController : UIViewController {
 
 extension SettingNotiController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return arr.count
+        if tableView == tableViewFirst{
+            return arr1.count
+        }else if tableView == tableViewSecond{
+            return arr2.count
+        }
+        return 0;
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -110,16 +104,31 @@ extension SettingNotiController: UITableViewDelegate, UITableViewDataSource{
 //        cell.textLabel?.text = arr[indexPath.row]
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell") as! TableViewCell
-        //Display the contents of the array in order on the cell label
-       cell.label.text = arr[indexPath.row]
         
-       //IndexPath on switch tag.Enter the value of row
-       cell.uiSwitch.tag = indexPath.row
-        cell.uiSwitch.isOn = arrayBoll[indexPath.row]
+        if tableView == tableViewFirst{
+            //Display the contents of the array in order on the cell label
+           cell.label.text = arr1[indexPath.row]
+            
+           //IndexPath on switch tag.Enter the value of row
+           cell.uiSwitch.tag = indexPath.row
+            cell.uiSwitch.isOn = arrayBoll1[indexPath.row]
+            
+           //Behavior when the switch is pressed
+           cell.uiSwitch.addTarget(self, action: #selector(changeSwitch(_:)), for: UIControl.Event.valueChanged)
+            return cell
+        }else {
+            //Display the contents of the array in order on the cell label
+           cell.label.text = arr2[indexPath.row]
+            
+           //IndexPath on switch tag.Enter the value of row
+           cell.uiSwitch.tag = indexPath.row
+            cell.uiSwitch.isOn = arrayBoll2[indexPath.row]
+            
+           //Behavior when the switch is pressed
+           cell.uiSwitch.addTarget(self, action: #selector(changeSwitch(_:)), for: UIControl.Event.valueChanged)
+            return cell
+        }
         
-       //Behavior when the switch is pressed
-       cell.uiSwitch.addTarget(self, action: #selector(changeSwitch(_:)), for: UIControl.Event.valueChanged)
-        return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -132,62 +141,62 @@ extension SettingNotiController: UITableViewDelegate, UITableViewDataSource{
              sender.switch on for isOn/off Information is entered(Bool)
     The print statement below shows the contents of the label in the cell and the true switch./False
              */
-//            print(arr[sender.tag] + "But\(sender.isOn)Became")
+            print(arr1[sender.tag] + "But\(sender.isOn)Became")
         
-        switch arr[sender.tag] {
-        case "알림설정":
-            if(sender.isOn){
-                print("알림설정 ON")
-                arrayBoll[0] = true
-            }else {
-                arrayBoll[0] = false
-                print("알림설정 OFF")
-            }
-            break
-        case "이메일":
-            if(sender.isOn){
-                print("이메일 ON")
-                arrayBoll[1] = true
-            }else {
-                print("이메일 OFF")
-                arrayBoll[1] = false
-            }
-            break
-        case "SMS(문자)":
-            if(sender.isOn){
-                print("SMS(문자) ON")
-                arrayBoll[2] = true
-            }else {
-                print("SMS(문자) OFF")
-                arrayBoll[2] = false
-            }
-            break
-        default:
-            print("default")
-        }
+//        switch arr2[sender.tag] {
+//        case "알림설정":
+//            if(sender.isOn){
+//                print("알림설정 ON")
+//                arrayBoll[0] = true
+//            }else {
+//                arrayBoll[0] = false
+//                print("알림설정 OFF")
+//            }
+//            break
+//        case "이메일":
+//            if(sender.isOn){
+//                print("이메일 ON")
+//                arrayBoll[1] = true
+//            }else {
+//                print("이메일 OFF")
+//                arrayBoll[1] = false
+//            }
+//            break
+//        case "SMS(문자)":
+//            if(sender.isOn){
+//                print("SMS(문자) ON")
+//                arrayBoll[2] = true
+//            }else {
+//                print("SMS(문자) OFF")
+//                arrayBoll[2] = false
+//            }
+//            break
+//        default:
+//            print("default")
+//        }
         requestPost(requestUrl: "/notisetting")
         }
     
     func requestPost(requestUrl : String!) -> Void{
 //        let email = idTextField.text
 //        let password = passwordTextField.text
-        if(arrayBoll[0]){
-            push_yn = 1
-        } else{
-            push_yn = 0
-        }
-        
-        if(arrayBoll[1]){
-            email_yn = 1
-        } else{
-            email_yn = 0
-        }
-        
-        if(arrayBoll[2]){
-            sms_yn = 1
-        } else{
-            sms_yn = 0
-        }
+//        if(arrayBoll[0]){
+//            push_yn = 1
+//        } else{
+//            push_yn = 0
+//        }
+//
+//        if(arrayBoll[1]){
+//            email_yn = 1
+//        } else{
+//            email_yn = 0
+//        }
+//
+//        if(arrayBoll[2]){
+//            sms_yn = 1
+//        } else{
+//            sms_yn = 0
+//        }
         
         let param = ["user_id" : UserDefaults.standard.string(forKey: "ID")! ,"push_yn" : push_yn, "email_yn" : email_yn, "sms_yn" : sms_yn] as [String : Any] // JSON 객체로 전송할 딕셔너리
 //        let param = "user_Id=\(email)&name=\(name)"
