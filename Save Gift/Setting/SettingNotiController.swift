@@ -9,13 +9,14 @@ import Foundation
 import UIKit
 
 class SettingNotiController : UIViewController {
+    let LOG_TAG : String = "SettingNotiController";
     
     @IBOutlet weak var tableViewFirst: UITableView!
     @IBOutlet weak var tableViewSecond: UITableView!
     
     var arr1 = ["알림설정","30일 전부터 알림", "7일 전부터 알림", "1일 전부터 알림"]
     var arr2 = ["이메일","SMS(문자)"];
-    var arrayBoll1 = [true, false, false, true];
+    var arrayBoll1 = [true, true, true, true];
     var arrayBoll2 = [true, true];
     let localUrl = "".getLocalURL();
     
@@ -46,6 +47,12 @@ class SettingNotiController : UIViewController {
         tableViewFirst.allowsSelection = false
         tableViewSecond.allowsSelection = false
         
+        if(UserDefaults.standard.string(forKey: "ID") != nil){ //로그인 O
+            requestGet(user_id : UserDefaults.standard.string(forKey: "ID")! , requestUrl : "/status")
+        }else{
+            tableViewSecond.removeFromSuperview()
+        }
+        
         //Specify the xib file to use
         tableViewFirst.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: "TableViewCell")
         tableViewSecond.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: "TableViewCell")
@@ -61,26 +68,26 @@ class SettingNotiController : UIViewController {
 //            print("#########response", response)
             dic = helper.jsonParser3(stringData: response, data1: "email_yn", data2: "sms_yn", data3: "push_yn");
             
-            print(dic["email_yn"]!);
+            print("\(LOG_TAG) dic... ########## \n",dic);
             
             //추가
-//            if(dic["push_yn"] as! Int == 1){
-//                arrayBoll[0] = true;
-//            } else{
-//                arrayBoll[0] = false;
-//            }
-//
-//            if(dic["email_yn"] as! Int == 1){
-//                arrayBoll[1] = true;
-//            } else{
-//                arrayBoll[1] = false;
-//            }
-//
-//            if(dic["sms_yn"] as! Int == 1){
-//                arrayBoll[2] = true;
-//            } else{
-//                arrayBoll[2] = false;
-//            }
+            if(dic["push_yn"] as! Int == 1){
+                arrayBoll1[0] = true;
+            } else{
+                arrayBoll1[0] = false;
+            }
+
+            if(dic["email_yn"] as! Int == 1){
+                arrayBoll2[0] = true;
+            } else{
+                arrayBoll2[0] = false;
+            }
+
+            if(dic["sms_yn"] as! Int == 1){
+                arrayBoll2[1] = true;
+            } else{
+                arrayBoll2[1] = false;
+            }
             
         } catch let e as NSError {
             print(e.localizedDescription)
@@ -106,25 +113,22 @@ extension SettingNotiController: UITableViewDelegate, UITableViewDataSource{
         let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell") as! TableViewCell
         
         if tableView == tableViewFirst{
-            //Display the contents of the array in order on the cell label
-           cell.label.text = arr1[indexPath.row]
             
-           //IndexPath on switch tag.Enter the value of row
+            if indexPath.row == 0 {
+                cell.label.font = UIFont.boldSystemFont(ofSize: 17)
+            }
+            
+            cell.label.text = arr1[indexPath.row]
            cell.uiSwitch.tag = indexPath.row
             cell.uiSwitch.isOn = arrayBoll1[indexPath.row]
-            
-           //Behavior when the switch is pressed
            cell.uiSwitch.addTarget(self, action: #selector(changeSwitch(_:)), for: UIControl.Event.valueChanged)
             return cell
         }else {
-            //Display the contents of the array in order on the cell label
+            cell.label.font = UIFont.boldSystemFont(ofSize: 17)
            cell.label.text = arr2[indexPath.row]
             
-           //IndexPath on switch tag.Enter the value of row
            cell.uiSwitch.tag = indexPath.row
             cell.uiSwitch.isOn = arrayBoll2[indexPath.row]
-            
-           //Behavior when the switch is pressed
            cell.uiSwitch.addTarget(self, action: #selector(changeSwitch(_:)), for: UIControl.Event.valueChanged)
             return cell
         }
@@ -136,11 +140,6 @@ extension SettingNotiController: UITableViewDelegate, UITableViewDataSource{
        }
     
     @objc func changeSwitch(_ sender: UISwitch) {
-            /*
-             sender.The tag contains the position of the switch cell(Int)
-             sender.switch on for isOn/off Information is entered(Bool)
-    The print statement below shows the contents of the label in the cell and the true switch./False
-             */
             print(arr1[sender.tag] + "But\(sender.isOn)Became")
         
 //        switch arr2[sender.tag] {
