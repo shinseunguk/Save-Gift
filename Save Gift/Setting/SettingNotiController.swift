@@ -22,9 +22,12 @@ class SettingNotiController : UIViewController {
     
     let helper : Helper = Helper();
     var dic : [String: Any] = [:];
+    var dic2 : [String: Any] = [:];
     var push_yn : Int?
     var sms_yn : Int?
     var email_yn : Int?
+    
+    let deviceID : String? = UserDefaults.standard.string(forKey: "device_id")
     
     
     override func viewDidLoad() {
@@ -49,8 +52,10 @@ class SettingNotiController : UIViewController {
         
         if(UserDefaults.standard.string(forKey: "ID") != nil){ //로그인 O
             requestGet(user_id : UserDefaults.standard.string(forKey: "ID")! , requestUrl : "/status")
+            requestStatus2(requestUrl: "/status2")
         }else{
             tableViewSecond.removeFromSuperview()
+            requestStatus2(requestUrl: "/status2")
         }
         
         //Specify the xib file to use
@@ -71,17 +76,17 @@ class SettingNotiController : UIViewController {
             print("\(LOG_TAG) dic... ########## \n",dic);
             
             //추가
-            if(dic["push_yn"] as! Int == 1){
-                arrayBoll1[0] = true;
-            } else{
-                arrayBoll1[0] = false;
-            }
-
-//            if(dic["email_yn"] as! Int == 1){
-//                arrayBoll2[0] = true;
+//            if(dic["push_yn"] as! Int == 1){
+//                arrayBoll1[0] = true;
 //            } else{
-//                arrayBoll2[0] = false;
+//                arrayBoll1[0] = false;
 //            }
+
+            if(dic["email_yn"] as! Int == 1){
+                arrayBoll2[0] = true;
+            } else{
+                arrayBoll2[0] = false;
+            }
 
             if(dic["sms_yn"] as! Int == 1){
                 arrayBoll2[1] = true;
@@ -89,10 +94,86 @@ class SettingNotiController : UIViewController {
                 arrayBoll2[1] = false;
             }
             
+            self.tableViewSecond.dataSource = self
+            self.tableViewSecond.delegate = self
         } catch let e as NSError {
             print(e.localizedDescription)
         }
     
+    }
+    
+    func requestStatus2(requestUrl : String!) -> Void{
+        let param = ["device_id" : deviceID!] as [String : Any] // JSON 객체로 전송할 딕셔너리
+        let paramData = try! JSONSerialization.data(withJSONObject: param)
+        // URL 객체 정의
+                let url = URL(string: localUrl+requestUrl)
+                
+                // URLRequest 객체를 정의
+                var request = URLRequest(url: url!)
+                request.httpMethod = "POST"
+                request.httpBody = paramData
+                
+                // HTTP 메시지 헤더
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.addValue("application/json", forHTTPHeaderField: "Accept")
+//                request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+//                request.setValue(String(paramData.count), forHTTPHeaderField: "Content-Length")
+                
+                // URLSession 객체를 통해 전송, 응답값 처리
+                let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                    // 서버가 응답이 없거나 통신이 실패
+                    if let e = error {
+                        print("An error has occured: \(e.localizedDescription)")
+                        return
+                    }
+                    
+                let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+
+                    print("회원가입 응답 처리 로직 responseString", responseString!)
+//                    print("응답 처리 로직 data", data as Any)
+//                    print("응답 처리 로직 response", response as Any)
+                    // 응답 처리 로직
+                    
+//                    var arrayBoll1 = [true, true, true, true];
+                    
+                    DispatchQueue.global().async {
+                    
+                    self.dic2 = self.helper.jsonParser4(stringData: responseString! as String, data1: "push_yn", data2: "push30", data3: "push7", data4: "push1");
+                    
+                    print("dic2 .. ", self.dic2)
+                    
+                    if self.dic2["push_yn"] as! Int == 1{
+                        self.arrayBoll1[0] = true
+                    }else {
+                        self.arrayBoll1[0] = false
+                    }
+                    
+                    if self.dic2["push30"] as! Int == 1{
+                        self.arrayBoll1[1] = true
+                    }else {
+                        self.arrayBoll1[1] = false
+                    }
+                    
+                    if self.dic2["push7"] as! Int == 1{
+                        self.arrayBoll1[2] = true
+                    }else {
+                        self.arrayBoll1[2] = false
+                    }
+                    
+                    if self.dic2["push1"] as! Int == 1{
+                        self.arrayBoll1[3] = true
+                    }else {
+                        self.arrayBoll1[3] = false
+                    }
+                    
+                        DispatchQueue.main.async {
+                        self.tableViewFirst.dataSource = self
+                        self.tableViewFirst.delegate = self
+                        }
+                    }
+                }
+                // POST 전송
+                task.resume()
     }
 }
 

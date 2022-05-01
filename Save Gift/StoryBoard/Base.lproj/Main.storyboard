@@ -390,10 +390,6 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="M98-kr-7Lc" id="PFh-f7-SH9"/>
-                                    <outlet property="delegate" destination="M98-kr-7Lc" id="rOG-Nz-ikW"/>
-                                </connections>
                             </tableView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="qDZ-62-zst">
                                 <rect key="frame" x="0.0" y="334" width="414" height="100"/>
@@ -411,10 +407,6 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="M98-kr-7Lc" id="S58-0j-a2X"/>
-                                    <outlet property="delegate" destination="M98-kr-7Lc" id="Cua-MX-Ne4"/>
-                                </connections>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="kHq-wn-thj"/>
