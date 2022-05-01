@@ -289,8 +289,8 @@ extension GiftFriendController: UITableViewDelegate, UITableViewDataSource{
         
         //P ->  거절 / 수락       W -> 친구가 수락 대기중
         if tableView == topTableView {
-            print("arr1[indexPath.row] ", arr1[indexPath.row])
-            print("status[indexPath.row] ", status[indexPath.row])
+//            print("arr1[indexPath.row] ", arr1[indexPath.row])
+//            print("status[indexPath.row] ", status[indexPath.row])
             if arr1[indexPath.row] != "요청된 친구가 없습니다." {
                 if status[indexPath.row] == "W" {
                     self.normalAlert(title: "알림", message:  "친구가 수락 대기중입니다. 친구요청을 취소 하시겠습니까?", email: arr1[indexPath.row])

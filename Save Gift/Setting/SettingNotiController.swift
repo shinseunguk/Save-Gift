@@ -77,11 +77,11 @@ class SettingNotiController : UIViewController {
                 arrayBoll1[0] = false;
             }
 
-            if(dic["email_yn"] as! Int == 1){
-                arrayBoll2[0] = true;
-            } else{
-                arrayBoll2[0] = false;
-            }
+//            if(dic["email_yn"] as! Int == 1){
+//                arrayBoll2[0] = true;
+//            } else{
+//                arrayBoll2[0] = false;
+//            }
 
             if(dic["sms_yn"] as! Int == 1){
                 arrayBoll2[1] = true;
