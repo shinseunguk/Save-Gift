@@ -25,6 +25,8 @@ class GiftSettingController : UIViewController{
         let versionAndBuild: String = "version: \(version), build: \(build)"
         return version
     }
+    
+    var currentVersion : String? = nil
     var dbVersion : String? = nil
     
     override func viewDidLoad() {
@@ -140,12 +142,17 @@ extension GiftSettingController: UITableViewDelegate, UITableViewDataSource{
                 let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "SettingNotiControllerVC")
                 self.navigationController?.pushViewController(pushVC!, animated: true)
         }else if indexPath.row == 4 { //앱버전
-            dbVersion = helper.getVersion(requestUrl: "/version")
-
-            if Double(dbVersion!) == Double(self.version!){ //동일 버전
+            dbVersion = helper.getVersion(requestUrl: "/version").replacingOccurrences(of: ".", with: "")
+            currentVersion = self.version!
+            
+            currentVersion = currentVersion?.replacingOccurrences(of: ".", with: "");
+            
+            if Int(dbVersion!) == Int(currentVersion!){ //동일 버전
                 self.showAlert(title: "알림", message: "최신 버전 입니다.")
-            }else if Double(dbVersion!)! > Double(self.version!)!{
+            }else if Int(dbVersion!)! > Int(currentVersion!)!{
                 self.showAlert(title: "알림", message: "업데이트가 필요합니다.")
+            }else{
+                print("예외")
             }
         }else if indexPath.row == 5 { //기프티콘 사용법
             let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "SettingHowToUseVC")

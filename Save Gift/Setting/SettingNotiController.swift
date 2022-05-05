@@ -27,6 +27,10 @@ class SettingNotiController : UIViewController {
     var sms_yn : Int?
     var email_yn : Int?
     
+    var push30 : Int?
+    var push7 : Int?
+    var push1 : Int?
+    
     let deviceID : String? = UserDefaults.standard.string(forKey: "device_id")
     
     
@@ -69,18 +73,10 @@ class SettingNotiController : UIViewController {
             let url = URL(string: localUrl+requestUrl+"?user_id="+user_id!)
             let response = try String(contentsOf: url!)
             
-//            print("success")
-//            print("#########response", response)
             dic = helper.jsonParser3(stringData: response, data1: "email_yn", data2: "sms_yn", data3: "push_yn");
             
             print("\(LOG_TAG) dic... ########## \n",dic);
             
-            //추가
-//            if(dic["push_yn"] as! Int == 1){
-//                arrayBoll1[0] = true;
-//            } else{
-//                arrayBoll1[0] = false;
-//            }
 
             if(dic["email_yn"] as! Int == 1){
                 arrayBoll2[0] = true;
@@ -102,78 +98,46 @@ class SettingNotiController : UIViewController {
     
     }
     
-    func requestStatus2(requestUrl : String!) -> Void{
-        let param = ["device_id" : deviceID!] as [String : Any] // JSON 객체로 전송할 딕셔너리
-        let paramData = try! JSONSerialization.data(withJSONObject: param)
-        // URL 객체 정의
-                let url = URL(string: localUrl+requestUrl)
-                
-                // URLRequest 객체를 정의
-                var request = URLRequest(url: url!)
-                request.httpMethod = "POST"
-                request.httpBody = paramData
-                
-                // HTTP 메시지 헤더
-                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-                request.addValue("application/json", forHTTPHeaderField: "Accept")
-//                request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-//                request.setValue(String(paramData.count), forHTTPHeaderField: "Content-Length")
-                
-                // URLSession 객체를 통해 전송, 응답값 처리
-                let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-                    // 서버가 응답이 없거나 통신이 실패
-                    if let e = error {
-                        print("An error has occured: \(e.localizedDescription)")
-                        return
-                    }
-                    
-                let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
-
-                    print("회원가입 응답 처리 로직 responseString", responseString!)
-//                    print("응답 처리 로직 data", data as Any)
-//                    print("응답 처리 로직 response", response as Any)
-                    // 응답 처리 로직
-                    
-//                    var arrayBoll1 = [true, true, true, true];
-                    
-                    DispatchQueue.global().async {
-                    
-                    self.dic2 = self.helper.jsonParser4(stringData: responseString! as String, data1: "push_yn", data2: "push30", data3: "push7", data4: "push1");
-                    
-                    print("dic2 .. ", self.dic2)
-                    
-                    if self.dic2["push_yn"] as! Int == 1{
-                        self.arrayBoll1[0] = true
-                    }else {
-                        self.arrayBoll1[0] = false
-                    }
-                    
-                    if self.dic2["push30"] as! Int == 1{
-                        self.arrayBoll1[1] = true
-                    }else {
-                        self.arrayBoll1[1] = false
-                    }
-                    
-                    if self.dic2["push7"] as! Int == 1{
-                        self.arrayBoll1[2] = true
-                    }else {
-                        self.arrayBoll1[2] = false
-                    }
-                    
-                    if self.dic2["push1"] as! Int == 1{
-                        self.arrayBoll1[3] = true
-                    }else {
-                        self.arrayBoll1[3] = false
-                    }
-                    
-                        DispatchQueue.main.async {
-                        self.tableViewFirst.dataSource = self
-                        self.tableViewFirst.delegate = self
-                        }
-                    }
-                }
-                // POST 전송
-                task.resume()
+    func requestStatus2(requestUrl : String!){
+        do {
+            // URL 설정 GET 방식으로 호출
+            let url = URL(string: localUrl+requestUrl+"?device_id="+deviceID!)
+            let response = try String(contentsOf: url!)
+            
+            dic2 = helper.jsonParser4(stringData: response, data1: "push_yn", data2: "push30", data3: "push7", data4: "push1");
+            
+            print("dic2 .. ", dic2)
+            
+            if self.dic2["push_yn"] as! Int == 1{
+                self.arrayBoll1[0] = true
+            }else {
+                self.arrayBoll1[0] = false
+            }
+            
+            if self.dic2["push30"] as! Int == 1{
+                self.arrayBoll1[1] = true
+            }else {
+                self.arrayBoll1[1] = false
+            }
+            
+            if self.dic2["push7"] as! Int == 1{
+                self.arrayBoll1[2] = true
+            }else {
+                self.arrayBoll1[2] = false
+            }
+            
+            if self.dic2["push1"] as! Int == 1{
+                self.arrayBoll1[3] = true
+            }else {
+                self.arrayBoll1[3] = false
+            }
+            
+            self.tableViewFirst.dataSource = self
+            self.tableViewFirst.delegate = self
+        } catch let e as NSError {
+            print(e.localizedDescription)
+        }
+    
     }
 }
 
@@ -202,7 +166,7 @@ extension SettingNotiController: UITableViewDelegate, UITableViewDataSource{
             cell.label.text = arr1[indexPath.row]
            cell.uiSwitch.tag = indexPath.row
             cell.uiSwitch.isOn = arrayBoll1[indexPath.row]
-           cell.uiSwitch.addTarget(self, action: #selector(changeSwitch(_:)), for: UIControl.Event.valueChanged)
+           cell.uiSwitch.addTarget(self, action: #selector(changeSwitch1(_:)), for: UIControl.Event.valueChanged)
             return cell
         }else {
             cell.label.font = UIFont.boldSystemFont(ofSize: 17)
@@ -210,7 +174,7 @@ extension SettingNotiController: UITableViewDelegate, UITableViewDataSource{
             
            cell.uiSwitch.tag = indexPath.row
             cell.uiSwitch.isOn = arrayBoll2[indexPath.row]
-           cell.uiSwitch.addTarget(self, action: #selector(changeSwitch(_:)), for: UIControl.Event.valueChanged)
+           cell.uiSwitch.addTarget(self, action: #selector(changeSwitch2(_:)), for: UIControl.Event.valueChanged)
             return cell
         }
         
@@ -220,104 +184,204 @@ extension SettingNotiController: UITableViewDelegate, UITableViewDataSource{
            return 50
        }
     
-    @objc func changeSwitch(_ sender: UISwitch) {
-            print(arr1[sender.tag] + "But\(sender.isOn)Became")
-        
-//        switch arr2[sender.tag] {
-//        case "알림설정":
-//            if(sender.isOn){
-//                print("알림설정 ON")
-//                arrayBoll[0] = true
-//            }else {
-//                arrayBoll[0] = false
-//                print("알림설정 OFF")
-//            }
-//            break
-//        case "이메일":
-//            if(sender.isOn){
-//                print("이메일 ON")
-//                arrayBoll[1] = true
-//            }else {
-//                print("이메일 OFF")
-//                arrayBoll[1] = false
-//            }
-//            break
-//        case "SMS(문자)":
-//            if(sender.isOn){
-//                print("SMS(문자) ON")
-//                arrayBoll[2] = true
-//            }else {
-//                print("SMS(문자) OFF")
-//                arrayBoll[2] = false
-//            }
-//            break
-//        default:
-//            print("default")
-//        }
-        requestPost(requestUrl: "/notisetting")
+    @objc func changeSwitch1(_ sender: UISwitch) {
+        print(arr1[sender.tag] + "But \(sender.isOn) Became")
+        switch arr1[sender.tag] {
+        case "알림설정":
+            if(sender.isOn){
+                print("알림설정 ON")
+                arrayBoll1[0] = true
+            }else {
+                arrayBoll1[0] = false
+                print("알림설정 OFF")
+            }
+            break
+        case "30일 전부터 알림":
+            if(sender.isOn){
+                print("30일 전부터 알림 ON")
+                arrayBoll1[1] = true
+            }else {
+                print("30일 전부터 알림 OFF")
+                arrayBoll1[1] = false
+            }
+            break
+        case "7일 전부터 알림":
+            if(sender.isOn){
+                print("7일 전부터 알림 ON")
+                arrayBoll1[2] = true
+            }else {
+                print("7일 전부터 알림 OFF")
+                arrayBoll1[2] = false
+            }
+            break
+        case "1일 전부터 알림":
+            if(sender.isOn){
+                print("1일 전부터 알림 ON")
+                arrayBoll1[3] = true
+            }else {
+                print("1일 전부터 알림 OFF")
+                arrayBoll1[3] = false
+            }
+            break
+        default:
+            print("default")
         }
-    
-    func requestPost(requestUrl : String!) -> Void{
-//        let email = idTextField.text
-//        let password = passwordTextField.text
-//        if(arrayBoll[0]){
-//            push_yn = 1
-//        } else{
-//            push_yn = 0
-//        }
-//
-//        if(arrayBoll[1]){
-//            email_yn = 1
-//        } else{
-//            email_yn = 0
-//        }
-//
-//        if(arrayBoll[2]){
-//            sms_yn = 1
-//        } else{
-//            sms_yn = 0
-//        }
         
-        let param = ["user_id" : UserDefaults.standard.string(forKey: "ID")! ,"push_yn" : push_yn, "email_yn" : email_yn, "sms_yn" : sms_yn] as [String : Any] // JSON 객체로 전송할 딕셔너리
-//        let param = "user_Id=\(email)&name=\(name)"
-        let paramData = try! JSONSerialization.data(withJSONObject: param)
-        // URL 객체 정의
-                let url = URL(string: localUrl+requestUrl)
-                
-                // URLRequest 객체를 정의
-                var request = URLRequest(url: url!)
-                request.httpMethod = "POST"
-                request.httpBody = paramData
-                
-                // HTTP 메시지 헤더
-                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-                request.addValue("application/json", forHTTPHeaderField: "Accept")
-//                request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-//                request.setValue(String(paramData.count), forHTTPHeaderField: "Content-Length")
-                
-                // URLSession 객체를 통해 전송, 응답값 처리
-                let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-                    // 서버가 응답이 없거나 통신이 실패
-                    if let e = error {
-                        print("An error has occured: \(e.localizedDescription)")
-                        return
-                    }
-                    
-                let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+        requestPost(requestUrl: "/notisetting", index: 0)
+    }
+    
+    @objc func changeSwitch2(_ sender: UISwitch) {
+        print(arr2[sender.tag] + "But \(sender.isOn) Became")
+        
+        switch arr2[sender.tag] {
+        case "이메일":
+            if(sender.isOn){
+                print("이메일 ON")
+                arrayBoll2[0] = true
+            }else {
+                arrayBoll2[0] = false
+                print("이메일 OFF")
+            }
+            break
+        case "SMS(문자)":
+            if(sender.isOn){
+                print("SMS(문자) ON")
+                arrayBoll2[1] = true
+            }else {
+                print("SMS(문자) OFF")
+                arrayBoll2[1] = false
+            }
+            break
+        default:
+            print("default")
+        }
+        
+        requestPost(requestUrl: "/notisetting", index: 1)
+    }
+    
+    func requestPost(requestUrl : String!, index : Int) -> Void{
+        
+//        "push_yn": 0 "push30": 0, "push7": 1, "push1": 1,
+        if index == 0 {
+            if(arrayBoll1[0]){
+                push_yn = 1
+            } else{
+                push_yn = 0
+            }
 
-                    print("회원가입 응답 처리 로직 responseString", responseString!)
-//                    print("응답 처리 로직 data", data as Any)
-//                    print("응답 처리 로직 response", response as Any)
-                    // 응답 처리 로직
+            if(arrayBoll1[1]){
+                push30 = 1
+            } else{
+                push30 = 0
+            }
+
+            if(arrayBoll1[2]){
+                push7 = 1
+            } else{
+                push7 = 0
+            }
+            
+            if(arrayBoll1[3]){
+                push1 = 1
+            } else{
+                push1 = 0
+            }
+            
+            let param = ["index" : 0, "device_id" : deviceID! ,"push_yn" : push_yn, "push30" : push30, "push7" : push7, "push1" : push1] as [String : Any]
+            
+            let paramData = try! JSONSerialization.data(withJSONObject: param)
+            // URL 객체 정의
+                    let url = URL(string: localUrl+requestUrl)
                     
-                    if(responseString == "true"){
-                        print("성공")
-                    } else if(responseString == "false"){
-                        print("실패")
+                    // URLRequest 객체를 정의
+                    var request = URLRequest(url: url!)
+                    request.httpMethod = "POST"
+                    request.httpBody = paramData
+                    
+                    // HTTP 메시지 헤더
+                    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                    request.addValue("application/json", forHTTPHeaderField: "Accept")
+    //                request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+    //                request.setValue(String(paramData.count), forHTTPHeaderField: "Content-Length")
+                    
+                    // URLSession 객체를 통해 전송, 응답값 처리
+                    let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                        // 서버가 응답이 없거나 통신이 실패
+                        if let e = error {
+                            print("An error has occured: \(e.localizedDescription)")
+                            return
+                        }
+                        
+                    let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+
+                        print("회원가입 응답 처리 로직 responseString", responseString!)
+    //                    print("응답 처리 로직 data", data as Any)
+    //                    print("응답 처리 로직 response", response as Any)
+                        // 응답 처리 로직
+                        
+                        if(responseString == "true"){
+                            print("성공")
+                        } else if(responseString == "false"){
+                            print("실패")
+                        }
                     }
-                }
-                // POST 전송
-                task.resume()
+                    // POST 전송
+                    task.resume()
+        }else{
+            if(arrayBoll2[0]){
+                email_yn = 1
+            } else{
+                email_yn = 0
+            }
+
+            if(arrayBoll2[1]){
+                sms_yn = 1
+            } else{
+                sms_yn = 0
+            }
+            let param = ["index" : 1, "user_id" : UserDefaults.standard.string(forKey: "ID")! ,"email_yn" : email_yn, "sms_yn" : sms_yn] as [String : Any]
+            
+            let paramData = try! JSONSerialization.data(withJSONObject: param)
+            // URL 객체 정의
+                    let url = URL(string: localUrl+requestUrl)
+                    
+                    // URLRequest 객체를 정의
+                    var request = URLRequest(url: url!)
+                    request.httpMethod = "POST"
+                    request.httpBody = paramData
+                    
+                    // HTTP 메시지 헤더
+                    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                    request.addValue("application/json", forHTTPHeaderField: "Accept")
+    //                request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+    //                request.setValue(String(paramData.count), forHTTPHeaderField: "Content-Length")
+                    
+                    // URLSession 객체를 통해 전송, 응답값 처리
+                    let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                        // 서버가 응답이 없거나 통신이 실패
+                        if let e = error {
+                            print("An error has occured: \(e.localizedDescription)")
+                            return
+                        }
+                        
+                    let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+
+                        print("회원가입 응답 처리 로직 responseString", responseString!)
+    //                    print("응답 처리 로직 data", data as Any)
+    //                    print("응답 처리 로직 response", response as Any)
+                        // 응답 처리 로직
+                        
+                        if(responseString == "true"){
+                            print("성공")
+                        } else if(responseString == "false"){
+                            print("실패")
+                        }
+                    }
+                    // POST 전송
+                    task.resume()
+        }
+        
+        
     }
     
     
