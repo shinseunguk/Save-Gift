@@ -35,12 +35,6 @@ class Page1Controller : UIViewController{
     let screenWidth = UIScreen.main.bounds.size.width
     
     var viewPagerArr = ["Unused", "Used", "All"]
-//    var brandNameLabelArr = ["Page1","BBQ","피자나라 치킨공주","교촌치킨","60계치킨","처갓집양념치킨","호식이두마리치킨","꾸브라꼬숯불두마리치킨"]
-//    var expirationPeriodLabelArr = ["2022-04-14","2022-04-15","2022-04-16","2022-04-19","2022-04-20","2022-05-14","2022-02-14","2022-04-30"]
-//    var productNameLabelArr = ["뿌링클 순살 + 1L 콜라 + 치즈볼", "뿌링클 순살 + 2L 콜라 + 치즈볼", "뿌링클 순살 + 3L 콜라 + 치즈볼" ,"뿌링클 순살 + 4L 콜라 + 치즈볼", "뿌링클 순살 + 5L 콜라 + 치즈볼", "뿌링클 순살 + 6L 콜라 + 치즈볼", "뿌링클 순살 + 7L 콜라 + 치즈볼", "뿌링클 순살 + 8L 콜라 + 치즈볼"]
-//    var cellImageViewArr = ["chicken.jpg", "chicken.jpg", "chicken.jpg", "chicken.jpg", "chicken.jpg", "chicken.jpg", "chicken.jpg", "chicken.jpg"]
-//    var seqArr = ["1", "2", "3", "4", "5", "6", "7", "8"]
-    
     var thumbnail: Array<UIImage> = []
     
     // test Array
@@ -88,11 +82,17 @@ class Page1Controller : UIViewController{
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        print("\(LOG_TAG) viewWillDisappear")
+//        arrRemoveAll()
+    }
+    
+    func arrRemoveAll(){
         brandNameLabelArr.removeAll()
         expirationPeriodLabelArr.removeAll()
         productNameLabelArr.removeAll()
         cellImageViewArr.removeAll()
         seqArr.removeAll()
+        useYn.removeAll()
     }
     
     func LoginSetupInit(){
@@ -101,7 +101,8 @@ class Page1Controller : UIViewController{
         // 로그인
         param["user_id"] = UserDefaults.standard.string(forKey: "ID")!
         param["index"] = "login"
-        param["use_yn"] = "All"
+        param["use_yn"] = "Unused"
+        param["category"] = "registrationDate"
         requestPost(requestUrl: "/gift/save", param: param)
     }
     
@@ -110,7 +111,8 @@ class Page1Controller : UIViewController{
         
         param["device_id"] = deviceID!
         param["index"] = "blogin"
-        param["use_yn"] = "All"
+        param["use_yn"] = "Unused"
+        param["category"] = "registrationDate"
         requestPost(requestUrl: "/gift/save", param: param)
     }
     
@@ -159,6 +161,8 @@ class Page1Controller : UIViewController{
     //                    print("arr1 --->", arr[1])
     //                    print("arr2 --->", arr[2])
                         
+                        self.arrRemoveAll()
+                        
                         for x in 0...arr.count-1{
                             
                             if x != arr.count-1 {
@@ -169,11 +173,6 @@ class Page1Controller : UIViewController{
                             
                             print("self.dic ----> \n", self.dic)
                             
-                            if self.dic["seq"] is Int{
-                                print("int")
-                            }else {
-                                print("else")
-                            }
                             self.brandNameLabelArr.append(self.dic["brand"] as! String)
                             self.expirationPeriodLabelArr.append(self.dic["expiration_period"] as! String)
                             self.productNameLabelArr.append(self.dic["product_name"] as! String)
@@ -187,11 +186,6 @@ class Page1Controller : UIViewController{
                     DispatchQueue.main.async {
                         self.getGifty()
                     }
-                    
-                    
-//                    print("cellImageviewarr ", self.cellImageViewArr)
-//                    print("arr.length --->", arr.count)
-                    
                 }
                 // POST 전송
                 task.resume()
@@ -240,6 +234,8 @@ class Page1Controller : UIViewController{
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(UINib(nibName: "CollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CollectionViewCell")
+        
+        collectionView.reloadData()
     }
     
     private func setupFlowLayout() {
@@ -262,7 +258,7 @@ class Page1Controller : UIViewController{
     
     func dropDownInit() {
         //드롭다운 btn
-        dropDown.dataSource = ["최근등록순", "등록일순", "유효기간 임박순", "상품명순", "교환처 이름순"]
+        dropDown.dataSource = ["최근 등록순","유효기간 임박순", "상품명순", "교환처 이름순"]
         dropDown.anchorView = filterButton
         dropDown.bottomOffset = CGPoint(x: 0, y:(dropDown.anchorView?.plainView.bounds.height)!)
         
@@ -270,6 +266,31 @@ class Page1Controller : UIViewController{
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             print("선택한 아이템 : \(item)")
             print("인덱스 : \(index)")
+            
+            switch index {
+            case 0:
+                print("index 0")
+                param["category"] = "registrationDate"
+                requestPost(requestUrl: "/gift/save", param: param)
+                break
+            case 1:
+                print("index 1")
+                param["category"] = "expirationDate"
+                requestPost(requestUrl: "/gift/save", param: param)
+                break
+            case 2:
+                print("index 2")
+                param["category"] = "productName"
+                requestPost(requestUrl: "/gift/save", param: param)
+                break
+            case 3:
+                print("index 3")
+                param["category"] = "brandName"
+                requestPost(requestUrl: "/gift/save", param: param)
+                break
+            default:
+                print("default")
+            }
             self.dropDown.clearSelection()
             filterButton.setTitle(" "+item, for: .normal)
 
@@ -320,9 +341,7 @@ extension Page1Controller: UICollectionViewDelegate, UICollectionViewDataSource 
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-            print("collectionView didSelectItemAt.... ", indexPath.row)
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
-        
         
         //click animate
         if let cell = collectionView.cellForItem(at: indexPath) {
