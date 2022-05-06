@@ -159,7 +159,7 @@ class GiftPresentPage2Controller : UIViewController{
     
     func dropDownInit() {
         //드롭다운 btn
-        dropDown.dataSource = ["최근등록순", "등록일순", "유효기간 임박순", "상품명순", "교환처 이름순"]
+        dropDown.dataSource = ["최근 등록순","유효기간 임박순", "상품명순", "교환처 이름순"]
         dropDown.anchorView = filterButton
         dropDown.bottomOffset = CGPoint(x: 0, y:(dropDown.anchorView?.plainView.bounds.height)!)
         

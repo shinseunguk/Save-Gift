@@ -895,22 +895,37 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
         }else { // firebase 서버 request
             print("registerDic.. 2", registerDic)
             
-            var param = [
-                "user_id" : UserDefaults.standard.string(forKey: "ID")!,
-//                "img_url" : "gs://save-gift-e3710.appspot.com/\(UserDefaults.standard.string(forKey: "imageName")!)", //FireBase URL로 등록
-                "brand" : registerDic[0]!,
-                "barcode_number" : registerDic[2]!,
-                "expiration_period" : registerDic[3]!,
-                "registration_date" : registerDic[5]!,
-                "use_yn" : registerDic[4]!,
-                "device_id" : deviceID!,
-                "registrant" : registerDic[6]!,
-                "product_name" : registerDic[1]!,
-                "img_local_url" : registerDic[7]!,
-                "file_name" : self.deviceID! + "_" + self.helper.formatDateTime()
-            ] as [String : Any] // JSON 객체로 전송할 딕셔너리
-            uploadDiary(date: helper.formatDateToday(), self.newImage!, requestUrl: "/register/image", param: param)
-            
+            if UserDefaults.standard.string(forKey: "ID") != nil{
+                var param = [
+                    "user_id" : UserDefaults.standard.string(forKey: "ID")!,
+    //                "img_url" : "gs://save-gift-e3710.appspot.com/\(UserDefaults.standard.string(forKey: "imageName")!)", //FireBase URL로 등록
+                    "brand" : registerDic[0]!,
+                    "barcode_number" : registerDic[2]!,
+                    "expiration_period" : registerDic[3]!,
+                    "registration_date" : registerDic[5]!,
+                    "use_yn" : registerDic[4]!,
+                    "device_id" : deviceID!,
+                    "registrant" : registerDic[6]!,
+                    "product_name" : registerDic[1]!,
+                    "img_local_url" : registerDic[7]!,
+                    "file_name" : self.deviceID! + "_" + self.helper.formatDateTime()
+                ] as [String : Any] // JSON 객체로 전송할 딕셔너리
+                uploadDiary(date: helper.formatDateToday(), self.newImage!, requestUrl: "/register/image", param: param)
+            }else {
+                var param = [
+                    "brand" : registerDic[0]!,
+                    "barcode_number" : registerDic[2]!,
+                    "expiration_period" : registerDic[3]!,
+                    "registration_date" : registerDic[5]!,
+                    "use_yn" : registerDic[4]!,
+                    "device_id" : deviceID!,
+                    "registrant" : registerDic[6]!,
+                    "product_name" : registerDic[1]!,
+                    "img_local_url" : registerDic[7]!,
+                    "file_name" : self.deviceID! + "_" + self.helper.formatDateTime()
+                ] as [String : Any] // JSON 객체로 전송할 딕셔너리
+                uploadDiary(date: helper.formatDateToday(), self.newImage!, requestUrl: "/register/image", param: param)
+            }
         }
     }
     
