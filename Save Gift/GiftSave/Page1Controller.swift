@@ -10,6 +10,10 @@ import Foundation
 import UIKit
 import DropDown
 
+protocol GiftDeleteDelegate: AnyObject {
+    func giftDelete()
+}
+
 class Page1Controller : UIViewController{
     let LOG_TAG : String = "Page1Controller"
     @IBOutlet weak var collectionView: UICollectionView!
@@ -149,6 +153,8 @@ class Page1Controller : UIViewController{
                     
                     var responseStringA = responseString as! String
                     
+                    print("\(self.LOG_TAG) ", responseStringA.count)
+                    
                     if responseStringA.count != 2{
                     
                         responseStringA = responseStringA.replacingOccurrences(of: "]", with: "")
@@ -181,6 +187,8 @@ class Page1Controller : UIViewController{
                             self.useYn.append(self.dic["use_yn"] as! Int)
                             
                         }
+                    }else {
+                        self.arrRemoveAll()
                     }
                     //서버통신후 getGifty
                     DispatchQueue.main.async {
@@ -231,6 +239,7 @@ class Page1Controller : UIViewController{
     
     
     func collectionViewInit(){
+        print("\(LOG_TAG) collectionViewInit")
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(UINib(nibName: "CollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CollectionViewCell")
@@ -303,7 +312,17 @@ class Page1Controller : UIViewController{
     }
 }
 
-extension Page1Controller: UICollectionViewDelegate, UICollectionViewDataSource {
+extension Page1Controller: UICollectionViewDelegate, UICollectionViewDataSource, GiftDeleteDelegate {
+    
+    func giftDelete() {
+        print("giftDelete1")
+        if UserDefaults.standard.string(forKey: "ID") != nil { //로그인
+            //서버 통신후 사용자 혹은 로컬기기 -> DB에 저장되어 있는 값 가져오기
+            LoginSetupInit()
+        }else { //비로그인
+            bLoginSetupInit()
+        }
+    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
             return expirationPeriodLabelArr.count
@@ -350,12 +369,15 @@ extension Page1Controller: UICollectionViewDelegate, UICollectionViewDataSource 
                 cell.backgroundColor = UIColor.white
                 
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "GiftDetailVC") as! GiftDetailControoler
+                
                 vc.imageUrl = self.cellImageViewArr[indexPath.row]
                 vc.seq = self.seqArr[indexPath.row]
                 vc.brandName = self.brandNameLabelArr[indexPath.row]
                 vc.productName = self.productNameLabelArr[indexPath.row]
                 vc.expirationPeriod = self.expirationPeriodLabelArr[indexPath.row]
                 vc.use_yn = self.useYn[indexPath.row]
+                
+                vc.delegate = self
 //                vc.modalPresentationStyle = .fullScreen
 //                vc.definesPresentationContext = true
 //                vc.modalPresentationStyle = .overCurrentContext

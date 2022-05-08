@@ -9,6 +9,10 @@ import Foundation
 import UIKit
 import DropDown
 
+protocol GiftDeleteDelegate3: AnyObject {
+    func giftDelete3()
+}
+
 class Page3Controller : UIViewController{
     let LOG_TAG : String = "Page3Controller"
     @IBOutlet weak var collectionView: UICollectionView!
@@ -179,6 +183,8 @@ class Page3Controller : UIViewController{
                             self.useYn.append(self.dic["use_yn"] as! Int)
                             
                         }
+                    }else {
+                        self.arrRemoveAll()
                     }
                     //서버통신후 getGifty
                     DispatchQueue.main.async {
@@ -297,7 +303,17 @@ class Page3Controller : UIViewController{
     }
 }
 
-extension Page3Controller: UICollectionViewDelegate, UICollectionViewDataSource {
+extension Page3Controller: UICollectionViewDelegate, UICollectionViewDataSource, GiftDeleteDelegate3 {
+    
+    func giftDelete3() {
+        print("giftDelete3")
+        if UserDefaults.standard.string(forKey: "ID") != nil { //로그인
+            //서버 통신후 사용자 혹은 로컬기기 -> DB에 저장되어 있는 값 가져오기
+            LoginSetupInit()
+        }else { //비로그인
+            bLoginSetupInit()
+        }
+    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
             return expirationPeriodLabelArr.count
@@ -350,6 +366,8 @@ extension Page3Controller: UICollectionViewDelegate, UICollectionViewDataSource 
                 vc.productName = self.productNameLabelArr[indexPath.row]
                 vc.expirationPeriod = self.expirationPeriodLabelArr[indexPath.row]
                 vc.use_yn = self.useYn[indexPath.row]
+                
+                vc.delegate3 = self
 //                vc.modalPresentationStyle = .fullScreen
 //                vc.definesPresentationContext = true
 //                vc.modalPresentationStyle = .overCurrentContext

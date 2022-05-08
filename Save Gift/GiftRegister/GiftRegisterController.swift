@@ -782,7 +782,7 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
 //                newImage = possibleImage // 수정된 이미지가 있을 경우
 //            } else
             if let possibleImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-                    print("원본 이미지")
+                    print("원본 이미지 \(info)")
                     newImage = possibleImage // 원본 이미지가 있을 경우
                 barcodeImage = possibleImage
             }
