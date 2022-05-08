@@ -21,7 +21,7 @@ import FirebaseStorage
 import Alamofire
 
 class GiftRegisterController : UIViewController, UITextFieldDelegate{
-    
+    let LOG_TAG : String = "GiftRegisterController"
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var scrollView: UIScrollView!
@@ -32,7 +32,7 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
     let localUrl : String = "".getLocalURL()
     let deviceID : String? = UserDefaults.standard.string(forKey: "device_id")
     
-    let arr = ["교환처", "상품명", "바코드 번호", "유효기간", "쿠폰상태", "등록일", "등록자"]
+    var arr = ["교환처", "상품명", "바코드 번호", "유효기간", "쿠폰상태", "등록일", "등록자"]
     var arrTextField = ["", "", "", "", "", "", ""]
     var segmentStatus : Int = 0
     var registerButton = UIButton()
@@ -53,6 +53,8 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
     var newImage: UIImage? = nil // update 할 이미지
     var barcodeImage: UIImage? = nil
     
+    var backBtn : String? = nil
+    
     
     let toolBar = UIToolbar()
     let metadataObjectTypes: [AVMetadataObject.ObjectType] = [
@@ -70,6 +72,9 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
                                                               .interleaved2of5,
                                                               .qr
                                                              ]
+    
+    var reviseDic : Dictionary<String, Any>? = nil
+    var reviseImageUrl : String? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -104,6 +109,21 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         plusAction()
+        
+        print("reviseDic ", reviseDic)
+        
+        if reviseImageUrl != nil{
+            print("revise .. ", reviseImageUrl!)
+            let url = URL(string: reviseImageUrl!)
+            DispatchQueue.global().async {
+                let data = try? Data(contentsOf: url!)
+                DispatchQueue.main.async {
+                    self.imageView.image = UIImage(data: data!)
+                }
+            }
+            
+            registerBtn.setTitle("수정", for: .normal)
+        }
     }
     
     func setupTableView(){
@@ -703,6 +723,78 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
 //        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         //cell.textLabel?.font = UIFont(name: "나눔손글씨 무궁화", size: 20)
         
+        if reviseDic != nil{
+            arr[5] = "수정날짜"
+            let cell = tableView.dequeueReusableCell(withIdentifier: "RegisterTableViewCell") as! RegisterTableViewCell
+            cell.label.text = arr[indexPath.row]
+            cell.textfield.text = arrTextField[indexPath.row]
+//            cell.textfield.inputAccessoryView = toolBar
+            
+            if indexPath.row == 4 {
+                let customCell = tableView.dequeueReusableCell(withIdentifier: "RegisterUseTableViewCell") as! RegisterUseTableViewCell
+                customCell.segmentControl.addTarget(self, action: #selector(changeSegment), for: UIControl.Event.valueChanged)
+                print("customCell.segmentControl.selectedSegmentIndex ",customCell.segmentControl.selectedSegmentIndex)
+                return customCell
+            }
+            
+            switch indexPath.row {
+            case 0:
+                cell.textfield.isEnabled = true
+                cell.textfield.attributedPlaceholder = NSAttributedString(string: "ex) 스타벅스", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
+                cell.textfield.text = reviseDic!["brand"] as! String
+                cell.textfield.addTarget(self, action: #selector(self.textFieldDidChange0(_:)), for: .editingChanged)
+                cell.textfield.tag = indexPath.row
+                break;
+            case 1:
+                cell.textfield.isEnabled = true
+                cell.textfield.attributedPlaceholder = NSAttributedString(string: "ex) 뿌링클 치킨 + 콜라 1.25L", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
+                cell.textfield.text = reviseDic!["product_name"] as! String
+                cell.textfield.addTarget(self, action: #selector(self.textFieldDidChange1(_:)), for: .editingChanged)
+                cell.textfield.tag = indexPath.row
+                break;
+            case 2:
+                cell.textfield.isEnabled = true
+                cell.textfield.attributedPlaceholder = NSAttributedString(string: "ex) 1234-5678-9101 ('-'를 제외하고 입력)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
+                cell.textfield.text = reviseDic!["barcode_number"] as! String
+                cell.textfield.addTarget(self, action: #selector(self.textFieldDidChange2(_:)), for: .editingChanged)
+                cell.textfield.tag = indexPath.row
+                break;
+            case 3:
+                cell.textfield.isEnabled = true
+                cell.textfield.attributedPlaceholder = NSAttributedString(string: "ex) 2030-09-08 ('-'를 제외하고 입력)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
+                cell.textfield.tag = indexPath.row
+                cell.textfield.addTarget(self, action: #selector(self.textFieldDidChange3(_:)), for: .editingChanged)
+                cell.textfield.addTarget(self, action: #selector(self.textFieldDidEndEditing(_:)), for: .editingDidEnd)
+                cell.textfield.addTarget(self, action: #selector(self.textFieldDidBigin(_:)), for: .editingDidBegin)
+                cell.textfield.text = reviseDic!["registration_date"] as! String
+                cell.textfield.keyboardType = .numberPad
+                cell.textfield.delegate = self
+                break;
+            case 4:
+    //            cell.textfield.isEnabled = true
+    //            cell.textfield.attributedPlaceholder = NSAttributedString(string: "ex) 미사용", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
+                break;
+            case 5:
+                cell.textfield.isEnabled = false
+                cell.textfield.attributedPlaceholder = NSAttributedString(string: "ex) \(helper.formatDateToday())", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
+                cell.textfield.tag = indexPath.row
+                break;
+            case 6:
+                if UserDefaults.standard.string(forKey: "ID") != nil{ // 로그인 o
+                    cell.textfield.isEnabled = false
+                } else{
+                    cell.textfield.isEnabled = true
+                }
+                cell.textfield.attributedPlaceholder = NSAttributedString(string: "ex) ghdrlfehd@naver.com(홍길동)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
+                cell.textfield.tag = indexPath.row
+                cell.textfield.addTarget(self, action: #selector(self.textFieldDidChange6(_:)), for: .editingChanged)
+            default:
+                print("default")
+                break;
+            }
+            
+                return cell
+            }else {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RegisterTableViewCell") as! RegisterTableViewCell
         cell.label.text = arr[indexPath.row]
         cell.textfield.text = arrTextField[indexPath.row]
@@ -768,6 +860,8 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
         }
         
             return cell
+        }
+        return UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
