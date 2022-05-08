@@ -57,7 +57,6 @@ class GiftDetailControoler : UIViewController{
     
     let LOG_TAG : String = "GiftDetailControoler"
     
-    
 
     override func viewDidLoad(){
         super.viewDidLoad()
@@ -177,7 +176,15 @@ class GiftDetailControoler : UIViewController{
     }
     
     func reviseGiftcon(){
-        print("reviseGiftcon")
+        guard let pushVC = self.storyboard?.instantiateViewController(identifier: "GiftRegisterVC") as? GiftRegisterController else{
+            return
+        }
+        
+//        pushVC.url = URL(string: "".getLocalURL()+"/images/\(imageUrl!)")
+//        pushVC.modalPresentationStyle = .fullScreen
+        pushVC.reviseDic = self.dic
+        pushVC.reviseImageUrl = "".getLocalURL()+"/images/\(imageUrl!)"
+        self.present(pushVC, animated: true, completion: nil)
     }
     
     func deleteGiftCon(){
