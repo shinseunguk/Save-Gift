@@ -488,7 +488,7 @@
         <scene sceneID="UPb-Gh-ME7">
             <objects>
                 <viewController storyboardIdentifier="SettingSecessionVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="k3R-M8-FaB" customClass="SettingSecessionController" customModule="Save_Gift" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="WxZ-Us-fSb">
+                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="WxZ-Us-fSb">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -548,7 +548,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U08-Ld-jHa">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U08-Ld-jHa">
                                 <rect key="frame" x="20" y="812" width="374" height="50"/>
                                 <color key="backgroundColor" systemColor="systemBlueColor"/>
                                 <accessibility key="accessibilityConfiguration">
@@ -1895,7 +1895,7 @@
                                                     <constraint firstAttribute="height" constant="36" id="ffd-pm-zqx"/>
                                                 </constraints>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <state key="normal" title="편집하기"/>
+                                                <state key="normal" title="수정 / 삭제"/>
                                                 <connections>
                                                     <action selector="editAction:" destination="yb9-6j-gh7" eventType="touchUpInside" id="g7B-DR-q9x"/>
                                                 </connections>
@@ -1919,7 +1919,7 @@
                                                     <constraint firstAttribute="height" constant="36" id="99O-5y-kVf"/>
                                                 </constraints>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <state key="normal" title="선물하기"/>
+                                                <state key="normal" title="기프티콘 선물"/>
                                                 <connections>
                                                     <action selector="presentAction:" destination="yb9-6j-gh7" eventType="touchUpInside" id="fAS-er-Fcg"/>
                                                 </connections>
@@ -2017,6 +2017,48 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FxC-pg-6gD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="917" y="3545"/>
+        </scene>
+        <!--Gift Detail Full Screen Controller-->
+        <scene sceneID="7Im-e3-6Ks">
+            <objects>
+                <viewController storyboardIdentifier="GiftDetailFullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="iUO-DM-WBT" customClass="GiftDetailFullScreenController" customModule="Save_Gift" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vQg-9j-DDj">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3fp-Yo-Yb1">
+                                <rect key="frame" x="15" y="44" width="399" height="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <state key="normal" title=" back" image="lessthan" catalog="system">
+                                    <color key="titleColor" systemColor="systemBlueColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="backAction:" destination="iUO-DM-WBT" eventType="touchUpInside" id="STu-Pk-Z2S"/>
+                                </connections>
+                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JnX-8k-5m7">
+                                <rect key="frame" x="0.0" y="74" width="414" height="788"/>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="hQv-yM-feE"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="hQv-yM-feE" firstAttribute="bottom" secondItem="JnX-8k-5m7" secondAttribute="bottom" id="19Q-RA-DER"/>
+                            <constraint firstItem="hQv-yM-feE" firstAttribute="trailing" secondItem="3fp-Yo-Yb1" secondAttribute="trailing" id="6Yt-qm-zfG"/>
+                            <constraint firstItem="3fp-Yo-Yb1" firstAttribute="leading" secondItem="hQv-yM-feE" secondAttribute="leading" constant="15" id="G4U-To-XCr"/>
+                            <constraint firstItem="3fp-Yo-Yb1" firstAttribute="top" secondItem="hQv-yM-feE" secondAttribute="top" id="Gf2-HO-Wcx"/>
+                            <constraint firstItem="hQv-yM-feE" firstAttribute="trailing" secondItem="JnX-8k-5m7" secondAttribute="trailing" id="Wdj-5f-EeU"/>
+                            <constraint firstItem="JnX-8k-5m7" firstAttribute="leading" secondItem="hQv-yM-feE" secondAttribute="leading" id="ZPh-qp-QkA"/>
+                            <constraint firstItem="JnX-8k-5m7" firstAttribute="top" secondItem="hQv-yM-feE" secondAttribute="top" constant="30" id="hmw-jw-Ptq"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="JnX-8k-5m7" id="bWQ-OT-izw"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oOX-mL-xS8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="199" y="4233"/>
         </scene>
         <!--Gift Register Controller-->
         <scene sceneID="d1u-YE-AeC">
@@ -2378,6 +2420,7 @@
         <image name="gift" catalog="system" width="128" height="124"/>
         <image name="info.circle" catalog="system" width="128" height="121"/>
         <image name="kakaotalk.png" width="40" height="40"/>
+        <image name="lessthan" catalog="system" width="128" height="111"/>
         <image name="lock" catalog="system" width="128" height="128"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="naver.png" width="25" height="25"/>

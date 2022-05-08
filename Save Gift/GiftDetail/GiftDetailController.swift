@@ -25,6 +25,10 @@ class GiftDetailControoler : UIViewController{
     @IBOutlet weak var presentBtn: UIButton!
     @IBOutlet weak var useynBtn: UIButton!
     
+    var delegate : GiftDeleteDelegate?
+    var delegate2 : GiftDeleteDelegate2?
+    var delegate3 : GiftDeleteDelegate3?
+    
     let localUrl : String = "".getLocalURL()
     
     let categoryArr = ["바코드 번호", "교환처", "상품명", "유효기간", "쿠폰상태", "등록일", "등록자"]
@@ -57,6 +61,7 @@ class GiftDetailControoler : UIViewController{
 
     override func viewDidLoad(){
         super.viewDidLoad()
+        
         
         print("imageUrl --- > ", "".getLocalURL()+"/images/\(imageUrl!)")
         print("seq --- > ", seq!)
@@ -116,7 +121,15 @@ class GiftDetailControoler : UIViewController{
     }
     
     @IBAction func imageExpandAction(_ sender: Any) {
-        print("imageExpandAction")
+        print("전체화면으로 보기")
+        guard let pushVC = self.storyboard?.instantiateViewController(identifier: "GiftDetailFullScreen") as? GiftDetailFullScreenController else{
+            return
+        }
+        
+        //pushVC.pushYn = push // 이미지 보내기
+        pushVC.url = URL(string: "".getLocalURL()+"/images/\(imageUrl!)")
+        pushVC.modalPresentationStyle = .fullScreen
+        self.present(pushVC, animated: true, completion: nil)
     }
     
     @IBAction func editAction(_ sender: Any) {
@@ -135,11 +148,11 @@ class GiftDetailControoler : UIViewController{
         let alert =  UIAlertController(title: title, message: nil, preferredStyle: .actionSheet)
 
         let library =  UIAlertAction(title: content1, style: .default) {
-            (action) in print("content1")
+            (action) in self.normalAlertUseYn(title: "알림", message: "정말로 기프티콘을 삭제하시겠습니까?")
         }
 
         let camera =  UIAlertAction(title: content2, style: .default) {
-            (action) in print("content2")
+            (action) in self.reviseGiftcon()
         }
 
         let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
@@ -151,11 +164,66 @@ class GiftDetailControoler : UIViewController{
     
     func normalAlertUseYn(title: String, message: String){
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-        let defaultAction = UIAlertAction(title: "확인", style: .default, handler : nil)
+        if message == "정말로 기프티콘을 삭제하시겠습니까?"{
+            let defaultAction = UIAlertAction(title: "확인", style: .default, handler : {_ in self.deleteGiftCon()})
+            alert.addAction(defaultAction)
+        }else {
+            let defaultAction = UIAlertAction(title: "확인", style: .default, handler : nil)
+            alert.addAction(defaultAction)
+        }
         let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler : nil)
-        alert.addAction(defaultAction)
         alert.addAction(cancelAction)
         present(alert, animated: true, completion: nil)
+    }
+    
+    func reviseGiftcon(){
+        print("reviseGiftcon")
+    }
+    
+    func deleteGiftCon(){
+        param["page"] = "GiftDetail"
+        param["img_url"] = imageUrl!
+        deleteGiftConRequest(requestUrl: "/gift/delete", param: param)
+    }
+    
+    func deleteGiftConRequest(requestUrl : String!, param : Dictionary<String, Any>) -> Void{
+        print("deleteGiftConRequest param.... ", param)
+        let paramData = try! JSONSerialization.data(withJSONObject: param)
+        // URL 객체 정의
+                let url = URL(string: localUrl+requestUrl)
+
+                // URLRequest 객체를 정의
+                var request = URLRequest(url: url!)
+                request.httpMethod = "POST"
+                request.httpBody = paramData
+
+                // HTTP 메시지 헤더
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.addValue("application/json", forHTTPHeaderField: "Accept")
+                let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                    // 서버가 응답이 없거나 통신이 실패
+                    if let e = error {
+                        print("An error has occured: \(e.localizedDescription)")
+                        return
+                    }
+
+                    var responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+                    
+                    print(responseString!)
+                    DispatchQueue.main.async {
+                        if responseString! == "true"{
+                            self.delegate?.giftDelete()
+                            self.delegate2?.giftDelete2()
+                            self.delegate3?.giftDelete3()
+//                            self.dismiss(animated: true, completion: nil)
+                            self.presentingViewController?.dismiss(animated: true, completion: nil)
+                        }else {
+                            print("기프티콘 삭제 실패")
+                        }
+                    }
+                }
+                // POST 전송
+                task.resume()
     }
     
     func requestPost(requestUrl : String!, param : Dictionary<String, Any>) -> Void{
@@ -250,7 +318,7 @@ extension GiftDetailControoler : UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "GiftDetailTableViewCell") as! GiftDetailTableViewCell
         
-        print("dic 1-> ", dic)
+//        print("dic 1-> ", dic)
         
         
         cell.copyBtn.layer.cornerRadius = 5

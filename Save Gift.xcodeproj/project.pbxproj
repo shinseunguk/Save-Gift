@@ -53,6 +53,7 @@
 		A23698AE27A97B9100C86754 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A28F4397276F44B700B5DB17 /* LocalAuthentication.framework */; };
 		A240D8FD2814311F0009B03E /* TestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A240D8FC2814311F0009B03E /* TestController.swift */; };
 		A27F4BE827CA90B700F9ED4A /* FriendController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27F4BE727CA90B700F9ED4A /* FriendController.swift */; };
+		A2877C6728260200006EFBCC /* GiftDetailFullScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2877C6628260200006EFBCC /* GiftDetailFullScreenController.swift */; };
 		A28A06B42794413000876560 /* GiftRegisterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28A06B32794413000876560 /* GiftRegisterController.swift */; };
 		A28F439A276F55B700B5DB17 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28F4399276F55B700B5DB17 /* MainController.swift */; };
 		A2907E1827EF86E90001148D /* Page1Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2907E1727EF86E90001148D /* Page1Controller.swift */; };
@@ -702,6 +703,7 @@
 		A2369A6627A97BA000C86754 /* libpthread.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libpthread.tbd; path = usr/lib/libpthread.tbd; sourceTree = SDKROOT; };
 		A240D8FC2814311F0009B03E /* TestController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestController.swift; sourceTree = "<group>"; };
 		A27F4BE727CA90B700F9ED4A /* FriendController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendController.swift; sourceTree = "<group>"; };
+		A2877C6628260200006EFBCC /* GiftDetailFullScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftDetailFullScreenController.swift; sourceTree = "<group>"; };
 		A28A06B32794413000876560 /* GiftRegisterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftRegisterController.swift; sourceTree = "<group>"; };
 		A28F4397276F44B700B5DB17 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
 		A28F4399276F55B700B5DB17 /* MainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
@@ -758,6 +760,7 @@
 				042C0FB527FE73C5005EDA8E /* GiftDetailController.swift */,
 				042C0FB727FFB93B005EDA8E /* GiftDetailTableViewCell.swift */,
 				042C0FB827FFB93B005EDA8E /* GiftDetailTableViewCell.xib */,
+				A2877C6628260200006EFBCC /* GiftDetailFullScreenController.swift */,
 			);
 			path = GiftDetail;
 			sourceTree = "<group>";
@@ -1723,6 +1726,7 @@
 				A232943127634593007ACA5F /* Register2Controller.swift in Sources */,
 				A2DD0BE727A7CC580015E59B /* RegisterTableViewCell.swift in Sources */,
 				A2D2FDAA277742200036B849 /* GiftSaveController.swift in Sources */,
+				A2877C6728260200006EFBCC /* GiftDetailFullScreenController.swift in Sources */,
 				A2D2FDAC277742A30036B849 /* GiftSettingController.swift in Sources */,
 				A28F439A276F55B700B5DB17 /* MainController.swift in Sources */,
 				A2D4935E2790615600FB5770 /* SettingNotiController.swift in Sources */,
