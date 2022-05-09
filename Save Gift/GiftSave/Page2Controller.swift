@@ -213,11 +213,7 @@ class Page2Controller : UIViewController{
                 label.textColor = .black
                 label.center = self.view.center
                 label.textAlignment = .center
-                label.text = """
-                기프티콘을 추가해
-                관리, 공유, 선물해보세요
-                """
-//                label.text = "기프티콘을 추가해보세요."
+                label.text = "사용한 기프티콘이 없습니다."
                 
                 self.view.addSubview(label)
                 index += 1
