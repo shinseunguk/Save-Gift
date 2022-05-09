@@ -249,13 +249,9 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
             (action) in self.openLibrary()
         }
 
-        let camera =  UIAlertAction(title: "카메라", style: .default) {
-            (action) in self.openCamera()
-        }
-
         let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
         alert.addAction(library)
-        alert.addAction(camera)
+//        alert.addAction(camera)
         alert.addAction(cancel)
         present(alert, animated: true, completion: nil)
     }
@@ -275,14 +271,14 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
 
     }
 
-    func openCamera(){
-        if(UIImagePickerController .isSourceTypeAvailable(.photoLibrary)){
-            imagePicker.sourceType = .camera
-            present(imagePicker, animated: false, completion: nil)
-        } else{
-            print("Camera not available")
-        }
-    }
+//    func openCamera(){
+//        if(UIImagePickerController .isSourceTypeAvailable(.photoLibrary)){
+//            imagePicker.sourceType = .camera
+//            present(imagePicker, animated: false, completion: nil)
+//        } else{
+//            print("Camera not available")
+//        }
+//    }
     
     
     func normalAlert(titles:String, messages:String?) -> Void{
@@ -300,6 +296,11 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
             alert.addAction(cancelAction)
         }else if messages == "이미 등록된 기프티콘입니다." || messages == "기프티콘 이미지를 등록해주세요."{
             let cancelAction = UIAlertAction(title: "확인", style: .default,  handler : {_ in self.plusAction()})
+            alert.addAction(cancelAction)
+        }else if messages == "유효기간이 지난 기프티콘 입니다.\n 그래도 등록하시겠습니까?"{
+            let okAction = UIAlertAction(title: "확인", style: .default,  handler : {_ in self.segmentChange()})
+            let cancelAction = UIAlertAction(title: "취소", style: .cancel,  handler : nil)
+            alert.addAction(okAction)
             alert.addAction(cancelAction)
         }else { // 유효기간 formatting
             let defaultAction = UIAlertAction(title: "확인", style: .default, handler : nil)
@@ -939,10 +940,45 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
     
     @objc func changeSegment(_ sender: UISegmentedControl){
         print("sender.isSelected ",sender.selectedSegmentIndex)
+        
+        let index = IndexPath(row: 3, section: 0)
+        let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
+        var txtField3 = cell.textfield.text
+        
+        self.tableView.endEditing(true)
+        
+        if txtField3?.count == 10{
+            if sender.selectedSegmentIndex == 0{
+                let regularExpression = txtField3!.validateDate(txtField3!.replacingOccurrences(of: "-", with: ""))
+                print("regularExpression ",regularExpression)
+                if regularExpression != ""{
+                    normalAlert(titles: "알림", messages: regularExpression)
+                    regularBool = false
+                }else { // 날짜 정규식은 이상 없음 -> 이후 오늘날짜와 유효기간을 비교
+                    regularBool = true
+                    
+                    let resultDDay : Int = giftDetailController.calculateDays(availableDate: txtField3!)
+                    if resultDDay == 0 {
+                        print("resultDDay")
+                        regularStatusBool = true
+                    }else if resultDDay > 0 {
+                        print("resultDDay > 0")
+                        normalAlert(titles: "알림", messages: "유효기간이 지난 기프티콘 입니다.\n 그래도 등록하시겠습니까?")
+                        regularStatusBool = false
+                    }else if resultDDay < 0 {
+                        print("resultDDay < 0")
+                        regularStatusBool = true
+                    }
+                    
+                }
+            }
+        }
+        
         segmentStatus = sender.selectedSegmentIndex
     }
     
     @IBAction func registerAction(_ sender: Any) {
+        self.tableView.endEditing(true)
         if reviseImageUrl != nil{ // 기프티콘 등록
             
             for x in 0...6 {
@@ -982,8 +1018,8 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
                 emptyBool = true
             }
 
-            print("registerDic.. 1 ", registerDic)
-            print("self.imageView.image ", self.imageView.image)
+//            print("registerDic.. 1 ", registerDic)
+//            print("self.imageView.image ", self.imageView.image)
             if self.imageView.image == nil{ // 이미지가 없을경우
                 normalAlert(titles: "알림", messages: "기프티콘 이미지를 등록해주세요.")
             }else if !emptyBool { // 하나라도 빈칸일 경우
@@ -995,7 +1031,7 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
                 print("segmentStatus ", segmentStatus)
                 normalAlert(titles: "알림", messages: "유효기간이 지난 기프티콘 입니다. \n 쿠폰상태를 확인해주세요.")
             }else { // firebase 서버 request
-                print("registerDic.. 2", registerDic)
+                print("수정 registerDic.. ", registerDic)
 
                 if UserDefaults.standard.string(forKey: "ID") != nil{
                     var param = [
@@ -1070,8 +1106,8 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
                 emptyBool = true
             }
 
-            print("registerDic.. 1 ", registerDic)
-            print("self.imageView.image ", self.imageView.image)
+//            print("registerDic.. 1 ", registerDic)
+//            print("self.imageView.image ", self.imageView.image)
             if self.imageView.image == nil{ // 이미지가 없을경우
                 normalAlert(titles: "알림", messages: "기프티콘 이미지를 등록해주세요.")
             }else if !emptyBool { // 하나라도 빈칸일 경우
@@ -1083,7 +1119,7 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
                 print("segmentStatus ", segmentStatus)
                 normalAlert(titles: "알림", messages: "유효기간이 지난 기프티콘 입니다. \n 쿠폰상태를 확인해주세요.")
             }else { // 서버 request
-                print("registerDic.. 2", registerDic)
+                print("등록 registerDic.. ", registerDic)
 
                 if UserDefaults.standard.string(forKey: "ID") != nil{
                     var param = [
