@@ -113,6 +113,9 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
         print("reviseDic ", reviseDic)
         
         if reviseImageUrl != nil{
+            regularBool = true // 기프티콘 수정 default값
+            regularStatusBool = true // 기프티콘 수정 default값
+            
             print("revise .. ", reviseImageUrl!)
             let url = URL(string: reviseImageUrl!)
             DispatchQueue.global().async {
@@ -405,7 +408,7 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
                                     }else if resultDDayBarcode1 > 0 {
                                         print("resultDDayBarcode1 > 0")
                                         self.normalAlert(titles: "알림", messages: "유효기간이 지난 기프티콘 입니다.\n 그래도 등록하시겠습니까?", cell.textfield)
-                                        //regularStatusBool = false
+                                        regularStatusBool = false
                                     }else if resultDDayBarcode1 < 0 {
                                         print("resultDDayBarcode1 < 0")
                                         self.regularStatusBool = true
@@ -439,7 +442,7 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
                                         }else if resultDDayBarcode2 > 0 {
                                             self.normalAlert(titles: "알림", messages: "유효기간이 지난 기프티콘 입니다.\n 그래도 등록하시겠습니까?", cell.textfield)
                                             print("resultDDayBarcode2 > 0")
-                                            //regularStatusBool = false
+                                            regularStatusBool = false
                                         }else if resultDDayBarcode2 < 0 {
                                             print("resultDDayBarcode2 < 0")
                                             self.regularStatusBool = true
@@ -474,6 +477,7 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
         exchangeArr.append("스타벅스")
         exchangeArr.append("투썸플레이스")
         exchangeArr.append("파리바게트")
+        exchangeArr.append("파리바게뜨")
         exchangeArr.append("뚜레쥬르")
         exchangeArr.append("던킨")
         exchangeArr.append("크리스피크림")
@@ -528,6 +532,10 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
         exchangeArr.append("Bhc")
         exchangeArr.append("BHC")
         exchangeArr.append("BHc")
+        
+        //아이스크림
+        exchangeArr.append("베스킨라빈스")
+        exchangeArr.append("베스킨 라빈스")
         
         
         return exchangeArr
@@ -641,7 +649,7 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
                                 regularStatusBool = true
                             }else if resultDDay > 0 {
                                 normalAlert(titles: "알림", messages: "유효기간이 지난 기프티콘 입니다.\n 그래도 등록하시겠습니까?", textField)
-                                //regularStatusBool = false
+                                regularStatusBool = false
                             }else if resultDDay < 0 {
                                 print("resultDDay < 0")
                                 regularStatusBool = true
@@ -667,9 +675,10 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
     @objc func segmentChange(){
         print("segmentChange")
         
-        let customCell = tableView.dequeueReusableCell(withIdentifier: "RegisterUseTableViewCell") as! RegisterUseTableViewCell
-        customCell.segmentControl.selectedSegmentIndex = 1
-        customCell.segmentControl.sendActions(for: .valueChanged)
+        let index = IndexPath(row: 4, section: 0)
+        let cell: RegisterUseTableViewCell = self.tableView.cellForRow(at: index) as! RegisterUseTableViewCell
+        cell.segmentControl.selectedSegmentIndex = 1
+        segmentStatus = 1
         
         tableView.refreshControl?.sendActions(for: .valueChanged)
     }
@@ -733,6 +742,7 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
             if indexPath.row == 4 {
                 let customCell = tableView.dequeueReusableCell(withIdentifier: "RegisterUseTableViewCell") as! RegisterUseTableViewCell
                 customCell.segmentControl.addTarget(self, action: #selector(changeSegment), for: UIControl.Event.valueChanged)
+                customCell.segmentControl.selectedSegmentIndex = reviseDic!["use_yn"] as! Int
                 print("customCell.segmentControl.selectedSegmentIndex ",customCell.segmentControl.selectedSegmentIndex)
                 return customCell
             }
@@ -766,7 +776,7 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
                 cell.textfield.addTarget(self, action: #selector(self.textFieldDidChange3(_:)), for: .editingChanged)
                 cell.textfield.addTarget(self, action: #selector(self.textFieldDidEndEditing(_:)), for: .editingDidEnd)
                 cell.textfield.addTarget(self, action: #selector(self.textFieldDidBigin(_:)), for: .editingDidBegin)
-                cell.textfield.text = reviseDic!["registration_date"] as! String
+                cell.textfield.text = reviseDic!["expiration_period"] as! String
                 cell.textfield.keyboardType = .numberPad
                 cell.textfield.delegate = self
                 break;
@@ -933,92 +943,179 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
     }
     
     @IBAction func registerAction(_ sender: Any) {
-        for x in 0...6 {
-//            let index = IndexPath(row: x, section: 0)
-//            let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
-//            if cell.textfield.text != "" {
-                switch x {
-                case 0...3:
-                    let index = IndexPath(row: x, section: 0)
-                    let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
-                    if cell.textfield.text != ""{
-                        registerDic[x] = cell.textfield.text!
-                    }
-                    break
-                case 4:
-                    let index = IndexPath(row: x, section: 0)
-                    let cell: RegisterUseTableViewCell = self.tableView.cellForRow(at: index) as! RegisterUseTableViewCell
-                    registerDic[x] = cell.segmentControl.selectedSegmentIndex
-                    break
-                case 5...6:
-                    let index = IndexPath(row: x, section: 0)
-                    let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
-                    if cell.textfield.text != ""{
-                        registerDic[x] = cell.textfield.text!
-                    }
-                    break
-                default:
-                    print("default")
-                    break
-                }
-//            }else {
-////                    cell.textfield.becomeFirstResponder()
-//            }
-        }// for
-        
-        if  registerDic[0] != nil &&
-            registerDic[1] != nil &&
-            registerDic[2] != nil &&
-            registerDic[3] != nil &&
-            registerDic[5] != nil &&
-            registerDic[6] != nil {
-            print("emptybool ---------> true")
-            emptyBool = true
-        }
-        
-        print("registerDic.. 1 ", registerDic)
-        print("self.imageView.image ", self.imageView.image)
-        if self.imageView.image == nil{ // 이미지가 없을경우
-            normalAlert(titles: "알림", messages: "기프티콘 이미지를 등록해주세요.")
-        }else if !emptyBool { // 하나라도 빈칸일 경우
-            normalAlert(titles: "알림", messages: "빈칸없이 작성 해주세요.")
-        }else if !regularBool { // 유효기간이 유효하지 않을경우
-            normalAlert(titles: "알림", messages: "유효기간을 확인해주세요.")
-        }else if !regularStatusBool && segmentStatus == 0{
-            normalAlert(titles: "알림", messages: "유효기간이 지난 기프티콘 입니다. \n 쿠폰상태를 확인해주세요.")
-        }else { // firebase 서버 request
-            print("registerDic.. 2", registerDic)
+        if reviseImageUrl != nil{ // 기프티콘 등록
             
-            if UserDefaults.standard.string(forKey: "ID") != nil{
-                var param = [
-                    "user_id" : UserDefaults.standard.string(forKey: "ID")!,
-    //                "img_url" : "gs://save-gift-e3710.appspot.com/\(UserDefaults.standard.string(forKey: "imageName")!)", //FireBase URL로 등록
-                    "brand" : registerDic[0]!,
-                    "barcode_number" : registerDic[2]!,
-                    "expiration_period" : registerDic[3]!,
-                    "registration_date" : registerDic[5]!,
-                    "use_yn" : registerDic[4]!,
-                    "device_id" : deviceID!,
-                    "registrant" : registerDic[6]!,
-                    "product_name" : registerDic[1]!,
-                    "img_local_url" : registerDic[7]!,
-                    "file_name" : self.deviceID! + "_" + self.helper.formatDateTime()
-                ] as [String : Any] // JSON 객체로 전송할 딕셔너리
-                uploadDiary(date: helper.formatDateToday(), self.newImage!, requestUrl: "/register/image", param: param)
-            }else {
-                var param = [
-                    "brand" : registerDic[0]!,
-                    "barcode_number" : registerDic[2]!,
-                    "expiration_period" : registerDic[3]!,
-                    "registration_date" : registerDic[5]!,
-                    "use_yn" : registerDic[4]!,
-                    "device_id" : deviceID!,
-                    "registrant" : registerDic[6]!,
-                    "product_name" : registerDic[1]!,
-                    "img_local_url" : registerDic[7]!,
-                    "file_name" : self.deviceID! + "_" + self.helper.formatDateTime()
-                ] as [String : Any] // JSON 객체로 전송할 딕셔너리
-                uploadDiary(date: helper.formatDateToday(), self.newImage!, requestUrl: "/register/image", param: param)
+            for x in 0...6 {
+                    switch x {
+                    case 0...3:
+                        let index = IndexPath(row: x, section: 0)
+                        let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
+                        if cell.textfield.text != ""{
+                            registerDic[x] = cell.textfield.text!
+                        }
+                        break
+                    case 4:
+                        let index = IndexPath(row: x, section: 0)
+                        let cell: RegisterUseTableViewCell = self.tableView.cellForRow(at: index) as! RegisterUseTableViewCell
+                        registerDic[x] = cell.segmentControl.selectedSegmentIndex
+                        break
+                    case 5...6:
+                        let index = IndexPath(row: x, section: 0)
+                        let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
+                        if cell.textfield.text != ""{
+                            registerDic[x] = cell.textfield.text!
+                        }
+                        break
+                    default:
+                        print("default")
+                        break
+                    }
+            }// for
+
+            if  registerDic[0] != nil &&
+                registerDic[1] != nil &&
+                registerDic[2] != nil &&
+                registerDic[3] != nil &&
+                registerDic[5] != nil &&
+                registerDic[6] != nil {
+                print("emptybool ---------> true")
+                emptyBool = true
+            }
+
+            print("registerDic.. 1 ", registerDic)
+            print("self.imageView.image ", self.imageView.image)
+            if self.imageView.image == nil{ // 이미지가 없을경우
+                normalAlert(titles: "알림", messages: "기프티콘 이미지를 등록해주세요.")
+            }else if !emptyBool { // 하나라도 빈칸일 경우
+                normalAlert(titles: "알림", messages: "빈칸없이 작성 해주세요.")
+            }else if !regularBool { // 유효기간이 유효하지 않을경우
+                normalAlert(titles: "알림", messages: "유효기간을 확인해주세요.")
+            }else if !regularStatusBool && segmentStatus == 0{
+                print("regularStatusBool ", regularStatusBool)
+                print("segmentStatus ", segmentStatus)
+                normalAlert(titles: "알림", messages: "유효기간이 지난 기프티콘 입니다. \n 쿠폰상태를 확인해주세요.")
+            }else { // firebase 서버 request
+                print("registerDic.. 2", registerDic)
+
+                if UserDefaults.standard.string(forKey: "ID") != nil{
+                    var param = [
+                        "user_id" : UserDefaults.standard.string(forKey: "ID")!,
+        //                "img_url" : "gs://save-gift-e3710.appspot.com/\(UserDefaults.standard.string(forKey: "imageName")!)", //FireBase URL로 등록
+                        "brand" : registerDic[0]!,
+                        "barcode_number" : registerDic[2]!,
+                        "expiration_period" : registerDic[3]!,
+                        "registration_date" : registerDic[5]!,
+                        "use_yn" : registerDic[4]!,
+                        "device_id" : deviceID!,
+                        "registrant" : registerDic[6]!,
+                        "product_name" : registerDic[1]!
+                    ] as [String : Any] // JSON 객체로 전송할 딕셔너리
+//                    uploadDiary(date: helper.formatDateToday(), self.newImage!, requestUrl: "/register/image", param: param)
+                    print("회원 수정 로직 param => " ,param)
+                    //회원 수정 로직
+                }else {
+                    var param = [
+                        "brand" : registerDic[0]!,
+                        "barcode_number" : registerDic[2]!,
+                        "expiration_period" : registerDic[3]!,
+                        "registration_date" : registerDic[5]!,
+                        "use_yn" : registerDic[4]!,
+                        "device_id" : deviceID!,
+                        "registrant" : registerDic[6]!,
+                        "product_name" : registerDic[1]!
+                    ] as [String : Any] // JSON 객체로 전송할 딕셔너리
+                    print("비회원 수정 로직 param => " ,param)
+//                    uploadDiary(date: helper.formatDateToday(), self.newImage!, requestUrl: "/register/image", param: param)
+                    //비회원 수정 로직
+                }
+            }
+        }else { // 기프티콘 등록
+            for x in 0...6 {
+                    switch x {
+                    case 0...3:
+                        let index = IndexPath(row: x, section: 0)
+                        let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
+                        if cell.textfield.text != ""{
+                            registerDic[x] = cell.textfield.text!
+                        }
+                        break
+                    case 4:
+                        let index = IndexPath(row: x, section: 0)
+                        let cell: RegisterUseTableViewCell = self.tableView.cellForRow(at: index) as! RegisterUseTableViewCell
+                        registerDic[x] = cell.segmentControl.selectedSegmentIndex
+                        break
+                    case 5...6:
+                        let index = IndexPath(row: x, section: 0)
+                        let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
+                        if cell.textfield.text != ""{
+                            registerDic[x] = cell.textfield.text!
+                        }
+                        break
+                    default:
+                        print("default")
+                        break
+                    }
+    //            }else {
+    ////                    cell.textfield.becomeFirstResponder()
+    //            }
+            }// for
+
+            if  registerDic[0] != nil &&
+                registerDic[1] != nil &&
+                registerDic[2] != nil &&
+                registerDic[3] != nil &&
+                registerDic[5] != nil &&
+                registerDic[6] != nil {
+                print("emptybool ---------> true")
+                emptyBool = true
+            }
+
+            print("registerDic.. 1 ", registerDic)
+            print("self.imageView.image ", self.imageView.image)
+            if self.imageView.image == nil{ // 이미지가 없을경우
+                normalAlert(titles: "알림", messages: "기프티콘 이미지를 등록해주세요.")
+            }else if !emptyBool { // 하나라도 빈칸일 경우
+                normalAlert(titles: "알림", messages: "빈칸없이 작성 해주세요.")
+            }else if !regularBool { // 유효기간이 유효하지 않을경우
+                normalAlert(titles: "알림", messages: "유효기간을 확인해주세요.")
+            }else if !regularStatusBool && segmentStatus == 0{
+                print("regularStatusBool ", regularStatusBool)
+                print("segmentStatus ", segmentStatus)
+                normalAlert(titles: "알림", messages: "유효기간이 지난 기프티콘 입니다. \n 쿠폰상태를 확인해주세요.")
+            }else { // 서버 request
+                print("registerDic.. 2", registerDic)
+
+                if UserDefaults.standard.string(forKey: "ID") != nil{
+                    var param = [
+                        "user_id" : UserDefaults.standard.string(forKey: "ID")!,
+        //                "img_url" : "gs://save-gift-e3710.appspot.com/\(UserDefaults.standard.string(forKey: "imageName")!)", //FireBase URL로 등록
+                        "brand" : registerDic[0]!,
+                        "barcode_number" : registerDic[2]!,
+                        "expiration_period" : registerDic[3]!,
+                        "registration_date" : registerDic[5]!,
+                        "use_yn" : registerDic[4]!,
+                        "device_id" : deviceID!,
+                        "registrant" : registerDic[6]!,
+                        "product_name" : registerDic[1]!,
+                        "img_local_url" : registerDic[7]!,
+                        "file_name" : self.deviceID! + "_" + self.helper.formatDateTime()
+                    ] as [String : Any] // JSON 객체로 전송할 딕셔너리
+                    uploadDiary(date: helper.formatDateToday(), self.newImage!, requestUrl: "/register/image", param: param)
+                }else {
+                    var param = [
+                        "brand" : registerDic[0]!,
+                        "barcode_number" : registerDic[2]!,
+                        "expiration_period" : registerDic[3]!,
+                        "registration_date" : registerDic[5]!,
+                        "use_yn" : registerDic[4]!,
+                        "device_id" : deviceID!,
+                        "registrant" : registerDic[6]!,
+                        "product_name" : registerDic[1]!,
+                        "img_local_url" : registerDic[7]!,
+                        "file_name" : self.deviceID! + "_" + self.helper.formatDateTime()
+                    ] as [String : Any] // JSON 객체로 전송할 딕셔너리
+                    uploadDiary(date: helper.formatDateToday(), self.newImage!, requestUrl: "/register/image", param: param)
+                }
             }
         }
     }
