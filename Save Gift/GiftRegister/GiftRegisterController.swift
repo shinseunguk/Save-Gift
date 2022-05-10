@@ -91,7 +91,7 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
         setupNavigationBar()
         
         //툴바 setting
-        setupToolBar()
+//        setupToolBar()
         
         //등록일, 등록자 default setting
         deafultSetting()
@@ -116,6 +116,8 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
             regularBool = true // 기프티콘 수정 default값
             regularStatusBool = true // 기프티콘 수정 default값
             
+            revisSetup()
+            
             print("revise .. ", reviseImageUrl!)
             let url = URL(string: reviseImageUrl!)
             DispatchQueue.global().async {
@@ -127,6 +129,27 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
             
             registerBtn.setTitle("수정", for: .normal)
         }
+    }
+    
+    func revisSetup(){
+//        imageView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 50).isActive = true
+        
+        let button = UIButton(frame: CGRect(x: 10, y: 20, width: 100, height: 20))
+//        button.backgroundColor = .black
+        button.setImage(UIImage(systemName: "lessthan"), for: .normal)
+        button.setTitle(" Back", for: .normal)
+        button.setTitleColor(.systemBlue, for: .normal)
+        button.addTarget(self, action: #selector(backButtonAction), for: .touchUpInside)
+        
+        self.view.addSubview(button)
+        
+//        imageView.removeConstraints(self.imageView.constraints)
+//        imageView.topAnchor.constraint(equalTo: button.bottomAnchor, constant: 50).isActive = true
+    }
+    
+    @objc func backButtonAction() {
+        print("Button tapped")
+        dismiss(animated: true, completion: nil)
     }
     
     func setupTableView(){
@@ -143,20 +166,20 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
     func setupToolBar(){
         toolBar.sizeToFit()
         
-        let backBtn = UIButton.init(type: .custom)
-        backBtn.setTitle("이전", for: .normal)
-        backBtn.setTitleColor(.systemBlue, for: .normal)
-        backBtn.addTarget(self, action: #selector(self.backBtnAction(_:)), for: .touchUpInside)
+//        let backBtn = UIButton.init(type: .custom)
+//        backBtn.setTitle("이전", for: .normal)
+//        backBtn.setTitleColor(.systemBlue, for: .normal)
+//        backBtn.addTarget(self, action: #selector(self.backBtnAction(_:)), for: .touchUpInside)
         
         let nextBtn = UIButton.init(type: .custom)
-        nextBtn.setTitle("다음", for: .normal)
+        nextBtn.setTitle("완료", for: .normal)
         nextBtn.setTitleColor(.systemBlue, for: .normal)
         nextBtn.addTarget(self, action: #selector(self.nextBtnAction(_:)), for: .touchUpInside)
         
-        let backButton = UIBarButtonItem.init(customView: backBtn)
+//        let backButton = UIBarButtonItem.init(customView: backBtn)
         let nextButton = UIBarButtonItem.init(customView: nextBtn)
         
-        toolBar.items = [backButton, nextButton]
+        toolBar.items = [nextButton]
 //        toolBar.barStyle = .black
         toolBar.barTintColor = UIColor.white
         toolBar.tintColor = .white
@@ -195,8 +218,7 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
     }
 
     @objc func nextBtnAction(_ textField: UITextField){
-        print("nextBtnAction")
-        textField.becomeFirstResponder();
+        self.tableView.endEditing(true)
     }
     
     @objc func keyboardWillHide(_ sender: Notification) {
@@ -768,6 +790,7 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
                 cell.textfield.attributedPlaceholder = NSAttributedString(string: "ex) 1234-5678-9101 ('-'를 제외하고 입력)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
                 cell.textfield.text = reviseDic!["barcode_number"] as! String
                 cell.textfield.addTarget(self, action: #selector(self.textFieldDidChange2(_:)), for: .editingChanged)
+                cell.textfield.keyboardType = .numberPad
                 cell.textfield.tag = indexPath.row
                 break;
             case 3:
@@ -809,7 +832,7 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
         let cell = tableView.dequeueReusableCell(withIdentifier: "RegisterTableViewCell") as! RegisterTableViewCell
         cell.label.text = arr[indexPath.row]
         cell.textfield.text = arrTextField[indexPath.row]
-        cell.textfield.inputAccessoryView = toolBar
+//        cell.textfield.inputAccessoryView = accessory
         
         if indexPath.row == 4 {
             let customCell = tableView.dequeueReusableCell(withIdentifier: "RegisterUseTableViewCell") as! RegisterUseTableViewCell
@@ -835,6 +858,7 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
             cell.textfield.isEnabled = true
             cell.textfield.attributedPlaceholder = NSAttributedString(string: "ex) 1234-5678-9101 ('-'를 제외하고 입력)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
             cell.textfield.addTarget(self, action: #selector(self.textFieldDidChange2(_:)), for: .editingChanged)
+            cell.textfield.keyboardType = .numberPad
             cell.textfield.tag = indexPath.row
             break;
         case 3:
@@ -921,8 +945,7 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
 //        let imageName = imageUrl.lastPathComponent
 //        let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentationDirectory, .userDomainMask, true).first as String?
 //        let photoURL = URL(fileURLWithPath: documentDirectory!)
-//        let localPath = photoURL.appendingPathComponent(imageName)
-//
+//        let localPath = photoURL.appendingPathComponent(imageName)//
 //        print("imageUrl ", imageUrl)
 //        print("imageName ", imageName)
 //        print("documentDirectory ", documentDirectory!)
@@ -979,7 +1002,7 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
     
     @IBAction func registerAction(_ sender: Any) {
         self.tableView.endEditing(true)
-        if reviseImageUrl != nil{ // 기프티콘 등록
+        if reviseImageUrl != nil{ // 기프티콘 수정
             
             for x in 0...6 {
                     switch x {
