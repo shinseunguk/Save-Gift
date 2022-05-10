@@ -40,8 +40,6 @@ class GiftDetailControoler : UIViewController{
     let dateFormatter = DateFormatter()
     let helper : Helper = Helper()
     
-    let nowBrightness : CGFloat = UIScreen.main.brightness;
-    
     var daysCount:Int = 0
 
     var imageUrl : String? = nil
@@ -60,7 +58,6 @@ class GiftDetailControoler : UIViewController{
 
     override func viewDidLoad(){
         super.viewDidLoad()
-        
         
         print("imageUrl --- > ", "".getLocalURL()+"/images/\(imageUrl!)")
         print("seq --- > ", seq!)
@@ -92,14 +89,6 @@ class GiftDetailControoler : UIViewController{
         }
         
         requestPost(requestUrl: "/gift/detail", param: param)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        UIScreen.main.brightness = 1.0
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        UIScreen.main.brightness = nowBrightness
     }
     
     func setupLayout(){

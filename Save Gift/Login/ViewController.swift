@@ -175,15 +175,8 @@ class ViewController: UIViewController, ASAuthorizationControllerDelegate, ASAut
         
         if id != "" && pw != ""{
             //DB처리 필요
-            print(id + pw)
             requestPost(requestUrl : "/login")
         }
-        
-        //ㅌㅅㅌ용
-//        if id == "1" && pw == "1"{
-//            let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "tabbarVC")
-//                    self.navigationController?.pushViewController(pushVC!, animated: true)
-//        }
     }
     
     func requestPost(requestUrl : String!) -> Void{
