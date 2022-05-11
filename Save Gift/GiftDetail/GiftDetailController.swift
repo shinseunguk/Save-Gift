@@ -155,10 +155,14 @@ class GiftDetailControoler : UIViewController{
         if message == "정말로 기프티콘을 삭제하시겠습니까?"{
             let defaultAction = UIAlertAction(title: "확인", style: .default, handler : {_ in self.deleteGiftCon()})
             alert.addAction(defaultAction)
+        }else if message == "사용완료 처리 하시겠습니까?"{
+            let defaultAction = UIAlertAction(title: "확인", style: .default, handler : {_ in self.useYnGiftCon()})
+            alert.addAction(defaultAction)
         }else {
             let defaultAction = UIAlertAction(title: "확인", style: .default, handler : nil)
             alert.addAction(defaultAction)
         }
+        
         let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler : nil)
         alert.addAction(cancelAction)
         present(alert, animated: true, completion: nil)
@@ -180,6 +184,10 @@ class GiftDetailControoler : UIViewController{
         param["page"] = "GiftDetail"
         param["img_url"] = imageUrl!
         deleteGiftConRequest(requestUrl: "/gift/delete", param: param)
+    }
+    
+    func useYnGiftCon(){
+        print("useYnGiftCOn")
     }
     
     func deleteGiftConRequest(requestUrl : String!, param : Dictionary<String, Any>) -> Void{

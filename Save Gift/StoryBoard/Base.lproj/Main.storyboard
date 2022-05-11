@@ -488,7 +488,7 @@
         <scene sceneID="UPb-Gh-ME7">
             <objects>
                 <viewController storyboardIdentifier="SettingSecessionVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="k3R-M8-FaB" customClass="SettingSecessionController" customModule="Save_Gift" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="WxZ-Us-fSb">
+                    <view key="view" contentMode="scaleToFill" id="WxZ-Us-fSb">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -548,7 +548,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U08-Ld-jHa">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U08-Ld-jHa">
                                 <rect key="frame" x="20" y="812" width="374" height="50"/>
                                 <color key="backgroundColor" systemColor="systemBlueColor"/>
                                 <accessibility key="accessibilityConfiguration">
@@ -1913,7 +1913,7 @@
                                                     <constraint firstAttribute="height" constant="80" id="Wyf-F3-XUX"/>
                                                 </constraints>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <state key="normal" title="사용완료"/>
+                                                <state key="normal" title="사용완료 처리"/>
                                                 <connections>
                                                     <action selector="useynAction:" destination="yb9-6j-gh7" eventType="touchUpInside" id="FkT-cD-YDi"/>
                                                 </connections>

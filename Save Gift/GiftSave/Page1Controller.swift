@@ -113,6 +113,7 @@ class Page1Controller : UIViewController{
     func bLoginSetupInit(){
         print("비로그인 setUP")
         
+        // 비로그인
         param["device_id"] = deviceID!
         param["index"] = "blogin"
         param["use_yn"] = "Unused"
