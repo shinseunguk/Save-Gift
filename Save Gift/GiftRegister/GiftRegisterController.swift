@@ -999,7 +999,7 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
     
     @IBAction func registerAction(_ sender: Any) {
         self.tableView.endEditing(true)
-        if reviseImage != nil{ // 기프티콘 수정
+        if registerBtn.titleLabel?.text! == "수정"{ // 기프티콘 수정
             
             for x in 0...6 {
                     switch x {
@@ -1065,11 +1065,11 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
                         "device_id" : deviceID!,
                         "registrant" : registerDic[6]!,
                         "product_name" : registerDic[1]!,
-                        "seq" : reviseDic!["seq"],
+                        "seq" : reviseDic!["seq"]!,
                         "index" : "reviseLogin"
                     ] as [String : Any] // JSON 객체로 전송할 딕셔너리
                     print("회원 수정 로직 param => " ,param)
-                    requestPost(requestUrl: "gift/revise", param: param)
+                    requestPost(requestUrl: "/gift/revise", param: param)
                     //회원 수정 로직
                 }else {
                     var param = [
@@ -1081,11 +1081,11 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
                         "device_id" : deviceID!,
                         "registrant" : registerDic[6]!,
                         "product_name" : registerDic[1]!,
-                        "seq" : reviseDic!["seq"],
+                        "seq" : reviseDic!["seq"]!,
                         "index" : "reviseBLogin"
                     ] as [String : Any] // JSON 객체로 전송할 딕셔너리
                     print("비회원 수정 로직 param => " ,param)
-                    requestPost(requestUrl: "gift/revise", param: param)
+                    requestPost(requestUrl: "/gift/revise", param: param)
                     //비회원 수정 로직
                 }
             }
@@ -1185,8 +1185,6 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
         let paramData = try! JSONSerialization.data(withJSONObject: param)
         // URL 객체 정의
         
-        let boundary = "Boundary-\(UUID().uuidString)"
-        
                 let url = URL(string: localUrl+requestUrl)
 
                 // URLRequest 객체를 정의
@@ -1195,7 +1193,7 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
                 request.httpBody = paramData
 
                 // HTTP 메시지 헤더
-                request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+//                request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
                 request.addValue("application/json", forHTTPHeaderField: "Content-Type")
                 request.addValue("application/json", forHTTPHeaderField: "Accept")
 //                request.addValue("application/json", forHTTPHeaderField: "Accept")
@@ -1213,6 +1211,12 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
                 let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
 
                     print("\(self.LOG_TAG) \(#line) responseString", responseString!)
+                    
+                    if responseString! == "1"{ // 성공시
+                        print("\(self.LOG_TAG) \(#line) responseString 1")
+                    }else { // 실패시
+                        print("\(self.LOG_TAG) \(#line) else")
+                    }
                     
                 }
                 // POST 전송
