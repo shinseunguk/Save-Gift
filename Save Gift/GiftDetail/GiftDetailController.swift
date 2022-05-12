@@ -48,10 +48,15 @@ class GiftDetailControoler : UIViewController{
     var param : Dictionary<String, Any> = [:]
     var dic : Dictionary<String, Any> = [:]
     
+    var uiImage : UIImage? = nil
+    
+    var barcodeNumber : String? = nil
     var brandName : String? = nil
     var productName : String? = nil
     var expirationPeriod : String? = nil
     var use_yn : Int? = nil // 넘겨준 이유 --> 하단 버튼 enable 처리 때문
+    var registrant : String? = nil
+    var registrationDate : String? = nil
     
     let LOG_TAG : String = "GiftDetailControoler"
     
@@ -59,13 +64,14 @@ class GiftDetailControoler : UIViewController{
     override func viewDidLoad(){
         super.viewDidLoad()
         
-        print("imageUrl --- > ", "".getLocalURL()+"/images/\(imageUrl!)")
+//        print("imageUrl --- > ", "".getLocalURL()+"/images/\(imageUrl!)")
         print("seq --- > ", seq!)
         
         print("\(LOG_TAG) use_yn --> ", use_yn!)
         
         Init()
         viewLabelSetup()
+        contentArrSetup()
         setupLayout()
 //        calculateDays()
         tableView.allowsSelection = false
@@ -75,7 +81,34 @@ class GiftDetailControoler : UIViewController{
     func viewLabelSetup(){
         vBrandLabel.text = brandName
         vProductLabel.text = productName
-        vExpirationLabel.text = "~ \(expirationPeriod!)"
+        vExpirationLabel.text = "~ \(expirationPeriod!) 까지"
+    }
+    
+    func contentArrSetup(){
+        
+        self.imageView.image = uiImage
+        
+        contentArr[0] = barcodeNumber!
+        contentArr[1] = brandName!
+        contentArr[2] = productName!
+        contentArr[3] = expirationPeriod!
+        
+        //여기서 날짜에 따른 쿠폰 상태 확인해주고 set text
+        if use_yn == 1{
+            contentArr[4] = "사용불가"
+        }else {
+            contentArr[4] = "사용가능"
+        }
+        
+        contentArr[5] = registrationDate!
+        contentArr[6] = registrant!
+        
+        
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
+        
+        self.tableView.register(UINib(nibName: "GiftDetailBarcodeTableViewCell", bundle: nil), forCellReuseIdentifier: "GiftDetailBarcodeTableViewCell")
+        self.tableView.register(UINib(nibName: "GiftDetailTableViewCell", bundle: nil), forCellReuseIdentifier: "GiftDetailTableViewCell")
     }
     
     func Init(){
@@ -88,7 +121,7 @@ class GiftDetailControoler : UIViewController{
             }
         }
         
-        requestPost(requestUrl: "/gift/detail", param: param)
+//        requestPost(requestUrl: "/gift/detail", param: param)
     }
     
     func setupLayout(){
@@ -102,7 +135,7 @@ class GiftDetailControoler : UIViewController{
         if use_yn == 1{ //사용 했음
             self.presentBtn.removeFromSuperview()
             self.editBtn.removeFromSuperview()
-            self.useynBtn.setTitle("미사용 처리", for: .highlighted)
+            self.useynBtn.setTitle("미사용 처리하기", for: .highlighted)
         }else { // 사용 안했음
             
         }
@@ -115,7 +148,8 @@ class GiftDetailControoler : UIViewController{
         }
         
         //pushVC.pushYn = push // 이미지 보내기
-        pushVC.url = URL(string: "".getLocalURL()+"/images/\(imageUrl!)")
+//        pushVC.url = URL(string: "".getLocalURL()+"/images/\(imageUrl!)")
+        pushVC.uiImage = uiImage
         pushVC.modalPresentationStyle = .fullScreen
         self.present(pushVC, animated: true, completion: nil)
     }
@@ -230,87 +264,87 @@ class GiftDetailControoler : UIViewController{
                 task.resume()
     }
     
-    func requestPost(requestUrl : String!, param : Dictionary<String, Any>) -> Void{
-        print("param.... ", param)
-        let paramData = try! JSONSerialization.data(withJSONObject: param)
-        // URL 객체 정의
-                let url = URL(string: localUrl+requestUrl)
-
-                // URLRequest 객체를 정의
-                var request = URLRequest(url: url!)
-                request.httpMethod = "POST"
-                request.httpBody = paramData
-
-                // HTTP 메시지 헤더
-                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-                request.addValue("application/json", forHTTPHeaderField: "Accept")
-//                request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-//                request.setValue(String(paramData.count), forHTTPHeaderField: "Content-Length")
-
-                // URLSession 객체를 통해 전송, 응답값 처리
-                let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-                    // 서버가 응답이 없거나 통신이 실패
-                    if let e = error {
-                        print("An error has occured: \(e.localizedDescription)")
-                        return
-                    }
-
-                var responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
-
-                    print("GiftDetail responseString \n", responseString!)
-                    print("/gift/detail data ----> \n", data! as Any)
-                    print("/gift/detail response ----> \n", response! as Any)
-                    
-                    var responseStringA = responseString as! String
-                    print("responseStringA ===> ", responseStringA)
+//    func requestPost(requestUrl : String!, param : Dictionary<String, Any>) -> Void{
+//        print("param.... ", param)
+//        let paramData = try! JSONSerialization.data(withJSONObject: param)
+//        // URL 객체 정의
+//                let url = URL(string: localUrl+requestUrl)
 //
-                    if responseStringA.count != 2{
-
-                        responseStringA = responseStringA.replacingOccurrences(of: "]", with: "")
-                        responseStringA = responseStringA.replacingOccurrences(of: "[", with: "")
-
-                        print("responseStringA ---- > \n",responseStringA)
-
-                        let arr = responseStringA.components(separatedBy: "},")
-                        print("arr0 --->", arr[0])
-
-                        self.dic = self.helper.jsonParser7(stringData: arr[0] as! String, data1: "barcode_number", data2: "brand", data3: "product_name", data4: "expiration_period", data5: "use_yn", data6:"registration_date", data7: "registrant");
-
-                        print("self.dic ----> \n", self.dic)
-
-                        DispatchQueue.main.async {
-                            
-                            self.contentArr[0] = self.dic["barcode_number"] as! String
-                            self.contentArr[1] = self.dic["brand"] as! String
-                            self.contentArr[2] = self.dic["product_name"] as! String
-                            self.contentArr[3] = self.dic["expiration_period"] as! String
-                            
-                            //여기서 날짜에 따른 쿠폰 상태 확인해주고 set text
-                            if self.dic["use_yn"] as! Int == 1{
-                                self.contentArr[4] = "사용불가"
-                            }else {
-                                self.contentArr[4] = "사용가능"
-                            }
-                            
-                            self.contentArr[5] = self.dic["registration_date"] as! String
-                            self.contentArr[6] = self.dic["registrant"] as! String
-                            
-                            self.tableView.dataSource = self
-                            self.tableView.delegate = self
-                            
-                            self.tableView.register(UINib(nibName: "GiftDetailBarcodeTableViewCell", bundle: nil), forCellReuseIdentifier: "GiftDetailBarcodeTableViewCell")
-                            self.tableView.register(UINib(nibName: "GiftDetailTableViewCell", bundle: nil), forCellReuseIdentifier: "GiftDetailTableViewCell")
-                        }
-                        
-                    }
-                    //서버통신후 getGifty
-                    DispatchQueue.main.async {
-//                        self.getGifty()
-                    }
-                }
-                // POST 전송
-                task.resume()
-    }
+//                // URLRequest 객체를 정의
+//                var request = URLRequest(url: url!)
+//                request.httpMethod = "POST"
+//                request.httpBody = paramData
+//
+//                // HTTP 메시지 헤더
+//                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//                request.addValue("application/json", forHTTPHeaderField: "Accept")
+////                request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+////                request.setValue(String(paramData.count), forHTTPHeaderField: "Content-Length")
+//
+//                // URLSession 객체를 통해 전송, 응답값 처리
+//                let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+//                    // 서버가 응답이 없거나 통신이 실패
+//                    if let e = error {
+//                        print("An error has occured: \(e.localizedDescription)")
+//                        return
+//                    }
+//
+//                var responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+//
+//                    print("GiftDetail responseString \n", responseString!)
+//                    print("/gift/detail data ----> \n", data! as Any)
+//                    print("/gift/detail response ----> \n", response! as Any)
+//
+//                    var responseStringA = responseString as! String
+//                    print("responseStringA ===> ", responseStringA)
+////
+//                    if responseStringA.count != 2{
+//
+//                        responseStringA = responseStringA.replacingOccurrences(of: "]", with: "")
+//                        responseStringA = responseStringA.replacingOccurrences(of: "[", with: "")
+//
+//                        print("responseStringA ---- > \n",responseStringA)
+//
+//                        let arr = responseStringA.components(separatedBy: "},")
+//                        print("arr0 --->", arr[0])
+//
+//                        self.dic = self.helper.jsonParser7(stringData: arr[0] as! String, data1: "barcode_number", data2: "brand", data3: "product_name", data4: "expiration_period", data5: "use_yn", data6:"registration_date", data7: "registrant");
+//
+//                        print("self.dic ----> \n", self.dic)
+//
+//                        DispatchQueue.main.async {
+//
+//                            self.contentArr[0] = self.dic["barcode_number"] as! String
+//                            self.contentArr[1] = self.dic["brand"] as! String
+//                            self.contentArr[2] = self.dic["product_name"] as! String
+//                            self.contentArr[3] = self.dic["expiration_period"] as! String
+//
+//                            //여기서 날짜에 따른 쿠폰 상태 확인해주고 set text
+//                            if self.dic["use_yn"] as! Int == 1{
+//                                self.contentArr[4] = "사용불가"
+//                            }else {
+//                                self.contentArr[4] = "사용가능"
+//                            }
+//
+//                            self.contentArr[5] = self.dic["registration_date"] as! String
+//                            self.contentArr[6] = self.dic["registrant"] as! String
+//
+//                            self.tableView.dataSource = self
+//                            self.tableView.delegate = self
+//
+//                            self.tableView.register(UINib(nibName: "GiftDetailBarcodeTableViewCell", bundle: nil), forCellReuseIdentifier: "GiftDetailBarcodeTableViewCell")
+//                            self.tableView.register(UINib(nibName: "GiftDetailTableViewCell", bundle: nil), forCellReuseIdentifier: "GiftDetailTableViewCell")
+//                        }
+//
+//                    }
+//                    //서버통신후 getGifty
+//                    DispatchQueue.main.async {
+////                        self.getGifty()
+//                    }
+//                }
+//                // POST 전송
+//                task.resume()
+//    }
     
 }
 
@@ -322,8 +356,6 @@ extension GiftDetailControoler : UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "GiftDetailTableViewCell") as! GiftDetailTableViewCell
         
-//        print("dic 1-> ", dic)
-        
         
         cell.copyBtn.layer.cornerRadius = 5
         cell.copyBtn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
@@ -331,8 +363,6 @@ extension GiftDetailControoler : UITableViewDelegate, UITableViewDataSource{
         
         cell.copyBtn.addTarget(self, action: #selector(normalAlert), for: .touchUpInside)
         
-//        btn.titleLabel?.font = .systemFont(ofSize: 12)
-    
         // 바코드번호 클립보드저장 버튼
         if indexPath.row != 0 {
             cell.copyBtn.isHidden = true

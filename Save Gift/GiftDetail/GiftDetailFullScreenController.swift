@@ -16,6 +16,8 @@ class GiftDetailFullScreenController : UIViewController{
     
     var url : URL? = nil
     
+    var uiImage : UIImage? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,13 +34,14 @@ class GiftDetailFullScreenController : UIViewController{
     }
     
     func setUp(){
-        print("\(LOG_TAG) url ==> ", url!)
-        DispatchQueue.global().async {
-            let data = try? Data(contentsOf: self.url!)
-            DispatchQueue.main.async {
-                self.imageView.image = UIImage(data: data!)
-            }
-        }
+//        print("\(LOG_TAG) url ==> ", url!)
+//        DispatchQueue.global().async {
+//            let data = try? Data(contentsOf: self.url!)
+//            DispatchQueue.main.async {
+//                self.imageView.image = UIImage(data: data!)
+//            }
+//        }
+        self.imageView.image = uiImage
     }
     @IBAction func backAction(_ sender: Any) {
         print("backAction")

@@ -40,14 +40,18 @@ class Page1Controller : UIViewController{
     
     var viewPagerArr = ["Unused", "Used", "All"]
     var thumbnail: Array<UIImage> = []
+
+    var brandNameLabelArr : [String] = []
+    var productNameLabelArr : [String] = []
+    var barcodeNumberArr : [String] = []
+    var expirationPeriodLabelArr : [String] = []
+    var useYn : [Int] = []
+    var registrationDateArr : [String] = []
+    var cellImageViewArr : [String] = []
+    var seqArr : [Int] = []
+    var registrantArr : [String] = []
     
-    // test Array
-        var brandNameLabelArr : [String] = []
-        var expirationPeriodLabelArr : [String] = []
-        var productNameLabelArr : [String] = []
-        var cellImageViewArr : [String] = []
-        var seqArr : [Int] = []
-        var useYn : [Int] = []
+    var uiImageArr : [UIImage] = []
     
     //cocoa pod
     let dropDown = DropDown()
@@ -92,11 +96,14 @@ class Page1Controller : UIViewController{
     
     func arrRemoveAll(){
         brandNameLabelArr.removeAll()
-        expirationPeriodLabelArr.removeAll()
         productNameLabelArr.removeAll()
+        barcodeNumberArr.removeAll()
+        expirationPeriodLabelArr.removeAll()
+        useYn.removeAll()
+        registrantArr.removeAll()
         cellImageViewArr.removeAll()
         seqArr.removeAll()
-        useYn.removeAll()
+        registrantArr.removeAll()
     }
     
     func LoginSetupInit(){
@@ -170,22 +177,40 @@ class Page1Controller : UIViewController{
                         
                         self.arrRemoveAll()
                         
+//                        ["barcode_number": <null>, O
+//                         "img_url": DD15A014-F02C-4F28-BD0F-249B307BFA7A_20220509_223741.jpg, O
+//                         "registrant": <null>,
+//                         "use_yn": 0, O
+//                         "brand": GS25, O
+//                         "seq": 75, O
+//                         "expiration_period": 2023-01-21, O
+//                         "product_name": as, O
+//                         "user_id": <null>,
+//                         "img_local_url": <null>,
+//                         "device_id": <null>,
+//                         "registration_date": <null>]
+                        
+                        //    var arr = ["교환처", "상품명", "바코드 번호", "유효기간", "쿠폰상태", "등록일", "등록자"]
+                        
                         for x in 0...arr.count-1{
                             
                             if x != arr.count-1 {
-                                self.dic = self.helper.jsonParser6(stringData: arr[x]+"}" as! String, data1: "seq", data2: "brand", data3: "expiration_period", data4: "img_url", data5: "product_name", data6: "use_yn");
+                                self.dic = self.helper.jsonParser9(stringData: arr[x]+"}" as! String, data1: "seq", data2: "brand", data3: "expiration_period", data4: "img_url", data5: "product_name", data6: "use_yn", data7: "barcode_number", data8: "registration_date", data9: "registrant");
                             }else {
-                                self.dic = self.helper.jsonParser6(stringData: arr[x] as! String, data1: "seq", data2: "brand", data3: "expiration_period", data4: "img_url", data5: "product_name", data6: "use_yn");
+                                self.dic = self.helper.jsonParser9(stringData: arr[x] as! String, data1: "seq", data2: "brand", data3: "expiration_period", data4: "img_url", data5: "product_name", data6: "use_yn", data7: "barcode_number", data8: "registration_date", data9: "registrant");
                             }
                             
                             print("self.dic ----> \n", self.dic)
                             
                             self.brandNameLabelArr.append(self.dic["brand"] as! String)
-                            self.expirationPeriodLabelArr.append(self.dic["expiration_period"] as! String)
                             self.productNameLabelArr.append(self.dic["product_name"] as! String)
+                            self.barcodeNumberArr.append(self.dic["barcode_number"] as! String)
+                            self.expirationPeriodLabelArr.append(self.dic["expiration_period"] as! String)
+                            self.useYn.append(self.dic["use_yn"] as! Int)
+                            self.registrationDateArr.append(self.dic["registration_date"] as! String)
                             self.cellImageViewArr.append(self.dic["img_url"] as! String)
                             self.seqArr.append(self.dic["seq"] as! Int)
-                            self.useYn.append(self.dic["use_yn"] as! Int)
+                            self.registrantArr.append(self.dic["registrant"] as! String)
                             
                         }
                     }else {
@@ -352,6 +377,7 @@ extension Page1Controller: UICollectionViewDelegate, UICollectionViewDataSource,
 //                    self.imageView.image = UIImage(data: data!)
                     cell.cellImageView.image =  UIImage(data: data!)
                     cell.cellImageView.contentMode = .scaleAspectFit
+                    self.uiImageArr.append(UIImage(data: data!)!)
                 }
         }
 //            cell.cellImageView.image = UIImage(named: cellImageViewArr[indexPath.row])
@@ -372,13 +398,20 @@ extension Page1Controller: UICollectionViewDelegate, UICollectionViewDataSource,
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "GiftDetailVC") as! GiftDetailControoler
                 
                 vc.imageUrl = self.cellImageViewArr[indexPath.row]
-                vc.seq = self.seqArr[indexPath.row]
+                vc.barcodeNumber = self.barcodeNumberArr[indexPath.row]
                 vc.brandName = self.brandNameLabelArr[indexPath.row]
                 vc.productName = self.productNameLabelArr[indexPath.row]
                 vc.expirationPeriod = self.expirationPeriodLabelArr[indexPath.row]
                 vc.use_yn = self.useYn[indexPath.row]
+                vc.registrant = self.registrantArr[indexPath.row]
+                vc.registrationDate = self.registrationDateArr[indexPath.row]
                 
-                vc.delegate = self
+                //test
+                vc.uiImage = self.uiImageArr[indexPath.row]
+                
+                vc.seq = self.seqArr[indexPath.row]
+                
+                vc.delegate = self // protocol delegate
 //                vc.modalPresentationStyle = .fullScreen
 //                vc.definesPresentationContext = true
 //                vc.modalPresentationStyle = .overCurrentContext
