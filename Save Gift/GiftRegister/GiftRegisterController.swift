@@ -74,7 +74,7 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
                                                              ]
     
     var reviseDic : Dictionary<String, Any>? = nil
-    var reviseImageUrl : String? = nil
+    var reviseImage : UIImage? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -112,18 +112,15 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
         
         print("reviseDic ", reviseDic)
         
-        if reviseImageUrl != nil{
+        if reviseImage != nil{
             regularBool = true // 기프티콘 수정 default값
             regularStatusBool = true // 기프티콘 수정 default값
             
             revisSetup()
             
-            print("revise .. ", reviseImageUrl!)
-            let url = URL(string: reviseImageUrl!)
             DispatchQueue.global(qos: .userInteractive).async {
-                let data = try? Data(contentsOf: url!)
                 DispatchQueue.main.async {
-                    self.imageView.image = UIImage(data: data!)
+                    self.imageView.image = self.reviseImage
                 }
             }
             
@@ -141,7 +138,7 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
         button.setTitleColor(.systemBlue, for: .normal)
         button.addTarget(self, action: #selector(backButtonAction), for: .touchUpInside)
         
-        self.view.addSubview(button)
+        self.scrollView.addSubview(button)
         
 //        imageView.removeConstraints(self.imageView.constraints)
 //        imageView.topAnchor.constraint(equalTo: button.bottomAnchor, constant: 50).isActive = true
@@ -1002,7 +999,7 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
     
     @IBAction func registerAction(_ sender: Any) {
         self.tableView.endEditing(true)
-        if reviseImageUrl != nil{ // 기프티콘 수정
+        if reviseImage != nil{ // 기프티콘 수정
             
             for x in 0...6 {
                     switch x {
