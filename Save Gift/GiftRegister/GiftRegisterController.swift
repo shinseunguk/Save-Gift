@@ -1064,10 +1064,12 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
                         "use_yn" : registerDic[4]!,
                         "device_id" : deviceID!,
                         "registrant" : registerDic[6]!,
-                        "product_name" : registerDic[1]!
+                        "product_name" : registerDic[1]!,
+                        "seq" : reviseDic!["seq"],
+                        "index" : "reviseLogin"
                     ] as [String : Any] // JSON 객체로 전송할 딕셔너리
-//                    uploadDiary(date: helper.formatDateToday(), self.newImage!, requestUrl: "/register/image", param: param)
                     print("회원 수정 로직 param => " ,param)
+                    requestPost(requestUrl: "gift/revise", param: param)
                     //회원 수정 로직
                 }else {
                     var param = [
@@ -1078,10 +1080,12 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
                         "use_yn" : registerDic[4]!,
                         "device_id" : deviceID!,
                         "registrant" : registerDic[6]!,
-                        "product_name" : registerDic[1]!
+                        "product_name" : registerDic[1]!,
+                        "seq" : reviseDic!["seq"],
+                        "index" : "reviseBLogin"
                     ] as [String : Any] // JSON 객체로 전송할 딕셔너리
                     print("비회원 수정 로직 param => " ,param)
-//                    uploadDiary(date: helper.formatDateToday(), self.newImage!, requestUrl: "/register/image", param: param)
+                    requestPost(requestUrl: "gift/revise", param: param)
                     //비회원 수정 로직
                 }
             }
@@ -1176,30 +1180,8 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
         }
     }
     
-    func requestPost(requestUrl : String!) -> Void{
-
-//        registerDic[0] -> 교환처
-//        registerDic[1] -> 상품명
-//        registerDic[2] -> 바코드 번호
-//        registerDic[3] -> 유효기간
-//        registerDic[4] -> 쿠폰 상태
-//        registerDic[5] -> 등록일
-//        registerDic[6] -> 등록자
-
-        let param = [
-            "user_id" : UserDefaults.standard.string(forKey: "ID"),
-            "img_url" : "gs://save-gift-e3710.appspot.com/\(UserDefaults.standard.string(forKey: "imageName")!)",
-            "brand" : registerDic[0]!,
-            "barcode_number" : registerDic[2]!,
-            "expiration_period" : registerDic[3]!,
-            "registration_date" : registerDic[5]!,
-            "use_yn" : registerDic[4]!,
-            "device_id" : deviceID!,
-            "registrant" : registerDic[6]!,
-            "product_name" : registerDic[1]!
-        ] as [String : Any] // JSON 객체로 전송할 딕셔너리
-        
-//        print("param ..... ", param)
+    func requestPost(requestUrl : String!, param : Dictionary<String, Any>) -> Void{
+        print("\(#file) \(#function) \(#line) param ..... ", param)
         let paramData = try! JSONSerialization.data(withJSONObject: param)
         // URL 객체 정의
         
@@ -1230,33 +1212,8 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
 
                 let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
 
-                    print("회원가입 응답 처리 로직 responseString", responseString!)
-//                    print("응답 처리 로직 data", data as Any)
-//                    print("응답 처리 로직 response", response as Any)
-                    // 응답 처리 로직
-
-//                    if(responseString == "true"){
-//                        DispatchQueue.main.async{
-//                            guard let pushVC = self.storyboard?.instantiateViewController(identifier: "tabbarVC") as? CustomTabBarController else{
-//                                return
-//                            }
-//
-//                            pushVC.VC = self.VC
-//
-//                            self.navigationController?.pushViewController(pushVC, animated: true)
-//
-//
-//
-//                        // 아이디저장
-//                        UserDefaults.standard.set(email, forKey: "ID")
-//
-//                            self.requestGet(user_id : UserDefaults.standard.string(forKey: "ID")! , requestUrl : "/status")
-//                        }
-//                    } else if(responseString == "false"){
-//                        DispatchQueue.main.async{
-//                        self.normalAlert(titles: "로그인 실패", messages: "아이디와 비밀번호를 확인해주세요.")
-//                        }
-//                    }
+                    print("\(self.LOG_TAG) \(#line) responseString", responseString!)
+                    
                 }
                 // POST 전송
                 task.resume()
