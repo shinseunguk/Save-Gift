@@ -103,6 +103,15 @@ class GiftDetailControoler : UIViewController{
         contentArr[5] = registrationDate!
         contentArr[6] = registrant!
         
+        dic["barcode_number"] = barcodeNumber!
+        dic["brand"] = brandName!
+        dic["product_name"] = productName!
+        dic["expiration_period"] = expirationPeriod!
+        dic["use_yn"] = use_yn!
+        dic["registration_date"] = registrationDate!
+        dic["registrant"] = registrant!
+        dic["img_local_url"] = 
+        
         
         self.tableView.dataSource = self
         self.tableView.delegate = self
@@ -147,9 +156,7 @@ class GiftDetailControoler : UIViewController{
             return
         }
         
-        //pushVC.pushYn = push // 이미지 보내기
-//        pushVC.url = URL(string: "".getLocalURL()+"/images/\(imageUrl!)")
-        pushVC.uiImage = uiImage
+        pushVC.uiImage = self.imageView.image
         pushVC.modalPresentationStyle = .fullScreen
         self.present(pushVC, animated: true, completion: nil)
     }
@@ -210,7 +217,7 @@ class GiftDetailControoler : UIViewController{
 //        pushVC.url = URL(string: "".getLocalURL()+"/images/\(imageUrl!)")
 //        pushVC.modalPresentationStyle = .fullScreen
         pushVC.reviseDic = self.dic
-        pushVC.reviseImageUrl = "".getLocalURL()+"/images/\(imageUrl!)"
+        pushVC.reviseImage = self.imageView.image
         self.present(pushVC, animated: true, completion: nil)
     }
     
