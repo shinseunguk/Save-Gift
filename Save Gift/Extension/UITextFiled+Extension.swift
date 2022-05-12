@@ -283,11 +283,11 @@ extension String {
         return String(self[startIndex ..< endIndex])
     }
     
-    //포트 포워딩 https://blog.projectdh.link/4 ----> 내ip확인 :포트번호
+    //포트 포워딩 https://blog.projectdh.link/4 ----> 내ip확인 :포트번호 포트포워딩 안될땐 내ip확인 할것. -> 수시로바뀜
     func getLocalURL() -> String{
-//        return "http://175.212.211.98:8088" //집 공유기
+        return "http://175.196.226.213:8088" //집 공유기
 //        return  "http://172.30.1.30:8088"// 카페
-        return "http://172.30.1.50:8088"
+//        return "http://172.30.1.50:8088"
 //        return "http://192.168.0.39:8008"
     }
 }
