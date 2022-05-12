@@ -110,7 +110,7 @@ class GiftDetailControoler : UIViewController{
         dic["use_yn"] = use_yn!
         dic["registration_date"] = registrationDate!
         dic["registrant"] = registrant!
-        dic["img_local_url"] = 
+//        dic["img_local_url"] = 
         
         
         self.tableView.dataSource = self
