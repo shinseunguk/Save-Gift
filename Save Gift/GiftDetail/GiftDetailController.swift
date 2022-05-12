@@ -12,6 +12,10 @@ import UIKit
 import FirebaseStorage
 import Firebase
 
+protocol detailDelegate {
+    func refreshTableView()
+}
+
 class GiftDetailControoler : UIViewController{
     
     @IBOutlet weak var vBrandLabel: UILabel!
@@ -355,7 +359,11 @@ class GiftDetailControoler : UIViewController{
     
 }
 
-extension GiftDetailControoler : UITableViewDelegate, UITableViewDataSource{
+extension GiftDetailControoler : UITableViewDelegate, UITableViewDataSource, detailDelegate{
+    func refreshTableView() {
+        print("refreshTableView()")
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return categoryArr.count
     }
