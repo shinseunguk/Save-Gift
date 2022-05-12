@@ -371,7 +371,7 @@ extension Page1Controller: UICollectionViewDelegate, UICollectionViewDataSource,
 //            }
         
         let url = URL(string: "".getLocalURL()+"/images/\(cellImageViewArr[indexPath.row])")
-        DispatchQueue.global().async {
+        DispatchQueue.global(qos: .userInteractive).async {
                 let data = try? Data(contentsOf: url!)
                 DispatchQueue.main.async {
 //                    self.imageView.image = UIImage(data: data!)
