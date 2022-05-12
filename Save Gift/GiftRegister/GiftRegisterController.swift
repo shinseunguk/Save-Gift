@@ -120,7 +120,7 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
             
             print("revise .. ", reviseImageUrl!)
             let url = URL(string: reviseImageUrl!)
-            DispatchQueue.global().async {
+            DispatchQueue.global(qos: .userInteractive).async {
                 let data = try? Data(contentsOf: url!)
                 DispatchQueue.main.async {
                     self.imageView.image = UIImage(data: data!)

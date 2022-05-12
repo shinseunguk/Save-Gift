@@ -114,7 +114,7 @@ class GiftDetailControoler : UIViewController{
     func Init(){
         param["seq"] = seq
         let url = URL(string: "".getLocalURL()+"/images/\(imageUrl!)")
-        DispatchQueue.global().async {
+        DispatchQueue.global(qos: .userInteractive).async {
             let data = try? Data(contentsOf: url!)
             DispatchQueue.main.async {
                 self.imageView.image = UIImage(data: data!)
