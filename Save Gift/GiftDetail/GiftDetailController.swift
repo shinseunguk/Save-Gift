@@ -67,9 +67,9 @@ class GiftDetailControoler : UIViewController{
 //        print("imageUrl --- > ", "".getLocalURL()+"/images/\(imageUrl!)")
         print("seq --- > ", seq!)
         
-        print("\(LOG_TAG) use_yn --> ", use_yn!)
+        print("\(LOG_TAG) \(#function) use_yn --> ", use_yn!)
         
-        Init()
+//        Init()
         viewLabelSetup()
         contentArrSetup()
         setupLayout()
@@ -110,7 +110,7 @@ class GiftDetailControoler : UIViewController{
         dic["use_yn"] = use_yn!
         dic["registration_date"] = registrationDate!
         dic["registrant"] = registrant!
-//        dic["img_local_url"] = 
+        dic["seq"] = seq!
         
         
         self.tableView.dataSource = self
@@ -120,18 +120,18 @@ class GiftDetailControoler : UIViewController{
         self.tableView.register(UINib(nibName: "GiftDetailTableViewCell", bundle: nil), forCellReuseIdentifier: "GiftDetailTableViewCell")
     }
     
-    func Init(){
-        param["seq"] = seq
-        let url = URL(string: "".getLocalURL()+"/images/\(imageUrl!)")
-        DispatchQueue.global(qos: .userInteractive).async {
-            let data = try? Data(contentsOf: url!)
-            DispatchQueue.main.async {
-                self.imageView.image = UIImage(data: data!)
-            }
-        }
-        
-//        requestPost(requestUrl: "/gift/detail", param: param)
-    }
+//    func Init(){
+//        param["seq"] = seq
+////        let url = URL(string: "".getLocalURL()+"/images/\(imageUrl!)")
+//        DispatchQueue.global(qos: .userInteractive).async {
+////            let data = try? Data(contentsOf: url!)
+//            DispatchQueue.main.async {
+//                self.imageView.image = self.uiImage
+//            }
+//        }
+//
+////        requestPost(requestUrl: "/gift/detail", param: param)
+//    }
     
     func setupLayout(){
         imageExpandBtn.layer.cornerRadius = 5
