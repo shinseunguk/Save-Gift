@@ -1457,6 +1457,7 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
                             self.delegate2?.giftDelete2()
                             self.delegate3?.giftDelete3()
                             self.presentingViewController?.dismiss(animated: true, completion: nil)
+                            //뒤로가기 작업 필요
                             }
                     }else {
                         self.normalAlert(titles: "알림", messages: "네트워크 오류")
