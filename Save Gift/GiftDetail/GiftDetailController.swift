@@ -17,6 +17,7 @@ protocol detailDelegate {
 }
 
 class GiftDetailControoler : UIViewController{
+    let LOG_TAG : String = "GiftDetailControoler"
     
     @IBOutlet weak var vBrandLabel: UILabel!
     @IBOutlet weak var vProductLabel: UILabel!
@@ -62,8 +63,7 @@ class GiftDetailControoler : UIViewController{
     var registrant : String? = nil
     var registrationDate : String? = nil
     
-    let LOG_TAG : String = "GiftDetailControoler"
-    
+    var reviseBool : Bool = false
 
     override func viewDidLoad(){
         super.viewDidLoad()
@@ -71,7 +71,7 @@ class GiftDetailControoler : UIViewController{
 //        print("imageUrl --- > ", "".getLocalURL()+"/images/\(imageUrl!)")
         print("seq --- > ", seq!)
         
-        print("\(LOG_TAG) \(#function) use_yn --> ", use_yn!)
+        
         
 //        Init()
         viewLabelSetup()
@@ -80,6 +80,35 @@ class GiftDetailControoler : UIViewController{
 //        calculateDays()
         tableView.allowsSelection = false
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        print("\(LOG_TAG)", #function)
+        
+        if reviseBool{
+            print("reviseBool line => \(#line)")
+            self.delegate?.giftDelete()
+            self.delegate2?.giftDelete2()
+            self.delegate3?.giftDelete3()
+//                            self.dismiss(animated: true, completion: nil)
+            self.presentingViewController?.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    func bottomBtnSetup(){
+        if use_yn == 1{ //사용 했음
+            print("\(LOG_TAG) \(#function) \(#line) use_yn --> ", use_yn!)
+//            self.presentBtn.removeFromSuperview()
+//            self.editBtn.removeFromSuperview()
+            useynBtn.setTitle("미사용 처리", for: .normal)
+        }else { // 사용 안했음
+            print("\(LOG_TAG) \(#function) \(#line) use_yn --> ", use_yn!)
+            useynBtn.setTitle("사용 처리", for: .normal)
+        }
     }
     
     func viewLabelSetup(){
@@ -116,6 +145,7 @@ class GiftDetailControoler : UIViewController{
         dic["registrant"] = registrant!
         dic["seq"] = seq!
         
+        bottomBtnSetup()
         
         self.tableView.dataSource = self
         self.tableView.delegate = self
@@ -124,18 +154,12 @@ class GiftDetailControoler : UIViewController{
         self.tableView.register(UINib(nibName: "GiftDetailTableViewCell", bundle: nil), forCellReuseIdentifier: "GiftDetailTableViewCell")
     }
     
-//    func Init(){
-//        param["seq"] = seq
-////        let url = URL(string: "".getLocalURL()+"/images/\(imageUrl!)")
-//        DispatchQueue.global(qos: .userInteractive).async {
-////            let data = try? Data(contentsOf: url!)
-//            DispatchQueue.main.async {
-//                self.imageView.image = self.uiImage
-//            }
-//        }
-//
-////        requestPost(requestUrl: "/gift/detail", param: param)
-//    }
+    func Init(){
+        reviseBool = true
+        
+        param["seq"] = seq
+        requestPost(requestUrl: "/gift/detail", param: param)
+    }
     
     func setupLayout(){
         imageExpandBtn.layer.cornerRadius = 5
@@ -144,14 +168,6 @@ class GiftDetailControoler : UIViewController{
         useynBtn.layer.cornerRadius = 5
         
         print("use_yn ----> ",use_yn!)
-        
-        if use_yn == 1{ //사용 했음
-            self.presentBtn.removeFromSuperview()
-            self.editBtn.removeFromSuperview()
-            self.useynBtn.setTitle("미사용 처리하기", for: .highlighted)
-        }else { // 사용 안했음
-            
-        }
     }
     
     @IBAction func imageExpandAction(_ sender: Any) {
@@ -174,7 +190,11 @@ class GiftDetailControoler : UIViewController{
     }
     
     @IBAction func useynAction(_ sender: Any) {
-        normalAlertUseYn(title: "알림", message: "사용완료 처리 하시겠습니까?")
+        if useynBtn.titleLabel?.text == "미사용 처리"{ // 이미 사용 혹은 사용 불가 -> 미사용
+            normalAlertUseYn(title: "알림", message: "미사용 처리 하시겠습니까?")
+        }else { //사용 가능 -> 이미 사용
+            normalAlertUseYn(title: "알림", message: "사용완료 처리 하시겠습니까?")
+        }
     }
     
     func actionSheetAlert(title: String, content1: String, content2: String){
@@ -201,7 +221,10 @@ class GiftDetailControoler : UIViewController{
             let defaultAction = UIAlertAction(title: "확인", style: .default, handler : {_ in self.deleteGiftCon()})
             alert.addAction(defaultAction)
         }else if message == "사용완료 처리 하시겠습니까?"{
-            let defaultAction = UIAlertAction(title: "확인", style: .default, handler : {_ in self.useYnGiftCon()})
+            let defaultAction = UIAlertAction(title: "확인", style: .default, handler : {_ in self.useYnGiftCon(index: "사용완료")})
+            alert.addAction(defaultAction)
+        }else if message == "미사용 처리 하시겠습니까?"{
+            let defaultAction = UIAlertAction(title: "확인", style: .default, handler : {_ in self.useYnGiftCon(index: "미사용")})
             alert.addAction(defaultAction)
         }else {
             let defaultAction = UIAlertAction(title: "확인", style: .default, handler : nil)
@@ -218,10 +241,9 @@ class GiftDetailControoler : UIViewController{
             return
         }
         
-//        pushVC.url = URL(string: "".getLocalURL()+"/images/\(imageUrl!)")
-//        pushVC.modalPresentationStyle = .fullScreen
         pushVC.reviseDic = self.dic
         pushVC.reviseImage = self.imageView.image
+        pushVC.detailDelegate = self
         self.present(pushVC, animated: true, completion: nil)
     }
     
@@ -231,8 +253,13 @@ class GiftDetailControoler : UIViewController{
         deleteGiftConRequest(requestUrl: "/gift/delete", param: param)
     }
     
-    func useYnGiftCon(){
-        print("useYnGiftCOn")
+    func useYnGiftCon(index : String){
+        //로직 구현해야함 ..
+        if index == "사용완료"{
+            print("사용완료")
+        }else {
+            print("미사용")
+        }
     }
     
     func deleteGiftConRequest(requestUrl : String!, param : Dictionary<String, Any>) -> Void{
@@ -275,93 +302,87 @@ class GiftDetailControoler : UIViewController{
                 task.resume()
     }
     
-//    func requestPost(requestUrl : String!, param : Dictionary<String, Any>) -> Void{
-//        print("param.... ", param)
-//        let paramData = try! JSONSerialization.data(withJSONObject: param)
-//        // URL 객체 정의
-//                let url = URL(string: localUrl+requestUrl)
+    func requestPost(requestUrl : String!, param : Dictionary<String, Any>) -> Void{
+        print("param.... ", param)
+        let paramData = try! JSONSerialization.data(withJSONObject: param)
+        // URL 객체 정의
+                let url = URL(string: localUrl+requestUrl)
+
+                // URLRequest 객체를 정의
+                var request = URLRequest(url: url!)
+                request.httpMethod = "POST"
+                request.httpBody = paramData
+
+                // HTTP 메시지 헤더
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.addValue("application/json", forHTTPHeaderField: "Accept")
+
+                // URLSession 객체를 통해 전송, 응답값 처리
+                let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                    // 서버가 응답이 없거나 통신이 실패
+                    if let e = error {
+                        print("An error has occured: \(e.localizedDescription)")
+                        return
+                    }
+
+                var responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+
+                    print("GiftDetail responseString \n", responseString!)
+                    print("/gift/detail data ----> \n", data! as Any)
+                    print("/gift/detail response ----> \n", response! as Any)
+
+                    var responseStringA = responseString as! String
+                    print("responseStringA ===> ", responseStringA)
 //
-//                // URLRequest 객체를 정의
-//                var request = URLRequest(url: url!)
-//                request.httpMethod = "POST"
-//                request.httpBody = paramData
-//
-//                // HTTP 메시지 헤더
-//                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-//                request.addValue("application/json", forHTTPHeaderField: "Accept")
-////                request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-////                request.setValue(String(paramData.count), forHTTPHeaderField: "Content-Length")
-//
-//                // URLSession 객체를 통해 전송, 응답값 처리
-//                let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-//                    // 서버가 응답이 없거나 통신이 실패
-//                    if let e = error {
-//                        print("An error has occured: \(e.localizedDescription)")
-//                        return
-//                    }
-//
-//                var responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
-//
-//                    print("GiftDetail responseString \n", responseString!)
-//                    print("/gift/detail data ----> \n", data! as Any)
-//                    print("/gift/detail response ----> \n", response! as Any)
-//
-//                    var responseStringA = responseString as! String
-//                    print("responseStringA ===> ", responseStringA)
-////
-//                    if responseStringA.count != 2{
-//
-//                        responseStringA = responseStringA.replacingOccurrences(of: "]", with: "")
-//                        responseStringA = responseStringA.replacingOccurrences(of: "[", with: "")
-//
-//                        print("responseStringA ---- > \n",responseStringA)
-//
-//                        let arr = responseStringA.components(separatedBy: "},")
-//                        print("arr0 --->", arr[0])
-//
-//                        self.dic = self.helper.jsonParser7(stringData: arr[0] as! String, data1: "barcode_number", data2: "brand", data3: "product_name", data4: "expiration_period", data5: "use_yn", data6:"registration_date", data7: "registrant");
-//
-//                        print("self.dic ----> \n", self.dic)
-//
-//                        DispatchQueue.main.async {
-//
-//                            self.contentArr[0] = self.dic["barcode_number"] as! String
-//                            self.contentArr[1] = self.dic["brand"] as! String
-//                            self.contentArr[2] = self.dic["product_name"] as! String
-//                            self.contentArr[3] = self.dic["expiration_period"] as! String
-//
-//                            //여기서 날짜에 따른 쿠폰 상태 확인해주고 set text
-//                            if self.dic["use_yn"] as! Int == 1{
-//                                self.contentArr[4] = "사용불가"
-//                            }else {
-//                                self.contentArr[4] = "사용가능"
-//                            }
-//
-//                            self.contentArr[5] = self.dic["registration_date"] as! String
-//                            self.contentArr[6] = self.dic["registrant"] as! String
-//
-//                            self.tableView.dataSource = self
-//                            self.tableView.delegate = self
-//
-//                            self.tableView.register(UINib(nibName: "GiftDetailBarcodeTableViewCell", bundle: nil), forCellReuseIdentifier: "GiftDetailBarcodeTableViewCell")
-//                            self.tableView.register(UINib(nibName: "GiftDetailTableViewCell", bundle: nil), forCellReuseIdentifier: "GiftDetailTableViewCell")
-//                        }
-//
-//                    }
-//                    //서버통신후 getGifty
-//                    DispatchQueue.main.async {
-////                        self.getGifty()
-//                    }
-//                }
-//                // POST 전송
-//                task.resume()
-//    }
+                    if responseStringA.count != 2{
+
+                        responseStringA = responseStringA.replacingOccurrences(of: "]", with: "")
+                        responseStringA = responseStringA.replacingOccurrences(of: "[", with: "")
+
+                        print("responseStringA ---- > \n",responseStringA)
+
+                        let arr = responseStringA.components(separatedBy: "},")
+                        print("arr0 --->", arr[0])
+
+                        self.dic = self.helper.jsonParser7(stringData: arr[0] as! String, data1: "barcode_number", data2: "brand", data3: "product_name", data4: "expiration_period", data5: "use_yn", data6:"registration_date", data7: "registrant");
+
+                        print("self.dic ----> \n", self.dic)
+
+                        DispatchQueue.main.async {
+
+                            self.contentArr[0] = self.dic["barcode_number"] as! String
+                            self.contentArr[1] = self.dic["brand"] as! String
+                            self.contentArr[2] = self.dic["product_name"] as! String
+                            self.contentArr[3] = self.dic["expiration_period"] as! String
+
+                            //여기서 날짜에 따른 쿠폰 상태 확인해주고 set text
+                            if self.dic["use_yn"] as! Int == 1{
+                                self.contentArr[4] = "사용불가"
+                            }else {
+                                self.contentArr[4] = "사용가능"
+                            }
+
+                            self.contentArr[5] = self.dic["registration_date"] as! String
+                            self.contentArr[6] = self.dic["registrant"] as! String
+
+                            
+                            print("\(#line) reloadData()")
+                            self.tableView.reloadData()
+                        }
+
+                    }
+                }
+                // POST 전송
+                task.resume()
+    }
     
 }
 
 extension GiftDetailControoler : UITableViewDelegate, UITableViewDataSource, detailDelegate{
     func refreshTableView() {
         print("refreshTableView()")
+        
+        Init()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
