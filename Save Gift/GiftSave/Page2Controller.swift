@@ -41,13 +41,17 @@ class Page2Controller : UIViewController{
     var viewPagerArr = ["Unused", "Used", "All"]
     var thumbnail: Array<UIImage> = []
     
-    // test Array
-        var brandNameLabelArr : [String] = []
-        var expirationPeriodLabelArr : [String] = []
-        var productNameLabelArr : [String] = []
-        var cellImageViewArr : [String] = []
-        var seqArr : [Int] = []
-        var useYn : [Int] = []
+    var brandNameLabelArr : [String] = []
+    var productNameLabelArr : [String] = []
+    var barcodeNumberArr : [String] = []
+    var expirationPeriodLabelArr : [String] = []
+    var useYn : [Int] = []
+    var registrationDateArr : [String] = []
+    var cellImageViewArr : [String] = []
+    var seqArr : [Int] = []
+    var registrantArr : [String] = []
+    
+    var uiImageArr : [UIImage] = []
     
     //cocoa pod
     let dropDown = DropDown()
@@ -90,6 +94,18 @@ class Page2Controller : UIViewController{
 //        arrRemoveAll()
     }
     
+    func arrRemoveAll(){
+        brandNameLabelArr.removeAll()
+        productNameLabelArr.removeAll()
+        barcodeNumberArr.removeAll()
+        expirationPeriodLabelArr.removeAll()
+        useYn.removeAll()
+        registrantArr.removeAll()
+        cellImageViewArr.removeAll()
+        seqArr.removeAll()
+        registrantArr.removeAll()
+    }
+    
     func LoginSetupInit(){
         print("로그인 setUP")
         
@@ -109,15 +125,6 @@ class Page2Controller : UIViewController{
         param["use_yn"] = "Used"
         param["category"] = "registrationDate"
         requestPost(requestUrl: "/gift/save", param: param)
-    }
-    
-    func arrRemoveAll(){
-        brandNameLabelArr.removeAll()
-        expirationPeriodLabelArr.removeAll()
-        productNameLabelArr.removeAll()
-        cellImageViewArr.removeAll()
-        seqArr.removeAll()
-        useYn.removeAll()
     }
     
     func requestPost(requestUrl : String!, param : Dictionary<String, Any>) -> Void{
@@ -147,9 +154,9 @@ class Page2Controller : UIViewController{
 
                 var responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
 
-                    print("회원가입 응답 처리 로직 responseString \n", responseString!)
-                    print("/giftsave data ----> \n", data! as Any)
-                    print("/giftsave response ----> \n", response! as Any)
+//                    print("회원가입 응답 처리 로직 responseString \n", responseString!)
+//                    print("/giftsave data ----> \n", data! as Any)
+//                    print("/giftsave response ----> \n", response! as Any)
                     
                     var responseStringA = responseString as! String
                     
@@ -170,19 +177,22 @@ class Page2Controller : UIViewController{
                         for x in 0...arr.count-1{
                             
                             if x != arr.count-1 {
-                                self.dic = self.helper.jsonParser6(stringData: arr[x]+"}" as! String, data1: "seq", data2: "brand", data3: "expiration_period", data4: "img_url", data5: "product_name", data6: "use_yn");
+                                self.dic = self.helper.jsonParser9(stringData: arr[x]+"}" as! String, data1: "seq", data2: "brand", data3: "expiration_period", data4: "img_url", data5: "product_name", data6: "use_yn", data7: "barcode_number", data8: "registration_date", data9: "registrant");
                             }else {
-                                self.dic = self.helper.jsonParser6(stringData: arr[x] as! String, data1: "seq", data2: "brand", data3: "expiration_period", data4: "img_url", data5: "product_name", data6: "use_yn");
+                                self.dic = self.helper.jsonParser9(stringData: arr[x] as! String, data1: "seq", data2: "brand", data3: "expiration_period", data4: "img_url", data5: "product_name", data6: "use_yn", data7: "barcode_number", data8: "registration_date", data9: "registrant");
                             }
                             
                             print("self.dic ----> \n", self.dic)
                             
                             self.brandNameLabelArr.append(self.dic["brand"] as! String)
-                            self.expirationPeriodLabelArr.append(self.dic["expiration_period"] as! String)
                             self.productNameLabelArr.append(self.dic["product_name"] as! String)
+                            self.barcodeNumberArr.append(self.dic["barcode_number"] as! String)
+                            self.expirationPeriodLabelArr.append(self.dic["expiration_period"] as! String)
+                            self.useYn.append(self.dic["use_yn"] as! Int)
+                            self.registrationDateArr.append(self.dic["registration_date"] as! String)
                             self.cellImageViewArr.append(self.dic["img_url"] as! String)
                             self.seqArr.append(self.dic["seq"] as! Int)
-                            self.useYn.append(self.dic["use_yn"] as! Int)
+                            self.registrantArr.append(self.dic["registrant"] as! String)
                             
                         }
                     }else {
@@ -327,26 +337,16 @@ extension Page2Controller: UICollectionViewDelegate, UICollectionViewDataSource,
         cell.productNameLabel.text = productNameLabelArr[indexPath.row]
         cell.expirationPeriodLabel.text = "유효기간 : \(expirationPeriodLabelArr[indexPath.row])"
     
-//            let url = URL(string: "".getLocalURL()+"/images/DD15A014-F02C-4F28-BD0F-249B307BFA7A_20220423_170711.jpg")
-//            DispatchQueue.global().async {
-//                let data = try? Data(contentsOf: url!)
-//                DispatchQueue.main.async {
+        let url = URL(string: "".getLocalURL()+"/images/\(cellImageViewArr[indexPath.row])")
+        DispatchQueue.global(qos: .userInteractive).async {
+                let data = try? Data(contentsOf: url!)
+                DispatchQueue.main.async {
 //                    self.imageView.image = UIImage(data: data!)
-//                }
-//            }
-    
-    let url = URL(string: "".getLocalURL()+"/images/\(cellImageViewArr[indexPath.row])")
-    DispatchQueue.global(qos: .userInteractive).async {
-            let data = try? Data(contentsOf: url!)
-            DispatchQueue.main.async {
-//                    self.imageView.image = UIImage(data: data!)
-                cell.cellImageView.image =  UIImage(data: data!)
-                cell.cellImageView.contentMode = .scaleAspectFit
-            }
-    }
-//            cell.cellImageView.image = UIImage(named: cellImageViewArr[indexPath.row])
-//        cell.layer.borderWidth = 1.0
-//        cell.layer.borderColor = UIColor.black.cgColor
+                    cell.cellImageView.image =  UIImage(data: data!)
+                    cell.cellImageView.contentMode = .scaleAspectFit
+                    self.uiImageArr.append(UIImage(data: data!)!)
+                }
+        }
         return cell
 }
     
@@ -360,14 +360,22 @@ extension Page2Controller: UICollectionViewDelegate, UICollectionViewDataSource,
                 cell.backgroundColor = UIColor.white
                 
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "GiftDetailVC") as! GiftDetailControoler
+                
                 vc.imageUrl = self.cellImageViewArr[indexPath.row]
-                vc.seq = self.seqArr[indexPath.row]
+                vc.barcodeNumber = self.barcodeNumberArr[indexPath.row]
                 vc.brandName = self.brandNameLabelArr[indexPath.row]
                 vc.productName = self.productNameLabelArr[indexPath.row]
                 vc.expirationPeriod = self.expirationPeriodLabelArr[indexPath.row]
                 vc.use_yn = self.useYn[indexPath.row]
+                vc.registrant = self.registrantArr[indexPath.row]
+                vc.registrationDate = self.registrationDateArr[indexPath.row]
                 
-                vc.delegate2 = self
+                //test
+                vc.uiImage = self.uiImageArr[indexPath.row]
+                
+                vc.seq = self.seqArr[indexPath.row]
+                
+                vc.delegate2 = self // protocol delegate
 //                vc.modalPresentationStyle = .fullScreen
 //                vc.definesPresentationContext = true
 //                vc.modalPresentationStyle = .overCurrentContext

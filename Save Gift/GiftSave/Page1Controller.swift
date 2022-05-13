@@ -155,13 +155,13 @@ class Page1Controller : UIViewController{
 
                 var responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
 
-                    print("회원가입 응답 처리 로직 responseString \n", responseString!)
-                    print("/giftsave data ----> \n", data! as Any)
-                    print("/giftsave response ----> \n", response! as Any)
+//                    print("회원가입 응답 처리 로직 responseString \n", responseString!)
+//                    print("/giftsave data ----> \n", data! as Any)
+//                    print("/giftsave response ----> \n", response! as Any)
                     
                     var responseStringA = responseString as! String
                     
-                    print("\(self.LOG_TAG) ", responseStringA.count)
+//                    print("\(self.LOG_TAG) ", responseStringA.count)
                     
                     if responseStringA.count != 2{
                     
@@ -176,21 +176,6 @@ class Page1Controller : UIViewController{
     //                    print("arr2 --->", arr[2])
                         
                         self.arrRemoveAll()
-                        
-//                        ["barcode_number": <null>, O
-//                         "img_url": DD15A014-F02C-4F28-BD0F-249B307BFA7A_20220509_223741.jpg, O
-//                         "registrant": <null>,
-//                         "use_yn": 0, O
-//                         "brand": GS25, O
-//                         "seq": 75, O
-//                         "expiration_period": 2023-01-21, O
-//                         "product_name": as, O
-//                         "user_id": <null>,
-//                         "img_local_url": <null>,
-//                         "device_id": <null>,
-//                         "registration_date": <null>]
-                        
-                        //    var arr = ["교환처", "상품명", "바코드 번호", "유효기간", "쿠폰상태", "등록일", "등록자"]
                         
                         for x in 0...arr.count-1{
                             
@@ -362,14 +347,6 @@ extension Page1Controller: UICollectionViewDelegate, UICollectionViewDataSource,
             cell.productNameLabel.text = productNameLabelArr[indexPath.row]
             cell.expirationPeriodLabel.text = "유효기간 : \(expirationPeriodLabelArr[indexPath.row])"
         
-//            let url = URL(string: "".getLocalURL()+"/images/DD15A014-F02C-4F28-BD0F-249B307BFA7A_20220423_170711.jpg")
-//            DispatchQueue.global().async {
-//                let data = try? Data(contentsOf: url!)
-//                DispatchQueue.main.async {
-//                    self.imageView.image = UIImage(data: data!)
-//                }
-//            }
-        
         let url = URL(string: "".getLocalURL()+"/images/\(cellImageViewArr[indexPath.row])")
         DispatchQueue.global(qos: .userInteractive).async {
                 let data = try? Data(contentsOf: url!)
@@ -380,9 +357,6 @@ extension Page1Controller: UICollectionViewDelegate, UICollectionViewDataSource,
                     self.uiImageArr.append(UIImage(data: data!)!)
                 }
         }
-//            cell.cellImageView.image = UIImage(named: cellImageViewArr[indexPath.row])
-//        cell.layer.borderWidth = 1.0
-//        cell.layer.borderColor = UIColor.black.cgColor
             return cell
     }
     

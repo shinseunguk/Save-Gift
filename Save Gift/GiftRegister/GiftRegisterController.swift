@@ -26,6 +26,11 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var registerBtn: UIButton!
+    
+    var delegate : GiftDeleteDelegate?
+    var delegate2 : GiftDeleteDelegate2?
+    var delegate3 : GiftDeleteDelegate3?
+    
     let imagePicker = UIImagePickerController()
     let helper : Helper = Helper()
     let giftDetailController : GiftDetailControoler = GiftDetailControoler()
@@ -76,9 +81,63 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
     var reviseDic : Dictionary<String, Any>? = nil
     var reviseImage : UIImage? = nil
     
+    var detailDelegate : detailDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad();
 
+//        self.imagePicker.delegate = self // picker delegate
+//        self.imagePicker.sourceType = .photoLibrary // 앨범에서 가져옴
+//        self.imagePicker.allowsEditing = false // 수정 가능 여부
+//        self.scrollView.delegate = self
+//
+//        //btn layout setting
+//        setupLayout()
+//
+//        //네비게이션바 setting
+//        setupNavigationBar()
+//
+//        //툴바 setting
+////        setupToolBar()
+//
+//        //등록일, 등록자 default setting
+//        deafultSetting()
+//
+//        //테이블뷰 setup
+//        setupTableView()
+//
+//        let tapGR = UITapGestureRecognizer(target: self, action: #selector(self.imageTapped))
+//                        imageView.addGestureRecognizer(tapGR)
+//                        imageView.isUserInteractionEnabled = true
+//
+//        print("deviceID : ", deviceID!)
+//
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification , object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+//
+//        plusAction()
+//
+//        print("reviseDic ", reviseDic)
+//
+//        if reviseImage != nil{
+//            regularBool = true // 기프티콘 수정 default값
+//            regularStatusBool = true // 기프티콘 수정 default값
+//
+//            revisSetup()
+//
+//            DispatchQueue.global(qos: .userInteractive).async {
+//                DispatchQueue.main.async {
+//                    self.imageView.image = self.reviseImage
+//                }
+//            }
+//
+//            registerBtn.setTitle("수정", for: .normal)
+//        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         self.imagePicker.delegate = self // picker delegate
         self.imagePicker.sourceType = .photoLibrary // 앨범에서 가져옴
         self.imagePicker.allowsEditing = false // 수정 가능 여부
@@ -108,7 +167,6 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification , object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         
-        plusAction()
         
         print("reviseDic ", reviseDic)
         
@@ -125,6 +183,8 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
             }
             
             registerBtn.setTitle("수정", for: .normal)
+        }else {
+            plusAction()
         }
     }
     
@@ -1212,10 +1272,18 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
 
                     print("\(self.LOG_TAG) \(#line) responseString", responseString!)
                     
-                    if responseString! == "1"{ // 성공시
-                        print("\(self.LOG_TAG) \(#line) responseString 1")
-                    }else { // 실패시
-                        print("\(self.LOG_TAG) \(#line) else")
+                    DispatchQueue.main.async{
+                        if responseString! == "1"{ // 성공시
+                            print("\(self.LOG_TAG) \(#line) responseString 1")
+                            
+                            self.detailDelegate?.refreshTableView()
+//                            self.dismiss(animated: true, completion: nil)
+                            self.presentingViewController?.dismiss(animated: true, completion: nil)
+                        }else { // 실패시
+                            print("\(self.LOG_TAG) \(#line) else")
+                            
+                            self.normalAlert(titles: "알림", messages: "기프티콘 수정 실패")
+                        }
                     }
                     
                 }
@@ -1382,9 +1450,13 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
                     if response.value! == "success"{
                         DispatchQueue.main.async{
 //                            self.navigationController?.popViewController(animated: true)
-                            let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "tabbarVC")
-                            self.navigationController?.pushViewController(pushVC!, animated: true)
+//                            let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "tabbarVC")
+//                            self.navigationController?.pushViewController(pushVC!, animated: true)
                             print("화면 이동")
+                            self.delegate?.giftDelete()
+                            self.delegate2?.giftDelete2()
+                            self.delegate3?.giftDelete3()
+                            self.presentingViewController?.dismiss(animated: true, completion: nil)
                             }
                     }else {
                         self.normalAlert(titles: "알림", messages: "네트워크 오류")

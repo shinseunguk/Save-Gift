@@ -11,6 +11,7 @@ import UIKit
 class GiftDetailFullScreenController : UIViewController{
     let LOG_TAG : String = "GiftDetailFullScreenController"
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var backBtn: UIButton!
     
     let nowBrightness : CGFloat = UIScreen.main.brightness;
     
@@ -34,14 +35,9 @@ class GiftDetailFullScreenController : UIViewController{
     }
     
     func setUp(){
-//        print("\(LOG_TAG) url ==> ", url!)
-//        DispatchQueue.global().async {
-//            let data = try? Data(contentsOf: self.url!)
-//            DispatchQueue.main.async {
-//                self.imageView.image = UIImage(data: data!)
-//            }
-//        }
         self.imageView.image = uiImage
+        
+        backBtn.layer.cornerRadius = 5
     }
     @IBAction func backAction(_ sender: Any) {
         print("backAction")
