@@ -878,6 +878,7 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
                 }
                 cell.textfield.attributedPlaceholder = NSAttributedString(string: "ex) ghdrlfehd@naver.com(홍길동)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
                 cell.textfield.tag = indexPath.row
+                cell.textfield.text = reviseDic!["registrant"] as! String
                 cell.textfield.addTarget(self, action: #selector(self.textFieldDidChange6(_:)), for: .editingChanged)
             default:
                 print("default")
@@ -1302,10 +1303,10 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
 //        registerDic[6] -> 등록자
 
         let param = [
-            "img_local_url" : url
+            "img_local_url" : url,
+            "device_id" : deviceID!,
         ] as [String : Any] // JSON 객체로 전송할 딕셔너리
         
-//        print("param ..... ", param)
         let paramData = try! JSONSerialization.data(withJSONObject: param)
         // URL 객체 정의r
                 let url = URL(string: localUrl+requestUrl)
@@ -1318,8 +1319,6 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
                 // HTTP 메시지 헤더
                 request.addValue("application/json", forHTTPHeaderField: "Content-Type")
                 request.addValue("application/json", forHTTPHeaderField: "Accept")
-//                request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-//                request.setValue(String(paramData.count), forHTTPHeaderField: "Content-Length")
 
                 // URLSession 객체를 통해 전송, 응답값 처리
                 let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
@@ -1450,13 +1449,12 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
                     if response.value! == "success"{
                         DispatchQueue.main.async{
 //                            self.navigationController?.popViewController(animated: true)
-//                            let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "tabbarVC")
-//                            self.navigationController?.pushViewController(pushVC!, animated: true)
+                            let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "tabbarVC")
                             print("화면 이동")
                             self.delegate?.giftDelete()
                             self.delegate2?.giftDelete2()
                             self.delegate3?.giftDelete3()
-                            self.presentingViewController?.dismiss(animated: true, completion: nil)
+                            self.navigationController?.pushViewController(pushVC!, animated: true)
                             //뒤로가기 작업 필요
                             }
                     }else {

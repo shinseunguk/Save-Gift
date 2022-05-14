@@ -59,15 +59,15 @@ class Page2Controller : UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if brandNameLabelArr.count == 0 &&  expirationPeriodLabelArr.count == 0{
-            label.isHidden = false
-            collectionView.isHidden = true
-            filterButton.isHidden = true
-        }else {
-            label.isHidden = true
-            collectionView.isHidden = false
-            filterButton.isHidden = false
-        }
+//        if brandNameLabelArr.count == 0 &&  expirationPeriodLabelArr.count == 0{
+//            label.isHidden = false
+//            collectionView.isHidden = true
+//            filterButton.isHidden = true
+//        }else {
+//            label.isHidden = true
+//            collectionView.isHidden = false
+//            filterButton.isHidden = false
+//        }
         
         //드롭다운 btnInit
         dropDownInit()
@@ -91,6 +91,8 @@ class Page2Controller : UIViewController{
     
     override func viewWillDisappear(_ animated: Bool) {
         print("\(LOG_TAG) viewWillDisappear")
+        
+        label.removeFromSuperview()
 //        arrRemoveAll()
     }
     
@@ -104,6 +106,7 @@ class Page2Controller : UIViewController{
         cellImageViewArr.removeAll()
         seqArr.removeAll()
         registrantArr.removeAll()
+        uiImageArr.removeAll()
     }
     
     func LoginSetupInit(){
@@ -112,6 +115,7 @@ class Page2Controller : UIViewController{
         // 로그인
         param["user_id"] = UserDefaults.standard.string(forKey: "ID")!
         param["index"] = "login"
+        param["device_id"] = deviceID!
         param["use_yn"] = "Used"
         param["category"] = "registrationDate"
         requestPost(requestUrl: "/gift/save", param: param)
@@ -210,14 +214,14 @@ class Page2Controller : UIViewController{
     func getGifty(){
         if brandNameLabelArr.count == 0 &&  expirationPeriodLabelArr.count == 0{
             print("Page2 기프티콘이 존재하지 않음.")
-            label.isHidden = false
+//            label.isHidden = false
             collectionView.isHidden = true
             filterButton.isHidden = true
             
             // 화면 처음그릴때만 add subView
             print("index ", index)
-            if index == 0 {
-                let label = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 61))
+//            if index == 0 {
+//                let label = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 61))
                 label.numberOfLines = 2
                 label.font = UIFont(name: "NanumAmSeuTeReuDam", size: 24)
                 label.textColor = .black
@@ -226,13 +230,14 @@ class Page2Controller : UIViewController{
                 label.text = "사용한 기프티콘이 없습니다."
                 
                 self.view.addSubview(label)
-                index += 1
-            }
+//                index += 1
+//            }
         }else {
             print("Used 기프티콘이 존재.")
             collectionView.isHidden = false
             filterButton.isHidden = false
-            label.isHidden = true
+//            label.isHidden = true
+            label.removeFromSuperview()
         }
         
 //        self.collectionView.reloadData()//이거말고
@@ -331,7 +336,9 @@ extension Page2Controller: UICollectionViewDelegate, UICollectionViewDataSource,
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
-    
+        
+        print("collectionView# \(indexPath.row) ", "".getLocalURL()+"/images/\(cellImageViewArr[indexPath.row])")
+        
         //  Configure the Cell
         cell.brandNameLabel.text = brandNameLabelArr[indexPath.row]
         cell.productNameLabel.text = productNameLabelArr[indexPath.row]
@@ -344,7 +351,9 @@ extension Page2Controller: UICollectionViewDelegate, UICollectionViewDataSource,
 //                    self.imageView.image = UIImage(data: data!)
                     cell.cellImageView.image =  UIImage(data: data!)
                     cell.cellImageView.contentMode = .scaleAspectFit
-                    self.uiImageArr.append(UIImage(data: data!)!)
+                    self.uiImageArr.append(cell.cellImageView.image!)
+                    print("\(#line) ", cell.cellImageView.image!)
+//                    print("\(#line) ", self.uiImageArr[indexPath.row])
                 }
         }
         return cell
@@ -352,7 +361,6 @@ extension Page2Controller: UICollectionViewDelegate, UICollectionViewDataSource,
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
-        
         //click animate
         if let cell = collectionView.cellForItem(at: indexPath) {
                cell.backgroundColor = cell.isSelected ? .systemGray2 : .white
@@ -371,7 +379,7 @@ extension Page2Controller: UICollectionViewDelegate, UICollectionViewDataSource,
                 vc.registrationDate = self.registrationDateArr[indexPath.row]
                 
                 //test
-                vc.uiImage = self.uiImageArr[indexPath.row]
+//                vc.uiImage = self.uiImageArr[indexPath.row]
                 
                 vc.seq = self.seqArr[indexPath.row]
                 
