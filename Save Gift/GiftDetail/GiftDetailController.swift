@@ -64,11 +64,12 @@ class GiftDetailControoler : UIViewController{
     var registrationDate : String? = nil
     
     var reviseBool : Bool = false
+    var couponStatus : Bool = true
 
     override func viewDidLoad(){
         super.viewDidLoad()
         
-//        print("imageUrl --- > ", "".getLocalURL()+"/images/\(imageUrl!)")
+        print("imageUrl --- > ", "".getLocalURL()+"/images/\(imageUrl!)")
         print("seq --- > ", seq!)
         
         
@@ -119,7 +120,15 @@ class GiftDetailControoler : UIViewController{
     
     func contentArrSetup(){
         
-        self.imageView.image = uiImage
+        let url = URL(string: "".getLocalURL()+"/images/\(imageUrl!)")
+        DispatchQueue.global(qos: .userInteractive).async {
+                let data = try? Data(contentsOf: url!)
+                DispatchQueue.main.async {
+                    self.imageView.image = UIImage(data: data!)!
+                }
+        }
+        
+//        self.imageView.image = uiImage
         
         contentArr[0] = barcodeNumber!
         contentArr[1] = brandName!
@@ -191,7 +200,11 @@ class GiftDetailControoler : UIViewController{
     
     @IBAction func useynAction(_ sender: Any) {
         if useynBtn.titleLabel?.text == "미사용 처리"{ // 이미 사용 혹은 사용 불가 -> 미사용
-            normalAlertUseYn(title: "알림", message: "미사용 처리 하시겠습니까?")
+            if couponStatus {
+                normalAlertUseYn(title: "알림", message: "미사용 처리 하시겠습니까?")
+            }else { //유효기간이 지났음에도 쿠폰상태를 사용가능으로 변경하는 경우
+                normalAlertUseYn(title: "알림", message: "이미 유효기간이 지난 기프티콘은 미사용 처리할 수 없습니다.\n 유효기간과 쿠폰상태를 변경 하고 처리 해주세요.\n 기프티콘 수정 화면으로 이동하시겠습니까?")
+            }
         }else { //사용 가능 -> 이미 사용
             normalAlertUseYn(title: "알림", message: "사용완료 처리 하시겠습니까?")
         }
@@ -226,6 +239,9 @@ class GiftDetailControoler : UIViewController{
         }else if message == "미사용 처리 하시겠습니까?"{
             let defaultAction = UIAlertAction(title: "확인", style: .default, handler : {_ in self.useYnGiftCon(index: "미사용")})
             alert.addAction(defaultAction)
+        }else if message == "이미 유효기간이 지난 기프티콘은 미사용 처리할 수 없습니다.\n 유효기간과 쿠폰상태를 변경 하고 처리 해주세요.\n 기프티콘 수정 화면으로 이동하시겠습니까?"{
+            let defaultAction = UIAlertAction(title: "확인", style: .default, handler : {_ in self.useYnGiftCon(index: "수정화면")})
+            alert.addAction(defaultAction)
         }else {
             let defaultAction = UIAlertAction(title: "확인", style: .default, handler : nil)
             alert.addAction(defaultAction)
@@ -250,6 +266,7 @@ class GiftDetailControoler : UIViewController{
     func deleteGiftCon(){
         param["page"] = "GiftDetail"
         param["img_url"] = imageUrl!
+        param["seq"] = seq!
         deleteGiftConRequest(requestUrl: "/gift/delete", param: param)
     }
     
@@ -257,8 +274,23 @@ class GiftDetailControoler : UIViewController{
         //로직 구현해야함 ..
         if index == "사용완료"{
             print("사용완료")
-        }else {
+            param["use_yn"] = 1
+            param["seq"] = seq!
+            useYnRequest(requestUrl: "/gift/useyn", param: param)
+        }else if index == "미사용"{
             print("미사용")
+            param["use_yn"] = 0
+            param["seq"] = seq!
+            useYnRequest(requestUrl: "/gift/useyn", param: param)
+        }else {
+            guard let pushVC = self.storyboard?.instantiateViewController(identifier: "GiftRegisterVC") as? GiftRegisterController else{
+                return
+            }
+            
+            pushVC.reviseDic = self.dic
+            pushVC.reviseImage = self.imageView.image
+            pushVC.detailDelegate = self
+            self.present(pushVC, animated: true, completion: nil)
         }
     }
     
@@ -376,6 +408,51 @@ class GiftDetailControoler : UIViewController{
                 task.resume()
     }
     
+    func useYnRequest(requestUrl : String!, param : Dictionary<String, Any>) -> Void{
+        print("param.... ", param)
+        let paramData = try! JSONSerialization.data(withJSONObject: param)
+        // URL 객체 정의
+                let url = URL(string: localUrl+requestUrl)
+
+                // URLRequest 객체를 정의
+                var request = URLRequest(url: url!)
+                request.httpMethod = "POST"
+                request.httpBody = paramData
+
+                // HTTP 메시지 헤더
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.addValue("application/json", forHTTPHeaderField: "Accept")
+
+                // URLSession 객체를 통해 전송, 응답값 처리
+                let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                    // 서버가 응답이 없거나 통신이 실패
+                    if let e = error {
+                        print("An error has occured: \(e.localizedDescription)")
+                        return
+                    }
+
+                    let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+
+                        print("\(self.LOG_TAG) \(#line) responseString", responseString!)
+                        
+                        DispatchQueue.main.async{
+                            if responseString! == "1"{ // 성공시
+                                self.delegate?.giftDelete()
+                                self.delegate2?.giftDelete2()
+                                self.delegate3?.giftDelete3()
+    //                            self.dismiss(animated: true, completion: nil)
+                                self.presentingViewController?.dismiss(animated: true, completion: nil)
+                            }else {
+                                print("기프티콘 수정 실패")
+                            }
+                        }
+                    
+//
+                }
+                // POST 전송
+                task.resume()
+    }
+    
 }
 
 extension GiftDetailControoler : UITableViewDelegate, UITableViewDataSource, detailDelegate{
@@ -433,7 +510,8 @@ extension GiftDetailControoler : UITableViewDelegate, UITableViewDataSource, det
             }else if resultDDay > 0 {
                 cell.dDayLabel.textColor = UIColor.red
                 cell.dDayLabel.text = "(D+\(resultDDay))"
-                contentArr[4] = "사용불가"
+                couponStatus = false
+//                contentArr[4] = "사용불가" // 20220514, 사용완료 => 미사용 이슈로 인한 주석처리
             }else if resultDDay < 0 {
                 cell.dDayLabel.textColor = UIColor.systemGreen
                 cell.dDayLabel.text = "(D\(resultDDay))"

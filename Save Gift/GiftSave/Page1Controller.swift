@@ -25,7 +25,7 @@ class Page1Controller : UIViewController{
 
     let deviceID : String? = UserDefaults.standard.string(forKey: "device_id")
     let localUrl : String = "".getLocalURL()
-    let label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+    let label = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 61))
 
     var param : Dictionary<String, Any> = [:]
     
@@ -59,15 +59,15 @@ class Page1Controller : UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if brandNameLabelArr.count == 0 &&  expirationPeriodLabelArr.count == 0{
-            label.isHidden = false
-            collectionView.isHidden = true
-            filterButton.isHidden = true
-        }else {
-            label.isHidden = true
-            collectionView.isHidden = false
-            filterButton.isHidden = false
-        }
+//        if brandNameLabelArr.count == 0 &&  expirationPeriodLabelArr.count == 0{
+//            label.isHidden = false
+//            collectionView.isHidden = true
+//            filterButton.isHidden = true
+//        }else {
+//            label.isHidden = true
+//            collectionView.isHidden = false
+//            filterButton.isHidden = false
+//        }
         
         //드롭다운 btnInit
         dropDownInit()
@@ -91,6 +91,8 @@ class Page1Controller : UIViewController{
     
     override func viewWillDisappear(_ animated: Bool) {
         print("\(LOG_TAG) viewWillDisappear")
+        
+        label.removeFromSuperview()
 //        arrRemoveAll()
     }
     
@@ -104,6 +106,7 @@ class Page1Controller : UIViewController{
         cellImageViewArr.removeAll()
         seqArr.removeAll()
         registrantArr.removeAll()
+        uiImageArr.removeAll()
     }
     
     func LoginSetupInit(){
@@ -112,6 +115,7 @@ class Page1Controller : UIViewController{
         // 로그인
         param["user_id"] = UserDefaults.standard.string(forKey: "ID")!
         param["index"] = "login"
+        param["device_id"] = deviceID!
         param["use_yn"] = "Unused"
         param["category"] = "registrationDate"
         requestPost(requestUrl: "/gift/save", param: param)
@@ -214,15 +218,16 @@ class Page1Controller : UIViewController{
     func getGifty(){
         if brandNameLabelArr.count == 0 &&  expirationPeriodLabelArr.count == 0{
             print("Page1 기프티콘이 존재하지 않음.")
-            label.isHidden = false
+//            label.isHidden = false
             collectionView.isHidden = true
             filterButton.isHidden = true
             
             // 화면 처음그릴때만 add subView
             print("index ", index)
-            if index == 0 {
-                let label = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 61))
-                label.numberOfLines = 2
+//            if index == 0 {
+//                let label = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 61))
+//                label.numberOfLines = 2
+                label.numberOfLines = 3
                 label.font = UIFont(name: "NanumAmSeuTeReuDam", size: 24)
                 label.textColor = .black
                 label.center = self.view.center
@@ -231,16 +236,16 @@ class Page1Controller : UIViewController{
                 기프티콘을 추가해
                 관리, 공유, 선물해보세요
                 """
-//                label.text = "기프티콘을 추가해보세요."
                 
                 self.view.addSubview(label)
-                index += 1
-            }
+//                index += 1
+//            }
         }else {
             print("Unused 기프티콘이 존재.")
             collectionView.isHidden = false
             filterButton.isHidden = false
-            label.isHidden = true
+//            label.isHidden = true
+            label.removeFromSuperview()
         }
         
 //        self.collectionView.reloadData()//이거말고
@@ -342,6 +347,8 @@ extension Page1Controller: UICollectionViewDelegate, UICollectionViewDataSource,
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
         
+        print("collectionView# \(indexPath.row) ", "".getLocalURL()+"/images/\(cellImageViewArr[indexPath.row])")
+        
             //  Configure the Cell
             cell.brandNameLabel.text = brandNameLabelArr[indexPath.row]
             cell.productNameLabel.text = productNameLabelArr[indexPath.row]
@@ -354,7 +361,8 @@ extension Page1Controller: UICollectionViewDelegate, UICollectionViewDataSource,
 //                    self.imageView.image = UIImage(data: data!)
                     cell.cellImageView.image =  UIImage(data: data!)
                     cell.cellImageView.contentMode = .scaleAspectFit
-                    self.uiImageArr.append(UIImage(data: data!)!)
+//                    self.uiImageArr.append(UIImage(data: data!)!)
+//                    self.uiImageArr.append(cell.cellImageView.image!)
                 }
         }
             return cell
@@ -381,7 +389,7 @@ extension Page1Controller: UICollectionViewDelegate, UICollectionViewDataSource,
                 vc.registrationDate = self.registrationDateArr[indexPath.row]
                 
                 //test
-                vc.uiImage = self.uiImageArr[indexPath.row]
+//                vc.uiImage = self.uiImageArr[indexPath.row]
                 
                 vc.seq = self.seqArr[indexPath.row]
                 

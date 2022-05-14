@@ -103,6 +103,7 @@ class Page3Controller : UIViewController{
         // 로그인
         param["user_id"] = UserDefaults.standard.string(forKey: "ID")!
         param["index"] = "login"
+        param["device_id"] = deviceID!
         param["use_yn"] = "All"
         param["category"] = "registrationDate"
         requestPost(requestUrl: "/gift/save", param: param)

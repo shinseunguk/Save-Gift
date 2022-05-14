@@ -151,7 +151,7 @@ class GiftSaveController : TabmanViewController{
             print("바코드(기프티콘) 저장하기")
             let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "GiftRegisterVC")
             self.navigationController?.pushViewController(pushVC!, animated: true)
-        }
+    }
 
         actionButton.addItem(title: "QR코드 저장하기", image: UIImage(systemName: "qrcode")?.withRenderingMode(.alwaysTemplate)) { item in
           // do something
