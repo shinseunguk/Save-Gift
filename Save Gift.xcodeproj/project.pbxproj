@@ -799,7 +799,6 @@
 				A21C6D5A276F630900BDE1E4 /* SideMenuViewController.swift */,
 				A21C6D5C276F646000BDE1E4 /* CustomSideMenuNavigation.swift */,
 				A218F1A0276E093D00E71316 /* UnlockController.swift */,
-				A2DC3F272785C47000D354B1 /* CustomTabBarController.swift */,
 			);
 			path = UnUsed;
 			sourceTree = "<group>";
@@ -971,6 +970,7 @@
 				046F706827F14AA3008CF3F6 /* Setting */,
 				046F706727F14A74008CF3F6 /* Resources */,
 				A225D70A275B5FD600484EAE /* Info.plist */,
+				A2DC3F272785C47000D354B1 /* CustomTabBarController.swift */,
 				043B629B2805572500AEDAC8 /* GoogleService-Info.plist */,
 				04E8B5E027F180C900CD86F3 /* SceneDelegate.swift */,
 				A218F1A2276E115E00E71316 /* Save Gift.entitlements */,

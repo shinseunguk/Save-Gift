@@ -8,6 +8,10 @@
 import Foundation
 import UIKit
 
+protocol refreshProtocol {
+    func refreshTableView()
+}
+
 class GiftFriendController : UIViewController{
     
 //    var arr1 : [String] = ["arr1","arr2","arr3","arr4","arr5","arr6","arr1","arr2","arr3","arr4","arr5","arr6"]
@@ -203,7 +207,11 @@ class GiftFriendController : UIViewController{
 
 
 
-extension GiftFriendController: UITableViewDelegate, UITableViewDataSource{
+extension GiftFriendController: UITableViewDelegate, UITableViewDataSource, refreshProtocol{
+    
+    func refreshTableView() {
+        print("\(#line) => refreshTableView()")
+    }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == topTableView {
