@@ -333,12 +333,12 @@ class Register3Controller: UIViewController, UITextFieldDelegate{
     func normalAlert(titles:String, messages:String?) -> Void{
         if messages != nil{
             let alert = UIAlertController(title: titles, message: messages, preferredStyle: UIAlertController.Style.alert)
-            let defaultAction = UIAlertAction(title: "OK", style: .default, handler : nil)
+            let defaultAction = UIAlertAction(title: "확인", style: .default, handler : nil)
             alert.addAction(defaultAction)
             present(alert, animated: true, completion: nil)
         } else{
             let alert = UIAlertController(title: titles, message: nil, preferredStyle: UIAlertController.Style.alert)
-            let defaultAction = UIAlertAction(title: "OK", style: .default, handler : nil)
+            let defaultAction = UIAlertAction(title: "확인", style: .default, handler : nil)
             alert.addAction(defaultAction)
             present(alert, animated: true, completion: nil)
         }

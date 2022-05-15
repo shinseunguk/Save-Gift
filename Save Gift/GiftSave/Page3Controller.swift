@@ -11,6 +11,7 @@ import DropDown
 
 protocol GiftDeleteDelegate3: AnyObject {
     func giftDelete3()
+    func goToLogin()
 }
 
 class Page3Controller : UIViewController{
@@ -314,6 +315,11 @@ extension Page3Controller: UICollectionViewDelegate, UICollectionViewDataSource,
         }else { //비로그인
             bLoginSetupInit()
         }
+    }
+    
+    func goToLogin() {
+        let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "viewVC")
+        self.navigationController?.pushViewController(pushVC!, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

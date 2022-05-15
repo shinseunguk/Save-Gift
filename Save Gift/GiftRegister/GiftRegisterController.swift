@@ -363,7 +363,7 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
     func normalAlert(titles:String, messages:String?) -> Void{
         let alert = UIAlertController(title: titles, message: messages, preferredStyle: UIAlertController.Style.alert)
         if titles == "바코드가 인식 되지 않는 이미지 입니다." {
-            let cancelAction = UIAlertAction(title: "이 이미지 사용안함", style: .default, handler : {_ in self.imageNil()})
+            let cancelAction = UIAlertAction(title: "이 이미지 사용안함", style: .cancel, handler : {_ in self.imageNil()})
             
             let defaultAction = UIAlertAction(title: "이 이미지 사용", style: .default, handler : nil)
             let defaultAction1 = UIAlertAction(title: "다른 이미지 사용", style: .default, handler : {_ in self.plusAction()})

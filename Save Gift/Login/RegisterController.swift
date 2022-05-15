@@ -268,7 +268,7 @@ class RegisterController: UIViewController {
     }
     func normalAlert(titles:String, messages:String) -> Void{
         let alert = UIAlertController(title: titles, message: nil, preferredStyle: UIAlertController.Style.alert)
-        let defaultAction = UIAlertAction(title: "OK", style: .default, handler : nil)
+        let defaultAction = UIAlertAction(title: "확인", style: .default, handler : nil)
         
         alert.addAction(defaultAction)
         present(alert, animated: true, completion: nil)
