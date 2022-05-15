@@ -53,14 +53,22 @@ class GiftFriendController : UIViewController{
 
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        
-        print("GiftFriendController viewWillAppear")
-        
+    override func viewDidAppear(_ animated: Bool){
+        print(#function)
         if(UserDefaults.standard.string(forKey: "ID") != nil){ //로그인 O
             self.requestGetRequestFriend(requestUrl: "/getRequestFriend")
             self.requestGetFriend(requestUrl: "/getFriend")
         }
+    }
+        
+    override func viewWillAppear(_ animated: Bool) {
+        
+        print("GiftFriendController viewWillAppear")
+        
+//        if(UserDefaults.standard.string(forKey: "ID") != nil){ //로그인 O
+//            self.requestGetRequestFriend(requestUrl: "/getRequestFriend")
+//            self.requestGetFriend(requestUrl: "/getFriend")
+//        }
     }
     
     func requestGetRequestFriend(requestUrl : String!) -> Void{
