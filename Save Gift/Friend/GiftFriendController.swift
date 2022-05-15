@@ -319,7 +319,7 @@ extension GiftFriendController: UITableViewDelegate, UITableViewDataSource{
     func normalAlert(title : String, message : String, email : String?){
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         if message == "친구가 수락 대기중입니다. 친구요청을 취소 하시겠습니까?" {
-            alert.addAction(UIAlertAction(title: "아니오", style: .destructive) { action in
+            alert.addAction(UIAlertAction(title: "아니오", style: .cancel) { action in
                 print("아니오")
             })
             alert.addAction(UIAlertAction(title: "예", style: .default) { action in
@@ -338,12 +338,12 @@ extension GiftFriendController: UITableViewDelegate, UITableViewDataSource{
     
     func alert(email : String){
         let alert = UIAlertController(title: "알림", message: "\(email)님이 친구를 요청했습니다. 수락 하시겠습니까?", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "거절", style: .destructive) { action in
+        alert.addAction(UIAlertAction(title: "거절", style: .cancel) { action in
             print("거절")
             self.reAlert(email: email)
             //DB delete
         })
-        alert.addAction(UIAlertAction(title: "수락", style: .default) { action in
+        alert.addAction(UIAlertAction(title: "수락", style: .destructive) { action in
             print("수락")
             self.requestAddFriend(requestUrl: "/addFriend", friend : email)
             //DB delete후
@@ -381,15 +381,12 @@ extension GiftFriendController: UITableViewDelegate, UITableViewDataSource{
     
     func normalActionSheet(title : String?, message : String?){
         let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
-            alert.addAction(UIAlertAction(title: "선물하기(선물)", style: .default) { action in
+            alert.addAction(UIAlertAction(title: "선물하기(기프티콘)", style: .default) { action in
                 print("선물하기")
             })
-            alert.addAction(UIAlertAction(title: "파티초대(공유)", style: .default) { action in
-                print("파티초대")
+            alert.addAction(UIAlertAction(title: "친구삭제", style: .destructive) { action in
+                print("친구삭제")
             })
-        alert.addAction(UIAlertAction(title: "친구삭제", style: .destructive) { action in
-            print("친구삭제")
-        })
             alert.addAction(UIAlertAction(title: "취소", style: .cancel) { action in
                 print("취소")
             })

@@ -35,7 +35,7 @@ class SettingSecessionController : UIViewController {
     
     func normalAlert(title: String, message: String){
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-        let defaultAction = UIAlertAction(title: "확인", style: .default, handler :  {_ in self.secession()})
+        let defaultAction = UIAlertAction(title: "확인", style: .destructive, handler :  {_ in self.secession()})
         let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler :  nil)
         alert.addAction(defaultAction)
         alert.addAction(cancelAction)

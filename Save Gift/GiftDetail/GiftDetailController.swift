@@ -195,7 +195,16 @@ class GiftDetailControoler : UIViewController{
     }
     
     @IBAction func presentAction(_ sender: Any) {
-        actionSheetAlert(title: "기프티콘 선물하기", content1: "기프티콘 공유", content2: "기프티콘 선물")
+        if UserDefaults.standard.string(forKey: "ID") != nil{ // 로그인 o
+            if useynBtn.titleLabel?.text == "미사용 처리"{ //선물 불가상태
+                normalPresentAlert(title: "알림", message: "쿠폰상태가 사용불가인 쿠폰은 선물할 수 없습니다.")
+            }else { //선물가능
+                actionSheetAlert(title: "기프티콘 선물하기", content1: "기프티콘 공유(준비중)", content2: "기프티콘 선물")
+            }
+        } else{
+            print("\(#function) else")
+            normalPresentAlert(title: "알림", message: "로그인 후 이용 가능한 서비스입니다.")
+        }
     }
     
     @IBAction func useynAction(_ sender: Any) {
@@ -211,36 +220,54 @@ class GiftDetailControoler : UIViewController{
     }
     
     func actionSheetAlert(title: String, content1: String, content2: String){
-        let alert =  UIAlertController(title: title, message: nil, preferredStyle: .actionSheet)
+        if title == "기프티콘 편집하기"{
+            let alert =  UIAlertController(title: title, message: nil, preferredStyle: .actionSheet)
 
-        let library =  UIAlertAction(title: content1, style: .default) {
-            (action) in self.normalAlertUseYn(title: "알림", message: "정말로 기프티콘을 삭제하시겠습니까?")
+            let library =  UIAlertAction(title: content1, style: .default) {
+                (action) in self.normalPresentAlert(title: "알림", message: "해당 기능은 서비스 준비중입니다.")
+            }
+
+            let camera =  UIAlertAction(title: content2, style: .default) {
+                (action) in self.normalPresentAlert(title: "알림", message: "해당 기능은 서비스 준비중입니다.")
+            }
+
+            let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+            alert.addAction(library)
+            alert.addAction(camera)
+            alert.addAction(cancel)
+            present(alert, animated: true, completion: nil)
+        }else { // 기프티콘 선물하기
+            let alert =  UIAlertController(title: title, message: nil, preferredStyle: .actionSheet)
+
+            let library =  UIAlertAction(title: content1, style: .default) {
+                (action) in self.normalAlertUseYn(title: "알림", message: "정말로 기프티콘을 삭제하시겠습니까?")
+            }
+
+            let camera =  UIAlertAction(title: content2, style: .default) {
+                (action) in self.presentGiftcon()
+            }
+
+            let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+            alert.addAction(library)
+            alert.addAction(camera)
+            alert.addAction(cancel)
+            present(alert, animated: true, completion: nil)
         }
-
-        let camera =  UIAlertAction(title: content2, style: .default) {
-            (action) in self.reviseGiftcon()
-        }
-
-        let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
-        alert.addAction(library)
-        alert.addAction(camera)
-        alert.addAction(cancel)
-        present(alert, animated: true, completion: nil)
     }
     
     func normalAlertUseYn(title: String, message: String){
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
         if message == "정말로 기프티콘을 삭제하시겠습니까?"{
-            let defaultAction = UIAlertAction(title: "확인", style: .default, handler : {_ in self.deleteGiftCon()})
+            let defaultAction = UIAlertAction(title: "삭제", style: .destructive, handler : {_ in self.deleteGiftCon()})
             alert.addAction(defaultAction)
         }else if message == "사용완료 처리 하시겠습니까?"{
-            let defaultAction = UIAlertAction(title: "확인", style: .default, handler : {_ in self.useYnGiftCon(index: "사용완료")})
+            let defaultAction = UIAlertAction(title: "확인", style: .destructive, handler : {_ in self.useYnGiftCon(index: "사용완료")})
             alert.addAction(defaultAction)
         }else if message == "미사용 처리 하시겠습니까?"{
-            let defaultAction = UIAlertAction(title: "확인", style: .default, handler : {_ in self.useYnGiftCon(index: "미사용")})
+            let defaultAction = UIAlertAction(title: "확인", style: .destructive, handler : {_ in self.useYnGiftCon(index: "미사용")})
             alert.addAction(defaultAction)
         }else if message == "이미 유효기간이 지난 기프티콘은 미사용 처리할 수 없습니다.\n 유효기간과 쿠폰상태를 변경 하고 처리 해주세요.\n 기프티콘 수정 화면으로 이동하시겠습니까?"{
-            let defaultAction = UIAlertAction(title: "확인", style: .default, handler : {_ in self.useYnGiftCon(index: "수정화면")})
+            let defaultAction = UIAlertAction(title: "이동", style: .destructive, handler : {_ in self.useYnGiftCon(index: "수정화면")})
             alert.addAction(defaultAction)
         }else {
             let defaultAction = UIAlertAction(title: "확인", style: .default, handler : nil)
@@ -250,6 +277,32 @@ class GiftDetailControoler : UIViewController{
         let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler : nil)
         alert.addAction(cancelAction)
         present(alert, animated: true, completion: nil)
+    }
+    
+    func normalPresentAlert(title: String, message: String){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        if message == "쿠폰상태가 사용불가인 쿠폰은 선물할 수 없습니다."{
+            let defaultAction = UIAlertAction(title: "확인", style: .default, handler : nil)
+            alert.addAction(defaultAction)
+        }else if message == "해당 기능은 서비스 준비중입니다."{
+            let defaultAction = UIAlertAction(title: "확인", style: .default, handler : nil)
+            alert.addAction(defaultAction)
+        }else {
+            let defaultAction = UIAlertAction(title: "로그인 화면으로 이동", style: .destructive, handler : {_ in self.loginGo()})
+            alert.addAction(defaultAction)
+            let cancelAction = UIAlertAction(title: "확인", style: .default, handler : nil)
+            alert.addAction(cancelAction)
+        }
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func presentGiftcon(){
+        guard let pushVC = self.storyboard?.instantiateViewController(identifier: "giftRankVC") as? GiftFriendController else{
+            return
+        }
+        
+        pushVC.modalPresentationStyle = .fullScreen
+        self.present(pushVC, animated: true, completion: nil)
     }
     
     func reviseGiftcon(){
@@ -292,6 +345,14 @@ class GiftDetailControoler : UIViewController{
             pushVC.detailDelegate = self
             self.present(pushVC, animated: true, completion: nil)
         }
+    }
+    
+    func loginGo(){
+        print("loginGO")
+        self.delegate?.goToLogin()
+        self.delegate2?.goToLogin()
+        self.delegate3?.goToLogin()
+        self.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     
     func deleteGiftConRequest(requestUrl : String!, param : Dictionary<String, Any>) -> Void{
