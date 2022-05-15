@@ -26,6 +26,7 @@ class FriendController : UIViewController, UITextFieldDelegate {
     
     var dic : [String: Any] = [:];
     var emailName : String? = nil
+    var delegateC : customTabBarDelegate?
         
     let helper : Helper = Helper();
     
@@ -174,12 +175,14 @@ class FriendController : UIViewController, UITextFieldDelegate {
     func navPop() -> Void{
         //nav pop
         //self.navigationController?.popViewController(animated: true)
-        guard let pushVC = self.storyboard?.instantiateViewController(identifier: "tabbarVC") as? CustomTabBarController else{
-            return
-        }
-        pushVC.VC = "친구"
-        
-        self.navigationController?.pushViewController(pushVC, animated: true)
+//        guard let pushVC = self.storyboard?.instantiateViewController(identifier: "tabbarVC") as? CustomTabBarController else{
+//            return
+//        }
+//        pushVC.VC = "친구"
+//
+//        self.navigationController?.pushViewController(pushVC, animated: true)
+        self.delegateC?.tabbarDelegate()
+        self.navigationController?.popViewController(animated: true)
     }
     
     func requestPost1(requestUrl : String!) -> Void{

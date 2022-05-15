@@ -9,6 +9,10 @@ import Foundation
 import UIKit
 import JJFloatingActionButton
 
+protocol customTabBarDelegate {
+    func tabbarDelegate()
+}
+
 class CustomTabBarController: UITabBarController, UITabBarControllerDelegate {
 
     var index = 0
@@ -80,7 +84,8 @@ class CustomTabBarController: UITabBarController, UITabBarControllerDelegate {
             return
         }
         
-            self.navigationController?.pushViewController(pushVC, animated: true)
+        pushVC.delegateC = self
+        self.navigationController?.pushViewController(pushVC, animated: true)
         
 //        let backBarButtonItem = UIBarButtonItem(title: "친구추가", style: .plain, target: self, action: nil)
 //        self.navigationItem.backBarButtonItem = backBarButtonItem
@@ -124,8 +129,16 @@ class CustomTabBarController: UITabBarController, UITabBarControllerDelegate {
     
 }
 
-extension CustomTabBarController{
-    
+extension CustomTabBarController: customTabBarDelegate{
+        
+    func tabbarDelegate() {
+        print("친구 화면으로 다시 이동. \(#line)")
+        self.selectedIndex = 3
+        self.selectedIndex = 3
+        print("친구 화면으로 다시 이동. \(#line)")
+        //되긴됨 refresh 해야함.
+    }
+
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         switch item.title! {
         case "공유하기":
@@ -181,6 +194,10 @@ extension CustomTabBarController{
         return index != 1
     }
     
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        print("\(#line) tabBarController didSelect")
+    }
+    
     func navigationBarSetting(navigationTitle : String){
         let screenWidth = UIScreen.main.bounds.size.width
         if(navigationTitle != "친구"){
@@ -230,57 +247,6 @@ extension CustomTabBarController{
             self.navigationItem.rightBarButtonItem = nil
         })
         self.present(alert, animated: true, completion: nil)
-//        actionButton.isHidden = false
         
     }
-    
-//    func floatingBtn(){
-//        actionButton.addItem(title: "바코드(기프티콘) 저장하기", image: UIImage(systemName: "barcode")?.withRenderingMode(.alwaysTemplate)) { item in
-//            print("바코드(기프티콘) 저장하기")
-//            let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "GiftRegisterVC")
-//            self.navigationController?.pushViewController(pushVC!, animated: true)
-//        }
-//
-//        actionButton.addItem(title: "QR코드 저장하기", image: UIImage(systemName: "qrcode")?.withRenderingMode(.alwaysTemplate)) { item in
-//          // do something
-//            print("qrcode 2")
-//        }
-//
-////        actionButton.addItem(title: "item 3", image: nil) { item in
-////          // do something
-////        }
-//
-//        view.addSubview(actionButton)
-//        actionButton.buttonColor = .systemBlue
-//        actionButton.translatesAutoresizingMaskIntoConstraints = false
-//        actionButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16).isActive = true
-//        actionButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16).isActive = true
-//
-//        actionButton.configureDefaultItem { item in
-////            item.titlePosition = .trailing
-//
-//            item.titleLabel.font = .boldSystemFont(ofSize: UIFont.systemFontSize)
-//            item.titleLabel.textColor = .white
-//            item.buttonColor = .white
-//            item.buttonImageColor = .systemBlue
-//
-//            item.layer.shadowColor = UIColor.black.cgColor
-//            item.layer.shadowOffset = CGSize(width: 0, height: 1)
-//            item.layer.shadowOpacity = Float(0.4)
-//            item.layer.shadowRadius = CGFloat(2)
-//        }
-//
-//                actionButton.bottomAnchor.constraint(equalTo: view.topAnchor
-//                            ,constant: screenHeight-200).isActive = true // ---- 1
-//    }
-    
 }
-
-//extension UITabBar {
-//    override open func sizeThatFits(_ size: CGSize) -> CGSize {
-//        print("sizeThatFits")
-//        var sizeThatFits = super.sizeThatFits(size)
-//        sizeThatFits.height = 10 // 원하는 길이
-//        return sizeThatFits
-//   }
-//}
