@@ -176,7 +176,9 @@ extension CustomTabBarController: customTabBarDelegate{
             }
             
 //            let rightBarButton = UIBarButtonItem.init(image: UIImage(systemName: "plus"),  style: .plain, target: self, action: #selector(self.plusAction)) //Class.MethodName
-            let rightBarButton = UIBarButtonItem.init(title: "친구 추가", style: .plain, target: self, action: #selector(self.plusAction))
+//            let rightBarButton = UIBarButtonItem.init(title: "친구 추가", style: .plain, target: self, action: #selector(self.plusAction))
+            let rightBarButton = UIBarButtonItem.init(image: UIImage(systemName: "person.badge.plus"),  style: .plain, target: self, action: #selector(self.plusAction)) //Class.MethodName
+//            person.badge.plus
             self.navigationItem.rightBarButtonItem = rightBarButton
             
             navigationBarSetting(navigationTitle: "친구")
@@ -211,7 +213,7 @@ extension CustomTabBarController: customTabBarDelegate{
 
             self.navigationItem.titleView = lbNavTitle
         }else {
-            let lbNavTitle = UILabel (frame: CGRect(x: 0, y: 0, width: screenWidth-130, height: 40))
+            let lbNavTitle = UILabel (frame: CGRect(x: 0, y: 0, width: screenWidth-100, height: 40))
             lbNavTitle.textColor = UIColor.black
             lbNavTitle.numberOfLines = 0
             lbNavTitle.center = CGPoint(x: 0, y: 0)
