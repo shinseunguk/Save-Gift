@@ -280,6 +280,7 @@ extension GiftFriendController: UITableViewDelegate, UITableViewDataSource, refr
                     cell.selectionStyle = .default
                 }
             
+            //dev-dream-world.tistory.com/31 tableview 동적 높이설정
             cell.textLabel?.text = arr2[indexPath.row]
             
             self.bottomTableView.frame.size.height = CGFloat(arr2.count * 50)
