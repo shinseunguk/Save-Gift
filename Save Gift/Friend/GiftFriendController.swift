@@ -56,8 +56,8 @@ class GiftFriendController : UIViewController{
     override func viewDidAppear(_ animated: Bool){
         print(#function)
         if(UserDefaults.standard.string(forKey: "ID") != nil){ //로그인 O
-            self.requestGetRequestFriend(requestUrl: "/getRequestFriend")
-            self.requestGetFriend(requestUrl: "/getFriend")
+            self.requestGetRequestFriend(requestUrl: "/getRequestFriend") // 친구 대기
+            self.requestGetFriend(requestUrl: "/getFriend") // 친구
         }
     }
         
@@ -280,7 +280,7 @@ extension GiftFriendController: UITableViewDelegate, UITableViewDataSource, refr
                     cell.selectionStyle = .default
                 }
             
-            //dev-dream-world.tistory.com/31 tableview 동적 높이설정
+            //dev-dream-world.tistory.com/31 tableview
             cell.textLabel?.text = arr2[indexPath.row]
             
             self.bottomTableView.frame.size.height = CGFloat(arr2.count * 50)
@@ -403,6 +403,7 @@ extension GiftFriendController: UITableViewDelegate, UITableViewDataSource, refr
             })
             alert.addAction(UIAlertAction(title: "친구삭제", style: .destructive) { action in
                 print("친구삭제")
+                self.requestDeleteFriend(requestUrl: "/delete/friend", friend: message!)
             })
             alert.addAction(UIAlertAction(title: "취소", style: .cancel) { action in
                 print("취소")
@@ -410,6 +411,69 @@ extension GiftFriendController: UITableViewDelegate, UITableViewDataSource, refr
             
         self.present(alert, animated: true, completion: nil)
     }
+    
+    func requestDeleteFriend(requestUrl : String!, friend : String) -> Void{
+            let param = ["user_id" : UserDefaults.standard.string(forKey: "ID")!, "friend" : friend] as [String : Any] // JSON 객체로 전송할 딕셔너리
+    
+            let paramData = try! JSONSerialization.data(withJSONObject: param)
+            // URL 객체 정의
+                    let url = URL(string: localUrl+requestUrl)
+    
+                    // URLRequest 객체를 정의
+                    var request = URLRequest(url: url!)
+                    request.httpMethod = "POST"
+                    request.httpBody = paramData
+    
+                    // HTTP 메시지 헤더
+                    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                    request.addValue("application/json", forHTTPHeaderField: "Accept")
+    //                request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+    //                request.setValue(String(paramData.count), forHTTPHeaderField: "Content-Length")
+    
+                    // URLSession 객체를 통해 전송, 응답값 처리
+                    let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                        // 서버가 응답이 없거나 통신이 실패
+                        if let e = error {
+                            print("An error has occured: \(e.localizedDescription)")
+                            return
+                        }
+    
+                    let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+    
+                            DispatchQueue.main.async{
+                                //view 추가
+                                if responseString == "1" {
+                                    //friend
+                                    
+                                    if let Index = self.arr2.firstIndex(of: friend) {
+                                        print("\(#line)",Index)  //
+                                        self.arr2.remove(at: Index);
+                                    }
+                                    print("/addFriend arr1 after ------> ",self.arr2)
+                                    //arr2 배열 마지막에 추가
+                                    
+                                    //arr1.count != 0 -> == 0
+                                    if self.arr2.count == 0 {
+                                        self.arr2.append("친구를 추가해 기프티콘을 선물, 공유 해보세요.")
+                                    }
+                                    self.normalAlert(title: "알림", message: "친구 삭제완료", email: nil)
+                                    
+//                                    self.viewDidAppear(true)
+                                    
+                                    self.topTableView.reloadData()
+                                    self.bottomTableView.reloadData()
+
+                                }else if responseString == "0" {
+//                                    print("/requestAddFriend ", responseString!)
+                                    self.topTableView.reloadData()
+                                    self.bottomTableView.reloadData()
+                                    
+                                }
+                                
+                            }
+                    }
+                    task.resume()
+        }
     
     func requestAddFriend(requestUrl : String!, friend : String) -> Void{
             let param = ["user_id" : UserDefaults.standard.string(forKey: "ID"), "friend" : friend] as [String : Any] // JSON 객체로 전송할 딕셔너리
