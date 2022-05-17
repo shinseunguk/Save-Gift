@@ -80,23 +80,23 @@ class Page1Controller : UIViewController{
     
     override func viewDidAppear(_ animated: Bool) {
         print("\(#function) viewDidAppear")
-        if UserDefaults.standard.string(forKey: "ID") != nil { //로그인
-            //서버 통신후 사용자 혹은 로컬기기 -> DB에 저장되어 있는 값 가져오기
-            LoginSetupInit()
-        }else { //비로그인
-            bLoginSetupInit()
-        }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
 //        if UserDefaults.standard.string(forKey: "ID") != nil { //로그인
 //            //서버 통신후 사용자 혹은 로컬기기 -> DB에 저장되어 있는 값 가져오기
 //            LoginSetupInit()
 //        }else { //비로그인
 //            bLoginSetupInit()
 //        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if UserDefaults.standard.string(forKey: "ID") != nil { //로그인
+            //서버 통신후 사용자 혹은 로컬기기 -> DB에 저장되어 있는 값 가져오기
+            LoginSetupInit()
+        }else { //비로그인
+            bLoginSetupInit()
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
