@@ -377,11 +377,11 @@ extension GiftFriendController: UITableViewDelegate, UITableViewDataSource, refr
     
     func reAlert(email : String){
         let alert = UIAlertController(title: "알림", message: "정말로 \(email)님을 거절 하시겠습니까?", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "아니오", style: .destructive) { action in
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel) { action in
             print("아니오")
             //DB delete
         })
-        alert.addAction(UIAlertAction(title: "예", style: .default) { action in
+        alert.addAction(UIAlertAction(title: "거절", style: .default) { action in
             print("예")
             self.requestDeleteFriendWait(requestUrl: "/deleteFriendWait", friend: email, index: nil)
             //DB delete후
@@ -439,6 +439,8 @@ extension GiftFriendController: UITableViewDelegate, UITableViewDataSource, refr
                         }
     
                     let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+                        
+                        print("reponseString.. => ", responseString)
     
                             DispatchQueue.main.async{
                                 //view 추가
@@ -449,22 +451,37 @@ extension GiftFriendController: UITableViewDelegate, UITableViewDataSource, refr
                                         print("\(#line)",Index)  //
                                         self.arr2.remove(at: Index);
                                     }
-                                    print("/addFriend arr1 after ------> ",self.arr2)
-                                    //arr2 배열 마지막에 추가
+                                    print("/deleteFriend arr1 after ------> ",self.arr2)
                                     
                                     //arr1.count != 0 -> == 0
+                                    
+                                    print("self.arr2.count ", self.arr2.count)
                                     if self.arr2.count == 0 {
                                         self.arr2.append("친구를 추가해 기프티콘을 선물, 공유 해보세요.")
                                     }
+                                    
                                     self.normalAlert(title: "알림", message: "친구 삭제완료", email: nil)
                                     
-//                                    self.viewDidAppear(true)
-                                    
-                                    self.topTableView.reloadData()
                                     self.bottomTableView.reloadData()
 
                                 }else if responseString == "0" {
 //                                    print("/requestAddFriend ", responseString!)
+                                    
+                                    if let Index = self.arr2.firstIndex(of: friend) {
+                                        print("\(#line) ",Index)  //
+                                        self.arr2.remove(at: Index);
+                                    }
+                                    print("/deleteFriend arr1 after ------> ",self.arr2)
+                                    
+                                    //arr1.count != 0 -> == 0
+                                    
+                                    print("self.arr2.count ", self.arr2.count)
+                                    if self.arr2.count == 0 {
+                                        self.arr2.append("친구를 추가해 기프티콘을 선물, 공유 해보세요.")
+                                    }
+                                    
+                                    self.normalAlert(title: "알림", message: "친구 삭제완료", email: nil)
+                                    
                                     self.topTableView.reloadData()
                                     self.bottomTableView.reloadData()
                                     

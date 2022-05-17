@@ -240,7 +240,7 @@ class GiftDetailControoler : UIViewController{
             let alert =  UIAlertController(title: title, message: nil, preferredStyle: .actionSheet)
 
             let library =  UIAlertAction(title: content1, style: .default) {
-                (action) in self.normalAlertUseYn(title: "알림", message: "정말로 기프티콘을 삭제하시겠습니까?")
+                (action) in self.normalPresentAlert(title: "알림", message: "해당 기능은 서비스 준비중입니다.")
             }
 
             let camera =  UIAlertAction(title: content2, style: .default) {

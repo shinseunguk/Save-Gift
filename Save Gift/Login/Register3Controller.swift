@@ -180,12 +180,12 @@ class Register3Controller: UIViewController, UITextFieldDelegate{
             btnConfirm.isEnabled = false
         }
         
-        print("name ", name!)
-        print("email ", email!)
-        print("password ", password!)
-        print("passwordCheck ", passwordCheck!)
-        print("telNumber ", telNumber!)
-        print("registerEnable ", String(registerEnable))
+//        print("name ", name!)
+//        print("email ", email!)
+//        print("password ", password!)
+//        print("passwordCheck ", passwordCheck!)
+//        print("telNumber ", telNumber!)
+//        print("registerEnable ", String(registerEnable))
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
