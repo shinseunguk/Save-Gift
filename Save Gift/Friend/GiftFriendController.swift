@@ -13,7 +13,7 @@ protocol refreshProtocol {
 }
 
 class GiftFriendController : UIViewController{
-    
+    let LOG_TAG : String = "GiftFriendController"
 //    var arr1 : [String] = ["arr1","arr2","arr3","arr4","arr5","arr6","arr1","arr2","arr3","arr4","arr5","arr6"]
 //    var arr2 : [String] = ["ARR1","ARR2","ARR3","ARR4","ARR5","ARR6","ARR7","ARR8","ARR9","ARR10","ARR11","ARR12"]
 //    var arr1 : [String] = ["samdori96@nate.com"]
@@ -94,7 +94,8 @@ class GiftFriendController : UIViewController{
                 let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
                     // 서버가 응답이 없거나 통신이 실패
                     if let e = error {
-                        print("An error has occured: \(e.localizedDescription)")
+                        print("\(self.LOG_TAG) An error has occured: \(e.localizedDescription)")
+                        self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "네트워크 에러", message: "네트워크 연결상태를 확인 해주세요", completeTitle: "확인", nil)
                         return
                     }
                     
@@ -165,7 +166,8 @@ class GiftFriendController : UIViewController{
                 let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
                     // 서버가 응답이 없거나 통신이 실패
                     if let e = error {
-                        print("An error has occured: \(e.localizedDescription)")
+                        print("\(self.LOG_TAG) An error has occured: \(e.localizedDescription)")
+                        self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "네트워크 에러", message: "네트워크 연결상태를 확인 해주세요", completeTitle: "확인", nil)
                         return
                     }
                     
@@ -261,11 +263,11 @@ extension GiftFriendController: UITableViewDelegate, UITableViewDataSource, refr
                 }
             }
             
-            print("arr1.count * 50 ", arr1.count * 50)
-            self.topTableView.frame.size.height = CGFloat(arr1.count * 50)
-            let totalHeight = CGFloat(arr1.count * 50) + CGFloat(arr2.count * 50) + 34
-            print("totalHeight -----> ", totalHeight)
-            self.scrollView.contentSize = CGSize(width: self.view.frame.width, height: totalHeight + 95)
+//            print("arr1.count * 50 ", arr1.count * 50)
+//            self.topTableView.frame.size.height = CGFloat(arr1.count * 50)
+//            let totalHeight = CGFloat(arr1.count * 50) + CGFloat(arr2.count * 50) + 34
+//            print("totalHeight -----> ", totalHeight)
+//            self.scrollView.contentSize = CGSize(width: self.view.frame.width, height: totalHeight + 95)
             
             return customCell
         } else if tableView == bottomTableView {
@@ -283,11 +285,11 @@ extension GiftFriendController: UITableViewDelegate, UITableViewDataSource, refr
             //dev-dream-world.tistory.com/31 tableview
             cell.textLabel?.text = arr2[indexPath.row]
             
-            self.bottomTableView.frame.size.height = CGFloat(arr2.count * 50)
-            bottomLabel.topAnchor.constraint(equalTo: topTableView.topAnchor, constant: CGFloat(self.arr1.count * 50) + 30).isActive = true
-            var totalHeight = CGFloat(arr1.count * 50) + CGFloat(arr2.count * 50) + 34
-            print("totalHeight -----> ", totalHeight)
-            self.scrollView.contentSize = CGSize(width: self.view.frame.width, height: totalHeight + 95)
+//            self.bottomTableView.frame.size.height = CGFloat(arr2.count * 50)
+//            bottomLabel.topAnchor.constraint(equalTo: topTableView.topAnchor, constant: CGFloat(self.arr1.count * 50) + 30).isActive = true
+//            var totalHeight = CGFloat(arr1.count * 50) + CGFloat(arr2.count * 50) + 34
+//            print("totalHeight -----> ", totalHeight)
+//            self.scrollView.contentSize = CGSize(width: self.view.frame.width, height: totalHeight + 95)
             
             return cell
         }
@@ -434,7 +436,8 @@ extension GiftFriendController: UITableViewDelegate, UITableViewDataSource, refr
                     let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
                         // 서버가 응답이 없거나 통신이 실패
                         if let e = error {
-                            print("An error has occured: \(e.localizedDescription)")
+                            print("\(self.LOG_TAG) An error has occured: \(e.localizedDescription)")
+                            self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "네트워크 에러", message: "네트워크 연결상태를 확인 해주세요", completeTitle: "확인", nil)
                             return
                         }
     
@@ -514,7 +517,8 @@ extension GiftFriendController: UITableViewDelegate, UITableViewDataSource, refr
                     let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
                         // 서버가 응답이 없거나 통신이 실패
                         if let e = error {
-                            print("An error has occured: \(e.localizedDescription)")
+                            print("\(self.LOG_TAG) An error has occured: \(e.localizedDescription)")
+                            self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "네트워크 에러", message: "네트워크 연결상태를 확인 해주세요", completeTitle: "확인", nil)
                             return
                         }
     
@@ -597,7 +601,8 @@ extension GiftFriendController: UITableViewDelegate, UITableViewDataSource, refr
                     let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
                         // 서버가 응답이 없거나 통신이 실패
                         if let e = error {
-                            print("An error has occured: \(e.localizedDescription)")
+                            print("\(self.LOG_TAG) An error has occured: \(e.localizedDescription)")
+                            self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "네트워크 에러", message: "네트워크 연결상태를 확인 해주세요", completeTitle: "확인", nil)
                             return
                         }
     

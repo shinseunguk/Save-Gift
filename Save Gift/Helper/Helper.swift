@@ -310,4 +310,31 @@ class Helper : UIViewController{
             }
     }
     
+    func showAlertAction1(vc: UIViewController?, preferredStyle: UIAlertController.Style = .alert, title: String = "", message: String = "", completeTitle: String = "확인", _ completeHandler:(() -> Void)? = nil){
+                
+                guard let currentVc = vc else {
+                    completeHandler?()
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(title: title, message: message, preferredStyle: preferredStyle)
+                    
+                    let completeAction = UIAlertAction(title: completeTitle, style: .default) { action in
+                        completeHandler?()
+                        if message == "네트워크 연결상태를 확인 해주세요"{
+                            self.exitApp()
+                        }
+                    }
+                    
+                    alert.addAction(completeAction)
+                    
+                    currentVc.present(alert, animated: true, completion: nil)
+                }
+    }
+    
+    func exitApp(){
+        exit(0)
+    }
+    
 }

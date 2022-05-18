@@ -9,6 +9,8 @@ import Foundation
 import UIKit
 
 class SettingSecessionController : UIViewController {
+    let LOG_TAG : String = "SettingSecessionController"
+    let helper : Helper = Helper()
     @IBOutlet weak var secessionBtn: UIButton!
     let localUrl : String = "".getLocalURL()
     
@@ -89,7 +91,8 @@ class SettingSecessionController : UIViewController {
                 let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
                     // 서버가 응답이 없거나 통신이 실패
                     if let e = error {
-                        print("An error has occured: \(e.localizedDescription)")
+                        print("\(self.LOG_TAG) An error has occured: \(e.localizedDescription)")
+                        self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "네트워크 에러", message: "네트워크 연결상태를 확인 해주세요", completeTitle: "확인", nil)
                         return
                     }
                     
