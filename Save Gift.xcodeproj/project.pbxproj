@@ -16,11 +16,13 @@
 		042C0FB927FFB93B005EDA8E /* GiftDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042C0FB727FFB93B005EDA8E /* GiftDetailTableViewCell.swift */; };
 		042C0FBA27FFB93B005EDA8E /* GiftDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 042C0FB827FFB93B005EDA8E /* GiftDetailTableViewCell.xib */; };
 		043B629C2805572500AEDAC8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 043B629B2805572500AEDAC8 /* GoogleService-Info.plist */; };
+		044A82952834933700B779E8 /* NetworkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044A82942834933700B779E8 /* NetworkViewController.swift */; };
 		0451DD49280E66260084F184 /* GiftPresentPage1Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0451DD48280E66250084F184 /* GiftPresentPage1Controller.swift */; };
 		0451DD4B280E668E0084F184 /* GiftPresentPage2Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0451DD4A280E668E0084F184 /* GiftPresentPage2Controller.swift */; };
 		046F706427F14A57008CF3F6 /* moogoonghwa.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 046F706127F14A56008CF3F6 /* moogoonghwa.ttf */; };
 		046F706527F14A57008CF3F6 /* geulssi.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 046F706227F14A57008CF3F6 /* geulssi.ttf */; };
 		046F706627F14A57008CF3F6 /* thirdFont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 046F706327F14A57008CF3F6 /* thirdFont.ttf */; };
+		0471A0CD28348C6F0081AA5E /* NetworkCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0471A0CC28348C6F0081AA5E /* NetworkCheck.swift */; };
 		048124F327EC1F07003DF866 /* CollectionViewTopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048124F127EC1F07003DF866 /* CollectionViewTopCell.swift */; };
 		048124F427EC1F07003DF866 /* CollectionViewTopCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048124F227EC1F07003DF866 /* CollectionViewTopCell.xib */; };
 		04BE84B4281A316D005FE5FC /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BE84B2281A316D005FE5FC /* SettingTableViewCell.swift */; };
@@ -40,7 +42,7 @@
 		04F9F4AD27FA916B00DC1273 /* FirebaseStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F9F4AC27FA916B00DC1273 /* FirebaseStorageManager.swift */; };
 		2F5D4CC950B67903E9A151D3 /* Pods_Save_Gift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F14E63B6A7E17E436CF74A9 /* Pods_Save_Gift.framework */; };
 		A20D2682276A151700470D06 /* Register3Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20D2681276A151700470D06 /* Register3Controller.swift */; };
-		A213100127A97C5300A98783 /* BuildFile in Embed Frameworks */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A213100127A97C5300A98783 /* (null) in Embed Frameworks */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A218F1A1276E093D00E71316 /* UnlockController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A218F1A0276E093D00E71316 /* UnlockController.swift */; };
 		A21C6D5B276F630900BDE1E4 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21C6D5A276F630900BDE1E4 /* SideMenuViewController.swift */; };
 		A21C6D5D276F646000BDE1E4 /* CustomSideMenuNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21C6D5C276F646000BDE1E4 /* CustomSideMenuNavigation.swift */; };
@@ -96,7 +98,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				A213100127A97C5300A98783 /* BuildFile in Embed Frameworks */,
+				A213100127A97C5300A98783 /* (null) in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -113,11 +115,13 @@
 		042C0FB727FFB93B005EDA8E /* GiftDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftDetailTableViewCell.swift; sourceTree = "<group>"; };
 		042C0FB827FFB93B005EDA8E /* GiftDetailTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GiftDetailTableViewCell.xib; sourceTree = "<group>"; };
 		043B629B2805572500AEDAC8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		044A82942834933700B779E8 /* NetworkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkViewController.swift; sourceTree = "<group>"; };
 		0451DD48280E66250084F184 /* GiftPresentPage1Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftPresentPage1Controller.swift; sourceTree = "<group>"; };
 		0451DD4A280E668E0084F184 /* GiftPresentPage2Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftPresentPage2Controller.swift; sourceTree = "<group>"; };
 		046F706127F14A56008CF3F6 /* moogoonghwa.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = moogoonghwa.ttf; path = "Save Gift/Font/moogoonghwa.ttf"; sourceTree = SOURCE_ROOT; };
 		046F706227F14A57008CF3F6 /* geulssi.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = geulssi.ttf; path = "Save Gift/Font/geulssi.ttf"; sourceTree = SOURCE_ROOT; };
 		046F706327F14A57008CF3F6 /* thirdFont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = thirdFont.ttf; path = "Save Gift/Font/thirdFont.ttf"; sourceTree = SOURCE_ROOT; };
+		0471A0CC28348C6F0081AA5E /* NetworkCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkCheck.swift; sourceTree = "<group>"; };
 		048124F127EC1F07003DF866 /* CollectionViewTopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewTopCell.swift; sourceTree = "<group>"; };
 		048124F227EC1F07003DF866 /* CollectionViewTopCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionViewTopCell.xib; sourceTree = "<group>"; };
 		04BE84B2281A316D005FE5FC /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
@@ -855,6 +859,8 @@
 				A2C5B5B327AEEDCF00C65B79 /* Helper.swift */,
 				04F9F4AC27FA916B00DC1273 /* FirebaseStorageManager.swift */,
 				A240D8FC2814311F0009B03E /* TestController.swift */,
+				0471A0CC28348C6F0081AA5E /* NetworkCheck.swift */,
+				044A82942834933700B779E8 /* NetworkViewController.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -1715,12 +1721,14 @@
 				A293992327C257F2007DD927 /* CollectionViewCell.swift in Sources */,
 				A218F1A1276E093D00E71316 /* UnlockController.swift in Sources */,
 				A20D2682276A151700470D06 /* Register3Controller.swift in Sources */,
+				0471A0CD28348C6F0081AA5E /* NetworkCheck.swift in Sources */,
 				A2DC3F282785C47000D354B1 /* CustomTabBarController.swift in Sources */,
 				042C0FB627FE73C5005EDA8E /* GiftDetailController.swift in Sources */,
 				04F9F4AD27FA916B00DC1273 /* FirebaseStorageManager.swift in Sources */,
 				A2D2FDA8277741ED0036B849 /* GiftFriendController.swift in Sources */,
 				A2D4935C27905FA900FB5770 /* SettingDeveloperController.swift in Sources */,
 				A2D33522275CDEA700ECF4B1 /* RegisterController.swift in Sources */,
+				044A82952834933700B779E8 /* NetworkViewController.swift in Sources */,
 				A2DC3F2627817EFC00D354B1 /* LoadingController.swift in Sources */,
 				A2D2FDB42778C1400036B849 /* CustomCell.swift in Sources */,
 				A232943127634593007ACA5F /* Register2Controller.swift in Sources */,
@@ -1910,7 +1918,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Save Gift/Save Gift.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = S3JUP5Z7K9;
+				DEVELOPMENT_TEAM = 26YT5P58T8;
 				EXCLUDED_ARCHS = "$(STANDARD_ARCHS)";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_NO_COMMON_BLOCKS = NO;
@@ -2059,7 +2067,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Save Gift/Save Gift.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = S3JUP5Z7K9;
+				DEVELOPMENT_TEAM = 26YT5P58T8;
 				EXCLUDED_ARCHS = "$(STANDARD_ARCHS)";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_NO_COMMON_BLOCKS = NO;

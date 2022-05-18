@@ -322,8 +322,10 @@ class Helper : UIViewController{
                     
                     let completeAction = UIAlertAction(title: completeTitle, style: .default) { action in
                         completeHandler?()
-                        if message == "네트워크 연결상태를 확인 해주세요"{
-                            self.exitApp()
+                        if message == "네트워크 연결 상태를 확인해주세요."{
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                exit(0)
+                            }
                         }
                     }
                     
