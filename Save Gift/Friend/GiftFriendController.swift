@@ -341,7 +341,7 @@ extension GiftFriendController: UITableViewDelegate, UITableViewDataSource, refr
             alert.addAction(UIAlertAction(title: "아니오", style: .cancel) { action in
                 print("아니오")
             })
-            alert.addAction(UIAlertAction(title: "예", style: .default) { action in
+            alert.addAction(UIAlertAction(title: "요청취소", style: .default) { action in
                 print("요청취소")
                 self.requestDeleteFriendWait(requestUrl: "/deleteFriendWait", friend: email!, index: "me")
             })
@@ -485,7 +485,7 @@ extension GiftFriendController: UITableViewDelegate, UITableViewDataSource, refr
                                     
                                     self.normalAlert(title: "알림", message: "친구 삭제완료", email: nil)
                                     
-                                    self.topTableView.reloadData()
+//                                    self.topTableView.reloadData()
                                     self.bottomTableView.reloadData()
                                     
                                 }

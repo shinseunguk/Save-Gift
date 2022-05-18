@@ -1059,6 +1059,8 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
     }
     
     @IBAction func registerAction(_ sender: Any) {
+        registerBtn.isEnabled = false
+        helper.showLoading()
         self.tableView.endEditing(true)
         if registerBtn.titleLabel?.text! == "수정"{ // 기프티콘 수정
             
@@ -1102,12 +1104,16 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
 //            print("registerDic.. 1 ", registerDic)
 //            print("self.imageView.image ", self.imageView.image)
             if self.imageView.image == nil{ // 이미지가 없을경우
+                registerBtn.isEnabled = true
                 normalAlert(titles: "알림", messages: "기프티콘 이미지를 등록해주세요.")
             }else if !emptyBool { // 하나라도 빈칸일 경우
+                registerBtn.isEnabled = true
                 normalAlert(titles: "알림", messages: "빈칸없이 작성 해주세요.")
             }else if !regularBool { // 유효기간이 유효하지 않을경우
+                registerBtn.isEnabled = true
                 normalAlert(titles: "알림", messages: "유효기간을 확인해주세요.")
             }else if !regularStatusBool && segmentStatus == 0{
+                registerBtn.isEnabled = true
                 print("regularStatusBool ", regularStatusBool)
                 print("segmentStatus ", segmentStatus)
                 normalAlert(titles: "알림", messages: "유효기간이 지난 기프티콘 입니다. \n 쿠폰상태를 확인해주세요.")
@@ -1194,12 +1200,16 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
 //            print("registerDic.. 1 ", registerDic)
 //            print("self.imageView.image ", self.imageView.image)
             if self.imageView.image == nil{ // 이미지가 없을경우
+                registerBtn.isEnabled = true
                 normalAlert(titles: "알림", messages: "기프티콘 이미지를 등록해주세요.")
             }else if !emptyBool { // 하나라도 빈칸일 경우
+                registerBtn.isEnabled = true
                 normalAlert(titles: "알림", messages: "빈칸없이 작성 해주세요.")
             }else if !regularBool { // 유효기간이 유효하지 않을경우
+                registerBtn.isEnabled = true
                 normalAlert(titles: "알림", messages: "유효기간을 확인해주세요.")
             }else if !regularStatusBool && segmentStatus == 0{
+                registerBtn.isEnabled = true
                 print("regularStatusBool ", regularStatusBool)
                 print("segmentStatus ", segmentStatus)
                 normalAlert(titles: "알림", messages: "유효기간이 지난 기프티콘 입니다. \n 쿠폰상태를 확인해주세요.")
@@ -1238,6 +1248,10 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
                     uploadDiary(date: helper.formatDateToday(), self.newImage!, requestUrl: "/register/image", param: param)
                 }
             }
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.helper.hideLoading()
         }
     }
     
