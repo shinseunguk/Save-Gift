@@ -210,7 +210,7 @@ class FriendController : UIViewController, UITextFieldDelegate {
                     // 서버가 응답이 없거나 통신이 실패
                     if let e = error {
                         print("\(self.LOG_TAG) An error has occured: \(e.localizedDescription)")
-                        self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "네트워크 에러", message: "네트워크 연결상태를 확인 해주세요", completeTitle: "확인", nil)
+                        self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "네트워크에 접속할 수 없습니다.", message: "네트워크 연결 상태를 확인해주세요.", completeTitle: "확인", nil)
                         return
                     }
                     
@@ -281,7 +281,7 @@ class FriendController : UIViewController, UITextFieldDelegate {
                     // 서버가 응답이 없거나 통신이 실패
                     if let e = error {
                         print("\(self.LOG_TAG) An error has occured: \(e.localizedDescription)")
-                        self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "네트워크 에러", message: "네트워크 연결상태를 확인 해주세요", completeTitle: "확인", nil)
+                        self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "네트워크에 접속할 수 없습니다.", message: "네트워크 연결 상태를 확인해주세요.", completeTitle: "확인", nil)
                         return
                     }
                     
@@ -365,7 +365,7 @@ class FriendController : UIViewController, UITextFieldDelegate {
                     // 서버가 응답이 없거나 통신이 실패
                     if let e = error {
                         print("\(self.LOG_TAG) An error has occured: \(e.localizedDescription)")
-                        self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "네트워크 에러", message: "네트워크 연결상태를 확인 해주세요", completeTitle: "확인", nil)
+                        self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "네트워크에 접속할 수 없습니다.", message: "네트워크 연결 상태를 확인해주세요.", completeTitle: "확인", nil)
                         return
                     }
                     
@@ -430,7 +430,7 @@ class FriendController : UIViewController, UITextFieldDelegate {
                         // 서버가 응답이 없거나 통신이 실패
                         if let e = error {
                             print("\(self.LOG_TAG) An error has occured: \(e.localizedDescription)")
-                            self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "네트워크 에러", message: "네트워크 연결상태를 확인 해주세요", completeTitle: "확인", nil)
+                            self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "네트워크에 접속할 수 없습니다.", message: "네트워크 연결 상태를 확인해주세요.", completeTitle: "확인", nil)
                             return
                         }
     
