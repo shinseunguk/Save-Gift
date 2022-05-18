@@ -11,10 +11,11 @@ import FirebaseStorage
 import Firebase
 
 class FirebaseStorageManager {
-    
+    static let LOG_TAG : String = "FirebaseStorageManager"
+    static let helper : Helper = Helper()
     static let localUrl : String = "".getLocalURL()
     static let deviceID : String? = UserDefaults.standard.string(forKey: "device_id")
-    static let helper : Helper = Helper()
+    
     
     static func uploadImage(image: UIImage, param : inout Dictionary<String, Any>) -> Bool {
         guard let imageData = image.jpegData(compressionQuality: 1.0) else {return false}
@@ -91,7 +92,7 @@ class FirebaseStorageManager {
                 let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
                     // 서버가 응답이 없거나 통신이 실패
                     if let e = error {
-                        print("An error has occured: \(e.localizedDescription)")
+                        print("\(self.LOG_TAG) An error has occured: \(e.localizedDescription)")
                         return
                     }
 

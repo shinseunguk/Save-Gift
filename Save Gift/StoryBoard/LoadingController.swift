@@ -15,6 +15,7 @@ class LoadingController : UIViewController {
     let localUrl : String = "".getLocalURL()
     let deviceID = UIDevice.current.identifierForVendor!.uuidString
     let deviceModel = GetDeviceModel.deviceModelName()
+    let helper : Helper = Helper()
     
     var pushToken : String = "test"
     
@@ -82,7 +83,8 @@ class LoadingController : UIViewController {
                 let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
                     // 서버가 응답이 없거나 통신이 실패
                     if let e = error {
-                        print("An error has occured: \(e.localizedDescription)")
+                        print("\(self.LOG_TAG) An error has occured: \(e.localizedDescription)")
+                        self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "네트워크 에러", message: "네트워크 연결상태를 확인 해주세요", completeTitle: "확인", nil)
                         return
                     }
                     
@@ -108,5 +110,9 @@ class LoadingController : UIViewController {
                 }
                 // POST 전송
                 task.resume()
+    }
+    
+    func exitApp() -> Void{
+        exit(0)
     }
 }
