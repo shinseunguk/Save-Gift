@@ -65,7 +65,7 @@ class GiftFriendController : UIViewController{
 //            bottomTableHeight()
             
             
-            resultFriend = requestGetRequestFriend(requestUrl: "/getRequestFriend") // 친구 대기
+            requestGetRequestFriend(requestUrl: "/getRequestFriend") // 친구 대기
 //            if resultFriend { // 친구 대기 list up
 //                requestGetFriend(requestUrl: "/getFriend") //친구 list up
 //            }
