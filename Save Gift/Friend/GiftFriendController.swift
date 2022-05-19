@@ -56,8 +56,20 @@ class GiftFriendController : UIViewController{
     override func viewDidAppear(_ animated: Bool){
         print(#function)
         if(UserDefaults.standard.string(forKey: "ID") != nil){ //로그인 O
-            self.requestGetRequestFriend(requestUrl: "/getRequestFriend") // 친구 대기
-            self.requestGetFriend(requestUrl: "/getFriend") // 친구
+            topTableView.backgroundColor = .darkGray
+            bottomTableView.backgroundColor = .darkGray
+            
+//            topTableView.reloadData()
+//            bottomTableView.reloadData()
+//            topTableHeight()
+//            bottomTableHeight()
+            
+            
+            resultFriend = requestGetRequestFriend(requestUrl: "/getRequestFriend") // 친구 대기
+//            if resultFriend { // 친구 대기 list up
+//                requestGetFriend(requestUrl: "/getFriend") //친구 list up
+//            }
+            
         }
     }
         
@@ -69,6 +81,39 @@ class GiftFriendController : UIViewController{
 //            self.requestGetRequestFriend(requestUrl: "/getRequestFriend")
 //            self.requestGetFriend(requestUrl: "/getFriend")
 //        }
+    }
+    
+    func topTableHeight(){
+        self.topTableView.frame.size.height = self.topTableView.contentSize.height
+    }
+    
+    func bottomTableHeight(){
+        self.bottomTableView.frame.size.height = self.bottomTableView.contentSize.height
+        self.bottomLabel.topAnchor.constraint(equalTo: self.topTableView.topAnchor, constant: CGFloat(self.topTableView.contentSize.height) + 30).isActive = true
+        var totalHeight = CGFloat(self.topTableView.contentSize.height) + CGFloat(self.bottomTableView.contentSize.height) + 34
+        
+        print("totalHeight -----> ", totalHeight)
+        self.scrollView.contentSize = CGSize(width: self.view.frame.width, height: totalHeight + 95)
+    }
+    
+    func topTableViewSetUp(){
+        self.topTableView.register(UINib(nibName: "GetFriendTableViewCell", bundle: nil), forCellReuseIdentifier: "GetFriendTableViewCell")
+        self.topTableView.dataSource = self
+        self.topTableView.delegate = self
+        self.topTableView.isScrollEnabled = false
+        
+        self.topTableView.reloadData()
+        
+        requestGetFriend(requestUrl: "/getFriend") //친구 list up
+    }
+    
+    func bottomTableViewSetup(){
+        self.bottomTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        self.bottomTableView.dataSource = self
+        self.bottomTableView.delegate = self
+        self.bottomTableView.isScrollEnabled = false
+        
+        self.bottomTableView.reloadData()
     }
     
     func requestGetRequestFriend(requestUrl : String!) -> Void{
@@ -121,6 +166,7 @@ class GiftFriendController : UIViewController{
                             print("self.arr1 ----------> ", self.arr1)
                             print("self.status ----------> ", self.status)
                             
+                            
                         }
 //                        else{
 //                            print("responseString == arr1")
@@ -130,13 +176,9 @@ class GiftFriendController : UIViewController{
 //                                self.status.append("")
 //                            }
 //                        }
-                        
-                        self.topTableView.register(UINib(nibName: "GetFriendTableViewCell", bundle: nil), forCellReuseIdentifier: "GetFriendTableViewCell")
-                        self.topTableView.dataSource = self
-                        self.topTableView.delegate = self
-                        self.topTableView.isScrollEnabled = false
-                        
-                        self.topTableView.reloadData()
+                     
+                        self.topTableViewSetUp()
+                        self.topTableHeight()
                     }
                 }
                 // POST 전송
@@ -194,19 +236,15 @@ class GiftFriendController : UIViewController{
                                 self.arr2.remove(at: 0)
                                 self.arr2.append("친구를 추가해 기프티콘을 선물, 공유 해보세요.")
                             }
+                            
                         }
 //                        else {
 //                            if self.arr2.count == 0{
 //                                self.arr2.append("친구를 추가해 기프티콘을 선물, 공유 해보세요.")
 //                            }
 //                        }
-                    
-                    self.bottomTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-                    self.bottomTableView.dataSource = self
-                    self.bottomTableView.delegate = self
-                    self.bottomTableView.isScrollEnabled = false
-                    
-                    self.bottomTableView.reloadData()
+                        self.bottomTableViewSetup()
+                        self.bottomTableHeight()
                     }
                 }
                 // POST 전송
@@ -263,12 +301,6 @@ extension GiftFriendController: UITableViewDelegate, UITableViewDataSource, refr
                 }
             }
             
-//            print("arr1.count * 50 ", arr1.count * 50)
-//            self.topTableView.frame.size.height = CGFloat(arr1.count * 50)
-//            let totalHeight = CGFloat(arr1.count * 50) + CGFloat(arr2.count * 50) + 34
-//            print("totalHeight -----> ", totalHeight)
-//            self.scrollView.contentSize = CGSize(width: self.view.frame.width, height: totalHeight + 95)
-            
             return customCell
         } else if tableView == bottomTableView {
             print("arr2[indexPath.row] ", arr2[indexPath.row])
@@ -284,12 +316,6 @@ extension GiftFriendController: UITableViewDelegate, UITableViewDataSource, refr
             
             //dev-dream-world.tistory.com/31 tableview
             cell.textLabel?.text = arr2[indexPath.row]
-            
-//            self.bottomTableView.frame.size.height = CGFloat(arr2.count * 50)
-//            bottomLabel.topAnchor.constraint(equalTo: topTableView.topAnchor, constant: CGFloat(self.arr1.count * 50) + 30).isActive = true
-//            var totalHeight = CGFloat(arr1.count * 50) + CGFloat(arr2.count * 50) + 34
-//            print("totalHeight -----> ", totalHeight)
-//            self.scrollView.contentSize = CGSize(width: self.view.frame.width, height: totalHeight + 95)
             
             return cell
         }
@@ -635,11 +661,13 @@ extension GiftFriendController: UITableViewDelegate, UITableViewDataSource, refr
                                         self.arr1.append("요청된 친구가 없습니다.")
                                     }
                                     
-                                    self.topTableView.reloadData()
-                                    self.bottomTableView.reloadData()
-
+                                    self.requestGetRequestFriend(requestUrl: "/getRequestFriend") // 친구 대기
+                                    //self.topTableView.reloadData()
+                                    //self.bottomTableView.reloadData()
+                                    
                                 }else if responseString == "0" {
                                     print("/requestAddFriend ", responseString!)
+                                    self.requestGetRequestFriend(requestUrl: "/getRequestFriend") // 친구 대기
                                     self.topTableView.reloadData()
                                     self.bottomTableView.reloadData()
                                     
