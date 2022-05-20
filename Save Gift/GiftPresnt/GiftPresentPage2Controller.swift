@@ -212,7 +212,7 @@ extension GiftPresentPage2Controller: UICollectionViewDelegate, UICollectionView
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.05) {
                 cell.backgroundColor = UIColor.white
                 
-                let vc = self.storyboard?.instantiateViewController(withIdentifier: "GiftDetailVC") as! GiftDetailControoler
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "GiftDetailVC") as! GiftDetailController
 //                vc.modalPresentationStyle = .fullScreen
 //                vc.definesPresentationContext = true
 //                vc.modalPresentationStyle = .overCurrentContext

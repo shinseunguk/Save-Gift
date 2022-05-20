@@ -588,14 +588,16 @@ extension GiftFriendController: UITableViewDelegate, UITableViewDataSource, refr
                                     
                                     self.normalAlert(title: "알림", message: "친구 추가가 완료 되었습니다.", email: nil)
                                     
+                                    self.requestGetRequestFriend(requestUrl: "/getRequestFriend") // 친구 대기
                                     
-                                    self.topTableView.reloadData()
-                                    self.bottomTableView.reloadData()
+//                                    self.topTableView.reloadData()
+//                                    self.bottomTableView.reloadData()
 
                                 }else if responseString == "0" {
                                     print("/requestAddFriend ", responseString!)
-                                    self.topTableView.reloadData()
-                                    self.bottomTableView.reloadData()
+                                    self.requestGetRequestFriend(requestUrl: "/getRequestFriend") // 친구 대기
+//                                    self.topTableView.reloadData()
+//                                    self.bottomTableView.reloadData()
                                     
                                 }
                                 

@@ -16,8 +16,8 @@ protocol detailDelegate {
     func refreshTableView()
 }
 
-class GiftDetailControoler : UIViewController{
-    let LOG_TAG : String = "GiftDetailControoler"
+class GiftDetailController : UIViewController{
+    let LOG_TAG : String = "GiftDetailController"
     
     @IBOutlet weak var vBrandLabel: UILabel!
     @IBOutlet weak var vProductLabel: UILabel!
@@ -519,7 +519,7 @@ class GiftDetailControoler : UIViewController{
     
 }
 
-extension GiftDetailControoler : UITableViewDelegate, UITableViewDataSource, detailDelegate{
+extension GiftDetailController : UITableViewDelegate, UITableViewDataSource, detailDelegate{
     func refreshTableView() {
         print("refreshTableView()")
         
@@ -546,27 +546,9 @@ extension GiftDetailControoler : UITableViewDelegate, UITableViewDataSource, det
         }
         if indexPath.row != 3{
             cell.dDayLabel.isHidden = true
-        }
-        
-//        if indexPath.row == 3{
-//            calculateDays(availableDate: contentArr[3])
-//        }
-        
-        //미사용, 사용 set Color
-        if indexPath.row == 4{
-            if contentArr[4] == "사용가능"{
-                cell.secondLabel.textColor = UIColor.systemGreen
-            }else if contentArr[4] == "사용불가"{
-                cell.secondLabel.textColor = UIColor.red
-            }
         }else {
-            cell.secondLabel.textColor = UIColor.black
-        }
-        
-        
-        cell.firstLabel.font = UIFont.boldSystemFont(ofSize: 14)
-        
-        if indexPath.row == 3{
+            cell.dDayLabel.isHidden = false
+            print("\(#line) indexPath.row \(indexPath.row)")
             let resultDDay : Int = calculateDays(availableDate: contentArr[3])
             if resultDDay == 0 {
                 cell.dDayLabel.textColor = UIColor.systemBlue
@@ -581,6 +563,20 @@ extension GiftDetailControoler : UITableViewDelegate, UITableViewDataSource, det
                 cell.dDayLabel.text = "(D\(resultDDay))"
             }
         }
+        
+        //미사용, 사용 set Color
+        if indexPath.row == 4{
+            if contentArr[4] == "사용가능"{
+                cell.secondLabel.textColor = UIColor.systemGreen
+            }else if contentArr[4] == "사용불가"{
+                cell.secondLabel.textColor = UIColor.red
+            }
+        }else {
+            cell.secondLabel.textColor = UIColor.black
+        }
+        
+        
+        cell.firstLabel.font = UIFont.boldSystemFont(ofSize: 14)
         cell.firstLabel.text = categoryArr[indexPath.row]
         cell.secondLabel.text = contentArr[indexPath.row]
         return cell

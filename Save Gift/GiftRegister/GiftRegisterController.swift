@@ -33,7 +33,7 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
     
     let imagePicker = UIImagePickerController()
     let helper : Helper = Helper()
-    let giftDetailController : GiftDetailControoler = GiftDetailControoler()
+    let giftDetailController : GiftDetailController = GiftDetailController()
     let localUrl : String = "".getLocalURL()
     let deviceID : String? = UserDefaults.standard.string(forKey: "device_id")
     
