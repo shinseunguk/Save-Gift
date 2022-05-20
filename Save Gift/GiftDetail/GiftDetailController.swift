@@ -13,7 +13,7 @@ import FirebaseStorage
 import Firebase
 
 protocol detailDelegate {
-    func refreshTableView()
+    func refreshTableView(dicT : Dictionary<String, Any>)
 }
 
 class GiftDetailController : UIViewController{
@@ -520,10 +520,27 @@ class GiftDetailController : UIViewController{
 }
 
 extension GiftDetailController : UITableViewDelegate, UITableViewDataSource, detailDelegate{
-    func refreshTableView() {
+    func refreshTableView(dicT : Dictionary<String, Any>) {
         print("refreshTableView()")
+        print("\(#function) dic => ", dicT)
         
-        Init()
+        contentArr[0] = dicT["barcode_number"] as! String//barcodeNumber!
+        contentArr[1] = dicT["brand"] as! String
+        contentArr[2] = dicT["product_name"] as! String
+        contentArr[3] = dicT["expiration_period"] as! String
+        
+        //여기서 날짜에 따른 쿠폰 상태 확인해주고 set text
+        if dicT["use_yn"] as! Int == 1{//
+            contentArr[4] = "사용불가"
+        }else {
+            contentArr[4] = "사용가능"
+        }
+        
+        contentArr[5] = dicT["registration_date"] as! String
+        contentArr[6] = dicT["registrant"] as! String
+        
+        tableView.reloadData()
+//        Init()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

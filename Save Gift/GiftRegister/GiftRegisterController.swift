@@ -1292,7 +1292,7 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
                         if responseString! == "1"{ // 성공시
                             print("\(self.LOG_TAG) \(#line) responseString 1")
                             
-                            self.detailDelegate?.refreshTableView()
+                            self.detailDelegate?.refreshTableView(dicT: param)
 //                            self.dismiss(animated: true, completion: nil)
                             self.presentingViewController?.dismiss(animated: true, completion: nil)
                         }else { // 실패시
