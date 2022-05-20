@@ -393,7 +393,7 @@ extension Page1Controller: UICollectionViewDelegate, UICollectionViewDataSource,
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.05) {
                 cell.backgroundColor = UIColor.white
                 
-                let vc = self.storyboard?.instantiateViewController(withIdentifier: "GiftDetailVC") as! GiftDetailControoler
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "GiftDetailVC") as! GiftDetailController
                 
                 vc.imageUrl = self.cellImageViewArr[indexPath.row]
                 vc.barcodeNumber = self.barcodeNumberArr[indexPath.row]
