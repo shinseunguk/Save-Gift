@@ -76,7 +76,7 @@ class GiftFriendController : UIViewController{
     override func viewWillAppear(_ animated: Bool) {
         
         print("GiftFriendController viewWillAppear")
-        
+        uiView.backgroundColor = .systemIndigo
 //        if(UserDefaults.standard.string(forKey: "ID") != nil){ //로그인 O
 //            self.requestGetRequestFriend(requestUrl: "/getRequestFriend")
 //            self.requestGetFriend(requestUrl: "/getFriend")
