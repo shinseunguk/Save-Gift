@@ -540,6 +540,7 @@ extension GiftDetailController : UITableViewDelegate, UITableViewDataSource, det
         contentArr[6] = dicT["registrant"] as! String
         
         tableView.reloadData()
+        reviseBool = true
 //        Init()
     }
     

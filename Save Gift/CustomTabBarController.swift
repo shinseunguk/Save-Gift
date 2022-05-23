@@ -54,19 +54,22 @@ class CustomTabBarController: UITabBarController, UITabBarControllerDelegate {
         print("VC ########### ", VC)
         
         if VC != nil {
-            if VC! == "공유하기" {
+//            if VC! == "공유하기" {
+//                selectedIndex = 0
+//                lbNavTitle.text = "기프티콘 공유"
+//            } else
+            if VC! == "선물함"{
                 selectedIndex = 0
-                lbNavTitle.text = "기프티콘 공유"
-            } else if VC! == "선물함"{
-                selectedIndex = 1
                 lbNavTitle.text = "선물함"
             } else if VC! == "친구"{ // 수정 필요
                 selectedIndex = 2
-                lbNavTitle.text = "기프티콘 저장"
+                lbNavTitle.text = "친구"
+//                lbNavTitle.text = "기프티콘 저장"
             }
         }else{
             //세번째로 이동시킴
-            selectedIndex = 2
+            selectedIndex = 1
+            lbNavTitle.text = "기프티콘 저장"
         }
         
 //        floatingBtn()
@@ -132,11 +135,7 @@ class CustomTabBarController: UITabBarController, UITabBarControllerDelegate {
 extension CustomTabBarController: customTabBarDelegate{
         
     func tabbarDelegate() {
-        print("친구 화면으로 다시 이동. \(#line)")
-        self.selectedIndex = 3
-        self.selectedIndex = 3
-        print("친구 화면으로 다시 이동. \(#line)")
-        //되긴됨 refresh 해야함.
+        self.selectedIndex = 2
     }
 
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
@@ -230,12 +229,12 @@ extension CustomTabBarController: customTabBarDelegate{
         let alert = UIAlertController(title: "로그인", message: "로그인이 필요한 서비스입니다. \n 로그인 화면으로 이동하시겠습니까?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "취소", style: .cancel) { action in
             //세번째로 이동시킴
-            self.selectedIndex = 2
+            self.selectedIndex = 1
             self.navigationBarSetting(navigationTitle: "기프티콘 저장")
             self.navigationItem.rightBarButtonItem = nil
         })
         alert.addAction(UIAlertAction(title: "확인", style: .default) { action in
-            self.selectedIndex = 2
+            self.selectedIndex = 1
             self.navigationBarSetting(navigationTitle: "기프티콘 저장")
             guard let pushVC = self.storyboard?.instantiateViewController(identifier: "viewVC") as? ViewController else{
                 return
