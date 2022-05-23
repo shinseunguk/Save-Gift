@@ -14,14 +14,10 @@ protocol refreshProtocol {
 
 class GiftFriendController : UIViewController{
     let LOG_TAG : String = "GiftFriendController"
-//    var arr1 : [String] = ["arr1","arr2","arr3","arr4","arr5","arr6","arr1","arr2","arr3","arr4","arr5","arr6"]
-//    var arr2 : [String] = ["ARR1","ARR2","ARR3","ARR4","ARR5","ARR6","ARR7","ARR8","ARR9","ARR10","ARR11","ARR12"]
-//    var arr1 : [String] = ["samdori96@nate.com"]
     var tempArray : [String] = []
     var arr1 : [String] = ["요청된 친구가 없습니다."]
     var arr2 : [String] = ["친구를 추가해 기프티콘을 선물, 공유 해보세요."]
     var status : [String] = []
-//    var status : [String] = ["친구 요청중","친구 요청중","친구 요청중","친구 요청중","친구 요청중","친구 요청중","친구 요청중","친구 요청중","친구 요청중","친구 요청중","친구 요청중","친구 요청중"]
     let localUrl : String = "".getLocalURL();
     var user_id : String?
     
@@ -30,10 +26,13 @@ class GiftFriendController : UIViewController{
     
     @IBOutlet weak var topTableView: UITableView!
     @IBOutlet weak var bottomTableView: UITableView!
-    @IBOutlet weak var topLabel: UILabel!
-    @IBOutlet weak var bottomLabel: UILabel!
+//    @IBOutlet weak var topLabel: UILabel!
+//    @IBOutlet weak var bottomLabel: UILabel!
     @IBOutlet weak var uiView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
+    
+    @IBOutlet weak var topView: UIView!
+    @IBOutlet weak var bottomView: UIView!
     
     var getFriend : String?
     
@@ -45,6 +44,11 @@ class GiftFriendController : UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         print("GiftFriendController")
+        topView.translatesAutoresizingMaskIntoConstraints = false
+        bottomView.translatesAutoresizingMaskIntoConstraints = false
+        topTableView.frame.size.height = 300
+        topView.frame.size.height = 150
+        bottomView.frame.size.height = 150
         
 //        친구를 추가해 기프티콘을 선물, 공유 해보세요
         
@@ -76,7 +80,7 @@ class GiftFriendController : UIViewController{
     override func viewWillAppear(_ animated: Bool) {
         
         print("GiftFriendController viewWillAppear")
-        uiView.backgroundColor = .systemIndigo
+//        uiView.backgroundColor = .systemIndigo
 //        if(UserDefaults.standard.string(forKey: "ID") != nil){ //로그인 O
 //            self.requestGetRequestFriend(requestUrl: "/getRequestFriend")
 //            self.requestGetFriend(requestUrl: "/getFriend")
@@ -84,12 +88,14 @@ class GiftFriendController : UIViewController{
     }
     
     func topTableHeight(){
+        self.topView.frame.size.height = self.topTableView.contentSize.height
         self.topTableView.frame.size.height = self.topTableView.contentSize.height
     }
     
     func bottomTableHeight(){
+        self.bottomView.frame.size.height = self.bottomTableView.contentSize.height
         self.bottomTableView.frame.size.height = self.bottomTableView.contentSize.height
-        self.bottomLabel.topAnchor.constraint(equalTo: self.topTableView.topAnchor, constant: CGFloat(self.topTableView.contentSize.height) + 30).isActive = true
+//        self.bottomLabel.topAnchor.constraint(equalTo: self.topTableView.topAnchor, constant: CGFloat(self.topTableView.contentSize.height) + 30).isActive = true
         var totalHeight = CGFloat(self.topTableView.contentSize.height) + CGFloat(self.bottomTableView.contentSize.height) + 34
         
         print("totalHeight -----> ", totalHeight)
