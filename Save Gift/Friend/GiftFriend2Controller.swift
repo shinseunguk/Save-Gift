@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class GiftFriend2Controller : UIViewController{
+class GiftFriend2Controller : UIViewController {
     
     @IBOutlet weak var uiView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
@@ -42,16 +42,17 @@ class GiftFriend2Controller : UIViewController{
     
     func topTableViewSetUp(){
         print("topTableView ~~~~~~~ \(#line)")
+        
+        topTableView.isScrollEnabled = false
+        topTableView.dataSource = self
+        topTableView.delegate = self
+        topTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         self.scrollView.addSubview(topTableView)
         
         topTableView.translatesAutoresizingMaskIntoConstraints = false
         topTableView.topAnchor.constraint(equalTo: topLabel.bottomAnchor, constant: 20).isActive = true
         topTableView.leftAnchor.constraint(equalTo: uiView.leftAnchor, constant: 0).isActive = true
         topTableView.rightAnchor.constraint(equalTo: uiView.rightAnchor, constant: 0).isActive = true
-        
-        topTableView.dataSource = self
-        topTableView.delegate = self
-        self.topTableView.register(UINib(nibName: "GetFriendTableViewCell", bundle: nil), forCellReuseIdentifier: "GetFriendTableViewCell")
         
         topTableView.backgroundColor = .blue
     }
@@ -65,13 +66,12 @@ extension GiftFriend2Controller : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         print("topTableView ~~~~~~~ \(#line)")
-        if tableView == topTableView {
-            let customCell = self.topTableView.dequeueReusableCell(withIdentifier: "GetFriendTableViewCell", for: indexPath) as! GetFriendTableViewCell
-            
-            customCell.emailLabel.text = "123@naver.com"
-            customCell.statusLabel.text = "ddd"
-            return customCell
-        }
-        return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.textLabel?.text = String(indexPath.row)
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
     }
 }
