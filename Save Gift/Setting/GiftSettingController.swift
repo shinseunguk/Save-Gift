@@ -25,7 +25,7 @@ class GiftSettingController : UIViewController{
         UIImage(systemName: "apps.iphone")!, // 앱버전
         UIImage(systemName: "doc.fill")!, // 기프티콘 사용법
         UIImage(systemName: "person.crop.circle.badge.minus.fill")!, // 회원탈퇴
-        UIImage(systemName: "keyboard.fill")!, // 개발자
+        UIImage(systemName: "keyboard")!, // 개발자
         UIImage(systemName: "person.crop.circle.badge.minus.fill")! // TEST Image
     ]
     var version: String? {
