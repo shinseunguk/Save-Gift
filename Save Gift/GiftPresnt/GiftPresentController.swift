@@ -15,7 +15,7 @@ class GiftPresentController : TabmanViewController{
     
     private var viewControllers: Array<UIViewController> = []
     
-    var viewPagerArr = ["미사용 기프티콘", "사용한 기프티콘", "내가준 선물"]
+    var viewPagerArr = ["선물함", "사용한 선물", "내가준 선물"]
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -161,6 +161,7 @@ extension CustomTabBarController: customTabBarDelegate{
             }
             
             self.navigationItem.rightBarButtonItem = nil
+            navigationBarSetting(navigationTitle: "선물함")
         case "저장소":
 //            actionButton.isHidden = false
         navigationBarSetting(navigationTitle: "기프티콘 저장")
