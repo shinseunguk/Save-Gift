@@ -366,12 +366,9 @@ extension Page2Controller: UICollectionViewDelegate, UICollectionViewDataSource,
         DispatchQueue.global(qos: .userInteractive).async {
                 let data = try? Data(contentsOf: url!)
                 DispatchQueue.main.async {
-//                    self.imageView.image = UIImage(data: data!)
                     cell.cellImageView.image =  UIImage(data: data!)
                     cell.cellImageView.contentMode = .scaleAspectFit
                     self.uiImageArr.append(cell.cellImageView.image!)
-                    print("\(#line) ", cell.cellImageView.image!)
-//                    print("\(#line) ", self.uiImageArr[indexPath.row])
                 }
         }
         return cell
