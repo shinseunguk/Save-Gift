@@ -116,8 +116,7 @@ class GiftPresentPage2Controller : UIViewController{
                 label.textAlignment = .center
 //                label.text = "기프티콘을 추가해 \n 관리, 공유, 선물해보세요"
                     label.text = """
-                    선물 가능한 기프티콘이 없습니다.
-                    저장소에서 기프티콘을 추가해 선물 해보세요!
+                    사용한 선물이 없습니다.
                     """
                 
                 self.view.addSubview(label)
