@@ -217,8 +217,8 @@ class FriendController : UIViewController, UITextFieldDelegate {
                 let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
 
                     print("회원가입 응답 처리 로직 responseString", responseString!)
-                    print("응답 처리 로직 data", data! as Any)
-                    print("응답 처리 로직 response", response! as Any)
+//                    print("응답 처리 로직 data", data! as Any)
+//                    print("응답 처리 로직 response", response! as Any)
                     // 응답 처리 로직
                     
                     if responseString != "" && responseString != nil {
@@ -288,8 +288,8 @@ class FriendController : UIViewController, UITextFieldDelegate {
                 let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
 
                     print("회원가입 응답 처리 로직 responseString", responseString)
-                    print("응답 처리 로직 data", data! as Any)
-                    print("응답 처리 로직 response", response! as Any)
+//                    print("응답 처리 로직 data", data! as Any)
+//                    print("응답 처리 로직 response", response! as Any)
                     // 응답 처리 로직
                     
                     if responseString != "" && responseString != nil {
@@ -375,8 +375,8 @@ class FriendController : UIViewController, UITextFieldDelegate {
                     let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
 
                     print("회원가입 응답 처리 로직 responseString", responseString)
-                    print("응답 처리 로직 data", data! as Any)
-                    print("응답 처리 로직 response", response! as Any)
+//                    print("응답 처리 로직 data", data! as Any)
+//                    print("응답 처리 로직 response", response! as Any)
                     // 응답 처리 로직
 
 
@@ -437,8 +437,8 @@ class FriendController : UIViewController, UITextFieldDelegate {
                     let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
     
                         print("/waitFriend ----> ", responseString!)
-                        print("응답 처리 로직 data", data! as Any)
-                        print("응답 처리 로직 response", response! as Any)
+//                        print("응답 처리 로직 data", data! as Any)
+//                        print("응답 처리 로직 response", response! as Any)
                         // 응답 처리 로직
     
     
