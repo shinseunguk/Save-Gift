@@ -182,7 +182,7 @@ class GiftSaveController : TabmanViewController{
                             ,constant: screenHeight-200).isActive = true // ---- 1
     }
     
-    // MARK: 블루 추가 버튼
+    // MARK: 블러 추가 버튼
     func btnBlurCreate() {
         if viewBlurEffect == nil {
             viewBlurEffect = UIVisualEffectView()

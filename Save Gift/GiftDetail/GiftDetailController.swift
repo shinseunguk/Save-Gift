@@ -302,6 +302,7 @@ class GiftDetailController : UIViewController{
         }
         
         pushVC.modalPresentationStyle = .fullScreen
+        pushVC.index = "선물하기"
         self.present(pushVC, animated: true, completion: nil)
     }
     

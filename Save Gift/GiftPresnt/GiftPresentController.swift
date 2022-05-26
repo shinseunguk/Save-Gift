@@ -15,7 +15,7 @@ class GiftPresentController : TabmanViewController{
     
     private var viewControllers: Array<UIViewController> = []
     
-    var viewPagerArr = ["선물함   0", "선물 가능한 기프티콘   3"]
+    var viewPagerArr = ["미사용 기프티콘", "사용한 기프티콘", "내가준 선물"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,9 +27,11 @@ class GiftPresentController : TabmanViewController{
     func setTabMan() {
         let AllVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Present1VC") as! GiftPresentPage1Controller
         let UnusedVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Present2VC") as! GiftPresentPage2Controller
+        let UsedVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Present3VC") as! GiftPresentPage3Controller
                     
         viewControllers.append(AllVC)
         viewControllers.append(UnusedVC)
+        viewControllers.append(UsedVC)
         
         self.dataSource = self
 
@@ -68,6 +70,8 @@ extension GiftPresentController: PageboyViewControllerDataSource, TMBarDataSourc
                 return TMBarItem(title: viewPagerArr[0])
             case 1:
                 return TMBarItem(title: viewPagerArr[1])
+            case 2:
+                return TMBarItem(title: viewPagerArr[2])
             default:
                 let title = "Page \(index)"
                 return TMBarItem(title: title)

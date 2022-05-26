@@ -15,6 +15,8 @@ class GiftFriendController : UIViewController{
     let localUrl : String = "".getLocalURL();
     var user_id : String?
     
+    var index : String?
+    
     var uiViewHeightConstraint : NSLayoutConstraint?
     var topTableViewHeightConstraint : NSLayoutConstraint?
     var bottomTableViewHeightConstraint : NSLayoutConstraint?
@@ -28,8 +30,8 @@ class GiftFriendController : UIViewController{
     let bottomLabel = UILabel()
     let bottomTableView = UITableView()
     
-    var arr1 : [String] = ["요청된 친구가 없습니다."]
-    var arr2 : [String] = ["친구를 추가해 기프티콘을 선물, 공유 해보세요."]
+    var arr1 : [String] = []
+    var arr2 : [String] = []
     var status : [String] = []
 //    var arr1 : [String] = ["aa@naver.com", "bb@naver.com", "cc@naver.com"] // TEST
 //    var arr2 : [String] = ["krdut1@gmail.com"] // TEST
@@ -39,21 +41,32 @@ class GiftFriendController : UIViewController{
     
     var dic : [String : Any] = [:];
     var dic2 : [String : Any] = [:];
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("GiftFriend2Controller \(#function)")
+        print("GiftFriendController \(#function)")
         
         dismissBtnSetup()
-        dismissBtnHidden() // X Btn 숨기기
+        
+        if index != nil {
+            if index == "선물하기"{
+                dismissBtn.isHidden = false // X Btn 숨기기
+            }
+        }else {
+            dismissBtn.isHidden = true
+        }
         
         topLabelSetUp() // [친구 요청]
         topTableViewSetUp() // 친구요청 테이블뷰
         bottomLabelSetUp() // [친구]
         bottomTableViewSetUp() // 친구 테이블뷰
         uiViewSetUp()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        print("viewDidLayoutSubviews!!")
     }
     
     override func viewDidAppear(_ animated: Bool){
@@ -76,12 +89,8 @@ class GiftFriendController : UIViewController{
         dismissBtn.heightAnchor.constraint(equalToConstant: 22).isActive = true
         dismissBtn.widthAnchor.constraint(equalToConstant: 22).isActive = true
         
-        dismissBtn.topAnchor.constraint(equalTo: uiView.topAnchor, constant: 10).isActive = true
-        dismissBtn.leftAnchor.constraint(equalTo: uiView.leftAnchor, constant: 20).isActive = true
-    }
-    
-    func dismissBtnHidden(){
-        dismissBtn.isHidden = true
+        dismissBtn.topAnchor.constraint(equalTo: uiView.topAnchor, constant: 20).isActive = true
+        dismissBtn.leftAnchor.constraint(equalTo: uiView.leftAnchor, constant: 30).isActive = true
     }
     
     func topLabelSetUp(){
@@ -94,7 +103,7 @@ class GiftFriendController : UIViewController{
         
         topLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        topLabel.topAnchor.constraint(equalTo: dismissBtn.bottomAnchor, constant: 10).isActive = true
+        topLabel.topAnchor.constraint(equalTo: dismissBtn.bottomAnchor, constant: 30).isActive = true
         topLabel.leftAnchor.constraint(equalTo: uiView.leftAnchor, constant: 20).isActive = true
     }
     
@@ -161,11 +170,7 @@ class GiftFriendController : UIViewController{
     
     @objc func dismissAction(){
         print("dismissAction")
-        
-        // constraint change
-        self.uiViewHeightConstraint?.constant = 800
-        self.topTableViewHeightConstraint?.constant = 300
-//        self.view.layoutIfNeeded()
+        dismiss(animated: true, completion: nil)
     }
     
     func normalAlert(title : String, message : String, email : String?){
@@ -279,8 +284,8 @@ class GiftFriendController : UIViewController{
 
                     var responseData : String = responseString as! String
                     print("requestGetFriendTop responseString", responseString!)
-                    print("응답 처리 로직 data", data! as Any)
-                    print("응답 처리 로직 response", response! as Any)
+//                    print("응답 처리 로직 data", data! as Any)
+//                    print("응답 처리 로직 response", response! as Any)
                     // 응답 처리 로직
                     DispatchQueue.main.async{
                         if(responseString != ""){
@@ -297,21 +302,20 @@ class GiftFriendController : UIViewController{
                             print("self.arr1 ----------> ", self.arr1)
                             print("self.status ----------> ", self.status)
                             
-                            
+                        }else {
+                            if self.arr1.count == 0{
+                                self.arr1.append("요청된 친구가 없습니다.")
+                            }
                         }
-//                        else{
-//                            print("responseString == arr1")
-//                            if self.arr1.count == 0 {
-//                                print("요청된 친구가 없습니다.")
-//                                self.arr1.append("요청된 친구가 없습니다.")
-//                                self.status.append("")
-//                            }
-//                        }
-                        
-                        self.topTableView.reloadData()
+
                         
                         self.topTableViewHeightConstraint?.constant = CGFloat(self.arr1.count * 50)
                         self.uiViewHeightConstraint?.constant = CGFloat((self.arr1.count * 50 + self.arr2.count * 50) + 140)
+                        
+                        self.topTableView.layoutIfNeeded()
+                        self.uiView.layoutIfNeeded()
+                        
+                        self.topTableView.reloadData()
                         
                         self.requestGetFriend(requestUrl: "/getFriend")
                      
@@ -354,8 +358,8 @@ class GiftFriendController : UIViewController{
                 let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
 
                     print("requestGetFriendBottom responseString", responseString!)
-                    print("응답 처리 로직 data", data! as Any)
-                    print("응답 처리 로직 response", response! as Any)
+//                    print("응답 처리 로직 data", data! as Any)
+//                    print("응답 처리 로직 response", response! as Any)
                     // 응답 처리 로직
                     
                     DispatchQueue.main.async{
@@ -375,12 +379,12 @@ class GiftFriendController : UIViewController{
                                 self.arr2.append("친구를 추가해 기프티콘을 선물, 공유 해보세요.")
                             }
                             
+                        }else {
+                            if self.arr2.count == 0{
+                                self.arr2.append("친구를 추가해 기프티콘을 선물, 공유 해보세요.")
+                            }
                         }
-//                        else {
-//                            if self.arr2.count == 0{
-//                                self.arr2.append("친구를 추가해 기프티콘을 선물, 공유 해보세요.")
-//                            }
-//                        }
+                        
                         
                         self.bottomTableView.reloadData()
                         
@@ -511,8 +515,8 @@ class GiftFriendController : UIViewController{
                     let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
     
                         print("/deleteFriendWait", responseString!)
-                        print("응답 처리 로직 data", data! as Any)
-                        print("응답 처리 로직 response", response! as Any)
+//                        print("응답 처리 로직 data", data! as Any)
+//                        print("응답 처리 로직 response", response! as Any)
                         // 응답 처리 로직
     
     
@@ -585,8 +589,8 @@ class GiftFriendController : UIViewController{
                     let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
     
                         print("/addFriend", responseString!)
-                        print("응답 처리 로직 data", data! as Any)
-                        print("응답 처리 로직 response", response! as Any)
+//                        print("응답 처리 로직 data", data! as Any)
+//                        print("응답 처리 로직 response", response! as Any)
                         // 응답 처리 로직
     
     
