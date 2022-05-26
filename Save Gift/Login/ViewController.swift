@@ -222,8 +222,7 @@ class ViewController: UIViewController, ASAuthorizationControllerDelegate, ASAut
                                 return
                             }
                             
-                            pushVC.VC = self.VC
-                                
+//                            pushVC.VC = self.VC
                             self.navigationController?.pushViewController(pushVC, animated: true)
                             
                             
