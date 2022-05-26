@@ -16,8 +16,18 @@ class GiftSettingController : UIViewController{
     @IBOutlet weak var loginBtn: UIButton!
     @IBOutlet weak var loginLabel: UILabel!
     @IBOutlet weak var lockImageView: UIImageView!
-    var arr = ["로그아웃", "내정보", "개발자", "알림설정", "앱버전", "기프티콘 사용법", "회원탈퇴", "테스트화면"]
-    
+//    var arr = ["로그아웃", "내정보", "개발자", "알림설정", "앱버전", "기프티콘 사용법", "회원탈퇴", "테스트화면"] // TEST ARRAY
+    var arr = ["로그아웃", "내정보", "알림설정", "앱버전", "기프티콘 사용법", "회원탈퇴", "개발자"]
+    var imgArr: [UIImage] = [
+        UIImage(systemName: "key.fill")!, // 로그아웃
+        UIImage(systemName: "person.fill")!, // 내정보
+        UIImage(systemName: "bell.fill")!, // 알림설정
+        UIImage(systemName: "apps.iphone")!, // 앱버전
+        UIImage(systemName: "doc.fill")!, // 기프티콘 사용법
+        UIImage(systemName: "person.crop.circle.badge.minus.fill")!, // 회원탈퇴
+        UIImage(systemName: "keyboard.fill")!, // 개발자
+        UIImage(systemName: "person.crop.circle.badge.minus.fill")! // TEST Image
+    ]
     var version: String? {
         guard let dictionary = Bundle.main.infoDictionary,
               let version = dictionary["CFBundleShortVersionString"] as? String,
@@ -89,12 +99,13 @@ extension GiftSettingController: UITableViewDelegate, UITableViewDataSource{
         if indexPath.row == 0{
             cell.leftLabel.textColor = .red
         }
-        if indexPath.row == 4{
+        if indexPath.row == 3{
             cell.rightLabel.isHidden = false
             cell.rightLabel.text = version
         }
         
         cell.leftLabel.text = arr[indexPath.row]
+        cell.uiImageView.image = imgArr[indexPath.row]
         
         return cell
     }
@@ -135,13 +146,13 @@ extension GiftSettingController: UITableViewDelegate, UITableViewDataSource{
             }else{// 로그인 X
                 needLoginService()
             }
-        }else if indexPath.row == 2 { //개발자
+        }else if indexPath.row == 6 { //개발자
             let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "SettingDeveloperVC")
             self.navigationController?.pushViewController(pushVC!, animated: true)
-        }else if indexPath.row == 3 { //알림설정
+        }else if indexPath.row == 2 { //알림설정
                 let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "SettingNotiControllerVC")
                 self.navigationController?.pushViewController(pushVC!, animated: true)
-        }else if indexPath.row == 4 { //앱버전
+        }else if indexPath.row == 3 { //앱버전
             dbVersion = helper.getVersion(requestUrl: "/version").replacingOccurrences(of: ".", with: "")
             currentVersion = self.version!
             
@@ -154,10 +165,10 @@ extension GiftSettingController: UITableViewDelegate, UITableViewDataSource{
             }else{
                 print("예외")
             }
-        }else if indexPath.row == 5 { //기프티콘 사용법
+        }else if indexPath.row == 4 { //기프티콘 사용법
             let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "SettingHowToUseVC")
             self.navigationController?.pushViewController(pushVC!, animated: true)
-        }else if indexPath.row == 6 { //회원탈퇴
+        }else if indexPath.row == 5 { //회원탈퇴
             if(UserDefaults.standard.string(forKey: "ID") != nil){ //로그인 O
                 let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "SettingSecessionVC")
                 self.navigationController?.pushViewController(pushVC!, animated: true)
