@@ -31,12 +31,12 @@ class Register3Controller: UIViewController, UITextFieldDelegate{
 
 
     //넘어온 값
-    var pushYn : Bool?
+//    var pushYn : Bool?
     var emailYn : Bool?
     var smsYn : Bool?
     
     //넘어온 값 -> int 캐스팅
-    var push_yn : Int? 
+//    var push_yn : Int?
     var email_yn : Int?
     var sms_yn : Int?
     
@@ -56,16 +56,16 @@ class Register3Controller: UIViewController, UITextFieldDelegate{
         emailCheckText!.text! = ""
         btnConfirm.isEnabled = false
         print("Register3Controller")
-        print("pushYN BOOL", pushYn!)
+//        print("pushYN BOOL", pushYn!)
         print("emailYn BOOL", emailYn!)
         print("smsYn BOOL", smsYn!)
         
         // Bool -> Int 캐스팅
-        if pushYn! {
-            push_yn = 1
-        } else{
-            push_yn = 0
-        }
+//        if pushYn! {
+//            push_yn = 1
+//        } else{
+//            push_yn = 0
+//        }
         
         if emailYn! {
             email_yn = 1
@@ -79,7 +79,7 @@ class Register3Controller: UIViewController, UITextFieldDelegate{
             sms_yn = 0
         }
         
-        print("pushYN int", push_yn!)
+//        print("pushYN int", push_yn!)
         print("emailYn int", email_yn!)
         print("smsYn int", sms_yn!)
         
@@ -280,7 +280,7 @@ class Register3Controller: UIViewController, UITextFieldDelegate{
         let email = emailInput.text
         let password = passwordInput.text
         let telNumber = telInput.text!.replacingOccurrences(of: "-", with: "")
-        let param = ["user_id" : email, "name" : name, "user_password" : password, "phone_number" : telNumber, "push_yn" : push_yn, "email_yn" : email_yn, "sms_yn" : sms_yn] as [String : Any] // JSON 객체로 전송할 딕셔너리
+        let param = ["user_id" : email, "name" : name, "user_password" : password, "phone_number" : telNumber, "email_yn" : email_yn, "sms_yn" : sms_yn] as [String : Any] // JSON 객체로 전송할 딕셔너리
 //        let param = "user_Id=\(email)&name=\(name)"
         let paramData = try! JSONSerialization.data(withJSONObject: param)
         // URL 객체 정의
@@ -325,7 +325,9 @@ class Register3Controller: UIViewController, UITextFieldDelegate{
                             }
                         }
                     }else{
-                        self.normalAlert(titles: "회원가입 오류", messages: nil)
+                        DispatchQueue.main.async{
+                            self.normalAlert(titles: "회원가입 오류", messages: nil)
+                        }
                     }
                 }
                 // POST 전송

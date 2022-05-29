@@ -13,7 +13,7 @@ class RegisterController: UIViewController {
     @IBOutlet weak var firstButton: UIButton!
     @IBOutlet weak var secondButton: UIButton!
     @IBOutlet weak var thirdButton: UIButton!
-    @IBOutlet weak var pushButton: UIButton!
+//    @IBOutlet weak var pushButton: UIButton!
     @IBOutlet weak var smsButton: UIButton!
     @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var emailButton: UIButton!
@@ -21,7 +21,7 @@ class RegisterController: UIViewController {
     var necessary : Bool = false;
     var whole : Bool = false;
     var marketing : Bool = false;
-    var push : Bool = false;
+//    var push : Bool = false;
     var email : Bool = false;
     var sms : Bool = false;
     
@@ -65,27 +65,27 @@ class RegisterController: UIViewController {
         if whole {
             necessary = true
             marketing = true
-            push = true
+//            push = true
             email = true
             sms = true
             
             wholeButton.tintColor = UIColor.systemBlue
             firstButton.tintColor = UIColor.systemBlue
             secondButton.tintColor = UIColor.systemBlue
-            pushButton.tintColor = UIColor.systemBlue
+//            pushButton.tintColor = UIColor.systemBlue
             emailButton.tintColor = UIColor.systemBlue
             smsButton.tintColor = UIColor.systemBlue
         } else{
             necessary = false
             marketing = false
-            push = false
+//            push = false
             email = false
             sms = false
             
             wholeButton.tintColor = UIColor.lightGray
             firstButton.tintColor = UIColor.lightGray
             secondButton.tintColor = UIColor.lightGray
-            pushButton.tintColor = UIColor.lightGray
+//            pushButton.tintColor = UIColor.lightGray
             emailButton.tintColor = UIColor.lightGray
             smsButton.tintColor = UIColor.lightGray
         }
@@ -108,7 +108,7 @@ class RegisterController: UIViewController {
             nextButton.layer.backgroundColor = UIColor.lightGray.cgColor
         }
         
-        if necessary && marketing && push && email && sms{
+        if necessary && marketing && email && sms{
             wholeButton.tintColor = UIColor.systemBlue
         } else{
             wholeButton.tintColor = UIColor.lightGray
@@ -116,33 +116,33 @@ class RegisterController: UIViewController {
     }
     @IBAction func secondBtnAction(_ sender: Any) {
         marketing = !marketing
-        push = !push
+//        push = !push
         email = !email
         sms = !sms
         
         if marketing {
             marketing = true
-            push = true
+//            push = true
             email = true
             sms = true
             
             secondButton.tintColor = UIColor.systemBlue
-            pushButton.tintColor = UIColor.systemBlue
+//            pushButton.tintColor = UIColor.systemBlue
             emailButton.tintColor = UIColor.systemBlue
             smsButton.tintColor = UIColor.systemBlue
         } else{
             marketing = false
-            push = false
+//            push = false
             email = false
             sms = false
             
             secondButton.tintColor = UIColor.lightGray
-            pushButton.tintColor = UIColor.lightGray
+//            pushButton.tintColor = UIColor.lightGray
             emailButton.tintColor = UIColor.lightGray
             smsButton.tintColor = UIColor.lightGray
         }
         
-        if necessary && marketing && push && email && sms{
+        if necessary && marketing && email && sms{
             wholeButton.tintColor = UIColor.systemBlue
         } else{
             wholeButton.tintColor = UIColor.lightGray
@@ -151,41 +151,41 @@ class RegisterController: UIViewController {
         
         print("마켓팅 수신 전체 동의")
         print("marketing ", String(marketing))
-        print("push ", String(push))
+//        print("push ", String(push))
         print("email ", String(email))
         print("sms ", String(sms))
     }
     //푸시
-    @IBAction func pushBtnAction(_ sender: Any) {
-        push = !push
-        
-        //push 단독
-        if push {
-            pushButton.tintColor = UIColor.systemBlue
-        } else{
-            pushButton.tintColor = UIColor.lightGray
-        }
-        
-        //마켓팅 수신 전체동의
-        if push && email && sms {
-            marketing = true
-            secondButton.tintColor = UIColor.systemBlue
-        } else{
-            marketing = false
-            secondButton.tintColor = UIColor.lightGray
-        }
-        
-        //전체동의
-        if necessary && marketing && push && email && sms{
-            wholeButton.tintColor = UIColor.systemBlue
-        } else{
-            wholeButton.tintColor = UIColor.lightGray
-        }
-        print("marketing ", String(marketing))
-        print("push ", String(push))
-        print("email ", String(email))
-        print("sms ", String(sms))
-    }
+//    @IBAction func pushBtnAction(_ sender: Any) {
+//        push = !push
+//
+////        //push 단독
+////        if push {
+////            pushButton.tintColor = UIColor.systemBlue
+////        } else{
+////            pushButton.tintColor = UIColor.lightGray
+////        }
+//
+//        //마켓팅 수신 전체동의
+//        if push && email && sms {
+//            marketing = true
+//            secondButton.tintColor = UIColor.systemBlue
+//        } else{
+//            marketing = false
+//            secondButton.tintColor = UIColor.lightGray
+//        }
+//
+//        //전체동의
+//        if necessary && marketing && push && email && sms{
+//            wholeButton.tintColor = UIColor.systemBlue
+//        } else{
+//            wholeButton.tintColor = UIColor.lightGray
+//        }
+//        print("marketing ", String(marketing))
+//        print("push ", String(push))
+//        print("email ", String(email))
+//        print("sms ", String(sms))
+//    }
     //이메일
     @IBAction func emailBtnAction(_ sender: Any) {
         email = !email
@@ -197,7 +197,7 @@ class RegisterController: UIViewController {
         }
         
         //마켓팅 수신 전체동의
-        if push && email && sms {
+        if email && sms {
             marketing = true
             secondButton.tintColor = UIColor.systemBlue
         } else{
@@ -206,14 +206,14 @@ class RegisterController: UIViewController {
         }
         
         //전체동의
-        if necessary && marketing && push && email && sms{
+        if necessary && marketing && email && sms{
             wholeButton.tintColor = UIColor.systemBlue
         } else{
             wholeButton.tintColor = UIColor.lightGray
         }
         
         print("marketing ", String(marketing))
-        print("push ", String(push))
+//        print("push ", String(push))
         print("email ", String(email))
         print("sms ", String(sms))
     }
@@ -228,7 +228,7 @@ class RegisterController: UIViewController {
         }
         
         //마켓팅 수신 전체동의
-        if push && email && sms {
+        if email && sms {
             marketing = true
             secondButton.tintColor = UIColor.systemBlue
         } else{
@@ -237,14 +237,14 @@ class RegisterController: UIViewController {
         }
         
         //전체동의
-        if necessary && marketing && push && email && sms{
+        if necessary && marketing && email && sms{
             wholeButton.tintColor = UIColor.systemBlue
         } else{
             wholeButton.tintColor = UIColor.lightGray
         }
         
         print("marketing ", String(marketing))
-        print("push ", String(push))
+//        print("push ", String(push))
         print("email ", String(email))
         print("sms ", String(sms))
     }
@@ -255,10 +255,10 @@ class RegisterController: UIViewController {
                 return
             }
             
-            pushVC.pushYn = push
+//            pushVC.pushYn = push
             pushVC.emailYn = email
             pushVC.smsYn = sms
-                    self.navigationController?.pushViewController(pushVC, animated: true)
+            self.navigationController?.pushViewController(pushVC, animated: true)
             
             let backBarButtonItem = UIBarButtonItem(title: "약관동의", style: .plain, target: self, action: nil)
             self.navigationItem.backBarButtonItem = backBarButtonItem
