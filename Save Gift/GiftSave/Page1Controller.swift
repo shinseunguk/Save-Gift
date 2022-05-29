@@ -21,6 +21,8 @@ class Page1Controller : UIViewController{
     @IBOutlet weak var filterButton: UIButton!
     
     let helper : Helper = Helper()
+    //cocoa pod
+    let dropDown = DropDown()
     
     var dic : Dictionary<String, Any> = [:]
 
@@ -53,9 +55,7 @@ class Page1Controller : UIViewController{
     var registrantArr : [String] = []
     
     var uiImageArr : [UIImage] = []
-    
-    //cocoa pod
-    let dropDown = DropDown()
+    var presentIndex : Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -363,7 +363,7 @@ extension Page1Controller: UICollectionViewDelegate, UICollectionViewDataSource,
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
         
-        print("collectionView# \(indexPath.row) ", "".getLocalURL()+"/images/\(cellImageViewArr[indexPath.row])")
+//        print("collectionView# \(indexPath.row) ", "".getLocalURL()+"/images/\(cellImageViewArr[indexPath.row])")
         
             //  Configure the Cell
             cell.brandNameLabel.text = brandNameLabelArr[indexPath.row]
@@ -408,6 +408,10 @@ extension Page1Controller: UICollectionViewDelegate, UICollectionViewDataSource,
 //                vc.uiImage = self.uiImageArr[indexPath.row]
                 
                 vc.seq = self.seqArr[indexPath.row]
+                
+                if self.presentIndex{
+                    vc.presentIndex = true
+                }
                 
                 vc.delegate = self // protocol delegate
 //                vc.modalPresentationStyle = .fullScreen

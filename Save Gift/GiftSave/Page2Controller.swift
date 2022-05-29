@@ -355,7 +355,7 @@ extension Page2Controller: UICollectionViewDelegate, UICollectionViewDataSource,
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
         
-        print("collectionView# \(indexPath.row) ", "".getLocalURL()+"/images/\(cellImageViewArr[indexPath.row])")
+//        print("collectionView# \(indexPath.row) ", "".getLocalURL()+"/images/\(cellImageViewArr[indexPath.row])")
         
         //  Configure the Cell
         cell.brandNameLabel.text = brandNameLabelArr[indexPath.row]
