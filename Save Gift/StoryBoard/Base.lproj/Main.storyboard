@@ -486,7 +486,7 @@
         <scene sceneID="UPb-Gh-ME7">
             <objects>
                 <viewController storyboardIdentifier="SettingSecessionVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="k3R-M8-FaB" customClass="SettingSecessionController" customModule="Save_Gift" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="WxZ-Us-fSb">
+                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="WxZ-Us-fSb">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -546,7 +546,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U08-Ld-jHa">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U08-Ld-jHa">
                                 <rect key="frame" x="20" y="812" width="374" height="50"/>
                                 <color key="backgroundColor" systemColor="systemBlueColor"/>
                                 <accessibility key="accessibilityConfiguration">
@@ -1935,6 +1935,7 @@
                         <outlet property="imageExpandBtn" destination="1Fr-kB-Qrn" id="am6-lV-RNp"/>
                         <outlet property="imageView" destination="OC3-Wz-8sb" id="mdy-M1-iTN"/>
                         <outlet property="presentBtn" destination="PA8-PA-O7N" id="USY-lu-NAK"/>
+                        <outlet property="scrollView" destination="sSW-bW-1hJ" id="cLb-sa-d8T"/>
                         <outlet property="tableView" destination="3yh-hY-XX3" id="cNT-Lt-Adk"/>
                         <outlet property="useynBtn" destination="XpA-uS-VCx" id="IRY-T5-aad"/>
                         <outlet property="vBrandLabel" destination="7Cf-lo-ecW" id="RAG-ih-xXG"/>
