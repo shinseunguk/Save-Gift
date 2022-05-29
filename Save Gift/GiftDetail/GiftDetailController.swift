@@ -29,6 +29,7 @@ class GiftDetailController : UIViewController{
     @IBOutlet weak var editBtn: UIButton!
     @IBOutlet weak var presentBtn: UIButton!
     @IBOutlet weak var useynBtn: UIButton!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     var delegate : GiftDeleteDelegate?
     var delegate2 : GiftDeleteDelegate2?
@@ -36,7 +37,7 @@ class GiftDetailController : UIViewController{
     
     let localUrl : String = "".getLocalURL()
     
-    let categoryArr = ["바코드 번호", "교환처", "상품명", "유효기간", "쿠폰상태", "등록일", "등록자"]
+    var categoryArr = ["바코드 번호", "교환처", "상품명", "유효기간", "쿠폰상태", "등록일", "등록자"]
     var contentArr =  ["", "", "", "", "", "", ""]
 //    var contentArr : [Any] = []
     
@@ -65,6 +66,10 @@ class GiftDetailController : UIViewController{
     
     var reviseBool : Bool = false
     var couponStatus : Bool = true
+    
+    var presentIndex : Bool = false
+    
+    let sendPresentBtn = UIButton()
 
     override func viewDidLoad(){
         super.viewDidLoad()
@@ -72,7 +77,22 @@ class GiftDetailController : UIViewController{
         print("imageUrl --- > ", "".getLocalURL()+"/images/\(imageUrl!)")
         print("seq --- > ", seq!)
         
+        print("presentIndex ", presentIndex)
         
+        if presentIndex {
+            categoryArr.append("선물보낼 메시지")
+            contentArr.append("")
+            editBtn.removeFromSuperview()
+            presentBtn.removeFromSuperview()
+            useynBtn.removeFromSuperview()
+            
+            sendPresentBtn.backgroundColor = .systemBlue
+            scrollView.addSubview(sendPresentBtn)
+            
+            sendPresentBtn.translatesAutoresizingMaskIntoConstraints = false
+            sendPresentBtn.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 20).isActive = true
+            
+        }
         
 //        Init()
         viewLabelSetup()

@@ -239,7 +239,14 @@ class GiftFriendController : UIViewController{
     func normalActionSheet(title : String?, message : String?){
         let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
             alert.addAction(UIAlertAction(title: "선물하기(기프티콘)", style: .default) { action in
-                print("선물하기")
+                guard let pushVC = self.storyboard?.instantiateViewController(identifier: "AllVC") as? Page1Controller else{
+                    return
+                }
+                pushVC.presentIndex = true;
+                        self.navigationController?.pushViewController(pushVC, animated: true)
+//                let backBarButtonItem = UIBarButtonItem(title: "Zedd", style: .plain, target: self, action: nil)
+//                backBarButtonItem.tintColor = .red
+//                self.navigationItem.backBarButtonItem = backBarButtonItem
             })
             alert.addAction(UIAlertAction(title: "친구삭제", style: .destructive) { action in
                 print("친구삭제")
