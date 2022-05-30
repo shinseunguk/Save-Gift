@@ -243,6 +243,7 @@ class GiftFriendController : UIViewController{
                     return
                 }
                 pushVC.presentIndex = true;
+                pushVC.presentId = message!
                         self.navigationController?.pushViewController(pushVC, animated: true)
 //                let backBarButtonItem = UIBarButtonItem(title: "Zedd", style: .plain, target: self, action: nil)
 //                backBarButtonItem.tintColor = .red

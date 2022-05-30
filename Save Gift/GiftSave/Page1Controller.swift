@@ -13,6 +13,7 @@ import DropDown
 protocol GiftDeleteDelegate: AnyObject {
     func giftDelete()
     func goToLogin()
+    func giftPresent()
 }
 
 class Page1Controller : UIViewController{
@@ -56,6 +57,7 @@ class Page1Controller : UIViewController{
     
     var uiImageArr : [UIImage] = []
     var presentIndex : Bool = false
+    var presentId : String? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -334,6 +336,11 @@ class Page1Controller : UIViewController{
 }
 
 extension Page1Controller: UICollectionViewDelegate, UICollectionViewDataSource, GiftDeleteDelegate {
+    func giftPresent() { // 선물하기(Detail) -> Page1C -> 친구TAB 이동 [선물하기 성공 CASE]
+        print("giftPresent()")
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     
     func giftDelete() {
         print("giftDelete1")
@@ -405,6 +412,7 @@ extension Page1Controller: UICollectionViewDelegate, UICollectionViewDataSource,
                 
                 if self.presentIndex{
                     vc.presentIndex = true
+                    vc.presentId = self.presentId!
                 }
                 
                 vc.delegate = self // protocol delegate
