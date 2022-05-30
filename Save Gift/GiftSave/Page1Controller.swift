@@ -60,15 +60,9 @@ class Page1Controller : UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        if brandNameLabelArr.count == 0 &&  expirationPeriodLabelArr.count == 0{
-//            label.isHidden = false
-//            collectionView.isHidden = true
-//            filterButton.isHidden = true
-//        }else {
-//            label.isHidden = true
-//            collectionView.isHidden = false
-//            filterButton.isHidden = false
-//        }
+        if presentIndex {
+            self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "선물할 기프티콘을 선택해주세요.", completeTitle: "확인", nil)
+        }
         
         //드롭다운 btnInit
         dropDownInit()
