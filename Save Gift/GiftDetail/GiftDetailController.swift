@@ -30,6 +30,7 @@ class GiftDetailController : UIViewController{
     @IBOutlet weak var presentBtn: UIButton!
     @IBOutlet weak var useynBtn: UIButton!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var uiView: UIView!
     
     var delegate : GiftDeleteDelegate?
     var delegate2 : GiftDeleteDelegate2?
@@ -79,28 +80,62 @@ class GiftDetailController : UIViewController{
         
         print("presentIndex ", presentIndex)
         
-        if presentIndex {
-            categoryArr.append("선물보낼 메시지")
-            contentArr.append("")
-            editBtn.removeFromSuperview()
-            presentBtn.removeFromSuperview()
-            useynBtn.removeFromSuperview()
-            
-            sendPresentBtn.backgroundColor = .systemBlue
-            scrollView.addSubview(sendPresentBtn)
-            
-            sendPresentBtn.translatesAutoresizingMaskIntoConstraints = false
-            sendPresentBtn.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 20).isActive = true
-            
-        }
-        
+        presentSetUp()
 //        Init()
         viewLabelSetup()
         contentArrSetup()
         setupLayout()
 //        calculateDays()
         tableView.allowsSelection = false
-        
+        tableView.isScrollEnabled = false
+    }
+    
+    func presentSetUp(){
+        if presentIndex { // friend -> Unused -> Detail
+            categoryArr.append("선물보낼 메시지")
+            contentArr.append("")
+            editBtn.removeFromSuperview()
+            presentBtn.removeFromSuperview()
+            useynBtn.removeFromSuperview()
+            imageExpandBtn.removeFromSuperview()
+            
+            //tableView layout
+            tableView.translatesAutoresizingMaskIntoConstraints = false
+            tableView.register(UINib(nibName: "PresentMessageTableViewCell", bundle: nil), forCellReuseIdentifier: "PresentMessageTableViewCell")
+            tableView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10).isActive = true
+            tableView.heightAnchor.constraint(equalToConstant: 492).isActive = true // 492
+            
+            print("tableView.frame.size.height \(#line)", tableView.frame.size.height)
+            tableView.frame.size.height = 429
+            print("tableView.frame.size.height \(#line)", tableView.frame.size.height)
+            //
+
+            //sendPresentBtn layout
+            sendPresentBtn.layer.cornerRadius = 5
+            sendPresentBtn.backgroundColor = .systemBlue
+            sendPresentBtn.setTitle("선물 보내기", for: .normal)
+            sendPresentBtn.addTarget(self, action: #selector(sendPresent), for: .touchUpInside)
+            scrollView.addSubview(sendPresentBtn)
+            
+            sendPresentBtn.translatesAutoresizingMaskIntoConstraints = false
+            sendPresentBtn.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 20).isActive = true
+            sendPresentBtn.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 20).isActive = true
+            sendPresentBtn.rightAnchor.constraint(equalTo: scrollView.rightAnchor, constant: -20).isActive = true
+            sendPresentBtn.heightAnchor.constraint(equalToConstant: 40).isActive = true
+            //
+            
+            //view layout
+            let totalHeight = imageView.frame.size.height + tableView.frame.size.height + 85
+            print(" \(#line) totalHeight", totalHeight)
+            uiView.translatesAutoresizingMaskIntoConstraints = false
+            uiView.heightAnchor.constraint(equalToConstant: totalHeight).isActive = true
+            //
+            
+        }
+    }
+    
+    @objc func sendPresent(){
+        print("sendPresent()")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -566,63 +601,78 @@ extension GiftDetailController : UITableViewDelegate, UITableViewDataSource, det
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("categoryArr.count ", categoryArr.count)
         return categoryArr.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = self.tableView.dequeueReusableCell(withIdentifier: "GiftDetailTableViewCell") as! GiftDetailTableViewCell
-        
-        
-        cell.copyBtn.layer.cornerRadius = 5
-        cell.copyBtn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
-        cell.copyBtn.titleLabel?.font = .systemFont(ofSize: 14)
-        
-        cell.copyBtn.addTarget(self, action: #selector(normalAlert), for: .touchUpInside)
-        
-        // 바코드번호 클립보드저장 버튼
-        if indexPath.row != 0 {
-            cell.copyBtn.isHidden = true
-        }
-        if indexPath.row != 3{
-            cell.dDayLabel.isHidden = true
-        }else {
-            cell.dDayLabel.isHidden = false
-            print("\(#line) indexPath.row \(indexPath.row)")
-            let resultDDay : Int = calculateDays(availableDate: contentArr[3])
-            if resultDDay == 0 {
-                cell.dDayLabel.textColor = UIColor.systemBlue
-                cell.dDayLabel.text = "(오늘까지)"
-            }else if resultDDay > 0 {
-                cell.dDayLabel.textColor = UIColor.red
-                cell.dDayLabel.text = "(D+\(resultDDay))"
-                couponStatus = false
-//                contentArr[4] = "사용불가" // 20220514, 사용완료 => 미사용 이슈로 인한 주석처리
-            }else if resultDDay < 0 {
-                cell.dDayLabel.textColor = UIColor.systemGreen
-                cell.dDayLabel.text = "(D\(resultDDay))"
+        if indexPath.row != 7 {
+            let cell = self.tableView.dequeueReusableCell(withIdentifier: "GiftDetailTableViewCell") as! GiftDetailTableViewCell
+            cell.copyBtn.layer.cornerRadius = 5
+            cell.copyBtn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+            cell.copyBtn.titleLabel?.font = .systemFont(ofSize: 14)
+            
+            cell.copyBtn.addTarget(self, action: #selector(normalAlert), for: .touchUpInside)
+            
+            // 바코드번호 클립보드저장 버튼
+            if indexPath.row != 0 {
+                cell.copyBtn.isHidden = true
             }
-        }
-        
-        //미사용, 사용 set Color
-        if indexPath.row == 4{
-            if contentArr[4] == "사용가능"{
-                cell.secondLabel.textColor = UIColor.systemGreen
-            }else if contentArr[4] == "사용불가"{
-                cell.secondLabel.textColor = UIColor.red
+            if indexPath.row != 3{
+                cell.dDayLabel.isHidden = true
+            }else {
+                cell.dDayLabel.isHidden = false
+                print("\(#line) indexPath.row \(indexPath.row)")
+                let resultDDay : Int = calculateDays(availableDate: contentArr[3])
+                if resultDDay == 0 {
+                    cell.dDayLabel.textColor = UIColor.systemBlue
+                    cell.dDayLabel.text = "(오늘까지)"
+                }else if resultDDay > 0 {
+                    cell.dDayLabel.textColor = UIColor.red
+                    cell.dDayLabel.text = "(D+\(resultDDay))"
+                    couponStatus = false
+    //                contentArr[4] = "사용불가" // 20220514, 사용완료 => 미사용 이슈로 인한 주석처리
+                }else if resultDDay < 0 {
+                    cell.dDayLabel.textColor = UIColor.systemGreen
+                    cell.dDayLabel.text = "(D\(resultDDay))"
+                }
             }
-        }else {
-            cell.secondLabel.textColor = UIColor.black
+            
+            //미사용, 사용 set Color
+            if indexPath.row == 4{
+                if contentArr[4] == "사용가능"{
+                    cell.secondLabel.textColor = UIColor.systemGreen
+                }else if contentArr[4] == "사용불가"{
+                    cell.secondLabel.textColor = UIColor.red
+                }
+            }else {
+                cell.secondLabel.textColor = UIColor.black
+            }
+            
+            
+            cell.firstLabel.font = UIFont.boldSystemFont(ofSize: 14)
+            cell.firstLabel.text = categoryArr[indexPath.row]
+            cell.secondLabel.text = contentArr[indexPath.row]
+            return cell
+        }else { // 선물과 함께 보낼 메시지 row
+            let customCell = tableView.dequeueReusableCell(withIdentifier: "PresentMessageTableViewCell") as! PresentMessageTableViewCell
+            customCell.messageLabel.text = "선물과 함께 보낼 메시지"
+            customCell.messageLabel.font = UIFont.boldSystemFont(ofSize: 14)
+            
+            customCell.messageTextField.attributedPlaceholder = NSAttributedString(string: "선물과 함께 보낼 메시지를 작성해주세요.", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
+            return customCell
         }
         
-        
-        cell.firstLabel.font = UIFont.boldSystemFont(ofSize: 14)
-        cell.firstLabel.text = categoryArr[indexPath.row]
-        cell.secondLabel.text = contentArr[indexPath.row]
-        return cell
+        return UITableViewCell()
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-           return 50
+            if indexPath.row != 7 {
+                return 50
+            }else { // 선물과 함께 보낼 메시지 row
+                return 142
+            }
+                return 0
        }
     
     func calculateDays(availableDate : String) -> Int {
@@ -647,8 +697,8 @@ extension GiftDetailController : UITableViewDelegate, UITableViewDataSource, det
         let dateInt1 : Int = Int(date1.replacingOccurrences(of: "-", with: ""))! //오늘 날짜
         let dateInt2 : Int = Int(dateString.replacingOccurrences(of: "-", with: ""))! //입력된 날짜
         
-        print("date1Int1 -----> 오늘    날짜 -->", dateInt1)
-        print("date1Int2 -----> 유효기간 날짜 -->", dateInt2)
+//        print("date1Int1 -----> 오늘    날짜 -->", dateInt1)
+//        print("date1Int2 -----> 유효기간 날짜 -->", dateInt2)
         
 //        print("date2 ", date1)
 //        print("dateString ", dateString)
@@ -657,13 +707,13 @@ extension GiftDetailController : UITableViewDelegate, UITableViewDataSource, det
         if dateInt1 == dateInt2 {
             return 0
         }else if dateInt1 > dateInt2 {
-            print("dateInt1 > dateInt2")
+//            print("dateInt1 > dateInt2")
             return calendar.dateComponents([.day], from: date, to: currentDate).day!
         }else if dateInt1 < dateInt2 {
-            print("dateInt1 < dateInt2") // 오늘날짜 < 유효기간 날짜
-            print("log....1 ", calendar.dateComponents([.day], from: date, to: currentDate).day!-1)
-            print("log....2 ", -(calendar.dateComponents([.day], from: date, to: currentDate).day!-1))
-            print("log....3 ", calendar.dateComponents([.day], from: date, to: currentDate).day!)
+//            print("dateInt1 < dateInt2") // 오늘날짜 < 유효기간 날짜
+//            print("log....1 ", calendar.dateComponents([.day], from: date, to: currentDate).day!-1)
+//            print("log....2 ", -(calendar.dateComponents([.day], from: date, to: currentDate).day!-1))
+//            print("log....3 ", calendar.dateComponents([.day], from: date, to: currentDate).day!)
 //            if calendar.dateComponents([.day], from: date, to: currentDate).day! == 0 {
 //                return 1
 //            }else {
