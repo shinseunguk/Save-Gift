@@ -54,6 +54,7 @@ class GiftDetailController : UIViewController{
     
     var param : Dictionary<String, Any> = [:]
     var dic : Dictionary<String, Any> = [:]
+    var presentParam : Dictionary<String, Any> = [:]
     
     var uiImage : UIImage? = nil
     
@@ -69,13 +70,16 @@ class GiftDetailController : UIViewController{
     var couponStatus : Bool = true
     
     var presentIndex : Bool = false
+    var presentId : String? = nil
+    
+    var presentMessage : String? = nil
     
     let sendPresentBtn = UIButton()
 
     override func viewDidLoad(){
         super.viewDidLoad()
         
-        print("imageUrl --- > ", "".getLocalURL()+"/images/\(imageUrl!)")
+//        print("imageUrl --- > ", "".getLocalURL()+"/images/\(imageUrl!)")
         print("seq --- > ", seq!)
         
         print("presentIndex ", presentIndex)
@@ -87,7 +91,7 @@ class GiftDetailController : UIViewController{
         setupLayout()
 //        calculateDays()
         tableView.allowsSelection = false
-        tableView.isScrollEnabled = false
+//        tableView.isScrollEnabled = false
     }
     
     func presentSetUp(){
@@ -136,6 +140,16 @@ class GiftDetailController : UIViewController{
     
     @objc func sendPresent(){
         print("sendPresent()")
+        let index = IndexPath(row: 7, section: 0)
+        let cell: PresentMessageTableViewCell = self.tableView.cellForRow(at: index) as! PresentMessageTableViewCell
+        presentMessage = cell.messageTextField.text
+        contentArr[7] = presentMessage!
+        
+        if presentMessage! == ""{ // 아무것도 쓰지 않은상태
+            normalAlertUseYn(title: "알림", message: "선물과 함께 보낼 메시지 없이 선물을 보내시겠습니까?")
+        }else {
+            normalAlertUseYn(title: "알림", message: "해당 기프티콘을 선물하시겠습니까?")
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -316,13 +330,16 @@ class GiftDetailController : UIViewController{
             let defaultAction = UIAlertAction(title: "삭제", style: .destructive, handler : {_ in self.deleteGiftCon()})
             alert.addAction(defaultAction)
         }else if message == "사용완료 처리 하시겠습니까?"{
-            let defaultAction = UIAlertAction(title: "확인", style: .destructive, handler : {_ in self.useYnGiftCon(index: "사용완료")})
+            let defaultAction = UIAlertAction(title: "확인", style: .default, handler : {_ in self.useYnGiftCon(index: "사용완료")})
             alert.addAction(defaultAction)
         }else if message == "미사용 처리 하시겠습니까?"{
-            let defaultAction = UIAlertAction(title: "확인", style: .destructive, handler : {_ in self.useYnGiftCon(index: "미사용")})
+            let defaultAction = UIAlertAction(title: "확인", style: .default, handler : {_ in self.useYnGiftCon(index: "미사용")})
             alert.addAction(defaultAction)
         }else if message == "이미 유효기간이 지난 기프티콘은 미사용 처리할 수 없습니다.\n 유효기간과 쿠폰상태를 변경 하고 처리 해주세요.\n 기프티콘 수정 화면으로 이동하시겠습니까?"{
             let defaultAction = UIAlertAction(title: "이동", style: .destructive, handler : {_ in self.useYnGiftCon(index: "수정화면")})
+            alert.addAction(defaultAction)
+        }else if message == "선물과 함께 보낼 메시지 없이 선물을 보내시겠습니까?" || message == "해당 기프티콘을 선물하시겠습니까?"{
+            let defaultAction = UIAlertAction(title: "확인", style: .default, handler : {_ in self.presentFriendToDetail()})
             alert.addAction(defaultAction)
         }else {
             let defaultAction = UIAlertAction(title: "확인", style: .default, handler : nil)
@@ -349,6 +366,13 @@ class GiftDetailController : UIViewController{
             alert.addAction(cancelAction)
         }
         present(alert, animated: true, completion: nil)
+    }
+    
+    func presentFriendToDetail(){
+        print("param =====> ", param)
+        print("seq ..", seq!)
+        print(contentArr[7])
+        presentGiftConRequest(requestUrl: "/gift/present", seq: seq!)
     }
     
     func presentGiftcon(){
@@ -409,6 +433,48 @@ class GiftDetailController : UIViewController{
         self.delegate2?.goToLogin()
         self.delegate3?.goToLogin()
         self.presentingViewController?.dismiss(animated: true, completion: nil)
+    }
+    
+    func presentGiftConRequest(requestUrl : String!, seq : Int!) -> Void{
+        presentParam["seq"] = seq
+        presentParam["present_message"] = contentArr[7]
+        presentParam["present_id"] = presentId!
+        
+        let paramData = try! JSONSerialization.data(withJSONObject: presentParam)
+        // URL 객체 정의
+                let url = URL(string: localUrl+requestUrl)
+
+                // URLRequest 객체를 정의
+                var request = URLRequest(url: url!)
+                request.httpMethod = "POST"
+                request.httpBody = paramData
+
+                // HTTP 메시지 헤더
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.addValue("application/json", forHTTPHeaderField: "Accept")
+                let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                    // 서버가 응답이 없거나 통신이 실패
+                    if let e = error {
+                        print("\(self.LOG_TAG) An error has occured: \(e.localizedDescription)")
+                        self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "네트워크에 접속할 수 없습니다.", message: "네트워크 연결 상태를 확인해주세요.", completeTitle: "확인", nil)
+                        return
+                    }
+
+                    var responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+                    
+                    print(responseString!)
+                    DispatchQueue.main.async {
+                        if responseString! == "true"{
+                            self.delegate?.giftPresent()
+//                            self.dismiss(animated: true, completion: nil)
+                            self.presentingViewController?.dismiss(animated: true, completion: nil)
+                        }else {
+                            print("기프티콘 선물 실패")
+                        }
+                    }
+                }
+                // POST 전송
+                task.resume()
     }
     
     func deleteGiftConRequest(requestUrl : String!, param : Dictionary<String, Any>) -> Void{
