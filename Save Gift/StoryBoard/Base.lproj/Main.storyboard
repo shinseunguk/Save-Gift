@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="geulssi.ttf">
+        <array key="thirdFont.ttf">
             <string>NanumAmSeuTeReuDam</string>
         </array>
     </customFonts>
@@ -1938,7 +1938,9 @@
                         <outlet property="presentBtn" destination="PA8-PA-O7N" id="USY-lu-NAK"/>
                         <outlet property="scrollView" destination="sSW-bW-1hJ" id="cLb-sa-d8T"/>
                         <outlet property="tableView" destination="3yh-hY-XX3" id="cNT-Lt-Adk"/>
+                        <outlet property="tableViewHeight" destination="9Fg-tV-SDC" id="bRV-4i-Yw7"/>
                         <outlet property="uiView" destination="wwB-2s-6QJ" id="CEF-0J-8vv"/>
+                        <outlet property="uiViewHeight" destination="dfV-wv-r5D" id="Zfm-bg-Epm"/>
                         <outlet property="useynBtn" destination="XpA-uS-VCx" id="IRY-T5-aad"/>
                         <outlet property="vBrandLabel" destination="7Cf-lo-ecW" id="RAG-ih-xXG"/>
                         <outlet property="vExpirationLabel" destination="eLs-nk-KRP" id="Su3-Hm-1qU"/>
@@ -2088,6 +2090,8 @@
                         <outlet property="registerBtn" destination="QKd-Sl-j0m" id="t4m-5r-xyq"/>
                         <outlet property="scrollView" destination="OYw-Ii-C5i" id="zeD-pw-FUy"/>
                         <outlet property="tableView" destination="bg4-v1-2RD" id="QN6-Vc-5Ji"/>
+                        <outlet property="uiView" destination="eHz-Fh-m8L" id="4za-Nx-VqD"/>
+                        <outlet property="uiViewHeight" destination="8SN-oL-9ap" id="w93-l1-HdX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PR5-s9-gIC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

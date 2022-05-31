@@ -14,6 +14,7 @@ import Firebase
 
 protocol detailDelegate {
     func refreshTableView(dicT : Dictionary<String, Any>)
+    func detailToFriendDelegate()
 }
 
 class GiftDetailController : UIViewController{
@@ -35,6 +36,8 @@ class GiftDetailController : UIViewController{
     var delegate : GiftDeleteDelegate?
     var delegate2 : GiftDeleteDelegate2?
     var delegate3 : GiftDeleteDelegate3?
+    
+    var detailToFriend : DetailToFriendDelegate?
     
     let localUrl : String = "".getLocalURL()
     
@@ -263,7 +266,8 @@ class GiftDetailController : UIViewController{
             if useynBtn.titleLabel?.text == "미사용 처리"{ //선물 불가상태
                 normalPresentAlert(title: "알림", message: "쿠폰상태가 사용불가인 쿠폰은 선물할 수 없습니다.")
             }else { //선물가능
-                actionSheetAlert(title: "기프티콘 선물하기", content1: "기프티콘 공유(준비중)", content2: "기프티콘 선물")
+//                actionSheetAlert(title: "기프티콘 선물하기", content1: "기프티콘 공유(준비중)", content2: "기프티콘 선물")
+                self.presentGiftcon()
             }
         } else{
             print("\(#function) else")
@@ -377,6 +381,10 @@ class GiftDetailController : UIViewController{
         
         pushVC.modalPresentationStyle = .fullScreen
         pushVC.index = "선물하기"
+        pushVC.presentIndex = true
+        pushVC.detailToFriend = dic
+        pushVC.img_url = imageUrl
+        pushVC.detailDelegate = self
         self.present(pushVC, animated: true, completion: nil)
     }
     
@@ -461,6 +469,7 @@ class GiftDetailController : UIViewController{
                     DispatchQueue.main.async {
                         if responseString! == "true"{
                             self.delegate?.giftPresent()
+                            self.detailToFriend?.detailToFriendFunc()
 //                            self.dismiss(animated: true, completion: nil)
                             self.presentingViewController?.dismiss(animated: true, completion: nil)
                         }else {
@@ -637,6 +646,12 @@ class GiftDetailController : UIViewController{
 }
 
 extension GiftDetailController : UITableViewDelegate, UITableViewDataSource, detailDelegate{
+    func detailToFriendDelegate() {
+        print("\(#function)")
+//        dismiss(animated: true, completion: nil)
+        self.presentingViewController?.dismiss(animated: true, completion: nil)
+    }
+    
     func refreshTableView(dicT : Dictionary<String, Any>) {
         print("refreshTableView()")
         print("\(#function) dic => ", dicT)

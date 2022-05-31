@@ -8,11 +8,15 @@
 import Foundation
 import UIKit
 
+protocol DetailToFriendDelegate{
+    func detailToFriendFunc()
+}
 
 class GiftFriendController : UIViewController{
     let LOG_TAG : String = "GiftFriend2Controller"
     let helper : Helper = Helper();
     let localUrl : String = "".getLocalURL();
+    var detailDelegate : detailDelegate?
     var user_id : String?
     
     var index : String?
@@ -39,14 +43,19 @@ class GiftFriendController : UIViewController{
     
     var getFriend : String?
     
-    var dic : [String : Any] = [:];
+    var detailToFriend : [String : Any] = [:];
     var dic2 : [String : Any] = [:];
+    
+    var presentIndex : Bool = false
+    var presentId : String? = nil
+    var img_url : String? = nil
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         print("GiftFriendController \(#function)")
+        print("\(#line) \n", detailToFriend)
         
         dismissBtnSetup()
         
@@ -56,6 +65,10 @@ class GiftFriendController : UIViewController{
             }
         }else {
             dismissBtn.isHidden = true
+        }
+        
+        if presentIndex {
+            self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "기프티콘을 선물할 친구를 선택해주세요.", completeTitle: "확인", nil)
         }
         
         topLabelSetUp() // [친구 요청]
@@ -233,25 +246,35 @@ class GiftFriendController : UIViewController{
 //        })
         self.present(alert, animated: true, completion: nil)
 //        actionButton.isHidden = false
+    }
+    
+    func normalAlertYN(title: String, message: String, email: String){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+            if message == "정말로 기프티콘을 삭제하시겠습니까?"{
+                print("예외처리")
+            }else {
+                let defaultAction = UIAlertAction(title: "삭제", style: .destructive, handler : {_ in self.requestDeleteFriend(requestUrl: "/delete/friend", friend: email)})
+                alert.addAction(defaultAction)
+            }
         
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler : nil)
+        alert.addAction(cancelAction)
+        present(alert, animated: true, completion: nil)
     }
     
     func normalActionSheet(title : String?, message : String?){
         let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
             alert.addAction(UIAlertAction(title: "선물하기(기프티콘)", style: .default) { action in
-                guard let pushVC = self.storyboard?.instantiateViewController(identifier: "AllVC") as? Page1Controller else{
-                    return
-                }
-                pushVC.presentIndex = true;
-                pushVC.presentId = message!
-                        self.navigationController?.pushViewController(pushVC, animated: true)
-//                let backBarButtonItem = UIBarButtonItem(title: "Zedd", style: .plain, target: self, action: nil)
-//                backBarButtonItem.tintColor = .red
-//                self.navigationItem.backBarButtonItem = backBarButtonItem
+                    guard let pushVC = self.storyboard?.instantiateViewController(identifier: "AllVC") as? Page1Controller else{
+                        return
+                    }
+                    pushVC.presentIndex = true;
+                    pushVC.presentId = message!
+                            self.navigationController?.pushViewController(pushVC, animated: true)
             })
             alert.addAction(UIAlertAction(title: "친구삭제", style: .destructive) { action in
                 print("친구삭제")
-                self.requestDeleteFriend(requestUrl: "/delete/friend", friend: message!)
+                self.normalAlertYN(title: "알림", message: "정말로 \(message!)님을 친구목록에서 삭제 하시겠습니까?", email: message!)
             })
             alert.addAction(UIAlertAction(title: "취소", style: .cancel) { action in
                 print("취소")
@@ -316,7 +339,6 @@ class GiftFriendController : UIViewController{
                             }
                         }
 
-                        
                         self.topTableViewHeightConstraint?.constant = CGFloat(self.arr1.count * 50)
                         self.uiViewHeightConstraint?.constant = CGFloat((self.arr1.count * 50 + self.arr2.count * 50) + 140)
                         
@@ -657,7 +679,13 @@ class GiftFriendController : UIViewController{
 
 
 
-extension GiftFriendController: UITableViewDelegate, UITableViewDataSource{
+extension GiftFriendController: UITableViewDelegate, UITableViewDataSource, DetailToFriendDelegate{
+    func detailToFriendFunc() {
+        print("\(#function)")
+        self.detailDelegate?.detailToFriendDelegate()
+        dismiss(animated: true, completion: nil)
+    }
+    
     func refreshTableView() {
         print("\(#line) => refreshTableView()")
     }
@@ -743,7 +771,36 @@ extension GiftFriendController: UITableViewDelegate, UITableViewDataSource{
         }
         if tableView == bottomTableView {
             if arr2[indexPath.row] != "친구를 추가해 기프티콘을 선물, 공유 해보세요."{
-                self.normalActionSheet(title: "기프티콘 저장소", message: arr2[indexPath.row])
+                if presentIndex{
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "GiftDetailVC") as! GiftDetailController
+                    
+                    vc.imageUrl = img_url
+                    vc.barcodeNumber = detailToFriend["barcode_number"] as! String
+                    vc.brandName = detailToFriend["brand"] as! String
+                    vc.productName = detailToFriend["product_name"] as! String
+                    vc.expirationPeriod = detailToFriend["expiration_period"] as! String
+                    vc.use_yn = detailToFriend["use_yn"] as! Int
+                    vc.registrant = detailToFriend["registrant"] as! String
+                    vc.registrationDate = detailToFriend["registration_date"] as! String
+
+                    //test
+    //                vc.uiImage = self.uiImageArr[indexPath.row]
+
+                    vc.seq = detailToFriend["seq"] as! Int
+
+                    if self.presentIndex{
+                        vc.presentIndex = true
+                        vc.presentId = arr2[indexPath.row]
+                    }
+
+                    vc.detailToFriend = self // protocol delegate
+    //                vc.modalPresentationStyle = .fullScreen
+    //                vc.definesPresentationContext = true
+    //                vc.modalPresentationStyle = .overCurrentContext
+                    self.present(vc, animated: true, completion: nil)
+                }else {
+                    self.normalActionSheet(title: "기프티콘 저장소", message: arr2[indexPath.row])
+                }
             }
         }
     }
