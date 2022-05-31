@@ -26,6 +26,7 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var registerBtn: UIButton!
+    @IBOutlet weak var uiView: UIView!
     
     var delegate : GiftDeleteDelegate?
     var delegate2 : GiftDeleteDelegate2?
@@ -82,6 +83,9 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
     var reviseImage : UIImage? = nil
     
     var detailDelegate : detailDelegate?
+    
+    let dismissBtn = UIButton()
+    @IBOutlet weak var uiViewHeight: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -189,19 +193,43 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
     }
     
     func revisSetup(){
-//        imageView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 50).isActive = true
+        dismissBtn.setImage(UIImage(systemName: "xmark"), for: .normal)
+        dismissBtn.contentVerticalAlignment = .fill
+        dismissBtn.contentHorizontalAlignment = .fill
+        dismissBtn.tintColor = .systemBlue
+//        dismissBtn.backgroundColor = .black
+        dismissBtn.addTarget(self, action: #selector(backButtonAction), for: .touchUpInside)
+        self.scrollView.addSubview(dismissBtn)
         
-        let button = UIButton(frame: CGRect(x: 10, y: 20, width: 100, height: 20))
-//        button.backgroundColor = .black
-        button.setImage(UIImage(systemName: "lessthan"), for: .normal)
-        button.setTitle(" Back", for: .normal)
-        button.setTitleColor(.systemBlue, for: .normal)
-        button.addTarget(self, action: #selector(backButtonAction), for: .touchUpInside)
+        dismissBtn.translatesAutoresizingMaskIntoConstraints = false
+        dismissBtn.heightAnchor.constraint(equalToConstant: 22).isActive = true
+        dismissBtn.widthAnchor.constraint(equalToConstant: 22).isActive = true
         
-        self.scrollView.addSubview(button)
+        dismissBtn.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 20).isActive = true
+        dismissBtn.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 30).isActive = true
         
-//        imageView.removeConstraints(self.imageView.constraints)
-//        imageView.topAnchor.constraint(equalTo: button.bottomAnchor, constant: 50).isActive = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.topAnchor.constraint(equalTo: dismissBtn.bottomAnchor, constant: 20).isActive = true
+        
+        uiView.translatesAutoresizingMaskIntoConstraints = false
+        uiViewHeight.constant = 1000
+        
+//        [LayoutConstraints] Unable to simultaneously satisfy constraints.
+//            Probably at least one of the constraints in the following list is one you don't want.
+//            Try this:
+//                (1) look at each constraint and try to figure out which you don't expect;
+//                (2) find the code that added the unwanted constraint or constraints and fix it.
+//        (
+//            "<NSLayoutConstraint:0x600001bdba20 V:|-(0)-[UIImageView:0x7fbb197b5f70]   (active, names: '|':UIView:0x7fbb197c3110 )>",
+//            "<NSLayoutConstraint:0x600001bdbed0 V:|-(0)-[UIView:0x7fbb197c3110]   (active, names: '|':UIScrollView:0x7fbb19808800 )>",
+//            "<NSLayoutConstraint:0x600001b209b0 UIButton:0x7fbb1a2ce000.height == 22   (active)>",
+//            "<NSLayoutConstraint:0x600001bcd450 V:|-(20)-[UIButton:0x7fbb1a2ce000]   (active, names: '|':UIScrollView:0x7fbb19808800 )>",
+//            "<NSLayoutConstraint:0x600001bcee40 V:[UIButton:0x7fbb1a2ce000]-(20)-[UIImageView:0x7fbb197b5f70]   (active)>"
+//        )
+//
+//        Will attempt to recover by breaking constraint
+//        <NSLayoutConstraint:0x600001bdba20 V:|-(0)-[UIImageView:0x7fbb197b5f70]   (active, names: '|':UIView:0x7fbb197c3110 )>
+        
     }
     
     @objc func backButtonAction() {
@@ -373,7 +401,7 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
         }else if titles == "빈칸없이 작성 해주세요." {
             let cancelAction = UIAlertAction(title: "확인", style: .default, handler : nil)
             alert.addAction(cancelAction)
-        }else if messages == "이미 등록된 기프티콘입니다." || messages == "기프티콘 이미지를 등록해주세요."{
+        }else if messages == "이미 등록된 기프티콘이거나 선물한 기프티콘입니다." || messages == "기프티콘 이미지를 등록해주세요."{
             let cancelAction = UIAlertAction(title: "확인", style: .default,  handler : {_ in self.plusAction()})
             alert.addAction(cancelAction)
         }else if messages == "유효기간이 지난 기프티콘 입니다.\n 그래도 등록하시겠습니까?"{
@@ -1354,7 +1382,7 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
                 if(responseString != "0"){
                         DispatchQueue.main.async{
                             self.imageView.image = nil
-                            self.normalAlert(titles: "알림", messages: "이미 등록된 기프티콘입니다.")
+                            self.normalAlert(titles: "알림", messages: "이미 등록된 기프티콘이거나 선물한 기프티콘입니다.")
                             
                             for x in 0...3 {
                                 let index = IndexPath(row: x, section: 0)
