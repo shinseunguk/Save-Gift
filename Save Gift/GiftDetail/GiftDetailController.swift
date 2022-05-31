@@ -468,6 +468,7 @@ class GiftDetailController : UIViewController{
                     print(responseString!)
                     DispatchQueue.main.async {
                         if responseString! == "true"{
+                            self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "선물완료", completeTitle: "확인", nil)
                             self.delegate?.giftPresent()
                             self.detailToFriend?.detailToFriendFunc()
 //                            self.dismiss(animated: true, completion: nil)
@@ -649,6 +650,9 @@ extension GiftDetailController : UITableViewDelegate, UITableViewDataSource, det
     func detailToFriendDelegate() {
         print("\(#function)")
 //        dismiss(animated: true, completion: nil)
+        self.delegate?.giftDelete()
+        self.delegate2?.giftDelete2()
+        self.delegate3?.giftDelete3()
         self.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     
