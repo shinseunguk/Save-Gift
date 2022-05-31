@@ -74,6 +74,8 @@ class GiftDetailController : UIViewController{
     
     var presentMessage : String? = nil
     
+    @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var uiViewHeight: NSLayoutConstraint!
     let sendPresentBtn = UIButton()
 
     override func viewDidLoad(){
@@ -91,7 +93,7 @@ class GiftDetailController : UIViewController{
         setupLayout()
 //        calculateDays()
         tableView.allowsSelection = false
-//        tableView.isScrollEnabled = false
+        tableView.isScrollEnabled = false
     }
     
     func presentSetUp(){
@@ -107,11 +109,7 @@ class GiftDetailController : UIViewController{
             tableView.translatesAutoresizingMaskIntoConstraints = false
             tableView.register(UINib(nibName: "PresentMessageTableViewCell", bundle: nil), forCellReuseIdentifier: "PresentMessageTableViewCell")
             tableView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10).isActive = true
-            tableView.heightAnchor.constraint(equalToConstant: 492).isActive = true // 492
-            
-            print("tableView.frame.size.height \(#line)", tableView.frame.size.height)
-            tableView.frame.size.height = 429
-            print("tableView.frame.size.height \(#line)", tableView.frame.size.height)
+            tableViewHeight.constant = 500
             //
 
             //sendPresentBtn layout
@@ -129,12 +127,9 @@ class GiftDetailController : UIViewController{
             //
             
             //view layout
-            let totalHeight = imageView.frame.size.height + tableView.frame.size.height + 85
-            print(" \(#line) totalHeight", totalHeight)
             uiView.translatesAutoresizingMaskIntoConstraints = false
-            uiView.heightAnchor.constraint(equalToConstant: totalHeight).isActive = true
+            uiViewHeight.constant = 1300
             //
-            
         }
     }
     
@@ -681,7 +676,7 @@ extension GiftDetailController : UITableViewDelegate, UITableViewDataSource, det
             cell.copyBtn.addTarget(self, action: #selector(normalAlert), for: .touchUpInside)
             
             // 바코드번호 클립보드저장 버튼
-            if indexPath.row != 0 {
+            if indexPath.row != 0 || presentIndex{ // 바코드가 아니거나 친구 -> 선물로 넘어올때
                 cell.copyBtn.isHidden = true
             }
             if indexPath.row != 3{
