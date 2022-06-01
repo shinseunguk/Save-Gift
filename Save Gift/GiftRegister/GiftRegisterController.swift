@@ -798,6 +798,7 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
     
     @objc func textFieldDidBigin(_ textField: UITextField) {
         guard let text = textField.text else { return }
+        print("textFieldDidBigin!!!  \(#line)")
         textField.text = text.replacingOccurrences(of: "-", with: "")
     }
     
@@ -875,6 +876,7 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
                 cell.textfield.attributedPlaceholder = NSAttributedString(string: "ex) 1234-5678-9101 ('-'를 제외하고 입력)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
                 cell.textfield.text = reviseDic!["barcode_number"] as! String
                 cell.textfield.addTarget(self, action: #selector(self.textFieldDidChange2(_:)), for: .editingChanged)
+                cell.textfield.addTarget(self, action: #selector(self.textFieldDidBigin(_:)), for: .editingDidEnd) // '-' 제거
                 cell.textfield.keyboardType = .numberPad
                 cell.textfield.tag = indexPath.row
                 break;

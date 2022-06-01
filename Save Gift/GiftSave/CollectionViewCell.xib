@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -19,7 +18,7 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="2PP-1r-7jp">
-                        <rect key="frame" x="10" y="10" width="349" height="389.5"/>
+                        <rect key="frame" x="10" y="28" width="349" height="371.5"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="유효기간" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uUd-UH-B3L">
                         <rect key="frame" x="12" y="449.5" width="42" height="14.5"/>
@@ -39,6 +38,18 @@
                         <color key="textColor" systemColor="linkColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Wd-uM-HT7">
+                        <rect key="frame" x="304" y="6" width="50" height="18"/>
+                        <color key="backgroundColor" red="1" green="0.0187217119" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="18" id="ELd-m2-oFP"/>
+                            <constraint firstAttribute="width" constant="50" id="nF2-TZ-df8"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                        <state key="normal" title="사용불가">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                    </button>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
@@ -48,8 +59,10 @@
                 <constraint firstItem="2PP-1r-7jp" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="Hd9-vh-Gh1"/>
                 <constraint firstItem="uUd-UH-B3L" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="12" id="L2i-H8-BQx"/>
                 <constraint firstItem="uUd-UH-B3L" firstAttribute="top" secondItem="X6F-qH-yNa" secondAttribute="bottom" constant="12.5" id="Uak-f1-6PO"/>
-                <constraint firstItem="2PP-1r-7jp" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="10" id="ZUz-Vh-jiD"/>
+                <constraint firstItem="2PP-1r-7jp" firstAttribute="top" secondItem="6Wd-uM-HT7" secondAttribute="bottom" constant="4" id="aam-JE-n3K"/>
                 <constraint firstAttribute="bottom" secondItem="uUd-UH-B3L" secondAttribute="bottom" constant="10" id="cD4-sF-Olb"/>
+                <constraint firstAttribute="trailing" secondItem="6Wd-uM-HT7" secondAttribute="trailing" constant="15" id="fXu-HD-Onr"/>
+                <constraint firstItem="6Wd-uM-HT7" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="6" id="g4p-AA-TFM"/>
                 <constraint firstItem="X6F-qH-yNa" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="12" id="gST-Il-BHV"/>
                 <constraint firstAttribute="trailing" secondItem="X6F-qH-yNa" secondAttribute="trailing" constant="10" id="kRG-mk-5j7"/>
                 <constraint firstItem="Wdc-yp-yeg" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="12" id="mf4-zk-UDu"/>
@@ -61,6 +74,7 @@
                 <outlet property="cellImageView" destination="2PP-1r-7jp" id="U0E-0t-WHL"/>
                 <outlet property="expirationPeriodLabel" destination="uUd-UH-B3L" id="qht-aZ-cWL"/>
                 <outlet property="productNameLabel" destination="X6F-qH-yNa" id="B0X-Gc-KaK"/>
+                <outlet property="useYnBtn" destination="6Wd-uM-HT7" id="iax-B6-6sG"/>
             </connections>
             <point key="canvasLocation" x="345.6521739130435" y="195.53571428571428"/>
         </collectionViewCell>

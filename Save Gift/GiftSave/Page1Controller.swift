@@ -62,13 +62,19 @@ class Page1Controller : UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //친구 -> 선물하기
         if presentIndex {
+            self.navigationController?.navigationBar.tintColor = .systemBlue
+            self.navigationController?.navigationBar.barTintColor = UIColor.init(displayP3Red: 242/255, green: 242/255, blue: 247/255, alpha: 1)
+            self.navigationController?.navigationBar.shadowImage = UIImage()
+            self.navigationController?.navigationBar.isTranslucent = false
+            self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.black]
+            self.navigationItem.title = "친구"
             self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "선물할 기프티콘을 선택해주세요.", completeTitle: "확인", nil)
         }
         
         //드롭다운 btnInit
         dropDownInit()
-        
         
         //setupFlowLayout
         setupFlowLayout()
@@ -371,6 +377,14 @@ extension Page1Controller: UICollectionViewDelegate, UICollectionViewDataSource,
             cell.brandNameLabel.text = brandNameLabelArr[indexPath.row]
             cell.productNameLabel.text = productNameLabelArr[indexPath.row]
             cell.expirationPeriodLabel.text = "유효기간 : \(expirationPeriodLabelArr[indexPath.row])"
+        
+        if useYn[indexPath.row] == 0 {
+            cell.useYnBtn.setTitle("사용가능", for: .normal)
+            cell.useYnBtn.backgroundColor = .systemGreen
+        }else {
+            cell.useYnBtn.setTitle("사용불가", for: .normal)
+            cell.useYnBtn.backgroundColor = .systemRed
+        }
         
         let url = URL(string: "".getLocalURL()+"/images/\(cellImageViewArr[indexPath.row])")
         DispatchQueue.global(qos: .userInteractive).async {
