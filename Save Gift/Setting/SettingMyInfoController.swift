@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class SettingMyInfoController : UIViewController {
+class SettingMyInfoController : UIViewController, UITextFieldDelegate{
     let LOG_TAG : String = "SettingMyInfoController"
     let helper : Helper = Helper()
     @IBOutlet weak var passWordTextField: UITextField!
@@ -28,11 +28,17 @@ class SettingMyInfoController : UIViewController {
         self.navigationItem.title = "내정보 확인"
         confirmBtn.layer.cornerRadius = 5
         
+        passWordTextField.delegate = self
         passWordTextField.addLeftPadding();
         passWordTextField.textAlignment = .left
         passWordTextField.textColor = UIColor.black
         passWordTextField.attributedPlaceholder = NSAttributedString(string: "비밀번호를 입력해주세요.", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
         
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        requestPost(requestUrl : "/login")
+        return true
     }
     
     //빈곳 터치 키보드 내리기
@@ -90,20 +96,12 @@ class SettingMyInfoController : UIViewController {
                         }
                     } else if(responseString == "false"){
                         DispatchQueue.main.async{
-                        self.normalAlert(titles: "내정보 확인 실패", messages: "비밀번호를 확인해주세요.")
+                            self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "내정보 확인 실패\n 비밀번호를 확인해주세요.", completeTitle: "확인", nil)
                         }
                     }
                 }
                 // POST 전송
                 task.resume()
-    }
-    
-    func normalAlert(titles:String, messages:String?) -> Void{
-        let alert = UIAlertController(title: titles, message: messages, preferredStyle: UIAlertController.Style.alert)
-        let defaultAction = UIAlertAction(title: "확인", style: .default, handler : nil)
-        
-        alert.addAction(defaultAction)
-        present(alert, animated: true, completion: nil)
     }
     
 }
