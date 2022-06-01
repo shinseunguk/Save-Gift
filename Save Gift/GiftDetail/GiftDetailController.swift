@@ -75,6 +75,7 @@ class GiftDetailController : UIViewController{
     var presentIndex : Bool = false
     var presentId : String? = nil
     
+    var presentPage : Int = 0
     var presentMessage : String? = nil
     
     @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
@@ -88,7 +89,7 @@ class GiftDetailController : UIViewController{
         print("seq --- > ", seq!)
         
         print("presentIndex ", presentIndex)
-        
+        presentPageSetUp()
         presentSetUp()
 //        Init()
         viewLabelSetup()
@@ -97,6 +98,49 @@ class GiftDetailController : UIViewController{
 //        calculateDays()
         tableView.allowsSelection = false
         tableView.isScrollEnabled = false
+    }
+    
+    func presentPageSetUp(){
+        if presentPage != 0 {
+            if presentPage == 1 {
+                
+            }else if presentPage == 2 {
+                
+            }else {
+                categoryArr.append("보낸 메시지")
+                contentArr.append("\(presentMessage)")
+                editBtn.removeFromSuperview()
+                presentBtn.removeFromSuperview()
+                useynBtn.removeFromSuperview()
+                imageExpandBtn.removeFromSuperview()
+                
+                //tableView layout
+                tableView.translatesAutoresizingMaskIntoConstraints = false
+                tableView.register(UINib(nibName: "PresentMessageTableViewCell", bundle: nil), forCellReuseIdentifier: "PresentMessageTableViewCell")
+                tableView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10).isActive = true
+                tableViewHeight.constant = 500
+                //
+                
+                //sendPresentBtn layout
+                sendPresentBtn.layer.cornerRadius = 5
+                sendPresentBtn.backgroundColor = .systemBlue
+                sendPresentBtn.setTitle("선물 취소하기", for: .normal)
+                sendPresentBtn.addTarget(self, action: #selector(cancelPresent), for: .touchUpInside)
+                scrollView.addSubview(sendPresentBtn)
+                
+                sendPresentBtn.translatesAutoresizingMaskIntoConstraints = false
+                sendPresentBtn.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 20).isActive = true
+                sendPresentBtn.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 20).isActive = true
+                sendPresentBtn.rightAnchor.constraint(equalTo: scrollView.rightAnchor, constant: -20).isActive = true
+                sendPresentBtn.heightAnchor.constraint(equalToConstant: 40).isActive = true
+                //
+                
+                //view layout
+                uiView.translatesAutoresizingMaskIntoConstraints = false
+                uiViewHeight.constant = 1300
+                //
+            }
+        }
     }
     
     func presentSetUp(){
@@ -112,7 +156,7 @@ class GiftDetailController : UIViewController{
             tableView.translatesAutoresizingMaskIntoConstraints = false
             tableView.register(UINib(nibName: "PresentMessageTableViewCell", bundle: nil), forCellReuseIdentifier: "PresentMessageTableViewCell")
             tableView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10).isActive = true
-            tableViewHeight.constant = 500
+//            tableViewHeight.constant = 500
             //
 
             //sendPresentBtn layout
@@ -148,6 +192,11 @@ class GiftDetailController : UIViewController{
         }else {
             normalAlertUseYn(title: "알림", message: "해당 기프티콘을 선물하시겠습니까?")
         }
+    }
+    
+    @objc func cancelPresent(){
+        print("cancelPresent()")
+        normalAlertUseYn(title: "알림", message: "선물을 취소 하시겠습니까?")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -340,6 +389,9 @@ class GiftDetailController : UIViewController{
         }else if message == "선물과 함께 보낼 메시지 없이 선물을 보내시겠습니까?" || message == "해당 기프티콘을 선물하시겠습니까?"{
             let defaultAction = UIAlertAction(title: "확인", style: .default, handler : {_ in self.presentFriendToDetail()})
             alert.addAction(defaultAction)
+        }else if message == "선물을 취소 하시겠습니까?"{
+            let defaultAction = UIAlertAction(title: "선물 취소", style: .default, handler : {_ in self.presentFriendToDetail()})
+            alert.addAction(defaultAction)
         }else {
             let defaultAction = UIAlertAction(title: "확인", style: .default, handler : nil)
             alert.addAction(defaultAction)
@@ -436,6 +488,50 @@ class GiftDetailController : UIViewController{
         self.delegate2?.goToLogin()
         self.delegate3?.goToLogin()
         self.presentingViewController?.dismiss(animated: true, completion: nil)
+    }
+    
+    func deletePresent(requestUrl : String!, seq : Int!) -> Void{
+        presentParam["seq"] = seq
+        presentParam["present_message"] = contentArr[7]
+        presentParam["present_id"] = presentId!
+        
+        let paramData = try! JSONSerialization.data(withJSONObject: presentParam)
+        // URL 객체 정의
+                let url = URL(string: localUrl+requestUrl)
+
+                // URLRequest 객체를 정의
+                var request = URLRequest(url: url!)
+                request.httpMethod = "POST"
+                request.httpBody = paramData
+
+                // HTTP 메시지 헤더
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.addValue("application/json", forHTTPHeaderField: "Accept")
+                let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                    // 서버가 응답이 없거나 통신이 실패
+                    if let e = error {
+                        print("\(self.LOG_TAG) An error has occured: \(e.localizedDescription)")
+                        self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "네트워크에 접속할 수 없습니다.", message: "네트워크 연결 상태를 확인해주세요.", completeTitle: "확인", nil)
+                        return
+                    }
+
+                    var responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+                    
+                    print(responseString!)
+                    DispatchQueue.main.async {
+                        if responseString! == "true"{
+                            self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "선물완료", completeTitle: "확인", nil)
+                            self.delegate?.giftPresent()
+                            self.detailToFriend?.detailToFriendFunc()
+//                            self.dismiss(animated: true, completion: nil)
+                            self.presentingViewController?.dismiss(animated: true, completion: nil)
+                        }else {
+                            print("기프티콘 선물 실패")
+                        }
+                    }
+                }
+                // POST 전송
+                task.resume()
     }
     
     func presentGiftConRequest(requestUrl : String!, seq : Int!) -> Void{
