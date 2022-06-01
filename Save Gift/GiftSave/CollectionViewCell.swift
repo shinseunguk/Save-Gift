@@ -13,10 +13,13 @@ class CollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var productNameLabel: UILabel!
     @IBOutlet weak var expirationPeriodLabel: UILabel!
     @IBOutlet weak var cellImageView: UIImageView!
+    @IBOutlet weak var useYnBtn: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        useYnBtn.isEnabled = false
+        useYnBtn.layer.cornerRadius = 5
     }
 
 }

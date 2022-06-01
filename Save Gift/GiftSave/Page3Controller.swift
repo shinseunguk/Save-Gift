@@ -334,6 +334,14 @@ extension Page3Controller: UICollectionViewDelegate, UICollectionViewDataSource,
         cell.brandNameLabel.text = brandNameLabelArr[indexPath.row]
         cell.productNameLabel.text = productNameLabelArr[indexPath.row]
         cell.expirationPeriodLabel.text = "유효기간 : \(expirationPeriodLabelArr[indexPath.row])"
+        
+        if useYn[indexPath.row] == 0 {
+            cell.useYnBtn.setTitle("사용가능", for: .normal)
+            cell.useYnBtn.backgroundColor = .systemGreen
+        }else {
+            cell.useYnBtn.setTitle("사용불가", for: .normal)
+            cell.useYnBtn.backgroundColor = .systemRed
+        }
     
 //            let url = URL(string: "".getLocalURL()+"/images/DD15A014-F02C-4F28-BD0F-249B307BFA7A_20220423_170711.jpg")
 //            DispatchQueue.global().async {
