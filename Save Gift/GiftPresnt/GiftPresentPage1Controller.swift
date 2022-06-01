@@ -13,7 +13,7 @@ class GiftPresentPage1Controller : UIViewController{
     let LOG_TAG : String = "GiftPresentPage1Controller"
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var filterButton: UIButton!
-    let label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+    let label = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 21))
     
     let helper : Helper = Helper()
     //cocoa pod
@@ -207,7 +207,7 @@ class GiftPresentPage1Controller : UIViewController{
     
     func getGifty(){
         if brandNameLabelArr.count == 0 &&  expirationPeriodLabelArr.count == 0{
-            print("Page1 기프티콘이 존재하지 않음.")
+            print("Present1 기프티콘이 존재하지 않음.")
 //            label.isHidden = false
             collectionView.isHidden = true
             filterButton.isHidden = true
@@ -223,15 +223,14 @@ class GiftPresentPage1Controller : UIViewController{
                 label.center = self.view.center
                 label.textAlignment = .center
                 label.text = """
-                기프티콘을 추가해
-                관리, 공유, 선물해보세요
+                선물받은 기프티콘이 없습니다.
                 """
                 
                 self.view.addSubview(label)
 //                index += 1
 //            }
         }else {
-            print("Unused 기프티콘이 존재.")
+            print("선물받은 기프티콘이 존재.")
             collectionView.isHidden = false
             filterButton.isHidden = false
 //            label.isHidden = true
@@ -287,21 +286,25 @@ class GiftPresentPage1Controller : UIViewController{
             case 0:
                 print("index 0")
                 param["category"] = "registrationDate"
+                param["present"] = 1
                 requestPost(requestUrl: "/gift/save", param: param)
                 break
             case 1:
                 print("index 1")
                 param["category"] = "expirationDate"
+                param["present"] = 1
                 requestPost(requestUrl: "/gift/save", param: param)
                 break
             case 2:
                 print("index 2")
                 param["category"] = "productName"
+                param["present"] = 1
                 requestPost(requestUrl: "/gift/save", param: param)
                 break
             case 3:
                 print("index 3")
                 param["category"] = "brandName"
+                param["present"] = 1
                 requestPost(requestUrl: "/gift/save", param: param)
                 break
             default:
