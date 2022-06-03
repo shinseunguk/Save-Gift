@@ -252,7 +252,7 @@ class Register3Controller: UIViewController, UITextFieldDelegate{
             print("profile ... # ", profile)
             if(!registerEnable){ // 이메일 유효성검사(중복, 유효시)
                 emailInput.becomeFirstResponder()
-                self.normalAlert(titles: "아이디(Email)를 확인해주세요.", messages: nil)
+                self.normalAlert(titles: "알림", messages: "아이디(Email)를 확인해주세요.")
             } else{
                 requestPost(requestUrl: "/register")
             }
@@ -362,5 +362,5 @@ class Register3Controller: UIViewController, UITextFieldDelegate{
 //        alert.addAction(defaultAction)
 //        present(alert, animated: true, completion: nil)
     }
-
+    
 }
