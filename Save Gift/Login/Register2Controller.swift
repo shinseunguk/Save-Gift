@@ -9,11 +9,17 @@ import UIKit
 import JSPhoneFormat
 
 class Register2Controller: UIViewController {
-    
+    let LOG_TAG = "Register2Controller"
+    let helper = Helper()
     @IBOutlet weak var cellPhoneTextField: UITextField!
     @IBOutlet weak var authNumberTextField: UITextField! // 인증번호 자동완성 https://swieeft.github.io/2020/08/13/MobileAuthNumberAutomaticCompletion.html
+    
     @IBOutlet weak var authRequestBtn: UIButton!
     @IBOutlet weak var nextBtn: UIButton!
+    
+    @IBOutlet weak var description1: UILabel!
+    @IBOutlet weak var description2: UILabel!
+    @IBOutlet weak var description3: UILabel!
     
     var emailYn : Bool?
     var smsYn : Bool?
@@ -23,6 +29,8 @@ class Register2Controller: UIViewController {
     let phoneFormat = JSPhoneFormat.init(appenCharacter: "-")   //구분자로 사용하고싶은 캐릭터를 넣어주시면 됩니다.
     let border1 = CALayer()
     let border2 = CALayer()
+    
+    var count = 59
     
     //빈곳 터치 키보드 내리기
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
@@ -76,6 +84,8 @@ class Register2Controller: UIViewController {
 //        self.navigationItem.rightBarButtonItem = rightBarButton
         self.navigationItem.title = "휴대폰 인증"
         
+        labelSetColor()
+        var timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(update), userInfo: nil, repeats: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -133,9 +143,31 @@ class Register2Controller: UIViewController {
         
     }
     
+    func labelSetColor(){
+//         NSMutableAttributedString Type으로 바꾼 text를 저장
+        let attributedStr1 = NSMutableAttributedString(string: description1.text!)
+        // text의 range 중에서 "Bonus"라는 글자는 UIColor를 blue로 변경
+        attributedStr1.addAttribute(.foregroundColor, value: UIColor.systemRed, range: (description1.text! as NSString).range(of: "6자리 인증번호"))
+        // 설정이 적용된 text를 label의 attributedText에 저장
+        description1.attributedText = attributedStr1
+        
+        let attributedStr2 = NSMutableAttributedString(string: description2.text!)
+        // text의 range 중에서 "Bonus"라는 글자는 UIColor를 blue로 변경
+        attributedStr2.addAttribute(.foregroundColor, value: UIColor.systemRed, range: (description2.text! as NSString).range(of: "재전송"))
+        // 설정이 적용된 text를 label의 attributedText에 저장
+        description2.attributedText = attributedStr2
+        
+        let attributedStr3 = NSMutableAttributedString(string: description3.text!)
+        // text의 range 중에서 "Bonus"라는 글자는 UIColor를 blue로 변경
+        attributedStr3.addAttribute(.foregroundColor, value: UIColor.systemRed, range: (description3.text! as NSString).range(of: "3번 이상 인증 실패 시, 하루동안 인증이 제한됩니다. (00시 기준 리셋)"))
+        // 설정이 적용된 text를 label의 attributedText에 저장
+        description3.attributedText = attributedStr3
+    }
+    
     @IBAction func authRequestAction(_ sender: Any) {
-        authRequestBtn.setTitle("재요청", for: .normal)
+        authRequestBtn.setTitle("재전송", for: .normal)
         print("\(cellPhoneTextField.text!)")
+        helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "인증번호가 핸드폰으로 전송되었습니다.", completeTitle: "확인", nil)
         //server request true/false 이후 nextBool 변경
         authNumberTextField.isEnabled = true
         authNumberTextField.backgroundColor = .white
@@ -156,5 +188,14 @@ class Register2Controller: UIViewController {
         self.navigationController?.pushViewController(pushVC, animated: true)
     }
     
+    @objc func update() {
+        if(count > 0) {
+//            countDownLabel.text = String(count--)
+            print("\(count) !!!")
+            count-=1
+        }else {
+            count = 59
+        }
+    }
 }
 
