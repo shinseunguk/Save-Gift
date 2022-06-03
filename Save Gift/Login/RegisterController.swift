@@ -250,14 +250,13 @@ class RegisterController: UIViewController {
     }
     @IBAction func nextBtnAction(_ sender: Any) {
         if necessary {
-//            let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "Register3")
-            guard let pushVC = self.storyboard?.instantiateViewController(identifier: "Register3") as? Register3Controller else{
+            guard let pushVC = self.storyboard?.instantiateViewController(identifier: "Register2") as? Register2Controller else{
                 return
             }
             
-//            pushVC.pushYn = push
             pushVC.emailYn = email
             pushVC.smsYn = sms
+            
             self.navigationController?.pushViewController(pushVC, animated: true)
             
             let backBarButtonItem = UIBarButtonItem(title: "약관동의", style: .plain, target: self, action: nil)

@@ -36,6 +36,10 @@ class SettingMyInfoController : UIViewController, UITextFieldDelegate{
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        passWordTextField.text = ""
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         requestPost(requestUrl : "/login")
         return true

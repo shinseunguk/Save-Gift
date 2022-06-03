@@ -183,7 +183,7 @@ extension GiftSettingController: UITableViewDelegate, UITableViewDataSource{
     
     func needLoginService(){
         let alert = UIAlertController(title: "로그인", message: "로그인이 필요한 서비스입니다. \n 로그인 화면으로 이동하시겠습니까?", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "취소", style: .destructive) { action in
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel) { action in
 
         })
         alert.addAction(UIAlertAction(title: "확인", style: .default) { action in
