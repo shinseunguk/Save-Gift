@@ -194,7 +194,7 @@ class Register2Controller: UIViewController {
             print("\(count) !!!")
             count-=1
         }else {
-            count = 59
+            count = 60
         }
     }
 }
