@@ -28,6 +28,8 @@ class Register3Controller: UIViewController, UITextFieldDelegate{
     let border1 = CALayer()
     let phoneFormat = JSPhoneFormat.init(appenCharacter: "-")   //구분자로 사용하고싶은 캐릭터를 넣어주시면 됩니다.
     let localUrl = "".getLocalURL();
+    
+    var phoneNumber : String? = nil
 
 
     //넘어온 값
@@ -54,6 +56,9 @@ class Register3Controller: UIViewController, UITextFieldDelegate{
         setupLayout()
         
         emailCheckText!.text! = ""
+        
+        telInputSetUp()
+        
         btnConfirm.isEnabled = false
         print("Register3Controller")
 //        print("pushYN BOOL", pushYn!)
@@ -102,7 +107,7 @@ class Register3Controller: UIViewController, UITextFieldDelegate{
         nameInput.attributedPlaceholder = NSAttributedString(string: "이름", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
         emailInput.attributedPlaceholder = NSAttributedString(string: "아이디(Email)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
         passwordInput.attributedPlaceholder = NSAttributedString(string: "비밀번호(영어, 숫자, 특수문자를 포함한 8자리 이상)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)]) // 8자리 ~ 50자리 영어+숫자+특수문자
-        passwordCheckInput.attributedPlaceholder = NSAttributedString(string: "비밀번호 확인", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
+        passwordCheckInput.attributedPlaceholder = NSAttributedString(string: "비밀번호 재확인", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
         telInput.attributedPlaceholder = NSAttributedString(string: "핸드폰 번호", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
         
         btnConfirm.layer.cornerRadius = 10
@@ -133,6 +138,12 @@ class Register3Controller: UIViewController, UITextFieldDelegate{
         
     }
     
+    func telInputSetUp(){
+        telInput.text = phoneNumber
+        telInput.isEnabled = false
+        telInput.backgroundColor = .systemGray5
+    }
+    
     func setupLayout(){
         btnConfirm.layer.cornerRadius = 5
     }
@@ -142,7 +153,7 @@ class Register3Controller: UIViewController, UITextFieldDelegate{
         
         if(email != ""){
             if !(email?.validateEmail(email!) ?? true) { // 정규식 false 일때
-                emailCheckText!.text! = "유효하지 않은 Email입니다."
+                emailCheckText!.text! = "Email형식으로 입력해주세요."
                 emailCheckText.textColor = UIColor.red
                 emailInput.layer.borderWidth = 1
                 emailInput.layer.borderColor = UIColor.red.cgColor
@@ -219,19 +230,19 @@ class Register3Controller: UIViewController, UITextFieldDelegate{
         print("telNumber", telNumber!)
         
         if name == "" || email == "" || password == "" || passwordCheck == "" || telNumber == ""{
-            self.normalAlert(titles: "빈칸없이 작성해주세요.", messages: nil)
+            self.normalAlert(titles: "알림", messages: "빈칸없이 작성해주세요.")
         } else if !(email?.validateEmail(email!) ?? true) {
             emailInput.becomeFirstResponder()
-            self.normalAlert(titles: "아이디(Email)를 확인해주세요.", messages: nil)
+            self.normalAlert(titles: "알림", messages: "아이디(Email)를 확인해주세요.")
         } else if !(password?.validatePassword(password!) ?? true) {
             passwordInput.becomeFirstResponder()
-            self.normalAlert(titles: "비밀번호를 확인해주세요.", messages: "비밀번호(영어, 숫자, 특수문자를 포함한 8자리 이상)")
+            self.normalAlert(titles: "알림", messages: "비밀번호를 확인해주세요. 비밀번호(영어, 숫자, 특수문자를 포함한 8자리 이상)")
         } else if password != passwordCheck {
             passwordInput.becomeFirstResponder()
-            self.normalAlert(titles: "비밀번호, 비밀번호 확인이 일치하지 않습니다.", messages: nil)
+            self.normalAlert(titles: "알림", messages: "비밀번호, 비밀번호 재확인이 일치하지 않습니다.")
         } else if !(telNumber?.validatePhoneNumber(telNumber!) ?? true) {
             telInput.becomeFirstResponder()
-            self.normalAlert(titles: "휴대폰 번호를 확인해주세요.", messages: nil)
+            self.normalAlert(titles: "알림", messages: "휴대폰 번호를 확인해주세요.")
         } else{
             profile["name"] = name!
             profile["user_id"] = email!
