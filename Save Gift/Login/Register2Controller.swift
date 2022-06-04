@@ -176,7 +176,7 @@ class Register2Controller: UIViewController {
     }
     @IBAction func nextAction(_ sender: Any) {
         print("다음")
-        let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "Register3")
+//        let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "Register3")
         guard let pushVC = self.storyboard?.instantiateViewController(identifier: "Register3") as? Register3Controller else{
             return
         }
