@@ -329,7 +329,12 @@ class ViewController: UIViewController, ASAuthorizationControllerDelegate, ASAut
     
     // 아이디 / 비밀번호 찾기
     @IBAction func findAction(_ sender: Any) {
+        print("findAction")
+        let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "FindidController")
+        self.navigationController?.pushViewController(pushVC!, animated: true)
         
+        let backBarButtonItem = UIBarButtonItem(title: "로그인", style: .plain, target: self, action: nil)
+        self.navigationItem.backBarButtonItem = backBarButtonItem
     }
     
     //패스워드에서 엔터
@@ -341,12 +346,6 @@ class ViewController: UIViewController, ASAuthorizationControllerDelegate, ASAut
             //DB처리 필요
             print(id + pw)
             requestPost(requestUrl : "/login")
-        }
-        
-        //ㅌㅅㅌ용
-        if id == "1" && pw == "1"{
-            let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "tabbarVC")
-                    self.navigationController?.pushViewController(pushVC!, animated: true)
         }
     }
     
