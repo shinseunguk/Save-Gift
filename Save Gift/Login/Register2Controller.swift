@@ -285,7 +285,6 @@ class Register2Controller: UIViewController, UITextFieldDelegate {
                     var responseStringA = responseString as! String
                     DispatchQueue.main.async {
                         if responseStringA == ""{
-                            self.authNumberTextField.isFirstResponder
                             self.minute = 2
                             self.second = 59
                     //        minute = 0 //test
