@@ -23,6 +23,7 @@ class Register3Controller: UIViewController, UITextFieldDelegate{
     @IBOutlet weak var passwordCheckInput: UITextField!
     @IBOutlet weak var telInput: UITextField!
     @IBOutlet weak var emailCheckText: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
     
     var registerEnable : Bool = false;
     let border1 = CALayer()
@@ -136,6 +137,16 @@ class Register3Controller: UIViewController, UITextFieldDelegate{
         telInput.keyboardType = .phonePad
         
         
+    }
+    
+    override func viewDidLayoutSubviews() {
+        labelSetColor()
+    }
+    
+    func labelSetColor(){
+        let attributedStr1 = NSMutableAttributedString(string: descriptionLabel.text!)
+        attributedStr1.addAttribute(.foregroundColor, value: UIColor.systemRed, range: (descriptionLabel.text! as NSString).range(of: "아이디 / 비밀번호 찾기"))
+        descriptionLabel.attributedText = attributedStr1
     }
     
     func telInputSetUp(){

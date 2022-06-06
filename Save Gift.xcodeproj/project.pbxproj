@@ -43,10 +43,9 @@
 		04D47FC4283F1C4C00ABA156 /* GiftPresentPage3Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D47FC3283F1C4C00ABA156 /* GiftPresentPage3Controller.swift */; };
 		04E8B5E127F180C900CD86F3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E8B5E027F180C900CD86F3 /* SceneDelegate.swift */; };
 		04F9F4AD27FA916B00DC1273 /* FirebaseStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F9F4AC27FA916B00DC1273 /* FirebaseStorageManager.swift */; };
-		305804AC29F0E80B229CFFEC /* Pods_Save_Gift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46619AD1203C9A4A695FFD42 /* Pods_Save_Gift.framework */; };
 		A20D2682276A151700470D06 /* Register3Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20D2681276A151700470D06 /* Register3Controller.swift */; };
-		A213100127A97C5300A98783 /* BuildFile in Embed Frameworks */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		A218F1A1276E093D00E71316 /* UnlockController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A218F1A0276E093D00E71316 /* UnlockController.swift */; };
+		A213100127A97C5300A98783 /* (null) in Embed Frameworks */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A218F1A1276E093D00E71316 /* FindidController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A218F1A0276E093D00E71316 /* FindidController.swift */; };
 		A21C6D5B276F630900BDE1E4 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21C6D5A276F630900BDE1E4 /* SideMenuViewController.swift */; };
 		A21C6D5D276F646000BDE1E4 /* CustomSideMenuNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21C6D5C276F646000BDE1E4 /* CustomSideMenuNavigation.swift */; };
 		A21FB36B27983673003821C6 /* SettingMyInfo2Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21FB36A27983673003821C6 /* SettingMyInfo2Controller.swift */; };
@@ -102,7 +101,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				A213100127A97C5300A98783 /* BuildFile in Embed Frameworks */,
+				A213100127A97C5300A98783 /* (null) in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -227,7 +226,7 @@
 		1D9656724BA4D04A17392865 /* Pods_Save_Gift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Save_Gift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F8FCEFE1DC7C727FACAB12C /* Pods-Save Gift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Save Gift.debug.xcconfig"; path = "Target Support Files/Pods-Save Gift/Pods-Save Gift.debug.xcconfig"; sourceTree = "<group>"; };
 		A20D2681276A151700470D06 /* Register3Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Register3Controller.swift; sourceTree = "<group>"; };
-		A218F1A0276E093D00E71316 /* UnlockController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockController.swift; sourceTree = "<group>"; };
+		A218F1A0276E093D00E71316 /* FindidController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindidController.swift; sourceTree = "<group>"; };
 		A218F1A2276E115E00E71316 /* Save Gift.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Save Gift.entitlements"; sourceTree = "<group>"; };
 		A21C6D5A276F630900BDE1E4 /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
 		A21C6D5C276F646000BDE1E4 /* CustomSideMenuNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSideMenuNavigation.swift; sourceTree = "<group>"; };
@@ -811,7 +810,7 @@
 				A2D2FDB32778C1400036B849 /* CustomCell.swift */,
 				A21C6D5A276F630900BDE1E4 /* SideMenuViewController.swift */,
 				A21C6D5C276F646000BDE1E4 /* CustomSideMenuNavigation.swift */,
-				A218F1A0276E093D00E71316 /* UnlockController.swift */,
+				A218F1A0276E093D00E71316 /* FindidController.swift */,
 			);
 			path = UnUsed;
 			sourceTree = "<group>";
@@ -1730,7 +1729,7 @@
 				A2C5B5B627AEEDE300C65B79 /* TableViewCell.swift in Sources */,
 				A2C5B5B427AEEDCF00C65B79 /* Helper.swift in Sources */,
 				A293992327C257F2007DD927 /* CollectionViewCell.swift in Sources */,
-				A218F1A1276E093D00E71316 /* UnlockController.swift in Sources */,
+				A218F1A1276E093D00E71316 /* FindidController.swift in Sources */,
 				A20D2682276A151700470D06 /* Register3Controller.swift in Sources */,
 				0471A0CD28348C6F0081AA5E /* NetworkCheck.swift in Sources */,
 				A2DC3F282785C47000D354B1 /* CustomTabBarController.swift in Sources */,
