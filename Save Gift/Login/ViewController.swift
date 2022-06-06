@@ -29,6 +29,7 @@ class ViewController: UIViewController, ASAuthorizationControllerDelegate, ASAut
     @IBOutlet weak var btnKakaoLogin: UIButton!
     @IBOutlet weak var btnFacebookLogin: UIButton!
     @IBOutlet weak var btnNaverLogin: UIButton!
+    @IBOutlet weak var btnFind: UIButton!
     
     
     // Storyboard
@@ -168,6 +169,7 @@ class ViewController: UIViewController, ASAuthorizationControllerDelegate, ASAut
         
         btnRegister.layer.cornerRadius = 5
         btnLogin.layer.cornerRadius = 5
+        btnFind.layer.cornerRadius = 5
     }
 
     @IBAction func loginAction(_ sender: Any) {
@@ -323,6 +325,11 @@ class ViewController: UIViewController, ASAuthorizationControllerDelegate, ASAut
     //아이디에서 엔터
     @IBAction func idAction(_ sender: Any) {
         self.passwordTextField.becomeFirstResponder()
+    }
+    
+    // 아이디 / 비밀번호 찾기
+    @IBAction func findAction(_ sender: Any) {
+        
     }
     
     //패스워드에서 엔터
