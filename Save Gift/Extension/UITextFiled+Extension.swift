@@ -7,7 +7,7 @@ extension UITextField {
       self.leftView = paddingView
       self.leftViewMode = ViewMode.always
     }
-
+    
     @IBInspectable var doneAccessory: Bool {
         get {
             return self.doneAccessory
@@ -31,6 +31,14 @@ extension UITextField {
         doneToolbar.sizeToFit()
         
         self.inputAccessoryView = doneToolbar
+    }
+    
+    func timer() {
+          let button = UIButton(type: .custom)
+            button.frame = CGRect(x: 0, y: 0, width: 29, height: 29)
+            button.setTitle("ㅇㅇㅇㅇ", for: .normal)
+            rightView = button
+            rightViewMode = .always
     }
     
     @objc func doneButtonAction() {

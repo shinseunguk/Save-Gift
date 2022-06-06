@@ -8,9 +8,14 @@
 import UIKit
 import JSPhoneFormat
 
-class Register2Controller: UIViewController {
+
+class Register2Controller: UIViewController, UITextFieldDelegate {
     let LOG_TAG = "Register2Controller"
+    let localUrl = "".getLocalURL()
     let helper = Helper()
+    let deviceID : String? = UserDefaults.standard.string(forKey: "device_id")
+    
+    var timer: Timer?
     @IBOutlet weak var cellPhoneTextField: UITextField!
     @IBOutlet weak var authNumberTextField: UITextField! // 인증번호 자동완성 https://swieeft.github.io/2020/08/13/MobileAuthNumberAutomaticCompletion.html
     
@@ -30,7 +35,23 @@ class Register2Controller: UIViewController {
     let border1 = CALayer()
     let border2 = CALayer()
     
-    var count = 59
+    var minute : Int = 0
+    var second : Int = 0
+    var dic : Dictionary<String, Any> = [:]
+    var checkDic: Dictionary<String, Any> = [:]
+    var topLabel: UILabel = {
+
+        let topLabel = UILabel()
+        topLabel.translatesAutoresizingMaskIntoConstraints = false
+        topLabel.textAlignment = .center
+        topLabel.font = UIFont.systemFont(ofSize: 12)
+        topLabel.textColor = .lightGray
+        topLabel.backgroundColor = .white
+        topLabel.numberOfLines = 1
+        return topLabel
+
+    }()
+    
     
     //빈곳 터치 키보드 내리기
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
@@ -70,6 +91,8 @@ class Register2Controller: UIViewController {
         authNumberTextField.textAlignment = .left
         authNumberTextField.textColor = UIColor.black
         authNumberTextField.attributedPlaceholder = NSAttributedString(string: "인증번호 6자리 입력", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
+        
+        nextBtn.layer.cornerRadius = 5
     }
     
     override func viewDidLoad() {
@@ -85,7 +108,6 @@ class Register2Controller: UIViewController {
         self.navigationItem.title = "휴대폰 인증"
         
         labelSetColor()
-        var timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(update), userInfo: nil, repeats: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -101,6 +123,10 @@ class Register2Controller: UIViewController {
         
         nextBtn.backgroundColor = .systemGray2
         nextBtn.isEnabled = false
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        topLabel.removeFromSuperview()
     }
 
     @objc func textFieldDidChange(_ textField: UITextField) {
@@ -164,38 +190,184 @@ class Register2Controller: UIViewController {
         description3.attributedText = attributedStr3
     }
     
+    func topLabelSetColor(){
+        let attributedStr1 = NSMutableAttributedString(string: topLabel.text!)
+        // text의 range 중에서 "Bonus"라는 글자는 UIColor를 blue로 변경
+        attributedStr1.addAttribute(.foregroundColor, value: UIColor.systemGray, range: (topLabel.text! as NSString).range(of: "유효시간"))
+        // 설정이 적용된 text를 label의 attributedText에 저장
+        topLabel.attributedText = attributedStr1
+    }
+    
+    func setupLabel() {
+        cellPhoneTextField.addSubview(topLabel)
+//        topLabel.centerYAnchor.constraint(equalTo: cellPhoneTextField.topAnchor, constant: 10).isActive = true
+        topLabel.centerYAnchor.constraint(equalTo: cellPhoneTextField.centerYAnchor).isActive = true
+        topLabel.rightAnchor.constraint(equalTo: cellPhoneTextField.rightAnchor, constant: -20).isActive = true
+        topLabel.textColor = .systemRed
+//        topLabel.topAnchor.constraint(equalTo: cellPhoneTextField.topAnchor, constant: 10).isActive = true
+//        topLabel.text = "gdgd"
+    }
+    
     @IBAction func authRequestAction(_ sender: Any) {
-        authRequestBtn.setTitle("재전송", for: .normal)
-        print("\(cellPhoneTextField.text!)")
-        helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "인증번호가 핸드폰으로 전송되었습니다.", completeTitle: "확인", nil)
-        //server request true/false 이후 nextBool 변경
-        authNumberTextField.isEnabled = true
-        authNumberTextField.backgroundColor = .white
-        nextBool = true // 임시
+        authNumberTextField.text = ""
         
+        self.dic["phoneNumber"] = self.cellPhoneTextField.text!
+        self.dic["device_id"] = self.deviceID!
+        sendsms(requestUrl: "/sendsms", param: dic)
+
+        setupLabel()
     }
     @IBAction func nextAction(_ sender: Any) {
         print("다음")
-//        let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "Register3")
-        guard let pushVC = self.storyboard?.instantiateViewController(identifier: "Register3") as? Register3Controller else{
-            return
-        }
         
-        pushVC.emailYn = emailYn!
-        pushVC.smsYn = smsYn!
-        pushVC.phoneNumber = cellPhoneTextField.text!
+        checkDic["phone_number"] = cellPhoneTextField.text!
+        checkDic["device_id"] = deviceID!
+        checkDic["cert_number"] = authNumberTextField.text!
         
-        self.navigationController?.pushViewController(pushVC, animated: true)
+        checkSms(requestUrl: "/sms/check", param: checkDic)
     }
     
     @objc func update() {
-        if(count > 0) {
-//            countDownLabel.text = String(count--)
-            print("\(count) !!!")
-            count-=1
+        if(second > 0) {
+            if second / 10 < 1{
+                topLabel.text = "유효시간 0\(minute):0\(second)"
+            }else {
+                topLabel.text = "유효시간 0\(minute):\(second)"
+            }
+            second -= 1
         }else {
-            count = 60
+            if minute == 0 {
+                topLabel.text = "유효시간 0\(minute):0\(second)"
+                timer?.invalidate()
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    self.nextBtn.backgroundColor = .systemGray2
+                    self.nextBtn.isEnabled = false
+                    self.nextBool = false
+                }
+                
+                minute = 2
+                second = 59
+            }
+            minute -= 1
+            second = 59
         }
+        topLabelSetColor()
+    }
+    
+    func sendsms(requestUrl : String!, param : Dictionary<String, Any>) -> Void{
+        print("param.... ", param)
+        let paramData = try! JSONSerialization.data(withJSONObject: param)
+        // URL 객체 정의
+                let url = URL(string: localUrl+requestUrl)
+
+                // URLRequest 객체를 정의
+                var request = URLRequest(url: url!)
+                request.httpMethod = "POST"
+                request.httpBody = paramData
+
+                // HTTP 메시지 헤더
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.addValue("application/json", forHTTPHeaderField: "Accept")
+
+                // URLSession 객체를 통해 전송, 응답값 처리
+                let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                    // 서버가 응답이 없거나 통신이 실패
+                    if let e = error {
+                        print("\(self.LOG_TAG) An error has occured: \(e.localizedDescription)")
+                        self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "네트워크에 접속할 수 없습니다.", message: "네트워크 연결 상태를 확인해주세요.", completeTitle: "확인", nil)
+                        return
+                    }
+
+                var responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+
+                    print("sendsms responseString \n", responseString!)
+                    var responseStringA = responseString as! String
+                    DispatchQueue.main.async {
+                        if responseStringA == ""{
+                            self.authNumberTextField.isFirstResponder
+                            self.minute = 2
+                            self.second = 59
+                    //        minute = 0 //test
+                    //        second = 10 //test
+                            
+                            self.timer?.invalidate()
+                            
+                            self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
+                            
+                            self.authRequestBtn.setTitle("재전송", for: .normal)
+                            print("\(#line) \(self.cellPhoneTextField.text!)")
+                            self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "인증번호가 핸드폰으로 전송되었습니다.", completeTitle: "확인", nil)
+                            //server request true/false 이후 nextBool 변경
+                            self.authNumberTextField.isEnabled = true
+                            self.authNumberTextField.backgroundColor = .white
+                            
+                            self.nextBool = true // 임시
+                            
+                            if self.nextBool{
+                                if self.authNumberTextField.text?.count == 6 && self.cellPhoneTextField.text?.count == 13{
+                                    self.nextBtn.backgroundColor = .systemBlue
+                                    self.nextBtn.isEnabled = true
+                                }else {
+                                    self.nextBtn.backgroundColor = .systemGray2
+                                    self.nextBtn.isEnabled = false
+                                }
+                            }
+                        }else {
+                            self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "당일 요청횟수 3회를 초과하셨습니다.", completeTitle: "확인", nil)
+                        }
+                    }
+                }
+                // POST 전송
+                task.resume()
+    }
+    
+    func checkSms(requestUrl : String!, param : Dictionary<String, Any>) -> Void{
+        print("checkSms param.... ", param)
+        let paramData = try! JSONSerialization.data(withJSONObject: param)
+        // URL 객체 정의
+                let url = URL(string: localUrl+requestUrl)
+
+                // URLRequest 객체를 정의
+                var request = URLRequest(url: url!)
+                request.httpMethod = "POST"
+                request.httpBody = paramData
+
+                // HTTP 메시지 헤더
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.addValue("application/json", forHTTPHeaderField: "Accept")
+
+                // URLSession 객체를 통해 전송, 응답값 처리
+                let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                    // 서버가 응답이 없거나 통신이 실패
+                    if let e = error {
+                        print("\(self.LOG_TAG) An error has occured: \(e.localizedDescription)")
+                        self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "네트워크에 접속할 수 없습니다.", message: "네트워크 연결 상태를 확인해주세요.", completeTitle: "확인", nil)
+                        return
+                    }
+
+                var responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+
+//                    print("GiftDetail responseString \n", responseString!)
+                    var responseStringA = responseString as! String
+                    DispatchQueue.main.async {
+                        if responseStringA == "true"{
+                            guard let pushVC = self.storyboard?.instantiateViewController(identifier: "Register3") as? Register3Controller else{
+                                return
+                            }
+                            
+                            pushVC.self.emailYn = self.emailYn!
+                            pushVC.self.smsYn = self.smsYn!
+                            pushVC.self.phoneNumber = self.cellPhoneTextField.text!
+                            
+                            self.navigationController?.pushViewController(pushVC, animated: true)
+                        }else {
+                            self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "휴대폰 번호와 인증번호가 일치하지 않습니다.", completeTitle: "확인", nil)
+                        }
+                    }
+                }
+                // POST 전송
+                task.resume()
     }
 }
 
