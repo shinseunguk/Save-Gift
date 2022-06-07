@@ -2788,6 +2788,9 @@
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="인증 요청"/>
+                                <connections>
+                                    <action selector="authAction:" destination="Qx9-5S-Q2V" eventType="touchUpInside" id="VRp-cW-gzY"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="t9k-ga-hmX">
                                 <rect key="frame" x="20" y="246" width="374" height="50"/>
@@ -2832,6 +2835,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="authBtn" destination="seO-4K-a1B" id="vF7-un-bPl"/>
                         <outlet property="authNumberTextField" destination="t9k-ga-hmX" id="dn7-IZ-mv3"/>
                         <outlet property="description1" destination="Eyl-tz-Q3p" id="IuO-Bl-OTt"/>
                         <outlet property="emailTextField" destination="L8j-Am-vcr" id="DN3-K3-cMS"/>

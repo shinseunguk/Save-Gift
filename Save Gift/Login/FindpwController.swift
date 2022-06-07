@@ -16,7 +16,8 @@ class FindpwController : UIViewController{
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var authNumberTextField: UITextField!
-
+    @IBOutlet weak var authBtn: UIButton!
+    
     @IBOutlet weak var nextBtn: UIButton!
     
     @IBOutlet weak var description1: UILabel!
@@ -122,8 +123,11 @@ class FindpwController : UIViewController{
         }else if textField.tag == 1{
             checkMaxLength(textField: emailTextField, maxLength: 40)
             if (textField.text?.validateEmail(textField.text!) ?? false) { // 정규식 true 일때
+                authBtn.backgroundColor = .systemBlue
                 nextBtn.backgroundColor = .systemBlue
                 nextBtn.isEnabled = true
+            }else {
+                authBtn.backgroundColor = .systemGray5
             }
         }else if textField.tag == 2{
             checkMaxLength(textField: authNumberTextField, maxLength: 6)
@@ -154,6 +158,17 @@ class FindpwController : UIViewController{
             if (authNumberTextField.text?.count ?? 0 > maxLength) {
                 authNumberTextField.deleteBackward()
             }
+        }
+    }
+    @IBAction func authAction(_ sender: Any) {
+        if (emailTextField.text?.validateEmail(emailTextField.text!) ?? false) { // 정규식 true 일때
+            helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "해당 이메일로 인증번호가 전송되었습니다.", completeTitle: "확인", nil)
+            authNumberTextField.isEnabled = true
+            authNumberTextField.backgroundColor = .white
+            authBtn.setTitle("재요청", for: .normal)
+        }else {
+            helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "이메일 형식으로 입력해주세요.", completeTitle: "확인", nil)
+            emailTextField.becomeFirstResponder()
         }
     }
 }
