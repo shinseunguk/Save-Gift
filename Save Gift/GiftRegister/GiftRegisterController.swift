@@ -1043,10 +1043,6 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
 //        let image = VisionImage(image: (info[UIImagePickerController.InfoKey.originalImage] as? UIImage)!)
         
         picker.dismiss(animated: true, completion: nil) // picker를 닫아줌
-        
-            
-//            print("###########",info)
-//        print("!@^%#$^!%@&$#*!@(&$#^(& \n", info[UIImagePickerController.InfoKey.imageURL]!)
     }
     
     @objc func changeSegment(_ sender: UISegmentedControl){

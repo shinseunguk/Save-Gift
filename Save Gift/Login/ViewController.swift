@@ -29,7 +29,8 @@ class ViewController: UIViewController, ASAuthorizationControllerDelegate, ASAut
     @IBOutlet weak var btnKakaoLogin: UIButton!
     @IBOutlet weak var btnFacebookLogin: UIButton!
     @IBOutlet weak var btnNaverLogin: UIButton!
-    @IBOutlet weak var btnFind: UIButton!
+    @IBOutlet weak var btnFindPW: UIButton!
+    @IBOutlet weak var btnFindID: UIButton!
     
     
     // Storyboard
@@ -169,7 +170,8 @@ class ViewController: UIViewController, ASAuthorizationControllerDelegate, ASAut
         
         btnRegister.layer.cornerRadius = 5
         btnLogin.layer.cornerRadius = 5
-        btnFind.layer.cornerRadius = 5
+        btnFindID.layer.cornerRadius = 5
+        btnFindPW.layer.cornerRadius = 5
     }
 
     @IBAction func loginAction(_ sender: Any) {
@@ -327,8 +329,17 @@ class ViewController: UIViewController, ASAuthorizationControllerDelegate, ASAut
         self.passwordTextField.becomeFirstResponder()
     }
     
-    // 아이디 / 비밀번호 찾기
-    @IBAction func findAction(_ sender: Any) {
+    @IBAction func findPWAction(_ sender: Any) {
+        print("findPWAction")
+        let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "FindpwController")
+        self.navigationController?.pushViewController(pushVC!, animated: true)
+        
+        let backBarButtonItem = UIBarButtonItem(title: "로그인", style: .plain, target: self, action: nil)
+        self.navigationItem.backBarButtonItem = backBarButtonItem
+    }
+    
+    // 아이디 찾기
+    @IBAction func findIDAction(_ sender: Any) {
         print("findAction")
         let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "FindidController")
         self.navigationController?.pushViewController(pushVC!, animated: true)
