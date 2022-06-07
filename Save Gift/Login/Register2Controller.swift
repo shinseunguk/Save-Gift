@@ -52,6 +52,8 @@ class Register2Controller: UIViewController, UITextFieldDelegate {
 
     }()
     
+    var phoneNumberFromFindId : String? = nil
+    
     
     //빈곳 터치 키보드 내리기
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
@@ -111,15 +113,23 @@ class Register2Controller: UIViewController, UITextFieldDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        cellPhoneTextField.text = ""
+        if phoneNumberFromFindId != nil{
+            cellPhoneTextField.text = phoneNumberFromFindId
+            cellPhoneTextField.isEnabled = false
+            cellPhoneTextField.backgroundColor = .systemGray5
+            authRequestBtn.isEnabled = true
+            authRequestBtn.backgroundColor = .systemBlue
+            authRequestBtn.setTitle("인증 요청", for: .normal)
+        }else {
+            cellPhoneTextField.text = ""
+            authRequestBtn.isEnabled = false
+            authRequestBtn.backgroundColor = .systemGray2
+            authRequestBtn.setTitle("인증 요청", for: .normal)
+        }
         
         authNumberTextField.text = ""
         authNumberTextField.isEnabled = false
         authNumberTextField.backgroundColor = .systemGray5
-        
-        authRequestBtn.isEnabled = false
-        authRequestBtn.backgroundColor = .systemGray2
-        authRequestBtn.setTitle("인증 요청", for: .normal)
         
         nextBtn.backgroundColor = .systemGray2
         nextBtn.isEnabled = false
@@ -191,11 +201,21 @@ class Register2Controller: UIViewController, UITextFieldDelegate {
     }
     
     func topLabelSetColor(){
-        let attributedStr1 = NSMutableAttributedString(string: topLabel.text!)
-        // text의 range 중에서 "Bonus"라는 글자는 UIColor를 blue로 변경
-        attributedStr1.addAttribute(.foregroundColor, value: UIColor.systemGray, range: (topLabel.text! as NSString).range(of: "유효시간"))
-        // 설정이 적용된 text를 label의 attributedText에 저장
-        topLabel.attributedText = attributedStr1
+        if phoneNumberFromFindId != nil{
+            topLabel.backgroundColor = .systemGray5
+            
+            let attributedStr1 = NSMutableAttributedString(string: topLabel.text!)
+            // text의 range 중에서 "Bonus"라는 글자는 UIColor를 blue로 변경
+            attributedStr1.addAttribute(.foregroundColor, value: UIColor.black, range: (topLabel.text! as NSString).range(of: "유효시간"))
+            // 설정이 적용된 text를 label의 attributedText에 저장
+            topLabel.attributedText = attributedStr1
+        }else {
+            let attributedStr1 = NSMutableAttributedString(string: topLabel.text!)
+            // text의 range 중에서 "Bonus"라는 글자는 UIColor를 blue로 변경
+            attributedStr1.addAttribute(.foregroundColor, value: UIColor.systemGray, range: (topLabel.text! as NSString).range(of: "유효시간"))
+            // 설정이 적용된 text를 label의 attributedText에 저장
+            topLabel.attributedText = attributedStr1
+        }
     }
     
     func setupLabel() {

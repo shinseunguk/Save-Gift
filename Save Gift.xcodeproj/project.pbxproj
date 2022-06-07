@@ -12,6 +12,7 @@
 		040891B927F6AB9200EF6310 /* candy.png in Resources */ = {isa = PBXBuildFile; fileRef = 040891B627F6AB9200EF6310 /* candy.png */; };
 		041E83CF27D9DD7600AEB546 /* GetFriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041E83CD27D9DD7600AEB546 /* GetFriendTableViewCell.swift */; };
 		041E83D027D9DD7600AEB546 /* GetFriendTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 041E83CE27D9DD7600AEB546 /* GetFriendTableViewCell.xib */; };
+		042A8C8E284F309B00DF857E /* FindpwController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042A8C8D284F309B00DF857E /* FindpwController.swift */; };
 		042C0FB627FE73C5005EDA8E /* GiftDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042C0FB527FE73C5005EDA8E /* GiftDetailController.swift */; };
 		042C0FB927FFB93B005EDA8E /* GiftDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042C0FB727FFB93B005EDA8E /* GiftDetailTableViewCell.swift */; };
 		042C0FBA27FFB93B005EDA8E /* GiftDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 042C0FB827FFB93B005EDA8E /* GiftDetailTableViewCell.xib */; };
@@ -91,7 +92,7 @@
 		A2DD0BE727A7CC580015E59B /* RegisterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2DD0BE527A7CC580015E59B /* RegisterTableViewCell.swift */; };
 		A2DD0BE827A7CC580015E59B /* RegisterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2DD0BE627A7CC580015E59B /* RegisterTableViewCell.xib */; };
 		A2DFB7D72770973F00BB9D21 /* GetDeivceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2DFB7D62770973F00BB9D21 /* GetDeivceModel.swift */; };
-		E2A55C5D89731C97970652A1 /* Pods_Save_Gift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D9656724BA4D04A17392865 /* Pods_Save_Gift.framework */; };
+		C6D61F20C1561DC66E6A7C94 /* Pods_Save_Gift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F8AF913C016F5DC4D12A6AD /* Pods_Save_Gift.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -114,6 +115,7 @@
 		040891B627F6AB9200EF6310 /* candy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = candy.png; sourceTree = "<group>"; };
 		041E83CD27D9DD7600AEB546 /* GetFriendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetFriendTableViewCell.swift; sourceTree = "<group>"; };
 		041E83CE27D9DD7600AEB546 /* GetFriendTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GetFriendTableViewCell.xib; sourceTree = "<group>"; };
+		042A8C8D284F309B00DF857E /* FindpwController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindpwController.swift; sourceTree = "<group>"; };
 		042C0FB527FE73C5005EDA8E /* GiftDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftDetailController.swift; sourceTree = "<group>"; };
 		042C0FB727FFB93B005EDA8E /* GiftDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftDetailTableViewCell.swift; sourceTree = "<group>"; };
 		042C0FB827FFB93B005EDA8E /* GiftDetailTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GiftDetailTableViewCell.xib; sourceTree = "<group>"; };
@@ -223,8 +225,9 @@
 		04E8B5B027F1807A00CD86F3 /* libbz2.1.0.8.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.1.0.8.tbd; path = usr/lib/libbz2.1.0.8.tbd; sourceTree = SDKROOT; };
 		04E8B5E027F180C900CD86F3 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		04F9F4AC27FA916B00DC1273 /* FirebaseStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorageManager.swift; sourceTree = "<group>"; };
-		1D9656724BA4D04A17392865 /* Pods_Save_Gift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Save_Gift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5F8FCEFE1DC7C727FACAB12C /* Pods-Save Gift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Save Gift.debug.xcconfig"; path = "Target Support Files/Pods-Save Gift/Pods-Save Gift.debug.xcconfig"; sourceTree = "<group>"; };
+		23B8C02562BFD4E052AA53AE /* Pods-Save Gift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Save Gift.debug.xcconfig"; path = "Target Support Files/Pods-Save Gift/Pods-Save Gift.debug.xcconfig"; sourceTree = "<group>"; };
+		3390AB393BD0AD48DE3AC32C /* Pods-Save Gift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Save Gift.release.xcconfig"; path = "Target Support Files/Pods-Save Gift/Pods-Save Gift.release.xcconfig"; sourceTree = "<group>"; };
+		3F8AF913C016F5DC4D12A6AD /* Pods_Save_Gift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Save_Gift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A20D2681276A151700470D06 /* Register3Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Register3Controller.swift; sourceTree = "<group>"; };
 		A218F1A0276E093D00E71316 /* FindidController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindidController.swift; sourceTree = "<group>"; };
 		A218F1A2276E115E00E71316 /* Save Gift.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Save Gift.entitlements"; sourceTree = "<group>"; };
@@ -748,7 +751,6 @@
 		A2DD0BE527A7CC580015E59B /* RegisterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterTableViewCell.swift; sourceTree = "<group>"; };
 		A2DD0BE627A7CC580015E59B /* RegisterTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterTableViewCell.xib; sourceTree = "<group>"; };
 		A2DFB7D62770973F00BB9D21 /* GetDeivceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDeivceModel.swift; sourceTree = "<group>"; };
-		D1E7AD0D0DF4741D80063A65 /* Pods-Save Gift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Save Gift.release.xcconfig"; path = "Target Support Files/Pods-Save Gift/Pods-Save Gift.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -757,7 +759,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A23698AE27A97B9100C86754 /* LocalAuthentication.framework in Frameworks */,
-				E2A55C5D89731C97970652A1 /* Pods_Save_Gift.framework in Frameworks */,
+				C6D61F20C1561DC66E6A7C94 /* Pods_Save_Gift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -810,7 +812,6 @@
 				A2D2FDB32778C1400036B849 /* CustomCell.swift */,
 				A21C6D5A276F630900BDE1E4 /* SideMenuViewController.swift */,
 				A21C6D5C276F646000BDE1E4 /* CustomSideMenuNavigation.swift */,
-				A218F1A0276E093D00E71316 /* FindidController.swift */,
 			);
 			path = UnUsed;
 			sourceTree = "<group>";
@@ -923,6 +924,8 @@
 				A20D2681276A151700470D06 /* Register3Controller.swift */,
 				A225D700275B5FD500484EAE /* ViewController.swift */,
 				A2D33521275CDEA700ECF4B1 /* RegisterController.swift */,
+				A218F1A0276E093D00E71316 /* FindidController.swift */,
+				042A8C8D284F309B00DF857E /* FindpwController.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -996,8 +999,8 @@
 		BA60E12EA7D0CED5EB755D53 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				5F8FCEFE1DC7C727FACAB12C /* Pods-Save Gift.debug.xcconfig */,
-				D1E7AD0D0DF4741D80063A65 /* Pods-Save Gift.release.xcconfig */,
+				23B8C02562BFD4E052AA53AE /* Pods-Save Gift.debug.xcconfig */,
+				3390AB393BD0AD48DE3AC32C /* Pods-Save Gift.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -1557,7 +1560,7 @@
 				A236986627A97B9000C86754 /* Protobuf.framework */,
 				A236986727A97B9000C86754 /* SideMenu.framework */,
 				A28F4397276F44B700B5DB17 /* LocalAuthentication.framework */,
-				1D9656724BA4D04A17392865 /* Pods_Save_Gift.framework */,
+				3F8AF913C016F5DC4D12A6AD /* Pods_Save_Gift.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1569,13 +1572,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A225D70D275B5FD600484EAE /* Build configuration list for PBXNativeTarget "Save Gift" */;
 			buildPhases = (
-				D24E466F11332172CB88BB1B /* [CP] Check Pods Manifest.lock */,
+				51D1DBF08B041139CC3117E0 /* [CP] Check Pods Manifest.lock */,
 				A225D6F5275B5FD500484EAE /* Sources */,
 				A225D6F6275B5FD500484EAE /* Frameworks */,
 				A225D6F7275B5FD500484EAE /* Resources */,
 				A213100227A97C5300A98783 /* Embed Frameworks */,
-				D02ED3C0ADAD4EE46FCAA3D6 /* [CP] Embed Pods Frameworks */,
-				31131AC3A9F681EB43BEAF50 /* [CP] Copy Pods Resources */,
+				2E0C25A1B96FE87F853C04DF /* [CP] Embed Pods Frameworks */,
+				420C923C264B38AFF5F16039 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1663,24 +1666,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		31131AC3A9F681EB43BEAF50 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Save Gift/Pods-Save Gift-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Save Gift/Pods-Save Gift-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Save Gift/Pods-Save Gift-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D02ED3C0ADAD4EE46FCAA3D6 /* [CP] Embed Pods Frameworks */ = {
+		2E0C25A1B96FE87F853C04DF /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1697,7 +1683,24 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Save Gift/Pods-Save Gift-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D24E466F11332172CB88BB1B /* [CP] Check Pods Manifest.lock */ = {
+		420C923C264B38AFF5F16039 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Save Gift/Pods-Save Gift-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Save Gift/Pods-Save Gift-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Save Gift/Pods-Save Gift-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		51D1DBF08B041139CC3117E0 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1767,6 +1770,7 @@
 				A240D8FD2814311F0009B03E /* TestController.swift in Sources */,
 				A225D6FD275B5FD500484EAE /* AppDelegate.swift in Sources */,
 				A2D4935A27905EF300FB5770 /* SettingMyInfoController.swift in Sources */,
+				042A8C8E284F309B00DF857E /* FindpwController.swift in Sources */,
 				A2907E1827EF86E90001148D /* Page1Controller.swift in Sources */,
 				A21C6D5B276F630900BDE1E4 /* SideMenuViewController.swift in Sources */,
 				04D47FC4283F1C4C00ABA156 /* GiftPresentPage3Controller.swift in Sources */,
@@ -1923,7 +1927,7 @@
 		};
 		A225D70E275B5FD600484EAE /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5F8FCEFE1DC7C727FACAB12C /* Pods-Save Gift.debug.xcconfig */;
+			baseConfigurationReference = 23B8C02562BFD4E052AA53AE /* Pods-Save Gift.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -2072,7 +2076,7 @@
 		};
 		A225D70F275B5FD600484EAE /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D1E7AD0D0DF4741D80063A65 /* Pods-Save Gift.release.xcconfig */;
+			baseConfigurationReference = 3390AB393BD0AD48DE3AC32C /* Pods-Save Gift.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
