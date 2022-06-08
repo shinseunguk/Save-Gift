@@ -105,6 +105,19 @@ class Register3Controller: UIViewController, UITextFieldDelegate{
         passwordCheckInput.addLeftPadding()
         telInput.addLeftPadding()
         
+        nameInput.tag = 0
+        emailInput.tag = 1
+        passwordInput.tag = 2
+        passwordCheckInput.tag = 3
+        telInput.tag = 4
+        
+        nameInput.addLeftPadding()
+        emailInput.addLeftPadding()
+        passwordInput.addLeftPadding()
+        passwordCheckInput.addLeftPadding()
+        telInput.addLeftPadding()
+        
+        
         nameInput.attributedPlaceholder = NSAttributedString(string: "이름", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
         emailInput.attributedPlaceholder = NSAttributedString(string: "아이디(Email)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
         passwordInput.attributedPlaceholder = NSAttributedString(string: "비밀번호(영어, 숫자, 특수문자를 포함한 8자리 이상)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)]) // 8자리 ~ 50자리 영어+숫자+특수문자
@@ -146,6 +159,7 @@ class Register3Controller: UIViewController, UITextFieldDelegate{
     func labelSetColor(){
         let attributedStr1 = NSMutableAttributedString(string: descriptionLabel.text!)
         attributedStr1.addAttribute(.foregroundColor, value: UIColor.systemRed, range: (descriptionLabel.text! as NSString).range(of: "아이디 / 비밀번호 찾기"))
+        attributedStr1.addAttribute(.foregroundColor, value: UIColor.systemRed, range: (descriptionLabel.text! as NSString).range(of: "실사용 중"))
         descriptionLabel.attributedText = attributedStr1
     }
     
@@ -195,6 +209,16 @@ class Register3Controller: UIViewController, UITextFieldDelegate{
         passwordCheck = passwordCheckInput.text
         telNumber = telInput.text
         
+        if textField.tag == 0 {
+            checkMaxLength(textField: nameInput, maxLength: 20)
+        }else if textField.tag == 1 {
+            checkMaxLength(textField: emailInput, maxLength: 20)
+        }else if textField.tag == 2 {
+            checkMaxLength(textField: passwordInput, maxLength: 20)
+        }else if textField.tag == 3 {
+            checkMaxLength(textField: passwordCheckInput, maxLength: 20)
+        }
+        
         if(name != "" && email != "" && password != "" && passwordCheck != "" && telNumber != ""){
             btnConfirm.layer.backgroundColor = UIColor.systemBlue.cgColor
             btnConfirm.isEnabled = true
@@ -202,13 +226,6 @@ class Register3Controller: UIViewController, UITextFieldDelegate{
             btnConfirm.layer.backgroundColor = UIColor.systemGray2.cgColor
             btnConfirm.isEnabled = false
         }
-        
-//        print("name ", name!)
-//        print("email ", email!)
-//        print("password ", password!)
-//        print("passwordCheck ", passwordCheck!)
-//        print("telNumber ", telNumber!)
-//        print("registerEnable ", String(registerEnable))
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
@@ -218,8 +235,26 @@ class Register3Controller: UIViewController, UITextFieldDelegate{
     }   // phoneFormat.addCharacter에 텍스트를 넣어주면 init시 넣은 character가 구분자로 들어간 값이 반환됩니다.
 
     func checkMaxLength(textField: UITextField!, maxLength: Int) {
-        if (telInput.text?.count ?? 0 > maxLength) {
-            telInput.deleteBackward()
+        if textField.tag == 0 {
+            if (emailInput.text?.count ?? 0 > maxLength) {
+                emailInput.deleteBackward()
+            }
+        }else if textField.tag == 1 {
+            if (emailInput.text?.count ?? 0 > maxLength) {
+                emailInput.deleteBackward()
+            }
+        }else if textField.tag == 2 {
+            if (passwordInput.text?.count ?? 0 > maxLength) {
+                passwordInput.deleteBackward()
+            }
+        }else if textField.tag == 3 {
+            if (passwordCheckInput.text?.count ?? 0 > maxLength) {
+                passwordCheckInput.deleteBackward()
+            }
+        }else if textField.tag == 4 {
+            if (telInput.text?.count ?? 0 > maxLength) {
+                telInput.deleteBackward()
+            }
         }
     }
     

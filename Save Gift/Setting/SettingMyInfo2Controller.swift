@@ -14,7 +14,7 @@ class SettingMyInfo2Controller : UIViewController, UITextFieldDelegate{
     let helper = Helper()
     @IBOutlet weak var idLabel: UILabel!
     @IBOutlet weak var joinLabel: UILabel!
-    @IBOutlet weak var nameLabel: UITextField!
+    @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var changePassWord: UITextField!
     @IBOutlet weak var changeRePassWord: UITextField!
     @IBOutlet weak var modifyBtn1: UIButton!
@@ -39,20 +39,34 @@ class SettingMyInfo2Controller : UIViewController, UITextFieldDelegate{
         setupLayout()
         Init()
         
-        nameLabel.tag = 0
+        nameTextField.tag = 0
         changePassWord.tag = 1
         changeRePassWord.tag = 2
         
-        nameLabel.delegate = self
+        nameTextField.addLeftPadding()
+        changePassWord.addLeftPadding()
+        changeRePassWord.addLeftPadding()
+        
+        nameTextField.attributedPlaceholder = NSAttributedString(string: "이름", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
+        changePassWord.attributedPlaceholder = NSAttributedString(string: "비밀번호(영어, 숫자, 특수문자를 포함한 8자리 이상)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
+        changeRePassWord.attributedPlaceholder = NSAttributedString(string: "비밀번호 재확인", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
+        
+        self.nameTextField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
+        self.changePassWord.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
+        self.changeRePassWord.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
+        
+        nameTextField.delegate = self
         changePassWord.delegate = self
         changeRePassWord.delegate = self
+        
+        modifyBtn2.isEnabled = false
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         switch textField.tag {
         case 0:
-            self.normalAlertYN(title: "알림", message: "앱내 해당아이디로 이용중인 기프티콘들과 회원정보를 변경하시겠습니까?", str: nameLabel.text!)
+            self.normalAlertYN(title: "알림", message: "앱내 해당아이디로 이용중인 기프티콘들과 회원정보를 변경하시겠습니까?", str: nameTextField.text!)
             break
         case 1:
             changeRePassWord.becomeFirstResponder()
@@ -72,6 +86,50 @@ class SettingMyInfo2Controller : UIViewController, UITextFieldDelegate{
             print("default")
         }
         return true
+    }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        if textField.tag == 0 {
+            checkMaxLength(textField: nameTextField, maxLength: 13)
+        }else if textField.tag == 1 {
+            checkMaxLength(textField: changePassWord, maxLength: 20)
+        }else if textField.tag == 2 {
+            checkMaxLength(textField: changeRePassWord, maxLength: 20)
+        }
+        
+    }
+    
+    func checkMaxLength(textField: UITextField!, maxLength: Int) {
+        if textField.tag == 0 {
+            if (nameTextField.text?.count ?? 0 > maxLength) {
+                nameTextField.deleteBackward()
+            }
+        }else if textField.tag == 1 {
+            if (changePassWord.text?.count ?? 0 > maxLength) {
+                changePassWord.deleteBackward()
+            }
+        }else if textField.tag == 2 {
+            if (changeRePassWord.text?.count ?? 0 > maxLength) {
+                changeRePassWord.deleteBackward()
+            }
+        }
+        
+        if nameTextField.text?.count != 0 {
+            modifyBtn1.isEnabled = true
+            modifyBtn1.backgroundColor = .systemBlue
+        }else {
+            modifyBtn1.isEnabled = false
+            modifyBtn1.backgroundColor = .systemGray2
+        }
+        
+        if changePassWord.text?.count != 0 && changeRePassWord.text?.count != 0 {
+            modifyBtn2.isEnabled = true
+            modifyBtn2.backgroundColor = .systemBlue
+        }else {
+            modifyBtn2.isEnabled = false
+            modifyBtn2.backgroundColor = .systemGray2
+        }
+        
     }
     
     func setupLayout(){
@@ -94,7 +152,7 @@ class SettingMyInfo2Controller : UIViewController, UITextFieldDelegate{
     
     @IBAction func changeNameAction(_ sender: Any) {
         print("\(#function)")
-        normalAlertYN(title: "알림", message: "앱내 해당아이디로 이용중인 기프티콘들과 회원정보를 변경하시겠습니까?", str: nameLabel.text!)
+        normalAlertYN(title: "알림", message: "앱내 해당아이디로 이용중인 기프티콘들과 회원정보를 변경하시겠습니까?", str: nameTextField.text!)
     }
     
     @IBAction func changeInfoAction(_ sender: Any) {
@@ -280,7 +338,7 @@ class SettingMyInfo2Controller : UIViewController, UITextFieldDelegate{
 //                            print(responseString!)
                             self.dic = self.helper.jsonParser(stringData: responseString as! String, data1: "name", data2: "create_date");
                             print("dic ==> \n", self.dic)
-                            self.nameLabel.text = self.dic["name"] as! String
+                            self.nameTextField.text = self.dic["name"] as! String
                             self.setCreateDate(cDate: self.dic["create_date"] as! String)
                         }else {
                             self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "회원정보 확인 실패", completeTitle: "확인", nil)

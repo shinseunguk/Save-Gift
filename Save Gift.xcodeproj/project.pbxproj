@@ -10,6 +10,7 @@
 		040891B727F6AB9200EF6310 /* ppae.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 040891B427F6AB9200EF6310 /* ppae.jpg */; };
 		040891B827F6AB9200EF6310 /* chicken.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 040891B527F6AB9200EF6310 /* chicken.jpg */; };
 		040891B927F6AB9200EF6310 /* candy.png in Resources */ = {isa = PBXBuildFile; fileRef = 040891B627F6AB9200EF6310 /* candy.png */; };
+		04185737285034A900BE0F12 /* Findpw2Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04185736285034A900BE0F12 /* Findpw2Controller.swift */; };
 		041E83CF27D9DD7600AEB546 /* GetFriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041E83CD27D9DD7600AEB546 /* GetFriendTableViewCell.swift */; };
 		041E83D027D9DD7600AEB546 /* GetFriendTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 041E83CE27D9DD7600AEB546 /* GetFriendTableViewCell.xib */; };
 		042A8C8E284F309B00DF857E /* FindpwController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042A8C8D284F309B00DF857E /* FindpwController.swift */; };
@@ -113,6 +114,7 @@
 		040891B427F6AB9200EF6310 /* ppae.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ppae.jpg; sourceTree = "<group>"; };
 		040891B527F6AB9200EF6310 /* chicken.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = chicken.jpg; sourceTree = "<group>"; };
 		040891B627F6AB9200EF6310 /* candy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = candy.png; sourceTree = "<group>"; };
+		04185736285034A900BE0F12 /* Findpw2Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Findpw2Controller.swift; sourceTree = "<group>"; };
 		041E83CD27D9DD7600AEB546 /* GetFriendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetFriendTableViewCell.swift; sourceTree = "<group>"; };
 		041E83CE27D9DD7600AEB546 /* GetFriendTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GetFriendTableViewCell.xib; sourceTree = "<group>"; };
 		042A8C8D284F309B00DF857E /* FindpwController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindpwController.swift; sourceTree = "<group>"; };
@@ -926,6 +928,7 @@
 				A2D33521275CDEA700ECF4B1 /* RegisterController.swift */,
 				A218F1A0276E093D00E71316 /* FindidController.swift */,
 				042A8C8D284F309B00DF857E /* FindpwController.swift */,
+				04185736285034A900BE0F12 /* Findpw2Controller.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -1756,6 +1759,7 @@
 				A2D33524275E474D00ECF4B1 /* UITextFiled+Extension.swift in Sources */,
 				A225D701275B5FD500484EAE /* ViewController.swift in Sources */,
 				042C0FB927FFB93B005EDA8E /* GiftDetailTableViewCell.swift in Sources */,
+				04185737285034A900BE0F12 /* Findpw2Controller.swift in Sources */,
 				A2D2FDA42777414A0036B849 /* GiftPresentController.swift in Sources */,
 				048124F327EC1F07003DF866 /* CollectionViewTopCell.swift in Sources */,
 				A2D493642790624C00FB5770 /* SettingSecessionController.swift in Sources */,
