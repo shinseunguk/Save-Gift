@@ -104,7 +104,7 @@ class ViewController: UIViewController, ASAuthorizationControllerDelegate, ASAut
         id = idTextField.text!
         pw = passwordTextField.text!
         if textField.tag == 0{ //id textField
-            checkMaxLength(textField: idTextField, maxLength: 20)
+            checkMaxLength(textField: idTextField, maxLength: 30)
         }else { //pw textField
             checkMaxLength(textField: passwordTextField, maxLength: 20)
         }
