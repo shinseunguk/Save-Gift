@@ -212,7 +212,7 @@ class Register3Controller: UIViewController, UITextFieldDelegate{
         if textField.tag == 0 {
             checkMaxLength(textField: nameInput, maxLength: 20)
         }else if textField.tag == 1 {
-            checkMaxLength(textField: emailInput, maxLength: 20)
+            checkMaxLength(textField: emailInput, maxLength: 30)
         }else if textField.tag == 2 {
             checkMaxLength(textField: passwordInput, maxLength: 20)
         }else if textField.tag == 3 {

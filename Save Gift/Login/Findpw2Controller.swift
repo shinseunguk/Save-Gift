@@ -108,7 +108,7 @@ class Findpw2Controller : UIViewController{
         if textField.tag == 0{
             checkMaxLength(textField: nameTextField, maxLength: 10)
         }else if textField.tag == 1{
-            checkMaxLength(textField: emailTextField, maxLength: 20)
+            checkMaxLength(textField: emailTextField, maxLength: 30)
             if (textField.text?.validateEmail(textField.text!) ?? false) { // 정규식 true 일때
                 authBtn.backgroundColor = .systemBlue
                 nextBtn.backgroundColor = .systemBlue
