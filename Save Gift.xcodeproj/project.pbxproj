@@ -11,6 +11,8 @@
 		040891B827F6AB9200EF6310 /* chicken.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 040891B527F6AB9200EF6310 /* chicken.jpg */; };
 		040891B927F6AB9200EF6310 /* candy.png in Resources */ = {isa = PBXBuildFile; fileRef = 040891B627F6AB9200EF6310 /* candy.png */; };
 		04185737285034A900BE0F12 /* Findpw2Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04185736285034A900BE0F12 /* Findpw2Controller.swift */; };
+		0418573A28508EDC00BE0F12 /* PresentMessageViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0418573828508EDC00BE0F12 /* PresentMessageViewTableViewCell.swift */; };
+		0418573B28508EDC00BE0F12 /* PresentMessageViewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0418573928508EDC00BE0F12 /* PresentMessageViewTableViewCell.xib */; };
 		041E83CF27D9DD7600AEB546 /* GetFriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041E83CD27D9DD7600AEB546 /* GetFriendTableViewCell.swift */; };
 		041E83D027D9DD7600AEB546 /* GetFriendTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 041E83CE27D9DD7600AEB546 /* GetFriendTableViewCell.xib */; };
 		042A8C8E284F309B00DF857E /* FindpwController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042A8C8D284F309B00DF857E /* FindpwController.swift */; };
@@ -115,6 +117,8 @@
 		040891B527F6AB9200EF6310 /* chicken.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = chicken.jpg; sourceTree = "<group>"; };
 		040891B627F6AB9200EF6310 /* candy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = candy.png; sourceTree = "<group>"; };
 		04185736285034A900BE0F12 /* Findpw2Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Findpw2Controller.swift; sourceTree = "<group>"; };
+		0418573828508EDC00BE0F12 /* PresentMessageViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentMessageViewTableViewCell.swift; sourceTree = "<group>"; };
+		0418573928508EDC00BE0F12 /* PresentMessageViewTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PresentMessageViewTableViewCell.xib; sourceTree = "<group>"; };
 		041E83CD27D9DD7600AEB546 /* GetFriendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetFriendTableViewCell.swift; sourceTree = "<group>"; };
 		041E83CE27D9DD7600AEB546 /* GetFriendTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GetFriendTableViewCell.xib; sourceTree = "<group>"; };
 		042A8C8D284F309B00DF857E /* FindpwController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindpwController.swift; sourceTree = "<group>"; };
@@ -777,6 +781,8 @@
 				A2877C6628260200006EFBCC /* GiftDetailFullScreenController.swift */,
 				0487041928447F5600CB8A23 /* PresentMessageTableViewCell.xib */,
 				0487041C2844875C00CB8A23 /* PresentMessageTableViewCell.swift */,
+				0418573828508EDC00BE0F12 /* PresentMessageViewTableViewCell.swift */,
+				0418573928508EDC00BE0F12 /* PresentMessageViewTableViewCell.xib */,
 			);
 			path = GiftDetail;
 			sourceTree = "<group>";
@@ -1656,6 +1662,7 @@
 				04D2D82127F67EB30052D877 /* bbq.jpg in Resources */,
 				04D2D81A27F53DFF0052D877 /* apple.png in Resources */,
 				046F706627F14A57008CF3F6 /* thirdFont.ttf in Resources */,
+				0418573B28508EDC00BE0F12 /* PresentMessageViewTableViewCell.xib in Resources */,
 				A225D704275B5FD500484EAE /* Main.storyboard in Resources */,
 				04D2D81527F53DFF0052D877 /* apple1.png in Resources */,
 				040891B727F6AB9200EF6310 /* ppae.jpg in Resources */,
@@ -1760,6 +1767,7 @@
 				A225D701275B5FD500484EAE /* ViewController.swift in Sources */,
 				042C0FB927FFB93B005EDA8E /* GiftDetailTableViewCell.swift in Sources */,
 				04185737285034A900BE0F12 /* Findpw2Controller.swift in Sources */,
+				0418573A28508EDC00BE0F12 /* PresentMessageViewTableViewCell.swift in Sources */,
 				A2D2FDA42777414A0036B849 /* GiftPresentController.swift in Sources */,
 				048124F327EC1F07003DF866 /* CollectionViewTopCell.swift in Sources */,
 				A2D493642790624C00FB5770 /* SettingSecessionController.swift in Sources */,
