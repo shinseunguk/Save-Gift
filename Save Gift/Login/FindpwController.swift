@@ -121,7 +121,7 @@ class FindpwController : UIViewController{
         if textField.tag == 0{
             checkMaxLength(textField: nameTextField, maxLength: 10)
         }else if textField.tag == 1{
-            checkMaxLength(textField: emailTextField, maxLength: 20)
+            checkMaxLength(textField: emailTextField, maxLength: 30)
             if (textField.text?.validateEmail(textField.text!) ?? false) { // 정규식 true 일때
                 authBtn.backgroundColor = .systemBlue
                 nextBtn.backgroundColor = .systemBlue
@@ -164,17 +164,118 @@ class FindpwController : UIViewController{
     @IBAction func nextAction(_ sender: Any) {
         //DB체크후 화면이동
         print("nextAction")
+        dic["user_id"] = emailTextField.text!
+        dic["cert_number"] = authNumberTextField.text!
+        checkAuthNumber(requestUrl: "/check/email", param: dic)
     }
     
     @IBAction func authAction(_ sender: Any) {
         if (emailTextField.text?.validateEmail(emailTextField.text!) ?? false) { // 정규식 true 일때
-            helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "해당 이메일로 인증번호가 전송되었습니다.", completeTitle: "확인", nil)
-            authNumberTextField.isEnabled = true
-            authNumberTextField.backgroundColor = .white
-            authBtn.setTitle("재요청", for: .normal)
+            dic["name"] = nameTextField.text!
+            dic["user_id"] = emailTextField.text!
+            helper.showLoading()
+            checkEmail(requestUrl: "/noticeMail", param: dic)
         }else {
             helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "이메일 형식으로 입력해주세요.", completeTitle: "확인", nil)
             emailTextField.becomeFirstResponder()
         }
+    }
+    
+    func checkEmail(requestUrl : String!, param : Dictionary<String, Any>) -> Void{
+        print("/check/info param.... ", param)
+        let paramData = try! JSONSerialization.data(withJSONObject: param)
+        // URL 객체 정의
+                let url = URL(string: localUrl+requestUrl)
+
+                // URLRequest 객체를 정의
+                var request = URLRequest(url: url!)
+                request.httpMethod = "POST"
+                request.httpBody = paramData
+
+                // HTTP 메시지 헤더
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.addValue("application/json", forHTTPHeaderField: "Accept")
+
+                // URLSession 객체를 통해 전송, 응답값 처리
+                let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                    // 서버가 응답이 없거나 통신이 실패
+                    if let e = error {
+                        print("\(self.LOG_TAG) An error has occured: \(e.localizedDescription)")
+                        self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "네트워크에 접속할 수 없습니다.", message: "네트워크 연결 상태를 확인해주세요.", completeTitle: "확인", nil)
+                        return
+                    }
+
+                var responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+
+//                    print("GiftDetail responseString \n", responseString!)
+                    var responseStringA = responseString as! String
+                    DispatchQueue.main.async {
+                        if responseStringA == "true"{
+                            print("true")
+                            self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "해당 이메일로 인증번호가 전송되었습니다.", completeTitle: "확인", nil)
+                            self.authNumberTextField.isEnabled = true
+                            self.authNumberTextField.backgroundColor = .white
+                            self.authBtn.setTitle("재요청", for: .normal)
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+                                self.helper.hideLoading()
+                            }
+                        }else {
+                            self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "가입된 정보중 이름과 이메일이 존재하지 않거나 일치하지 않습니다.", completeTitle: "확인", nil)
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+                                self.helper.hideLoading()
+                            }
+                        }
+                    }
+                }
+                // POST 전송
+                task.resume()
+
+    }
+    
+    func checkAuthNumber(requestUrl : String!, param : Dictionary<String, Any>) -> Void{
+        print("/check/info param.... ", param)
+        let paramData = try! JSONSerialization.data(withJSONObject: param)
+        // URL 객체 정의
+                let url = URL(string: localUrl+requestUrl)
+
+                // URLRequest 객체를 정의
+                var request = URLRequest(url: url!)
+                request.httpMethod = "POST"
+                request.httpBody = paramData
+
+                // HTTP 메시지 헤더
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.addValue("application/json", forHTTPHeaderField: "Accept")
+
+                // URLSession 객체를 통해 전송, 응답값 처리
+                let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                    // 서버가 응답이 없거나 통신이 실패
+                    if let e = error {
+                        print("\(self.LOG_TAG) An error has occured: \(e.localizedDescription)")
+                        self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "네트워크에 접속할 수 없습니다.", message: "네트워크 연결 상태를 확인해주세요.", completeTitle: "확인", nil)
+                        return
+                    }
+
+                var responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+
+//                    print("GiftDetail responseString \n", responseString!)
+                    var responseStringA = responseString as! String
+                    DispatchQueue.main.async {
+                        if responseStringA == "true"{
+                            print("true")
+                            //화면이동
+                            guard let pushVC = self.storyboard?.instantiateViewController(identifier: "Findpw2Controller") as? Findpw2Controller else{
+                                return
+                            }
+                            
+                            self.navigationController?.pushViewController(pushVC, animated: true)
+                        }else {
+                            self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "이메일과 인증번호가 일치하지 않습니다. 다시 한번 확인해주세요.", completeTitle: "확인", nil)
+                        }
+                    }
+                }
+                // POST 전송
+                task.resume()
+
     }
 }
