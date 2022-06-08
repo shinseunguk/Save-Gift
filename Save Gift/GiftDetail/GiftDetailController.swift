@@ -75,8 +75,8 @@ class GiftDetailController : UIViewController{
     var presentIndex : Bool = false
     var presentId : String? = nil
     
-    var presentPage : Int = 0
-    var presentMessage : String? = nil
+    var presentPage : Int = 0 // 선물받은
+    var presentMessage : String? = nil // 선물할
     
     @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
     @IBOutlet weak var uiViewHeight: NSLayoutConstraint!
@@ -89,6 +89,8 @@ class GiftDetailController : UIViewController{
         print("seq --- > ", seq!)
         
         print("presentIndex ", presentIndex)
+        print("presentPage ", presentPage)
+        
         presentPageSetUp()
         presentSetUp()
 //        Init()
@@ -106,7 +108,7 @@ class GiftDetailController : UIViewController{
                 
             }else if presentPage == 2 {
                 
-            }else {
+            }else if presentPage == 3 {
                 categoryArr.append("보낸 메시지")
                 contentArr.append("\(presentMessage)")
                 editBtn.removeFromSuperview()
@@ -116,7 +118,7 @@ class GiftDetailController : UIViewController{
                 
                 //tableView layout
                 tableView.translatesAutoresizingMaskIntoConstraints = false
-                tableView.register(UINib(nibName: "PresentMessageTableViewCell", bundle: nil), forCellReuseIdentifier: "PresentMessageTableViewCell")
+                tableView.register(UINib(nibName: "PresentMessageViewTableViewCell", bundle: nil), forCellReuseIdentifier: "PresentMessageViewTableViewCell")
                 tableView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10).isActive = true
                 tableViewHeight.constant = 500
                 //
@@ -156,7 +158,7 @@ class GiftDetailController : UIViewController{
             tableView.translatesAutoresizingMaskIntoConstraints = false
             tableView.register(UINib(nibName: "PresentMessageTableViewCell", bundle: nil), forCellReuseIdentifier: "PresentMessageTableViewCell")
             tableView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10).isActive = true
-//            tableViewHeight.constant = 500
+            tableViewHeight.constant = 500
             //
 
             //sendPresentBtn layout
@@ -419,11 +421,16 @@ class GiftDetailController : UIViewController{
         present(alert, animated: true, completion: nil)
     }
     
-    func presentFriendToDetail(){
+    func presentFriendToDetail(){ // 선물 보내기 / 선물 취소하기 분기 태워야함.
         print("param =====> ", param)
         print("seq ..", seq!)
         print(contentArr[7])
-        presentGiftConRequest(requestUrl: "/gift/present", seq: seq!)
+        
+        if sendPresentBtn.titleLabel?.text == "선물 취소하기"{
+            print("선물 취소하기 \(#line)")
+        }else if sendPresentBtn.titleLabel?.text == "선물 보내기"{
+            presentGiftConRequest(requestUrl: "/gift/present", seq: seq!)
+        }
     }
     
     func presentGiftcon(){
@@ -782,8 +789,11 @@ extension GiftDetailController : UITableViewDelegate, UITableViewDataSource, det
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: "GiftDetailTableViewCell") as! GiftDetailTableViewCell
+        if categoryArr.count == 8{
+            cell.copyBtn.isHidden = true
+        }
         if indexPath.row != 7 {
-            let cell = self.tableView.dequeueReusableCell(withIdentifier: "GiftDetailTableViewCell") as! GiftDetailTableViewCell
             cell.copyBtn.layer.cornerRadius = 5
             cell.copyBtn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
             cell.copyBtn.titleLabel?.font = .systemFont(ofSize: 14)
@@ -831,12 +841,27 @@ extension GiftDetailController : UITableViewDelegate, UITableViewDataSource, det
             cell.secondLabel.text = contentArr[indexPath.row]
             return cell
         }else { // 선물과 함께 보낼 메시지 row
-            let customCell = tableView.dequeueReusableCell(withIdentifier: "PresentMessageTableViewCell") as! PresentMessageTableViewCell
-            customCell.messageLabel.text = "선물과 함께 보낼 메시지"
-            customCell.messageLabel.font = UIFont.boldSystemFont(ofSize: 14)
-            
-            customCell.messageTextField.attributedPlaceholder = NSAttributedString(string: "선물과 함께 보낼 메시지를 작성해주세요.", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
-            return customCell
+            if presentIndex { // => 선물보내기
+                let customCell1 = tableView.dequeueReusableCell(withIdentifier: "PresentMessageTableViewCell") as! PresentMessageTableViewCell
+                customCell1.messageLabel.text = "선물과 함께 보낼 메시지"
+                customCell1.messageLabel.font = UIFont.boldSystemFont(ofSize: 14)
+                
+                customCell1.messageTextField.attributedPlaceholder = NSAttributedString(string: "선물과 함께 보낼 메시지를 작성해주세요.", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
+                return customCell1
+            }else { //  => 선물함
+                let customCell2 = tableView.dequeueReusableCell(withIdentifier: "PresentMessageViewTableViewCell") as! PresentMessageViewTableViewCell
+                if presentPage == 1 {
+                    
+                }else if presentPage == 2 {
+                    
+                }else if presentPage == 3 {
+                    customCell2.upLabel.text = "내가 보낸 메시지"
+                }
+                customCell2.upLabel.font = UIFont.boldSystemFont(ofSize: 14)
+                
+                customCell2.downLabel.text = "fewuihfwiuehfiuwehfiuwhefiuwheiufhewuifwiefhwiufhewiufhewiu"
+                return customCell2
+            }
         }
         
         return UITableViewCell()
