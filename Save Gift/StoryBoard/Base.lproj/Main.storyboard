@@ -2771,6 +2771,9 @@
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="keyPath" value="YES"/>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="nextAction:" destination="Qx9-5S-Q2V" eventType="touchUpInside" id="4DX-aA-4Xf"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="※ 가입 당시 입력한 이메일을 통해 인증 후 비밀번호를 찾아주세요." lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eyl-tz-Q3p">
                                 <rect key="frame" x="23" y="321" width="368" height="15.666666666666686"/>
