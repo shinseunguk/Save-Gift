@@ -127,7 +127,7 @@ class FindpwController : UIViewController{
                 nextBtn.backgroundColor = .systemBlue
                 nextBtn.isEnabled = true
             }else {
-                authBtn.backgroundColor = .systemGray5
+                authBtn.backgroundColor = .systemGray2
             }
         }else if textField.tag == 2{
             checkMaxLength(textField: authNumberTextField, maxLength: 6)
@@ -160,6 +160,12 @@ class FindpwController : UIViewController{
             }
         }
     }
+    
+    @IBAction func nextAction(_ sender: Any) {
+        //화면이동
+        print("nextAction")
+    }
+    
     @IBAction func authAction(_ sender: Any) {
         if (emailTextField.text?.validateEmail(emailTextField.text!) ?? false) { // 정규식 true 일때
             helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "해당 이메일로 인증번호가 전송되었습니다.", completeTitle: "확인", nil)
