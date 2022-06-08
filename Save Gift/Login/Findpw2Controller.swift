@@ -1,16 +1,15 @@
 //
-//  FindpwController.swift
+//  Findpw2Controller.swift
 //  Save Gift
 //
-//  Created by mac on 2022/06/07.
+//  Created by mac on 2022/06/08.
 //
 
 import Foundation
 import UIKit
-import JSPhoneFormat
 
-class FindpwController : UIViewController{
-    let LOG_TAG : String = "FindpwController"
+class Findpw2Controller : UIViewController{
+    let LOG_TAG : String = "Findpw2Controller"
     let helper = Helper()
     let localUrl = "".getLocalURL()
     @IBOutlet weak var nameTextField: UITextField!
@@ -49,14 +48,12 @@ class FindpwController : UIViewController{
         authNumberTextField.backgroundColor = .systemGray5
         
         setNavTitle()
-        labelSetColor()
     }
     
     override func viewDidLayoutSubviews() {
         // authNumberTextField
         self.nameTextField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
         nameTextField.tag = 0
-        
         
         nameTextField.addLeftPadding()
 //        nameTextField.borderStyle = .none
@@ -104,17 +101,7 @@ class FindpwController : UIViewController{
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.black]
-        self.navigationItem.title = "비밀번호 찾기"
-    }
-    
-    func labelSetColor(){
-//         NSMutableAttributedString Type으로 바꾼 text를 저장
-        let attributedStr1 = NSMutableAttributedString(string: description1.text!)
-        // text의 range 중에서 "Bonus"라는 글자는 UIColor를 blue로 변경
-        attributedStr1.addAttribute(.foregroundColor, value: UIColor.systemRed, range: (description1.text! as NSString).range(of: "이메일"))
-        // 설정이 적용된 text를 label의 attributedText에 저장
-        description1.attributedText = attributedStr1
-
+        self.navigationItem.title = "비밀번호 재설정"
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {

@@ -21,13 +21,11 @@ class ViewController: UIViewController, ASAuthorizationControllerDelegate, ASAut
     
 
     @IBOutlet weak var btnRegister: UIButton!
-    @IBOutlet weak var appTitle: UILabel!
     @IBOutlet weak var idTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var btnLogin: UIButton!
     @IBOutlet weak var btnAppleLogin: UIButton!
     @IBOutlet weak var btnKakaoLogin: UIButton!
-    @IBOutlet weak var btnFacebookLogin: UIButton!
     @IBOutlet weak var btnNaverLogin: UIButton!
     @IBOutlet weak var btnFindPW: UIButton!
     @IBOutlet weak var btnFindID: UIButton!
@@ -68,6 +66,8 @@ class ViewController: UIViewController, ASAuthorizationControllerDelegate, ASAut
         idTextField.keyboardType = .emailAddress
         self.idTextField.addTarget(self, action: #selector(self.textFieldDidEndEditing(_:)), for: .editingChanged)
         self.passwordTextField.addTarget(self, action: #selector(self.textFieldDidEndEditing(_:)), for: .editingChanged)
+        idTextField.tag = 0
+        passwordTextField.tag = 1
         
         idTextField.delegate = self
         passwordTextField.delegate = self
@@ -103,6 +103,11 @@ class ViewController: UIViewController, ASAuthorizationControllerDelegate, ASAut
     func textFieldDidEndEditing(_ textField: UITextField) {
         id = idTextField.text!
         pw = passwordTextField.text!
+        if textField.tag == 0{ //id textField
+            checkMaxLength(textField: idTextField, maxLength: 20)
+        }else { //pw textField
+            checkMaxLength(textField: passwordTextField, maxLength: 20)
+        }
         
         if(id != "" && pw != ""){
             btnLogin.layer.backgroundColor = UIColor.systemBlue.cgColor
@@ -110,6 +115,18 @@ class ViewController: UIViewController, ASAuthorizationControllerDelegate, ASAut
         } else if (id == "" || pw == ""){
             btnLogin.layer.backgroundColor = UIColor.systemGray2.cgColor
             btnLogin.isEnabled = false
+        }
+    }
+    
+    func checkMaxLength(textField: UITextField!, maxLength: Int) {
+        if textField.tag == 0 {
+            if (idTextField.text?.count ?? 0 > maxLength) {
+                idTextField.deleteBackward()
+            }
+        }else if textField.tag == 1{
+            if (passwordTextField.text?.count ?? 0 > maxLength) {
+                passwordTextField.deleteBackward()
+            }
         }
     }
     
@@ -163,10 +180,6 @@ class ViewController: UIViewController, ASAuthorizationControllerDelegate, ASAut
         btnNaverLogin.layer.cornerRadius = self.btnNaverLogin.frame.size.height / 2
         btnNaverLogin.layer.borderWidth = 0
         btnNaverLogin.adjustsImageWhenHighlighted = false
-        
-        btnFacebookLogin.layer.cornerRadius = self.btnFacebookLogin.frame.size.height / 2
-        btnFacebookLogin.layer.borderWidth = 0
-        btnFacebookLogin.adjustsImageWhenHighlighted = false
         
         btnRegister.layer.cornerRadius = 5
         btnLogin.layer.cornerRadius = 5
@@ -314,10 +327,6 @@ class ViewController: UIViewController, ASAuthorizationControllerDelegate, ASAut
         }
     }
     
-    //페이스북 로그인
-    @IBAction func facbookAction(_ sender: Any) {
-        print("facebook")
-    }
     
     //네이버 로그인
     @IBAction func naverAction(_ sender: Any) {

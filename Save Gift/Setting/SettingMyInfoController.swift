@@ -26,14 +26,34 @@ class SettingMyInfoController : UIViewController, UITextFieldDelegate{
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.black]
         self.navigationItem.title = "내정보 확인"
-        confirmBtn.layer.cornerRadius = 5
+        
+        self.passWordTextField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
         
         passWordTextField.delegate = self
         passWordTextField.addLeftPadding();
         passWordTextField.textAlignment = .left
         passWordTextField.textColor = UIColor.black
         passWordTextField.attributedPlaceholder = NSAttributedString(string: "비밀번호를 입력해주세요.", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
-        
+
+        confirmBtn.layer.cornerRadius = 5
+        confirmBtn.isEnabled = false
+    }
+    
+    @objc func textFieldDidChange(_ textField : UITextField){
+        checkMaxLength(textField: passWordTextField, maxLength: 20)
+        if passWordTextField.text?.count != 0 {
+            confirmBtn.isEnabled = true
+            confirmBtn.backgroundColor = .systemBlue
+        }else {
+            confirmBtn.isEnabled = false
+            confirmBtn.backgroundColor = .systemGray2
+        }
+    }
+    
+    func checkMaxLength(textField: UITextField!, maxLength: Int) {
+        if (passWordTextField.text?.count ?? 0 > maxLength) {
+            passWordTextField.deleteBackward()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
