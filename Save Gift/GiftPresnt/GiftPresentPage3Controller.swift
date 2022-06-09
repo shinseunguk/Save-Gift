@@ -388,6 +388,7 @@ extension GiftPresentPage3Controller: UICollectionViewDelegate, UICollectionView
                 vc.use_yn = self.useYn[indexPath.row]
                 vc.registrant = self.registrantArr[indexPath.row]
                 vc.registrationDate = self.registrationDateArr[indexPath.row]
+                vc.presentMessage = self.presentMessageArr[indexPath.row]
                 
                 //test
 //                vc.uiImage = self.uiImageArr[indexPath.row]
