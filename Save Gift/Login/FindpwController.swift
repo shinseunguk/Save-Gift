@@ -13,6 +13,8 @@ class FindpwController : UIViewController{
     let LOG_TAG : String = "FindpwController"
     let helper = Helper()
     let localUrl = "".getLocalURL()
+    var timer: Timer?
+    
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var authNumberTextField: UITextField!
@@ -50,6 +52,10 @@ class FindpwController : UIViewController{
         
         setNavTitle()
         labelSetColor()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        topLabel.removeFromSuperview()
     }
     
     override func viewDidLayoutSubviews() {
@@ -175,10 +181,27 @@ class FindpwController : UIViewController{
             dic["user_id"] = emailTextField.text!
             helper.showLoading()
             checkEmail(requestUrl: "/noticeMail", param: dic)
+            
+            if nameTextField.text?.count != 0 && emailTextField.text?.count != 0 && authNumberTextField.text?.count == 6{
+                nextBtn.backgroundColor = .systemBlue
+                nextBtn.isEnabled = true
+            }
+            
+            setupLabel()
         }else {
             helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "이메일 형식으로 입력해주세요.", completeTitle: "확인", nil)
             emailTextField.becomeFirstResponder()
         }
+    }
+    
+    func setupLabel() {
+        emailTextField.addSubview(topLabel)
+//        topLabel.centerYAnchor.constraint(equalTo: cellPhoneTextField.topAnchor, constant: 10).isActive = true
+        topLabel.centerYAnchor.constraint(equalTo: emailTextField.centerYAnchor).isActive = true
+        topLabel.rightAnchor.constraint(equalTo: emailTextField.rightAnchor, constant: -20).isActive = true
+        topLabel.textColor = .systemRed
+//        topLabel.topAnchor.constraint(equalTo: cellPhoneTextField.topAnchor, constant: 10).isActive = true
+//        topLabel.text = "gdgd"
     }
     
     func checkEmail(requestUrl : String!, param : Dictionary<String, Any>) -> Void{
@@ -216,6 +239,14 @@ class FindpwController : UIViewController{
                             self.authNumberTextField.isEnabled = true
                             self.authNumberTextField.backgroundColor = .white
                             self.authBtn.setTitle("재요청", for: .normal)
+                            
+                            self.minute = 9
+                            self.second = 59
+                            
+                            self.timer?.invalidate()
+                            
+                            self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
+                            
                             DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
                                 self.helper.hideLoading()
                             }
@@ -280,4 +311,40 @@ class FindpwController : UIViewController{
                 task.resume()
 
     }
+    
+    @objc func update() {
+        if(second > 0) {
+            if second / 10 < 1{
+                topLabel.text = "유효시간 0\(minute):0\(second)"
+            }else {
+                topLabel.text = "유효시간 0\(minute):\(second)"
+            }
+            second -= 1
+        }else {
+            if minute == 0 {
+                topLabel.text = "유효시간 0\(minute):0\(second)"
+                timer?.invalidate()
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    self.nextBtn.backgroundColor = .systemGray2
+                    self.nextBtn.isEnabled = false
+                }
+                
+                minute = 9
+                second = 59
+            }
+            minute -= 1
+            second = 59
+        }
+        topLabelSetColor()
+    }
+    
+    func topLabelSetColor(){
+            let attributedStr1 = NSMutableAttributedString(string: topLabel.text!)
+            // text의 range 중에서 "Bonus"라는 글자는 UIColor를 blue로 변경
+            attributedStr1.addAttribute(.foregroundColor, value: UIColor.systemGray, range: (topLabel.text! as NSString).range(of: "유효시간"))
+            // 설정이 적용된 text를 label의 attributedText에 저장
+            topLabel.attributedText = attributedStr1
+    }
+    
 }
