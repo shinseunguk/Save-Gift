@@ -48,7 +48,7 @@ class SettingMyInfo2Controller : UIViewController, UITextFieldDelegate{
         changeRePassWord.addLeftPadding()
         
         nameTextField.attributedPlaceholder = NSAttributedString(string: "이름", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
-        changePassWord.attributedPlaceholder = NSAttributedString(string: "비밀번호(영어, 숫자, 특수문자를 포함한 8자리 이상)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
+        changePassWord.attributedPlaceholder = NSAttributedString(string: "비밀번호(영어, 숫자, 특수문자를 포함한 8 ~ 20자))", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
         changeRePassWord.attributedPlaceholder = NSAttributedString(string: "비밀번호 재확인", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
         
         self.nameTextField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
@@ -76,7 +76,7 @@ class SettingMyInfo2Controller : UIViewController, UITextFieldDelegate{
             if changePassWord.text != changeRePassWord.text{
                 helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "변경할 비밀번호와 재확인 비밀번호가 다릅니다.", completeTitle: "확인", nil)
             }else if !(password?.validatePassword(password!) ?? true) {
-                helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "비밀번호를 확인해주세요. 비밀번호(영어, 숫자, 특수문자를 포함한 8자리 이상)", completeTitle: "확인", nil)
+                helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "비밀번호를 확인해주세요. 비밀번호(영어, 숫자, 특수문자를 포함한 8 ~ 20자)", completeTitle: "확인", nil)
                 changePassWord.becomeFirstResponder()
             }else {
                 normalAlertYN(title: "알림", message: "해당 아이디의 비밀번호를 변경하시겠습니까?", str: password!)
@@ -162,7 +162,7 @@ class SettingMyInfo2Controller : UIViewController, UITextFieldDelegate{
         if changePassWord.text != changeRePassWord.text{
             helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "변경할 비밀번호와 재확인 비밀번호가 다릅니다.", completeTitle: "확인", nil)
         }else if !(password?.validatePassword(password!) ?? true) {
-            helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "비밀번호를 확인해주세요. 비밀번호(영어, 숫자, 특수문자를 포함한 8자리 이상)", completeTitle: "확인", nil)
+            helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "비밀번호를 확인해주세요. 비밀번호(영어, 숫자, 특수문자를 포함한 8 ~ 20자)", completeTitle: "확인", nil)
             changePassWord.becomeFirstResponder()
         }else {
             normalAlertYN(title: "알림", message: "해당 아이디의 비밀번호를 변경하시겠습니까?", str: password!)

@@ -268,6 +268,8 @@ class FindpwController : UIViewController{
                                 return
                             }
                             
+                            pushVC.userIdFromFindPw = self.emailTextField.text!
+                            
                             self.navigationController?.pushViewController(pushVC, animated: true)
                         }else {
                             self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "이메일과 인증번호가 일치하지 않습니다. 다시 한번 확인해주세요.", completeTitle: "확인", nil)
