@@ -336,7 +336,7 @@ class Register3Controller: UIViewController, UITextFieldDelegate{
         let name = nameInput.text
         let email = emailInput.text
         let password = passwordInput.text
-        let telNumber = telInput.text!.replacingOccurrences(of: "-", with: "")
+        let telNumber = telInput.text
         let param = ["user_id" : email, "name" : name, "user_password" : password, "phone_number" : telNumber, "email_yn" : email_yn, "sms_yn" : sms_yn] as [String : Any] // JSON 객체로 전송할 딕셔너리
 //        let param = "user_Id=\(email)&name=\(name)"
         let paramData = try! JSONSerialization.data(withJSONObject: param)
@@ -370,12 +370,14 @@ class Register3Controller: UIViewController, UITextFieldDelegate{
 //                    print("응답 처리 로직 response", response as Any)
                     // 응답 처리 로직
                     if(responseString == "true"){
-                        DispatchQueue.main.async{
+                        DispatchQueue.main.async{ [self] in
 //                        let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "viewVC")
 //                        self.navigationController?.pushViewController(pushVC!, animated: true)
                             if let viewControllers = self.navigationController?.viewControllers {
-                                if viewControllers.count > 3 {
-                                    self.navigationController?.popToViewController(viewControllers[viewControllers.count - 3], animated: true)
+                                if viewControllers.count > 4 {
+                                    print("ㅇㅇㅇㅇㅇ\(#line)")
+                                    self.navigationController?.popToViewController(viewControllers[viewControllers.count - 4], animated: true)
+                                    self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "회원가입 완료", completeTitle: "확인", nil)
                                 } else {
                                             // fail
                                 }
