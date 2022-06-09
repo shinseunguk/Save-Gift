@@ -19,9 +19,6 @@ class FindidController : UIViewController {
     
     @IBOutlet weak var description1: UILabel!
     
-    var emailYn : Bool?
-    var smsYn : Bool?
-    
     var nextBool : Bool = false
     
     let phoneFormat = JSPhoneFormat.init(appenCharacter: "-")   //구분자로 사용하고싶은 캐릭터를 넣어주시면 됩니다.
@@ -158,16 +155,13 @@ class FindidController : UIViewController {
     @IBAction func nextAction(_ sender: Any) {
         print("\(#function)")
         // DB SELECT 후 다음화면으로
-        guard let pushVC = self.storyboard?.instantiateViewController(identifier: "Register2") as? Register2Controller else{
-            return
-        }
-        
-        pushVC.phoneNumberFromFindId = cellPhoneTextField.text!
-        self.navigationController?.pushViewController(pushVC, animated: true)
+        dic["name"] = nameTextField.text
+        dic["phone_number"] = cellPhoneTextField.text
+        checkNamePhone(requestUrl: "/check/namephone", param: dic)
     }
     
     
-    func checkSms(requestUrl : String!, param : Dictionary<String, Any>) -> Void{
+    func checkNamePhone(requestUrl : String!, param : Dictionary<String, Any>) -> Void{
         print("checkSms param.... ", param)
         let paramData = try! JSONSerialization.data(withJSONObject: param)
         // URL 객체 정의
@@ -197,17 +191,15 @@ class FindidController : UIViewController {
                     var responseStringA = responseString as! String
                     DispatchQueue.main.async {
                         if responseStringA == "true"{
-                            guard let pushVC = self.storyboard?.instantiateViewController(identifier: "Register3") as? Register3Controller else{
+                            guard let pushVC = self.storyboard?.instantiateViewController(identifier: "Register2") as? Register2Controller else{
                                 return
                             }
                             
-                            pushVC.self.emailYn = self.emailYn!
-                            pushVC.self.smsYn = self.smsYn!
-                            pushVC.self.phoneNumber = self.cellPhoneTextField.text!
-                            
+                            pushVC.nameFromFindId = self.nameTextField.text!
+                            pushVC.phoneNumberFromFindId = self.cellPhoneTextField.text!
                             self.navigationController?.pushViewController(pushVC, animated: true)
                         }else {
-                            self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "휴대폰 번호와 인증번호가 일치하지 않습니다.", completeTitle: "확인", nil)
+                            self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "가입된 정보중 이름과 휴대폰 번호가 존재하지 않거나 일치하지 않습니다", completeTitle: "확인", nil)
                         }
                     }
                 }
