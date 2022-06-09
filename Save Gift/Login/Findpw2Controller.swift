@@ -93,7 +93,7 @@ class Findpw2Controller : UIViewController, UITextFieldDelegate{
         if !(changePassWord.text?.validatePassword(changePassWord.text!) ?? true) {
             helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "비밀번호를 확인해주세요. 비밀번호(영어, 숫자, 특수문자를 포함한 8 ~ 20자)", completeTitle: "확인", nil)
         }else if changePassWord.text != changeRePassWord.text {
-            helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "비밀번호와 비밀번호 재확인이 일치하지 않습니다.", completeTitle: "확인", nil)
+            helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "비밀번호와 비밀번호 재확인이 일치하지 않습니다", completeTitle: "확인", nil)
         }else {
             dic["user_password"] = changePassWord.text!
             dic["user_id"] = userIdFromFindPw!
@@ -135,7 +135,7 @@ class Findpw2Controller : UIViewController, UITextFieldDelegate{
                     
                     DispatchQueue.main.async{
                         if responseString == "true" {
-                            self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "비밀번호가 재설정되었습니다.", completeTitle: "확인", nil)
+                            self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "비밀번호가 재설정되었습니다", completeTitle: "확인", nil)
                             if let viewControllers = self.navigationController?.viewControllers {
                                     if viewControllers.count > 3 {
                                         self.navigationController?.popToViewController(viewControllers[viewControllers.count - 3], animated: true)
