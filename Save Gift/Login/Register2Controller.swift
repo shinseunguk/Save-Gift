@@ -53,6 +53,7 @@ class Register2Controller: UIViewController, UITextFieldDelegate {
     }()
     
     var phoneNumberFromFindId : String? = nil
+    var nameFromFindId : String? = nil
     
     
     //빈곳 터치 키보드 내리기
@@ -239,7 +240,6 @@ class Register2Controller: UIViewController, UITextFieldDelegate {
     }
     @IBAction func nextAction(_ sender: Any) {
         print("다음")
-        
         checkDic["phone_number"] = cellPhoneTextField.text!
         checkDic["device_id"] = deviceID!
         checkDic["cert_number"] = authNumberTextField.text!
@@ -371,15 +371,21 @@ class Register2Controller: UIViewController, UITextFieldDelegate {
                     var responseStringA = responseString as! String
                     DispatchQueue.main.async {
                         if responseStringA == "true"{
-                            guard let pushVC = self.storyboard?.instantiateViewController(identifier: "Register3") as? Register3Controller else{
-                                return
+                            if self.phoneNumberFromFindId != nil && self.nameFromFindId != nil { // 아이디 찾기
+                                self.checkDic["phone_number"] = self.phoneNumberFromFindId
+                                self.checkDic["name"] = self.nameFromFindId
+                                print("\(#line)" , self.checkDic)
+                            }else {
+                                guard let pushVC = self.storyboard?.instantiateViewController(identifier: "Register3") as? Register3Controller else{
+                                    return
+                                }
+                                
+                                pushVC.self.emailYn = self.emailYn!
+                                pushVC.self.smsYn = self.smsYn!
+                                pushVC.self.phoneNumber = self.cellPhoneTextField.text!
+                                
+                                self.navigationController?.pushViewController(pushVC, animated: true)
                             }
-                            
-                            pushVC.self.emailYn = self.emailYn!
-                            pushVC.self.smsYn = self.smsYn!
-                            pushVC.self.phoneNumber = self.cellPhoneTextField.text!
-                            
-                            self.navigationController?.pushViewController(pushVC, animated: true)
                         }else {
                             self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "휴대폰 번호와 인증번호가 일치하지 않습니다.", completeTitle: "확인", nil)
                         }

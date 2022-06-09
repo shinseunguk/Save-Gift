@@ -189,7 +189,7 @@ class FindpwController : UIViewController{
             
             setupLabel()
         }else {
-            helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "이메일 형식으로 입력해주세요.", completeTitle: "확인", nil)
+            helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "이메일 형식으로 입력해주세요", completeTitle: "확인", nil)
             emailTextField.becomeFirstResponder()
         }
     }
@@ -235,7 +235,7 @@ class FindpwController : UIViewController{
                     DispatchQueue.main.async {
                         if responseStringA == "true"{
                             print("true")
-                            self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "해당 이메일로 인증번호가 전송되었습니다.", completeTitle: "확인", nil)
+                            self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "해당 이메일로 인증번호가 전송되었습니다", completeTitle: "확인", nil)
                             self.authNumberTextField.isEnabled = true
                             self.authNumberTextField.backgroundColor = .white
                             self.authBtn.setTitle("재요청", for: .normal)
@@ -251,7 +251,7 @@ class FindpwController : UIViewController{
                                 self.helper.hideLoading()
                             }
                         }else {
-                            self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "가입된 정보중 이름과 이메일이 존재하지 않거나 일치하지 않습니다.", completeTitle: "확인", nil)
+                            self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "가입된 정보중 이름과 이메일이 존재하지 않거나 일치하지 않습니다", completeTitle: "확인", nil)
                             DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
                                 self.helper.hideLoading()
                             }
@@ -303,7 +303,7 @@ class FindpwController : UIViewController{
                             
                             self.navigationController?.pushViewController(pushVC, animated: true)
                         }else {
-                            self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "이메일과 인증번호가 일치하지 않습니다. 다시 한번 확인해주세요.", completeTitle: "확인", nil)
+                            self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "이메일과 인증번호가 일치하지 않습니다. 다시 한번 확인해주세요", completeTitle: "확인", nil)
                         }
                     }
                 }
