@@ -120,7 +120,7 @@ class Register3Controller: UIViewController, UITextFieldDelegate{
         
         nameInput.attributedPlaceholder = NSAttributedString(string: "이름", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
         emailInput.attributedPlaceholder = NSAttributedString(string: "아이디(Email)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
-        passwordInput.attributedPlaceholder = NSAttributedString(string: "비밀번호(영어, 숫자, 특수문자를 포함한 8자리 이상)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)]) // 8자리 ~ 50자리 영어+숫자+특수문자
+        passwordInput.attributedPlaceholder = NSAttributedString(string: "비밀번호(영어, 숫자, 특수문자를 포함한 8 ~ 20자)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)]) // 8자리 ~ 50자리 영어+숫자+특수문자
         passwordCheckInput.attributedPlaceholder = NSAttributedString(string: "비밀번호 재확인", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
         telInput.attributedPlaceholder = NSAttributedString(string: "핸드폰 번호", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
         
@@ -282,7 +282,7 @@ class Register3Controller: UIViewController, UITextFieldDelegate{
             self.normalAlert(titles: "알림", messages: "아이디(Email)를 확인해주세요.")
         } else if !(password?.validatePassword(password!) ?? true) {
             passwordInput.becomeFirstResponder()
-            self.normalAlert(titles: "알림", messages: "비밀번호를 확인해주세요. 비밀번호(영어, 숫자, 특수문자를 포함한 8자리 이상)")
+            self.normalAlert(titles: "알림", messages: "비밀번호를 확인해주세요. 비밀번호(영어, 숫자, 특수문자를 포함한 8 ~ 20자)")
         } else if password != passwordCheck {
             passwordInput.becomeFirstResponder()
             self.normalAlert(titles: "알림", messages: "비밀번호, 비밀번호 재확인이 일치하지 않습니다.")
