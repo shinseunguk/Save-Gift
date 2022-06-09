@@ -859,7 +859,14 @@ extension GiftDetailController : UITableViewDelegate, UITableViewDataSource, det
                 }
                 customCell2.upLabel.font = UIFont.boldSystemFont(ofSize: 14)
                 
-                customCell2.downLabel.text = "fewuihfwiuehfiuwehfiuwhefiuwheiufhewuifwiefhwiufhewiufhewiu"
+                if presentMessage != nil && presentMessage != ""{
+                    customCell2.downLabel.text = presentMessage
+                }else {
+                    customCell2.downLabel.textAlignment = .center
+                    customCell2.downLabel.textColor = .systemBlue
+                    customCell2.downLabel.text = "전달된 메시지가 없습니다 😢"
+                }
+                
                 return customCell2
             }
         }

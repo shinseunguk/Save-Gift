@@ -1164,14 +1164,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="선물받은 기프티콘 \()개" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vyN-F3-dH9">
-                                <rect key="frame" x="25" y="63.999999999999993" width="181" height="27.666666666666664"/>
-                                <fontDescription key="fontDescription" name="NanumAmSeuTeReuDam" family="나눔손글씨 암스테르담" pointSize="24"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DMO-yr-kjB">
-                                <rect key="frame" x="20" y="101.66666666666667" width="374" height="40.000000000000014"/>
+                                <rect key="frame" x="20" y="44" width="374" height="40"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="GIC-8p-fn8"/>
@@ -1181,10 +1175,8 @@
                         <viewLayoutGuide key="safeArea" id="Z82-no-tXk"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="vyN-F3-dH9" firstAttribute="top" secondItem="Z82-no-tXk" secondAttribute="top" constant="20" id="4G9-eZ-Am9"/>
                             <constraint firstItem="DMO-yr-kjB" firstAttribute="leading" secondItem="Z82-no-tXk" secondAttribute="leading" constant="20" id="Iyx-Fq-YhS"/>
-                            <constraint firstItem="DMO-yr-kjB" firstAttribute="top" secondItem="vyN-F3-dH9" secondAttribute="bottom" constant="10" id="SWx-2v-Lfy"/>
-                            <constraint firstItem="vyN-F3-dH9" firstAttribute="leading" secondItem="Z82-no-tXk" secondAttribute="leading" constant="25" id="cpx-Tb-WnO"/>
+                            <constraint firstItem="DMO-yr-kjB" firstAttribute="top" secondItem="Z82-no-tXk" secondAttribute="top" id="TZA-yL-785"/>
                             <constraint firstItem="Z82-no-tXk" firstAttribute="trailing" secondItem="DMO-yr-kjB" secondAttribute="trailing" constant="20" id="yHb-6H-1HL"/>
                         </constraints>
                     </view>
@@ -2356,7 +2348,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="CHa-TE-8dO">
-                                <rect key="frame" x="0.0" y="191" width="414" height="671"/>
+                                <rect key="frame" x="0.0" y="144" width="414" height="718"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="5Iv-kz-Nb1">
                                     <size key="itemSize" width="128" height="128"/>
@@ -2377,7 +2369,7 @@
                                 </cells>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tjR-ot-fep">
-                                <rect key="frame" x="308" y="156" width="75.666666666666686" height="15"/>
+                                <rect key="frame" x="308" y="109" width="75.666666666666686" height="15"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title=" 최근 등록순" image="arrow.up.arrow.down" catalog="system">
@@ -2392,7 +2384,7 @@
                         <viewLayoutGuide key="safeArea" id="xPm-kn-kF0"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="tjR-ot-fep" firstAttribute="top" secondItem="xPm-kn-kF0" secondAttribute="top" constant="112" id="JNH-Nm-zIG"/>
+                            <constraint firstItem="tjR-ot-fep" firstAttribute="top" secondItem="xPm-kn-kF0" secondAttribute="top" constant="65" id="JNH-Nm-zIG"/>
                             <constraint firstItem="xPm-kn-kF0" firstAttribute="trailing" secondItem="tjR-ot-fep" secondAttribute="trailing" constant="30.329999999999998" id="bSz-Db-IbP"/>
                             <constraint firstItem="CHa-TE-8dO" firstAttribute="top" secondItem="tjR-ot-fep" secondAttribute="bottom" constant="20" id="f77-17-fyH"/>
                             <constraint firstItem="CHa-TE-8dO" firstAttribute="trailing" secondItem="xPm-kn-kF0" secondAttribute="trailing" id="m4c-ln-kRG"/>
@@ -2418,7 +2410,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Zr3-dj-O17">
-                                <rect key="frame" x="0.0" y="191" width="414" height="671"/>
+                                <rect key="frame" x="0.0" y="144" width="414" height="718"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="jwh-9V-c8u">
                                     <size key="itemSize" width="128" height="128"/>
@@ -2439,7 +2431,7 @@
                                 </cells>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ab8-Mb-XY4">
-                                <rect key="frame" x="308" y="156" width="75.666666666666686" height="15"/>
+                                <rect key="frame" x="308" y="109" width="75.666666666666686" height="15"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title=" 최근 등록순" image="arrow.up.arrow.down" catalog="system">
@@ -2456,7 +2448,7 @@
                         <constraints>
                             <constraint firstItem="3n6-n6-ozu" firstAttribute="trailing" secondItem="Ab8-Mb-XY4" secondAttribute="trailing" constant="30.329999999999998" id="86W-6U-PbF"/>
                             <constraint firstItem="3n6-n6-ozu" firstAttribute="bottom" secondItem="Zr3-dj-O17" secondAttribute="bottom" id="ak2-dA-HOK"/>
-                            <constraint firstItem="Ab8-Mb-XY4" firstAttribute="top" secondItem="3n6-n6-ozu" secondAttribute="top" constant="112" id="cMK-w5-yfE"/>
+                            <constraint firstItem="Ab8-Mb-XY4" firstAttribute="top" secondItem="3n6-n6-ozu" secondAttribute="top" constant="65" id="cMK-w5-yfE"/>
                             <constraint firstItem="Zr3-dj-O17" firstAttribute="trailing" secondItem="3n6-n6-ozu" secondAttribute="trailing" id="egI-KZ-fau"/>
                             <constraint firstItem="Zr3-dj-O17" firstAttribute="top" secondItem="Ab8-Mb-XY4" secondAttribute="bottom" constant="20" id="txw-M6-L12"/>
                             <constraint firstItem="Zr3-dj-O17" firstAttribute="leading" secondItem="3n6-n6-ozu" secondAttribute="leading" id="wEo-Mc-tWc"/>
@@ -2527,7 +2519,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="uQj-jj-e6U">
-                                <rect key="frame" x="0.0" y="191" width="414" height="671"/>
+                                <rect key="frame" x="0.0" y="144" width="414" height="718"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="wQC-0f-Yva">
                                     <size key="itemSize" width="128" height="128"/>
@@ -2548,7 +2540,7 @@
                                 </cells>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Reg-l6-V1B">
-                                <rect key="frame" x="308" y="156" width="75.666666666666686" height="15"/>
+                                <rect key="frame" x="308" y="109" width="75.666666666666686" height="15"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title=" 최근 등록순" image="arrow.up.arrow.down" catalog="system">
@@ -2565,7 +2557,7 @@
                         <constraints>
                             <constraint firstItem="uQj-jj-e6U" firstAttribute="leading" secondItem="dL6-Hv-Mp5" secondAttribute="leading" id="16q-1H-Fxk"/>
                             <constraint firstItem="uQj-jj-e6U" firstAttribute="trailing" secondItem="dL6-Hv-Mp5" secondAttribute="trailing" id="Dbz-Ll-liy"/>
-                            <constraint firstItem="Reg-l6-V1B" firstAttribute="top" secondItem="dL6-Hv-Mp5" secondAttribute="top" constant="112" id="Yk2-NK-HgL"/>
+                            <constraint firstItem="Reg-l6-V1B" firstAttribute="top" secondItem="dL6-Hv-Mp5" secondAttribute="top" constant="65" id="Yk2-NK-HgL"/>
                             <constraint firstItem="dL6-Hv-Mp5" firstAttribute="bottom" secondItem="uQj-jj-e6U" secondAttribute="bottom" id="dtx-U9-UOf"/>
                             <constraint firstItem="dL6-Hv-Mp5" firstAttribute="trailing" secondItem="Reg-l6-V1B" secondAttribute="trailing" constant="30.329999999999998" id="h2T-dd-oJL"/>
                             <constraint firstItem="uQj-jj-e6U" firstAttribute="top" secondItem="Reg-l6-V1B" secondAttribute="bottom" constant="20" id="wd1-M5-HYU"/>

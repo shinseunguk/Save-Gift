@@ -42,12 +42,12 @@ class GiftPresentController : TabmanViewController{
         bar.layout.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
         bar.buttons.customize { (button) in
             button.tintColor = UIColor.systemGray2 // 선택 안되어 있을 때
-            button.selectedTintColor = .systemBlue // 선택 되어 있을 때
+            button.selectedTintColor = .systemIndigo // 선택 되어 있을 때
             button.font = UIFont.systemFont(ofSize: 13)
         }
         // 인디케이터 조정
         bar.indicator.weight = .light
-        bar.indicator.tintColor = .systemBlue
+        bar.indicator.tintColor = .systemIndigo
         bar.indicator.overscrollBehavior = .compress
         bar.layout.alignment = .centerDistributed
         bar.layout.contentMode = .fit
