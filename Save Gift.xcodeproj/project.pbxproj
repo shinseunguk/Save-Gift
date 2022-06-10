@@ -15,6 +15,7 @@
 		0418573B28508EDC00BE0F12 /* PresentMessageViewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0418573928508EDC00BE0F12 /* PresentMessageViewTableViewCell.xib */; };
 		041E83CF27D9DD7600AEB546 /* GetFriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041E83CD27D9DD7600AEB546 /* GetFriendTableViewCell.swift */; };
 		041E83D027D9DD7600AEB546 /* GetFriendTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 041E83CE27D9DD7600AEB546 /* GetFriendTableViewCell.xib */; };
+		0422C38C2852BFB900A637AA /* Findid2Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0422C38B2852BFB900A637AA /* Findid2Controller.swift */; };
 		042A8C8E284F309B00DF857E /* FindpwController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042A8C8D284F309B00DF857E /* FindpwController.swift */; };
 		042C0FB627FE73C5005EDA8E /* GiftDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042C0FB527FE73C5005EDA8E /* GiftDetailController.swift */; };
 		042C0FB927FFB93B005EDA8E /* GiftDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042C0FB727FFB93B005EDA8E /* GiftDetailTableViewCell.swift */; };
@@ -95,7 +96,7 @@
 		A2DD0BE727A7CC580015E59B /* RegisterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2DD0BE527A7CC580015E59B /* RegisterTableViewCell.swift */; };
 		A2DD0BE827A7CC580015E59B /* RegisterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2DD0BE627A7CC580015E59B /* RegisterTableViewCell.xib */; };
 		A2DFB7D72770973F00BB9D21 /* GetDeivceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2DFB7D62770973F00BB9D21 /* GetDeivceModel.swift */; };
-		A37A5481BE910DEEAF3F3869 /* Pods_Save_Gift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90C12DEA8345B3FB37258F74 /* Pods_Save_Gift.framework */; };
+		CDD0BF15C2BA50D69E438A8F /* Pods_Save_Gift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 721ADF730DB09240154A19FE /* Pods_Save_Gift.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -121,6 +122,7 @@
 		0418573928508EDC00BE0F12 /* PresentMessageViewTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PresentMessageViewTableViewCell.xib; sourceTree = "<group>"; };
 		041E83CD27D9DD7600AEB546 /* GetFriendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetFriendTableViewCell.swift; sourceTree = "<group>"; };
 		041E83CE27D9DD7600AEB546 /* GetFriendTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GetFriendTableViewCell.xib; sourceTree = "<group>"; };
+		0422C38B2852BFB900A637AA /* Findid2Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Findid2Controller.swift; sourceTree = "<group>"; };
 		042A8C8D284F309B00DF857E /* FindpwController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindpwController.swift; sourceTree = "<group>"; };
 		042C0FB527FE73C5005EDA8E /* GiftDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftDetailController.swift; sourceTree = "<group>"; };
 		042C0FB727FFB93B005EDA8E /* GiftDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftDetailTableViewCell.swift; sourceTree = "<group>"; };
@@ -231,9 +233,9 @@
 		04E8B5B027F1807A00CD86F3 /* libbz2.1.0.8.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.1.0.8.tbd; path = usr/lib/libbz2.1.0.8.tbd; sourceTree = SDKROOT; };
 		04E8B5E027F180C900CD86F3 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		04F9F4AC27FA916B00DC1273 /* FirebaseStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorageManager.swift; sourceTree = "<group>"; };
-		4E314F7B14ACF035593EFD0A /* Pods-Save Gift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Save Gift.debug.xcconfig"; path = "Target Support Files/Pods-Save Gift/Pods-Save Gift.debug.xcconfig"; sourceTree = "<group>"; };
-		6D48908BCBFA73457E7B9C91 /* Pods-Save Gift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Save Gift.release.xcconfig"; path = "Target Support Files/Pods-Save Gift/Pods-Save Gift.release.xcconfig"; sourceTree = "<group>"; };
-		90C12DEA8345B3FB37258F74 /* Pods_Save_Gift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Save_Gift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3196E90618B7866FE3532AEF /* Pods-Save Gift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Save Gift.release.xcconfig"; path = "Target Support Files/Pods-Save Gift/Pods-Save Gift.release.xcconfig"; sourceTree = "<group>"; };
+		721ADF730DB09240154A19FE /* Pods_Save_Gift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Save_Gift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7E9659A2D7AB9AFE223A5DC4 /* Pods-Save Gift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Save Gift.debug.xcconfig"; path = "Target Support Files/Pods-Save Gift/Pods-Save Gift.debug.xcconfig"; sourceTree = "<group>"; };
 		A20D2681276A151700470D06 /* Register3Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Register3Controller.swift; sourceTree = "<group>"; };
 		A218F1A0276E093D00E71316 /* FindidController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindidController.swift; sourceTree = "<group>"; };
 		A218F1A2276E115E00E71316 /* Save Gift.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Save Gift.entitlements"; sourceTree = "<group>"; };
@@ -765,7 +767,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A23698AE27A97B9100C86754 /* LocalAuthentication.framework in Frameworks */,
-				A37A5481BE910DEEAF3F3869 /* Pods_Save_Gift.framework in Frameworks */,
+				CDD0BF15C2BA50D69E438A8F /* Pods_Save_Gift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -935,6 +937,7 @@
 				A218F1A0276E093D00E71316 /* FindidController.swift */,
 				042A8C8D284F309B00DF857E /* FindpwController.swift */,
 				04185736285034A900BE0F12 /* Findpw2Controller.swift */,
+				0422C38B2852BFB900A637AA /* Findid2Controller.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -1008,8 +1011,8 @@
 		BA60E12EA7D0CED5EB755D53 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				4E314F7B14ACF035593EFD0A /* Pods-Save Gift.debug.xcconfig */,
-				6D48908BCBFA73457E7B9C91 /* Pods-Save Gift.release.xcconfig */,
+				7E9659A2D7AB9AFE223A5DC4 /* Pods-Save Gift.debug.xcconfig */,
+				3196E90618B7866FE3532AEF /* Pods-Save Gift.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -1569,7 +1572,7 @@
 				A236986627A97B9000C86754 /* Protobuf.framework */,
 				A236986727A97B9000C86754 /* SideMenu.framework */,
 				A28F4397276F44B700B5DB17 /* LocalAuthentication.framework */,
-				90C12DEA8345B3FB37258F74 /* Pods_Save_Gift.framework */,
+				721ADF730DB09240154A19FE /* Pods_Save_Gift.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1581,13 +1584,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A225D70D275B5FD600484EAE /* Build configuration list for PBXNativeTarget "Save Gift" */;
 			buildPhases = (
-				CA4CD4B71EF8ED3A070E5644 /* [CP] Check Pods Manifest.lock */,
+				B7A647FF7622D42445918E09 /* [CP] Check Pods Manifest.lock */,
 				A225D6F5275B5FD500484EAE /* Sources */,
 				A225D6F6275B5FD500484EAE /* Frameworks */,
 				A225D6F7275B5FD500484EAE /* Resources */,
 				A213100227A97C5300A98783 /* Embed Frameworks */,
-				B97292738DE13F55EE626E57 /* [CP] Embed Pods Frameworks */,
-				DE686E8FA8FDB94FA085B866 /* [CP] Copy Pods Resources */,
+				9434A0ABAF21455A44552D1D /* [CP] Embed Pods Frameworks */,
+				1B5E286BBA9959F68E589074 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1676,7 +1679,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		B97292738DE13F55EE626E57 /* [CP] Embed Pods Frameworks */ = {
+		1B5E286BBA9959F68E589074 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Save Gift/Pods-Save Gift-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Save Gift/Pods-Save Gift-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Save Gift/Pods-Save Gift-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9434A0ABAF21455A44552D1D /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1693,7 +1713,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Save Gift/Pods-Save Gift-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		CA4CD4B71EF8ED3A070E5644 /* [CP] Check Pods Manifest.lock */ = {
+		B7A647FF7622D42445918E09 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1713,23 +1733,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		DE686E8FA8FDB94FA085B866 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Save Gift/Pods-Save Gift-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Save Gift/Pods-Save Gift-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Save Gift/Pods-Save Gift-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1759,6 +1762,7 @@
 				A2DD0BE727A7CC580015E59B /* RegisterTableViewCell.swift in Sources */,
 				A2D2FDAA277742200036B849 /* GiftSaveController.swift in Sources */,
 				A2877C6728260200006EFBCC /* GiftDetailFullScreenController.swift in Sources */,
+				0422C38C2852BFB900A637AA /* Findid2Controller.swift in Sources */,
 				A2D2FDAC277742A30036B849 /* GiftSettingController.swift in Sources */,
 				A28F439A276F55B700B5DB17 /* MainController.swift in Sources */,
 				A2D4935E2790615600FB5770 /* SettingNotiController.swift in Sources */,
@@ -1939,19 +1943,19 @@
 		};
 		A225D70E275B5FD600484EAE /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4E314F7B14ACF035593EFD0A /* Pods-Save Gift.debug.xcconfig */;
+			baseConfigurationReference = 7E9659A2D7AB9AFE223A5DC4 /* Pods-Save Gift.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Save Gift/Save Gift.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = S3JUP5Z7K9;
+				DEVELOPMENT_TEAM = "";
 				EXCLUDED_ARCHS = "$(STANDARD_ARCHS)";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = "Save Gift/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2088,7 +2092,7 @@
 		};
 		A225D70F275B5FD600484EAE /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6D48908BCBFA73457E7B9C91 /* Pods-Save Gift.release.xcconfig */;
+			baseConfigurationReference = 3196E90618B7866FE3532AEF /* Pods-Save Gift.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -2100,7 +2104,7 @@
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = "Save Gift/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -880,8 +880,7 @@ extension GiftDetailController : UITableViewDelegate, UITableViewDataSource, det
             }else { // 선물과 함께 보낼 메시지 row
                 return 142
             }
-                return 0
-       }
+    }
     
     func calculateDays(availableDate : String) -> Int {
         print("calculateDays ",availableDate)
