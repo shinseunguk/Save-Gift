@@ -850,10 +850,9 @@ extension GiftDetailController : UITableViewDelegate, UITableViewDataSource, det
                 return customCell1
             }else { //  => 선물함
                 let customCell2 = tableView.dequeueReusableCell(withIdentifier: "PresentMessageViewTableViewCell") as! PresentMessageViewTableViewCell
-                if presentPage == 1 {
-                    
-                }else if presentPage == 2 {
-                    
+                
+                if presentPage == 1 || presentPage == 2{
+                    customCell2.upLabel.text = "선물과 함께 보낸 메시지"
                 }else if presentPage == 3 {
                     customCell2.upLabel.text = "내가 보낸 메시지"
                 }
@@ -861,9 +860,10 @@ extension GiftDetailController : UITableViewDelegate, UITableViewDataSource, det
                 
                 if presentMessage != nil && presentMessage != ""{
                     customCell2.downLabel.text = presentMessage
+                    customCell2.downLabel.textColor = .systemBlue
                 }else {
                     customCell2.downLabel.textAlignment = .center
-                    customCell2.downLabel.textColor = .systemBlue
+                    customCell2.downLabel.textColor = .systemRed
                     customCell2.downLabel.text = "전달된 메시지가 없습니다 😢"
                 }
                 

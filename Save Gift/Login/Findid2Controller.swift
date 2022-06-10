@@ -54,11 +54,12 @@ class Findid2Controller : UIViewController{
     }
     
     @IBAction func leftBtnAction(_ sender: Any) {
-        if let viewControllers = self.navigationController?.viewControllers {
-            if viewControllers.count > 4 {
-                self.navigationController?.popToViewController(viewControllers[viewControllers.count - 4], animated: true)
-            } else {
-                        // fail
+        // 원하는 화면으로 pop
+        let viewControllers: [UIViewController] = self.navigationController!.viewControllers
+        print("\(#line) ", viewControllers)
+        for aViewController in viewControllers {
+            if aViewController is ViewController {
+                self.navigationController!.popToViewController(aViewController, animated: true)
             }
         }
     }
