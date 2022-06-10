@@ -86,6 +86,9 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
     
     let dismissBtn = UIButton()
     @IBOutlet weak var uiViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var imageViewTopAnchor: NSLayoutConstraint!//0
+    @IBOutlet weak var tableViewTopAnchor: NSLayoutConstraint!//20
+    @IBOutlet weak var bottomBtnTopAnchor: NSLayoutConstraint!//20
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -197,7 +200,6 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
         dismissBtn.contentVerticalAlignment = .fill
         dismissBtn.contentHorizontalAlignment = .fill
         dismissBtn.tintColor = .systemBlue
-//        dismissBtn.backgroundColor = .black
         dismissBtn.addTarget(self, action: #selector(backButtonAction), for: .touchUpInside)
         self.scrollView.addSubview(dismissBtn)
         
@@ -208,28 +210,15 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
         dismissBtn.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 20).isActive = true
         dismissBtn.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 30).isActive = true
         
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.topAnchor.constraint(equalTo: dismissBtn.bottomAnchor, constant: 20).isActive = true
-        
         uiView.translatesAutoresizingMaskIntoConstraints = false
         uiViewHeight.constant = 1000
         
-//        [LayoutConstraints] Unable to simultaneously satisfy constraints.
-//            Probably at least one of the constraints in the following list is one you don't want.
-//            Try this:
-//                (1) look at each constraint and try to figure out which you don't expect;
-//                (2) find the code that added the unwanted constraint or constraints and fix it.
-//        (
-//            "<NSLayoutConstraint:0x600001bdba20 V:|-(0)-[UIImageView:0x7fbb197b5f70]   (active, names: '|':UIView:0x7fbb197c3110 )>",
-//            "<NSLayoutConstraint:0x600001bdbed0 V:|-(0)-[UIView:0x7fbb197c3110]   (active, names: '|':UIScrollView:0x7fbb19808800 )>",
-//            "<NSLayoutConstraint:0x600001b209b0 UIButton:0x7fbb1a2ce000.height == 22   (active)>",
-//            "<NSLayoutConstraint:0x600001bcd450 V:|-(20)-[UIButton:0x7fbb1a2ce000]   (active, names: '|':UIScrollView:0x7fbb19808800 )>",
-//            "<NSLayoutConstraint:0x600001bcee40 V:[UIButton:0x7fbb1a2ce000]-(20)-[UIImageView:0x7fbb197b5f70]   (active)>"
-//        )
-//
-//        Will attempt to recover by breaking constraint
-//        <NSLayoutConstraint:0x600001bdba20 V:|-(0)-[UIImageView:0x7fbb197b5f70]   (active, names: '|':UIView:0x7fbb197c3110 )>
+        tableViewTopAnchor.constant = 20
+        bottomBtnTopAnchor.constant = 20
         
+        imageViewTopAnchor.isActive = false
+        imageViewTopAnchor = imageView.topAnchor.constraint(equalTo: dismissBtn.bottomAnchor, constant: 20)
+        imageViewTopAnchor.isActive = true
     }
     
     @objc func backButtonAction() {

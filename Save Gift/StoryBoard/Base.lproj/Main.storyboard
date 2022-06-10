@@ -2286,10 +2286,13 @@
                     </view>
                     <size key="freeformSize" width="414" height="1500"/>
                     <connections>
+                        <outlet property="bottomBtnTopAnchor" destination="8f6-XM-SCy" id="tWG-Bp-JCK"/>
                         <outlet property="imageView" destination="iV9-N6-Wyp" id="7X5-Ib-aPM"/>
+                        <outlet property="imageViewTopAnchor" destination="YQn-PM-6wn" id="nBr-ue-Yb1"/>
                         <outlet property="registerBtn" destination="QKd-Sl-j0m" id="t4m-5r-xyq"/>
                         <outlet property="scrollView" destination="OYw-Ii-C5i" id="zeD-pw-FUy"/>
                         <outlet property="tableView" destination="bg4-v1-2RD" id="QN6-Vc-5Ji"/>
+                        <outlet property="tableViewTopAnchor" destination="8f6-XM-SCy" id="kTK-ds-Bsv"/>
                         <outlet property="uiView" destination="eHz-Fh-m8L" id="4za-Nx-VqD"/>
                         <outlet property="uiViewHeight" destination="8SN-oL-9ap" id="w93-l1-HdX"/>
                     </connections>
