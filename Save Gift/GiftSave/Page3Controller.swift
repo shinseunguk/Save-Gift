@@ -20,12 +20,14 @@ class Page3Controller : UIViewController{
     @IBOutlet weak var filterButton: UIButton!
     
     let helper : Helper = Helper()
+    //cocoa pod
+    let dropDown = DropDown()
     
     var dic : Dictionary<String, Any> = [:]
 
     let deviceID : String? = UserDefaults.standard.string(forKey: "device_id")
     let localUrl : String = "".getLocalURL()
-    let label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+    let label = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 61))
 
     var param : Dictionary<String, Any> = [:]
     
@@ -40,42 +42,44 @@ class Page3Controller : UIViewController{
     
     var viewPagerArr = ["Unused", "Used", "All"]
     var thumbnail: Array<UIImage> = []
+
+    var brandNameLabelArr : [String] = []
+    var productNameLabelArr : [String] = []
+    var barcodeNumberArr : [String] = []
+    var expirationPeriodLabelArr : [String] = []
+    var useYn : [Int] = []
+    var registrationDateArr : [String] = []
+    var cellImageViewArr : [String] = []
+    var seqArr : [Int] = []
+    var registrantArr : [String] = []
     
-    // test Array
-        var brandNameLabelArr : [String] = []
-        var expirationPeriodLabelArr : [String] = []
-        var productNameLabelArr : [String] = []
-        var cellImageViewArr : [String] = []
-        var seqArr : [Int] = []
-        var useYn : [Int] = []
-    
-    //cocoa pod
-    let dropDown = DropDown()
+    var uiImageArr : [UIImage] = []
+    var presentIndex : Bool = false
+    var presentId : String? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if brandNameLabelArr.count == 0 &&  expirationPeriodLabelArr.count == 0{
-            label.isHidden = false
-            collectionView.isHidden = true
-            filterButton.isHidden = true
-        }else {
-            label.isHidden = true
-            collectionView.isHidden = false
-            filterButton.isHidden = false
+        //친구 -> 선물하기
+        if presentIndex {
+            self.navigationController?.navigationBar.tintColor = .systemBlue
+            self.navigationController?.navigationBar.barTintColor = UIColor.init(displayP3Red: 242/255, green: 242/255, blue: 247/255, alpha: 1)
+            self.navigationController?.navigationBar.shadowImage = UIImage()
+            self.navigationController?.navigationBar.isTranslucent = false
+            self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.black]
+            self.navigationItem.title = "친구"
+            self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "선물할 기프티콘을 선택해주세요.", completeTitle: "확인", nil)
         }
         
         //드롭다운 btnInit
         dropDownInit()
         
-        
         //setupFlowLayout
         setupFlowLayout()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
+    override func viewDidAppear(_ animated: Bool) {
+        print("\(#function) viewDidAppear")
         if UserDefaults.standard.string(forKey: "ID") != nil { //로그인
             //서버 통신후 사용자 혹은 로컬기기 -> DB에 저장되어 있는 값 가져오기
             LoginSetupInit()
@@ -84,18 +88,36 @@ class Page3Controller : UIViewController{
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        print("\(#function)")
+//        if UserDefaults.standard.string(forKey: "ID") != nil { //로그인
+//            //서버 통신후 사용자 혹은 로컬기기 -> DB에 저장되어 있는 값 가져오기
+//            LoginSetupInit()
+//        }else { //비로그인
+//            bLoginSetupInit()
+//        }
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         print("\(LOG_TAG) viewWillDisappear")
+        
+        label.removeFromSuperview()
 //        arrRemoveAll()
     }
     
     func arrRemoveAll(){
         brandNameLabelArr.removeAll()
-        expirationPeriodLabelArr.removeAll()
         productNameLabelArr.removeAll()
+        barcodeNumberArr.removeAll()
+        expirationPeriodLabelArr.removeAll()
+        useYn.removeAll()
+        registrantArr.removeAll()
         cellImageViewArr.removeAll()
         seqArr.removeAll()
-        useYn.removeAll()
+        registrantArr.removeAll()
+        uiImageArr.removeAll()
     }
     
     func LoginSetupInit(){
@@ -148,11 +170,13 @@ class Page3Controller : UIViewController{
 
                 var responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
 
-                    print("회원가입 응답 처리 로직 responseString \n", responseString!)
-                    print("/giftsave data ----> \n", data! as Any)
-                    print("/giftsave response ----> \n", response! as Any)
+//                    print("회원가입 응답 처리 로직 responseString \n", responseString!)
+//                    print("/giftsave data ----> \n", data! as Any)
+//                    print("/giftsave response ----> \n", response! as Any)
                     
                     var responseStringA = responseString as! String
+                    
+//                    print("\(self.LOG_TAG) ", responseStringA.count)
                     
                     if responseStringA.count != 2{
                     
@@ -171,19 +195,22 @@ class Page3Controller : UIViewController{
                         for x in 0...arr.count-1{
                             
                             if x != arr.count-1 {
-                                self.dic = self.helper.jsonParser6(stringData: arr[x]+"}" as! String, data1: "seq", data2: "brand", data3: "expiration_period", data4: "img_url", data5: "product_name", data6: "use_yn");
+                                self.dic = self.helper.jsonParser9(stringData: arr[x]+"}" as! String, data1: "seq", data2: "brand", data3: "expiration_period", data4: "img_url", data5: "product_name", data6: "use_yn", data7: "barcode_number", data8: "registration_date", data9: "registrant");
                             }else {
-                                self.dic = self.helper.jsonParser6(stringData: arr[x] as! String, data1: "seq", data2: "brand", data3: "expiration_period", data4: "img_url", data5: "product_name", data6: "use_yn");
+                                self.dic = self.helper.jsonParser9(stringData: arr[x] as! String, data1: "seq", data2: "brand", data3: "expiration_period", data4: "img_url", data5: "product_name", data6: "use_yn", data7: "barcode_number", data8: "registration_date", data9: "registrant");
                             }
                             
                             print("self.dic ----> \n", self.dic)
                             
                             self.brandNameLabelArr.append(self.dic["brand"] as! String)
-                            self.expirationPeriodLabelArr.append(self.dic["expiration_period"] as! String)
                             self.productNameLabelArr.append(self.dic["product_name"] as! String)
+                            self.barcodeNumberArr.append(self.dic["barcode_number"] as! String)
+                            self.expirationPeriodLabelArr.append(self.dic["expiration_period"] as! String)
+                            self.useYn.append(self.dic["use_yn"] as! Int)
+                            self.registrationDateArr.append(self.dic["registration_date"] as! String)
                             self.cellImageViewArr.append(self.dic["img_url"] as! String)
                             self.seqArr.append(self.dic["seq"] as! Int)
-                            self.useYn.append(self.dic["use_yn"] as! Int)
+                            self.registrantArr.append(self.dic["registrant"] as! String)
                             
                         }
                     }else {
@@ -208,9 +235,10 @@ class Page3Controller : UIViewController{
             
             // 화면 처음그릴때만 add subView
             print("index ", index)
-            if index == 0 {
-                let label = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 61))
-                label.numberOfLines = 2
+//            if index == 0 {
+//                let label = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 61))
+//                label.numberOfLines = 2
+                label.numberOfLines = 3
                 label.font = UIFont(name: "NanumAmSeuTeReuDam", size: 24)
                 label.textColor = .black
                 label.center = self.view.center
@@ -219,17 +247,18 @@ class Page3Controller : UIViewController{
 //                label.text = "기프티콘을 추가해보세요."
                 
                 self.view.addSubview(label)
-                index += 1
-            }
+//                index += 1
+//            }
         }else {
             print("All 기프티콘이 존재.")
             collectionView.isHidden = false
             filterButton.isHidden = false
-            label.isHidden = true
+//            label.isHidden = true
+            label.removeFromSuperview()
         }
         
 //        self.collectionView.reloadData()//이거말고
-        //컬렉션뷰 ㅌInit
+        //컬렉션뷰 Init
         collectionViewInit()
     }
     
@@ -330,26 +359,20 @@ extension Page3Controller: UICollectionViewDelegate, UICollectionViewDataSource,
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
     
+//        print("collectionView# \(indexPath.row) ", "".getLocalURL()+"/images/\(cellImageViewArr[indexPath.row])")
+    
         //  Configure the Cell
         cell.brandNameLabel.text = brandNameLabelArr[indexPath.row]
         cell.productNameLabel.text = productNameLabelArr[indexPath.row]
         cell.expirationPeriodLabel.text = "유효기간 : \(expirationPeriodLabelArr[indexPath.row])"
-        
-        if useYn[indexPath.row] == 0 {
-            cell.useYnBtn.setTitle("사용가능", for: .normal)
-            cell.useYnBtn.backgroundColor = .systemGreen
-        }else {
-            cell.useYnBtn.setTitle("사용불가", for: .normal)
-            cell.useYnBtn.backgroundColor = .systemRed
-        }
     
-//            let url = URL(string: "".getLocalURL()+"/images/DD15A014-F02C-4F28-BD0F-249B307BFA7A_20220423_170711.jpg")
-//            DispatchQueue.global().async {
-//                let data = try? Data(contentsOf: url!)
-//                DispatchQueue.main.async {
-//                    self.imageView.image = UIImage(data: data!)
-//                }
-//            }
+    if useYn[indexPath.row] == 0 {
+        cell.useYnBtn.setTitle("사용가능", for: .normal)
+        cell.useYnBtn.backgroundColor = .systemGreen
+    }else {
+        cell.useYnBtn.setTitle("사용불가", for: .normal)
+        cell.useYnBtn.backgroundColor = .systemRed
+    }
     
     let url = URL(string: "".getLocalURL()+"/images/\(cellImageViewArr[indexPath.row])")
     DispatchQueue.global(qos: .userInteractive).async {
@@ -358,11 +381,10 @@ extension Page3Controller: UICollectionViewDelegate, UICollectionViewDataSource,
 //                    self.imageView.image = UIImage(data: data!)
                 cell.cellImageView.image =  UIImage(data: data!)
                 cell.cellImageView.contentMode = .scaleAspectFit
+//                    self.uiImageArr.append(UIImage(data: data!)!)
+//                    self.uiImageArr.append(cell.cellImageView.image!)
             }
     }
-//            cell.cellImageView.image = UIImage(named: cellImageViewArr[indexPath.row])
-//        cell.layer.borderWidth = 1.0
-//        cell.layer.borderColor = UIColor.black.cgColor
         return cell
 }
     
@@ -376,14 +398,27 @@ extension Page3Controller: UICollectionViewDelegate, UICollectionViewDataSource,
                 cell.backgroundColor = UIColor.white
                 
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "GiftDetailVC") as! GiftDetailController
+                
                 vc.imageUrl = self.cellImageViewArr[indexPath.row]
-                vc.seq = self.seqArr[indexPath.row]
+                vc.barcodeNumber = self.barcodeNumberArr[indexPath.row]
                 vc.brandName = self.brandNameLabelArr[indexPath.row]
                 vc.productName = self.productNameLabelArr[indexPath.row]
                 vc.expirationPeriod = self.expirationPeriodLabelArr[indexPath.row]
                 vc.use_yn = self.useYn[indexPath.row]
+                vc.registrant = self.registrantArr[indexPath.row]
+                vc.registrationDate = self.registrationDateArr[indexPath.row]
                 
-                vc.delegate3 = self
+                //test
+//                vc.uiImage = self.uiImageArr[indexPath.row]
+                
+                vc.seq = self.seqArr[indexPath.row]
+                
+                if self.presentIndex{
+                    vc.presentIndex = true
+                    vc.presentId = self.presentId!
+                }
+                
+                vc.delegate3 = self // protocol delegate
 //                vc.modalPresentationStyle = .fullScreen
 //                vc.definesPresentationContext = true
 //                vc.modalPresentationStyle = .overCurrentContext
