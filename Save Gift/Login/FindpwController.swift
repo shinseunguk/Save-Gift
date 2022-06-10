@@ -46,12 +46,23 @@ class FindpwController : UIViewController{
 
     }()
     
+    var nameFromFindId2 : String? = nil
+    var userIdFromFindId2 : String? = nil
+    
     override func viewDidLoad(){
-        authNumberTextField.isEnabled = false
-        authNumberTextField.backgroundColor = .systemGray5
         
         setNavTitle()
         labelSetColor()
+        
+        if nameFromFindId2 != nil{ //아이디 찾기 ~> 비밀번호 찾기
+            nameTextField.text = nameFromFindId2
+            
+            nameTextField.isEnabled = false
+            nameTextField.backgroundColor = .systemGray5
+        }else {
+            authNumberTextField.isEnabled = false
+            authNumberTextField.backgroundColor = .systemGray5
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {

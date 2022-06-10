@@ -374,7 +374,13 @@ class Register2Controller: UIViewController, UITextFieldDelegate {
                             if self.phoneNumberFromFindId != nil && self.nameFromFindId != nil { // 아이디 찾기
                                 self.checkDic["phone_number"] = self.phoneNumberFromFindId
                                 self.checkDic["name"] = self.nameFromFindId
-                                print("\(#line)" , self.checkDic)
+                                
+                                guard let pushVC = self.storyboard?.instantiateViewController(identifier: "Findid2Controller") as? Findid2Controller else{
+                                    return
+                                }
+                                
+                                pushVC.dictionaryFromFindId = self.checkDic
+                                self.navigationController?.pushViewController(pushVC, animated: true)
                             }else {
                                 guard let pushVC = self.storyboard?.instantiateViewController(identifier: "Register3") as? Register3Controller else{
                                     return
