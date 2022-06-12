@@ -105,9 +105,71 @@ class GiftDetailController : UIViewController{
     func presentPageSetUp(){
         if presentPage != 0 {
             if presentPage == 1 {
+                categoryArr.append("선물과 함께 보낸 메시지")
+                contentArr.append("\(presentMessage)")
+                editBtn.removeFromSuperview()
+                presentBtn.removeFromSuperview()
+                useynBtn.removeFromSuperview()
+                imageExpandBtn.removeFromSuperview()
                 
+                //tableView layout
+                tableView.translatesAutoresizingMaskIntoConstraints = false
+                tableView.register(UINib(nibName: "PresentMessageViewTableViewCell", bundle: nil), forCellReuseIdentifier: "PresentMessageViewTableViewCell")
+                tableView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10).isActive = true
+                tableViewHeight.constant = 500
+                //
+                
+                //sendPresentBtn layout
+                sendPresentBtn.layer.cornerRadius = 5
+                sendPresentBtn.backgroundColor = .systemBlue
+                sendPresentBtn.setTitle("선물 사용처리 하기", for: .normal)
+                sendPresentBtn.addTarget(self, action: #selector(cancelPresent), for: .touchUpInside)
+                scrollView.addSubview(sendPresentBtn)
+                
+                sendPresentBtn.translatesAutoresizingMaskIntoConstraints = false
+                sendPresentBtn.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 20).isActive = true
+                sendPresentBtn.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 20).isActive = true
+                sendPresentBtn.rightAnchor.constraint(equalTo: scrollView.rightAnchor, constant: -20).isActive = true
+                sendPresentBtn.heightAnchor.constraint(equalToConstant: 50).isActive = true
+                //
+                
+                //view layout
+                uiView.translatesAutoresizingMaskIntoConstraints = false
+                uiViewHeight.constant = 1300
+                //
             }else if presentPage == 2 {
+                categoryArr.append("선물과 함께 보낸 메시지")
+                contentArr.append("\(presentMessage)")
+                editBtn.removeFromSuperview()
+                presentBtn.removeFromSuperview()
+                useynBtn.removeFromSuperview()
+                imageExpandBtn.removeFromSuperview()
                 
+                //tableView layout
+                tableView.translatesAutoresizingMaskIntoConstraints = false
+                tableView.register(UINib(nibName: "PresentMessageViewTableViewCell", bundle: nil), forCellReuseIdentifier: "PresentMessageViewTableViewCell")
+                tableView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10).isActive = true
+                tableViewHeight.constant = 500
+                //
+                
+                //sendPresentBtn layout
+                sendPresentBtn.layer.cornerRadius = 5
+                sendPresentBtn.backgroundColor = .systemBlue
+                sendPresentBtn.setTitle("선물 미사용처리 하기", for: .normal)
+                sendPresentBtn.addTarget(self, action: #selector(cancelPresent), for: .touchUpInside)
+                scrollView.addSubview(sendPresentBtn)
+                
+                sendPresentBtn.translatesAutoresizingMaskIntoConstraints = false
+                sendPresentBtn.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 20).isActive = true
+                sendPresentBtn.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 20).isActive = true
+                sendPresentBtn.rightAnchor.constraint(equalTo: scrollView.rightAnchor, constant: -20).isActive = true
+                sendPresentBtn.heightAnchor.constraint(equalToConstant: 50).isActive = true
+                //
+                
+                //view layout
+                uiView.translatesAutoresizingMaskIntoConstraints = false
+                uiViewHeight.constant = 1300
+                //
             }else if presentPage == 3 {
                 categoryArr.append("보낸 메시지")
                 contentArr.append("\(presentMessage)")
@@ -134,7 +196,7 @@ class GiftDetailController : UIViewController{
                 sendPresentBtn.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 20).isActive = true
                 sendPresentBtn.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 20).isActive = true
                 sendPresentBtn.rightAnchor.constraint(equalTo: scrollView.rightAnchor, constant: -20).isActive = true
-                sendPresentBtn.heightAnchor.constraint(equalToConstant: 40).isActive = true
+                sendPresentBtn.heightAnchor.constraint(equalToConstant: 50).isActive = true
                 //
                 
                 //view layout

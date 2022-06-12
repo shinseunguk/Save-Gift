@@ -25,8 +25,8 @@ class Findid2Controller : UIViewController{
         super.viewDidLoad()
         print("\(#function)")
         //TEST
-        dictionaryFromFindId["name"] = "신욱승"
-        dictionaryFromFindId["phone_number"] = "010-8831-1502"
+//        dictionaryFromFindId["name"] = "신욱승"
+//        dictionaryFromFindId["phone_number"] = "010-8831-1502"
         //TEST
         
         setUpTopLabel()
@@ -34,7 +34,7 @@ class Findid2Controller : UIViewController{
         tableView.allowsSelection = false
         tableView.separatorStyle = .none
         
-        checkNamePhone(requestUrl: "/check/namephone", param: dictionaryFromFindId)
+        checkNamePhone(requestUrl: "/find/id", param: dictionaryFromFindId)
     }
     
     func setUpTopLabel(){
@@ -74,7 +74,7 @@ class Findid2Controller : UIViewController{
     }
     
     func checkNamePhone(requestUrl : String!, param : Dictionary<String, Any>) -> Void{
-        print("/check/namephone param.... ", param)
+        print("/find/id param.... ", param)
         let paramData = try! JSONSerialization.data(withJSONObject: param)
         // URL 객체 정의
                 let url = URL(string: localUrl+requestUrl)
@@ -104,8 +104,9 @@ class Findid2Controller : UIViewController{
                     DispatchQueue.main.async {
                         if responseStringA != ""{
                             
-                            self.findIdArr.append("samdori96@nate.com")
-                            self.findIdArr.append("krdut1@gmail.com")
+//                            self.findIdArr.append("samdori96@nate.com")
+//                            self.findIdArr.append("krdut1@gmail.com")
+                            self.findIdArr = responseStringA.components(separatedBy: "&")
                             
                             self.tableView.dataSource = self
                             self.tableView.delegate = self

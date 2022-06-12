@@ -136,10 +136,13 @@ class Findpw2Controller : UIViewController, UITextFieldDelegate{
                     DispatchQueue.main.async{
                         if responseString == "true" {
                             self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "비밀번호가 재설정되었습니다", completeTitle: "확인", nil)
-                            if let viewControllers = self.navigationController?.viewControllers {
-                                    if viewControllers.count > 3 {
-                                        self.navigationController?.popToViewController(viewControllers[viewControllers.count - 3], animated: true)
-                                    }
+                            // 원하는 화면으로 pop
+                            let viewControllers: [UIViewController] = self.navigationController!.viewControllers
+                            print("\(#line) ", viewControllers)
+                            for aViewController in viewControllers {
+                                if aViewController is ViewController {
+                                    self.navigationController!.popToViewController(aViewController, animated: true)
+                                }
                             }
                         }else {
                             self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "회원정보 확인 실패", completeTitle: "확인", nil)
