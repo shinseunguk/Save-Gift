@@ -47,6 +47,9 @@ class GiftPresentPage1Controller : UIViewController{
     var cellImageViewArr : [String] = []
     var seqArr : [Int] = []
     var registrantArr : [String] = []
+    var presentIdArr : [String] = []
+    var presentCheckArr : [Int] = []
+    var presentMessageArr : [String] = []
     
     var uiImageArr : [UIImage] = []
     var presentIndex : Bool = false
@@ -95,6 +98,9 @@ class GiftPresentPage1Controller : UIViewController{
         seqArr.removeAll()
         registrantArr.removeAll()
         uiImageArr.removeAll()
+        presentIdArr.removeAll()
+        presentCheckArr.removeAll()
+        presentMessageArr.removeAll()
     }
     
     func LoginSetupInit(){
@@ -109,17 +115,6 @@ class GiftPresentPage1Controller : UIViewController{
         param["present"] = 1
         requestPost(requestUrl: "/gift/save", param: param)
     }
-    
-//    func bLoginSetupInit(){
-//        print("비로그인 setUP")
-//
-//        // 비로그인
-//        param["device_id"] = deviceID!
-//        param["index"] = "blogin"
-//        param["use_yn"] = "Unused"
-//        param["category"] = "registrationDate"
-//        requestPost(requestUrl: "/gift/save", param: param)
-//    }
     
     func requestPost(requestUrl : String!, param : Dictionary<String, Any>) -> Void{
         print("param.... ", param)
@@ -190,6 +185,11 @@ class GiftPresentPage1Controller : UIViewController{
                             self.cellImageViewArr.append(self.dic["img_url"] as! String)
                             self.seqArr.append(self.dic["seq"] as! Int)
                             self.registrantArr.append(self.dic["registrant"] as! String)
+                            
+                            self.presentIdArr.append(self.dic["present_id"] as! String)
+                            self.presentCheckArr.append(self.dic["present_check"] as! Int)
+                            self.presentMessageArr.append(self.dic["present_message"] as! String)
+                            
                             
                         }
                     }else {
@@ -379,11 +379,13 @@ extension GiftPresentPage1Controller: UICollectionViewDelegate, UICollectionView
                 vc.use_yn = self.useYn[indexPath.row]
                 vc.registrant = self.registrantArr[indexPath.row]
                 vc.registrationDate = self.registrationDateArr[indexPath.row]
+                vc.presentMessage = self.presentMessageArr[indexPath.row]
                 
                 //test
 //                vc.uiImage = self.uiImageArr[indexPath.row]
                 
                 vc.seq = self.seqArr[indexPath.row]
+                vc.presentPage = 1
                 
                 if self.presentIndex{
                     vc.presentIndex = true

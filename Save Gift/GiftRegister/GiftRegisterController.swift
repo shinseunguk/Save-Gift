@@ -1009,10 +1009,34 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
                //access the file name
             imgLocalUrl = referenceUrl.absoluteString
             
+            let image = VisionImage(image: self.barcodeImage!)
+            self.getText(image: self.barcodeImage!)
+            
+            let barcodeScanner = BarcodeScanner.barcodeScanner()
+            barcodeScanner.process(image) { barcodes, error in
+              guard error == nil, let barcodes = barcodes, !barcodes.isEmpty else {
+                // Error handling
+                return
+              }
+              // Recognized barcodes
+                for barcode in barcodes {
+                    //OCR
+                    let displayValue = barcode.displayValue
+                    
+                    self.registerDic[8] = displayValue
+                    
+                    if(error == nil){
+    //                    self.imageView.isHidden = false
+    //                    self.imageView.image = newImage // 받아온 이미지를 update
+                    }
+                }
+            } // process
+            
+            
             registerDic[7] = imgLocalUrl
             print("imgLocalUrl ", registerDic[7]!)
             
-            requestPostOverlap(requestUrl: "/overlap/photo", url : imgLocalUrl)
+            requestPostOverlap(requestUrl: "/overlap/photo", url : imgLocalUrl, barcode: registerDic[8] as! String)
            }
         
         
@@ -1322,7 +1346,7 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
                 task.resume()
     }
     
-    func requestPostOverlap(requestUrl : String!, url : String!) -> Void{
+    func requestPostOverlap(requestUrl : String!, url : String!, barcode : String!) -> Void{
 
 //        registerDic[0] -> 교환처
 //        registerDic[1] -> 상품명
@@ -1335,6 +1359,7 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
         let param = [
             "img_local_url" : url,
             "device_id" : deviceID!,
+            "barcode_number" : barcode
         ] as [String : Any] // JSON 객체로 전송할 딕셔너리
         
         let paramData = try! JSONSerialization.data(withJSONObject: param)
