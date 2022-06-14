@@ -9,6 +9,10 @@ import Foundation
 import UIKit
 import DropDown
 
+protocol presentProtocol1 : AnyObject{
+    func presentPageReload()
+}
+
 class GiftPresentPage1Controller : UIViewController{
     let LOG_TAG : String = "GiftPresentPage1Controller"
     @IBOutlet weak var collectionView: UICollectionView!
@@ -322,7 +326,15 @@ class GiftPresentPage1Controller : UIViewController{
     }
 }
 
-extension GiftPresentPage1Controller: UICollectionViewDelegate, UICollectionViewDataSource {
+extension GiftPresentPage1Controller: UICollectionViewDelegate, UICollectionViewDataSource, presentProtocol1 {
+    
+    func presentPageReload() {
+        print("\(#function)1")
+        if UserDefaults.standard.string(forKey: "ID") != nil { //로그인
+            //서버 통신후 사용자 혹은 로컬기기 -> DB에 저장되어 있는 값 가져오기
+            LoginSetupInit()
+        }
+    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
             return expirationPeriodLabelArr.count
@@ -391,6 +403,8 @@ extension GiftPresentPage1Controller: UICollectionViewDelegate, UICollectionView
                     vc.presentIndex = true
                     vc.presentId = self.presentId!
                 }
+                
+                vc.presentProtocol1 = self
                 
 //                vc.delegate = self // protocol delegate
 //                vc.modalPresentationStyle = .fullScreen
