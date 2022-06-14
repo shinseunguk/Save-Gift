@@ -36,6 +36,9 @@ class GiftDetailController : UIViewController{
     var delegate : GiftDeleteDelegate?
     var delegate2 : GiftDeleteDelegate2?
     var delegate3 : GiftDeleteDelegate3?
+    var presentProtocol1 : presentProtocol1?
+    var presentProtocol2 : presentProtocol2?
+    var presentProtocol3 : presentProtocol3?
     
     var detailToFriend : DetailToFriendDelegate?
     
@@ -122,7 +125,7 @@ class GiftDetailController : UIViewController{
                 //sendPresentBtn layout
                 sendPresentBtn.layer.cornerRadius = 5
                 sendPresentBtn.backgroundColor = .systemBlue
-                sendPresentBtn.setTitle("선물 사용처리 하기", for: .normal)
+                sendPresentBtn.setTitle("선물 사용처리", for: .normal)
                 sendPresentBtn.addTarget(self, action: #selector(cancelPresent), for: .touchUpInside)
                 scrollView.addSubview(sendPresentBtn)
                 
@@ -155,7 +158,7 @@ class GiftDetailController : UIViewController{
                 //sendPresentBtn layout
                 sendPresentBtn.layer.cornerRadius = 5
                 sendPresentBtn.backgroundColor = .systemBlue
-                sendPresentBtn.setTitle("선물 미사용처리 하기", for: .normal)
+                sendPresentBtn.setTitle("선물 미사용처리", for: .normal)
                 sendPresentBtn.addTarget(self, action: #selector(cancelPresent), for: .touchUpInside)
                 scrollView.addSubview(sendPresentBtn)
                 
@@ -258,9 +261,19 @@ class GiftDetailController : UIViewController{
         }
     }
     
-    @objc func cancelPresent(){
-        print("cancelPresent()")
-        normalAlertUseYn(title: "알림", message: "선물을 취소 하시겠습니까?")
+    @objc func cancelPresent(){ // 버튼 타이틀에 따라 분기
+        
+        if sendPresentBtn.titleLabel?.text == "선물 사용처리"{
+            normalAlertUseYn(title: "알림", message: "선물 사용처리 하시겠습니까?\n\n 미사용 -> 사용 (사용불가)")
+            presentProtocol1?.presentPageReload()
+        }else if sendPresentBtn.titleLabel?.text == "선물 미사용처리"{
+            normalAlertUseYn(title: "알림", message: "선물 미사용처리 하시겠습니까?\n\n 사용 -> 미사용 (사용가능)")
+            presentProtocol2?.presentPageReload()
+        }else if sendPresentBtn.titleLabel?.text == "선물 취소하기"{
+            normalAlertUseYn(title: "알림", message: "선물을 취소 하시겠습니까?")
+            presentProtocol3?.presentPageReload()
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
