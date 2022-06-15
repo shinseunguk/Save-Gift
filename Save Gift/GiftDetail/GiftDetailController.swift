@@ -527,12 +527,18 @@ class GiftDetailController : UIViewController{
         
         if btnTitle! == "선물 보내기" {
             presentGiftConRequest(requestUrl: "/gift/present", seq: seq!)
-        }else if btnTitle! == "선물 사용처리" {
-            print("\(#line)   1")
-        }else if btnTitle! == "선물 미사용처리" {
-            print("\(#line)   2")
-        }else if btnTitle! == "선물 취소하기" {
-            print("\(#line)   3")
+        }else {
+            if btnTitle! == "선물 사용처리" { // use_yn 변경 0 -> 1
+                param["index"] = "one"
+                param["seq"] = seq
+            }else if btnTitle! == "선물 미사용처리" { // use_yn 변경 1 -> 0
+                param["index"] = "two"
+                param["seq"] = seq
+            }else if btnTitle! == "선물 취소하기" { // present_id, present_message null 처리
+                param["index"] = "three"
+                param["seq"] = seq
+            }
+            presentTabRequest(requestUrl: "/present/tab", param: param)
         }
     }
     
@@ -598,6 +604,46 @@ class GiftDetailController : UIViewController{
         self.delegate2?.goToLogin()
         self.delegate3?.goToLogin()
         self.presentingViewController?.dismiss(animated: true, completion: nil)
+    }
+    
+    func presentTabRequest(requestUrl : String!, param : Dictionary<String, Any>) -> Void{
+        let paramData = try! JSONSerialization.data(withJSONObject: param)
+        // URL 객체 정의
+                let url = URL(string: localUrl+requestUrl)
+
+                // URLRequest 객체를 정의
+                var request = URLRequest(url: url!)
+                request.httpMethod = "POST"
+                request.httpBody = paramData
+
+                // HTTP 메시지 헤더
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.addValue("application/json", forHTTPHeaderField: "Accept")
+                let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                    // 서버가 응답이 없거나 통신이 실패
+                    if let e = error {
+                        print("\(self.LOG_TAG) An error has occured: \(e.localizedDescription)")
+                        self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "네트워크에 접속할 수 없습니다.", message: "네트워크 연결 상태를 확인해주세요.", completeTitle: "확인", nil)
+                        return
+                    }
+
+                    var responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+                    
+                    print(responseString!)
+                    DispatchQueue.main.async {
+                        if responseString! == "true"{
+//                            self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "선물완료", completeTitle: "확인", nil)
+//                            self.delegate?.giftPresent()
+//                            self.detailToFriend?.detailToFriendFunc()
+////                            self.dismiss(animated: true, completion: nil)
+//                            self.presentingViewController?.dismiss(animated: true, completion: nil)
+                        }else {
+                            print("기프티콘 선물 실패")
+                        }
+                    }
+                }
+                // POST 전송
+                task.resume()
     }
     
     func deletePresent(requestUrl : String!, seq : Int!) -> Void{
