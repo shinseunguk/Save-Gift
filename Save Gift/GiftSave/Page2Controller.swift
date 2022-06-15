@@ -251,11 +251,10 @@ class Page2Controller : UIViewController{
             filterButton.isHidden = false
 //            label.isHidden = true
             label.removeFromSuperview()
+            
+            //컬렉션뷰 Init
+            collectionViewInit()
         }
-        
-//        self.collectionView.reloadData()//이거말고
-        //컬렉션뷰 Init
-        collectionViewInit()
     }
     
     func collectionViewInit(){

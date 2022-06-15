@@ -981,6 +981,7 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
    }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+            registerDic[8] = ""
 //            picker.allowsEditing = false
         
 //            if let possibleImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
@@ -1024,37 +1025,20 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
                     let displayValue = barcode.displayValue
                     
                     self.registerDic[8] = displayValue
-                    
                     if(error == nil){
     //                    self.imageView.isHidden = false
     //                    self.imageView.image = newImage // 받아온 이미지를 update
                     }
                 }
+                self.registerDic[7] = self.imgLocalUrl
+                print("imgLocalUrl ", self.registerDic[7]!)
+                print("barcodeNumber ", self.registerDic[8]!)
+                if self.registerDic[8] as! String == nil || self.registerDic[8] as! String == "" {
+                    self.registerDic[8] = ""
+                }
+                self.requestPostOverlap(requestUrl: "/overlap/photo", url : self.imgLocalUrl, barcode: self.registerDic[8] as! String)
             } // process
-            
-            
-            registerDic[7] = imgLocalUrl
-            print("imgLocalUrl ", registerDic[7]!)
-            
-            requestPostOverlap(requestUrl: "/overlap/photo", url : imgLocalUrl, barcode: registerDic[8] as! String)
-           }
-        
-        
-        
-        
-//        let imageUrl = info[UIImagePickerController.InfoKey.referenceURL] as! URL
-//        let imageName = imageUrl.lastPathComponent
-//        let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentationDirectory, .userDomainMask, true).first as String?
-//        let photoURL = URL(fileURLWithPath: documentDirectory!)
-//        let localPath = photoURL.appendingPathComponent(imageName)//
-//        print("imageUrl ", imageUrl)
-//        print("imageName ", imageName)
-//        print("documentDirectory ", documentDirectory!)
-//        print("photoURL ", photoURL)
-//        print("localPath ", localPath)
-        
-//        let image = VisionImage(image: (info[UIImagePickerController.InfoKey.originalImage] as? UIImage)!)
-        
+       }
         picker.dismiss(animated: true, completion: nil) // picker를 닫아줌
     }
     
