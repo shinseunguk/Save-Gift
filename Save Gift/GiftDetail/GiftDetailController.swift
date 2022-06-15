@@ -270,7 +270,19 @@ class GiftDetailController : UIViewController{
             normalAlertUseYn(title: "알림", message: "선물 미사용처리 하시겠습니까?\n\n 사용 -> 미사용 (사용가능)")
             presentProtocol2?.presentPageReload()
         }else if sendPresentBtn.titleLabel?.text == "선물 취소하기"{
-            normalAlertUseYn(title: "알림", message: "선물을 취소 하시겠습니까?")
+            if use_yn == 1{ // 사용불가
+                if presentPage != 0 {
+                    if presentPage == 3{
+                        sendPresentBtn.backgroundColor = .systemGray2
+                        helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "이미 사용 완료된 선물은 취소할 수 없습니다.", completeTitle: "확인", nil)
+                    }
+                }
+            }else { // 사용안함
+                sendPresentBtn.backgroundColor = .systemBlue
+                normalAlertUseYn(title: "알림", message: "선물을 취소 하시겠습니까?")
+            }
+
+            
             presentProtocol3?.presentPageReload()
         }
         
@@ -331,6 +343,12 @@ class GiftDetailController : UIViewController{
         //여기서 날짜에 따른 쿠폰 상태 확인해주고 set text
         if use_yn == 1{
             contentArr[4] = "사용불가"
+            
+            if presentPage != 0 {
+                if presentPage == 3{
+                    sendPresentBtn.backgroundColor = .systemGray2
+                }
+            }
         }else {
             contentArr[4] = "사용가능"
         }
@@ -409,7 +427,7 @@ class GiftDetailController : UIViewController{
                 normalAlertUseYn(title: "알림", message: "이미 유효기간이 지난 기프티콘은 미사용 처리할 수 없습니다.\n 유효기간과 쿠폰상태를 변경 하고 처리 해주세요.\n 기프티콘 수정 화면으로 이동하시겠습니까?")
             }
         }else { //사용 가능 -> 이미 사용
-            normalAlertUseYn(title: "알림", message: "사용완료 처리 하시겠습니까?")
+            normalAlertUseYn(title: "알림", message: "사용 완료 처리 하시겠습니까?")
         }
     }
     
@@ -454,7 +472,7 @@ class GiftDetailController : UIViewController{
         if message == "정말로 기프티콘을 삭제하시겠습니까?"{
             let defaultAction = UIAlertAction(title: "삭제", style: .destructive, handler : {_ in self.deleteGiftCon()})
             alert.addAction(defaultAction)
-        }else if message == "사용완료 처리 하시겠습니까?"{
+        }else if message == "사용 완료 처리 하시겠습니까?"{
             let defaultAction = UIAlertAction(title: "확인", style: .default, handler : {_ in self.useYnGiftCon(index: "사용완료")})
             alert.addAction(defaultAction)
         }else if message == "미사용 처리 하시겠습니까?"{
@@ -468,6 +486,9 @@ class GiftDetailController : UIViewController{
             alert.addAction(defaultAction)
         }else if message == "선물을 취소 하시겠습니까?"{
             let defaultAction = UIAlertAction(title: "선물 취소", style: .default, handler : {_ in self.presentFriendToDetail()})
+            alert.addAction(defaultAction)
+        }else if message == "선물 사용처리 하시겠습니까?\n\n 미사용 -> 사용 (사용불가)" || message == "선물 미사용처리 하시겠습니까?\n\n 사용 -> 미사용 (사용가능)" {
+            let defaultAction = UIAlertAction(title: "확인", style: .default, handler :  {_ in self.presentFriendToDetail()})
             alert.addAction(defaultAction)
         }else {
             let defaultAction = UIAlertAction(title: "확인", style: .default, handler : nil)
@@ -497,14 +518,21 @@ class GiftDetailController : UIViewController{
     }
     
     func presentFriendToDetail(){ // 선물 보내기 / 선물 취소하기 분기 태워야함.
+        var btnTitle = sendPresentBtn.titleLabel?.text
+        print("btnTitle ", btnTitle!)
+        
         print("param =====> ", param)
         print("seq ..", seq!)
         print(contentArr[7])
         
-        if sendPresentBtn.titleLabel?.text == "선물 취소하기"{
-            print("선물 취소하기 \(#line)")
-        }else if sendPresentBtn.titleLabel?.text == "선물 보내기"{
+        if btnTitle! == "선물 보내기" {
             presentGiftConRequest(requestUrl: "/gift/present", seq: seq!)
+        }else if btnTitle! == "선물 사용처리" {
+            print("\(#line)   1")
+        }else if btnTitle! == "선물 미사용처리" {
+            print("\(#line)   2")
+        }else if btnTitle! == "선물 취소하기" {
+            print("\(#line)   3")
         }
     }
     
