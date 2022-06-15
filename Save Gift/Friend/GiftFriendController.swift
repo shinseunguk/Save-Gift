@@ -16,6 +16,7 @@ class GiftFriendController : UIViewController{
     let LOG_TAG : String = "GiftFriend2Controller"
     let helper : Helper = Helper();
     let localUrl : String = "".getLocalURL();
+    let deviceID : String? = UserDefaults.standard.string(forKey: "device_id")
     var detailDelegate : detailDelegate?
     var user_id : String?
     
@@ -49,6 +50,8 @@ class GiftFriendController : UIViewController{
     var presentIndex : Bool = false
     var presentId : String? = nil
     var img_url : String? = nil
+    
+    var param : [String : Any] = [:];
     
     
     override func viewDidLoad() {
@@ -265,12 +268,13 @@ class GiftFriendController : UIViewController{
     func normalActionSheet(title : String?, message : String?){
         let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
             alert.addAction(UIAlertAction(title: "선물하기(기프티콘)", style: .default) { action in
-                    guard let pushVC = self.storyboard?.instantiateViewController(identifier: "AllVC") as? Page1Controller else{
-                        return
-                    }
-                    pushVC.presentIndex = true;
-                    pushVC.presentId = message!
-                            self.navigationController?.pushViewController(pushVC, animated: true)
+                self.param["user_id"] = UserDefaults.standard.string(forKey: "ID")!
+                self.param["index"] = "login"
+                self.param["device_id"] = self.deviceID!
+                self.param["use_yn"] = "Unused"
+                self.param["category"] = "registrationDate"
+                
+                self.requestUnusedGiftCount(requestUrl: "/gift/save", param: self.param, message: message)
             })
             alert.addAction(UIAlertAction(title: "친구삭제", style: .destructive) { action in
                 print("친구삭제")
@@ -281,6 +285,51 @@ class GiftFriendController : UIViewController{
             })
             
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func requestUnusedGiftCount(requestUrl : String!, param : Dictionary<String, Any>, message : String!) -> Void{
+        print("param.... ", param)
+        let paramData = try! JSONSerialization.data(withJSONObject: param)
+        // URL 객체 정의
+                let url = URL(string: localUrl+requestUrl)
+
+                // URLRequest 객체를 정의
+                var request = URLRequest(url: url!)
+                request.httpMethod = "POST"
+                request.httpBody = paramData
+
+                // HTTP 메시지 헤더
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.addValue("application/json", forHTTPHeaderField: "Accept")
+//                request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+//                request.setValue(String(paramData.count), forHTTPHeaderField: "Content-Length")
+
+                // URLSession 객체를 통해 전송, 응답값 처리
+                let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                    // 서버가 응답이 없거나 통신이 실패
+                    if let e = error {
+                        print("\(self.LOG_TAG) An error has occured: \(e.localizedDescription)")
+                        self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "네트워크에 접속할 수 없습니다.", message: "네트워크 연결 상태를 확인해주세요.", completeTitle: "확인", nil)
+                        return
+                    }
+
+                var responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+                    var responseStringA = responseString as! String
+                    DispatchQueue.main.async {
+                    if responseStringA.count != 2{
+                        guard let pushVC = self.storyboard?.instantiateViewController(identifier: "AllVC") as? Page1Controller else{
+                            return
+                        }
+                        pushVC.self.presentIndex = true;
+                        pushVC.self.presentId = message!
+                        self.navigationController?.pushViewController(pushVC, animated: true)
+                    }else {
+                        self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "저장소에 사용하지 않은 기프티콘이 존재하지 않습니다.\n기프티콘을 저장해 선물해주세요.", completeTitle: "확인", nil)
+                    }
+                    }
+                }
+                // POST 전송
+                task.resume()
     }
     
     func requestGetRequestFriend(requestUrl : String!) -> Void{
