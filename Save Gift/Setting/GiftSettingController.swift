@@ -16,8 +16,8 @@ class GiftSettingController : UIViewController{
     @IBOutlet weak var loginBtn: UIButton!
     @IBOutlet weak var loginLabel: UILabel!
     @IBOutlet weak var lockImageView: UIImageView!
-    var arr = ["로그아웃", "내정보", "개발자", "알림설정", "앱버전", "기프티콘 사용법", "회원탈퇴", "테스트화면"] // TEST ARRAY
-//    var arr = ["로그아웃", "내정보", "알림설정", "앱버전", "기프티콘 사용법", "회원탈퇴", "개발자"]
+//    var arr = ["로그아웃", "내정보", "개발자", "알림설정", "앱버전", "기프티콘 사용법", "회원탈퇴", "테스트화면"] // TEST ARRAY
+    var arr = ["로그아웃", "내정보", "알림설정", "앱버전", "기프티콘 사용법", "회원탈퇴", "개발자"]
     var imgArr: [UIImage] = [
         UIImage(systemName: "key.fill")!, // 로그아웃
         UIImage(systemName: "person.fill")!, // 내정보

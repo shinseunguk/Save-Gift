@@ -329,7 +329,8 @@ class GiftPresentPage1Controller : UIViewController{
 extension GiftPresentPage1Controller: UICollectionViewDelegate, UICollectionViewDataSource, presentProtocol1 {
     
     func presentPageReload() {
-        print("\(#function)1")
+        self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "사용처리 완료\n해당 기프티콘은 사용한 선물 탭 에서 확인 가능합니다.", completeTitle: "확인", nil)
+        
         if UserDefaults.standard.string(forKey: "ID") != nil { //로그인
             //서버 통신후 사용자 혹은 로컬기기 -> DB에 저장되어 있는 값 가져오기
             LoginSetupInit()
@@ -392,6 +393,7 @@ extension GiftPresentPage1Controller: UICollectionViewDelegate, UICollectionView
                 vc.registrant = self.registrantArr[indexPath.row]
                 vc.registrationDate = self.registrationDateArr[indexPath.row]
                 vc.presentMessage = self.presentMessageArr[indexPath.row]
+                vc.presentId = self.presentIdArr[indexPath.row]
                 
                 //test
 //                vc.uiImage = self.uiImageArr[indexPath.row]

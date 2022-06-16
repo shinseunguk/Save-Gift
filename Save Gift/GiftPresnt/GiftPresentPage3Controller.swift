@@ -338,7 +338,8 @@ class GiftPresentPage3Controller : UIViewController{
 extension GiftPresentPage3Controller: UICollectionViewDelegate, UICollectionViewDataSource, presentProtocol3 {
     
     func presentPageReload() {
-        print("\(#function)3")
+        self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "선물취소 완료\n해당 기프티콘은 하단 저장소 -> Unused 탭에서 확인 가능합니다.", completeTitle: "확인", nil)
+        
         if UserDefaults.standard.string(forKey: "ID") != nil { //로그인
             //서버 통신후 사용자 혹은 로컬기기 -> DB에 저장되어 있는 값 가져오기
             LoginSetupInit()
