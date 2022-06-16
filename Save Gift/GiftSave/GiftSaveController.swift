@@ -257,21 +257,7 @@ class GiftSaveController : TabmanViewController{
         var description: String!
         
         var authCount : Int = 0
-//        authContext.localizedCancelTitle = "취소"
-//        self.btnBlurRemove()
-//        self.nextButton.removeFromSuperview()
-//        self.floatingBtn()
-        
-//        let type = self.getBiometryType()
-//        if type == .faceId {
-//            nextButton.setImage(UIImage(systemName: "faceid"), for: .normal)
-//        } else if type == .touchId {
-//            nextButton.setImage(UIImage(systemName: "touchid"), for: .normal)
-//        } else {
-//            self.btnBlurRemove()
-//            self.nextButton.removeFromSuperview()
-//            self.floatingBtn()
-//        }
+        authContext.localizedCancelTitle = "취소"
         
         if authContext.canEvaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, error: &error) {
         authContext.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "서비스를 이용하기 위해 인증 합니다.") { (success, error) in
