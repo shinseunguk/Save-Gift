@@ -89,6 +89,8 @@ class GiftSaveController : TabmanViewController{
             self.nextButton.removeFromSuperview()
             self.floatingBtn()
         }else {
+            auth() // 테스트시에는 주석처리
+            
             let type = self.getBiometryType()
             if type == .faceId {
                 nextButton.setImage(UIImage(systemName: "faceid"), for: .normal)
@@ -291,15 +293,15 @@ class GiftSaveController : TabmanViewController{
                 switch error! {
                 // 시스템(운영체제)에 의해 인증 과정이 종료 LAError.systemCancel:
                 case LAError.systemCancel:
-                    self.notifyUser(msg: "시스템에 의해 중단되었습니다.", err: error?.localizedDescription)
+                    self.notifyUser1(msg: "시스템에 의해 중단되었습니다.", err: error?.localizedDescription)
                 // 사용자가 취소함 LAError.userCancel
                 case LAError.userCancel:
-                    self.notifyUser(msg: "인증이 취소 되었습니다.", err: error?.localizedDescription)
+                    self.notifyUser1(msg: "인증이 취소 되었습니다.", err: error?.localizedDescription)
                 // 터치아이디 대신 암호 입력 버튼을 누른경우(터치아이디 1회 틀리면 암호 입력 버튼 나옴) LAError.userFallback
                 case LAError.userFallback:
-                    self.notifyUser(msg: "터치 아이디 인증", err: "암호 입력을 선택했습니다.")
+                    self.notifyUser1(msg: "터치 아이디 인증", err: "암호 입력을 선택했습니다.")
                 default:
-                    self.notifyUser(msg: "인증 실패", err: error?.localizedDescription)
+                    self.notifyUser1(msg: "인증 실패", err: error?.localizedDescription)
                 }
             }
         }
@@ -308,12 +310,12 @@ class GiftSaveController : TabmanViewController{
         switch error! {
         // 터치 아이디로 등록한 지문이 없다.
         case LAError.biometryNotEnrolled:
-            self.notifyUser(msg: "터치아이디 지문이 없습니다.", err: error?.localizedDescription)
+            self.notifyUser1(msg: "등록된 TouchID 혹은 지문이 없습니다.", err: error?.localizedDescription)
         // 디바이스의 패스코드를 설정 하지 않았다.
         case LAError.passcodeNotSet:
-            self.notifyUser(msg: "설정된 패스코드가 없습니다.", err: error?.localizedDescription)
+            self.notifyUser1(msg: "설정된 패스코드가 없습니다.", err: error?.localizedDescription)
         default:
-            self.notifyUser(msg: "터치아이디를 사용할 수 없습니다.", err: error?.localizedDescription)
+            self.notifyUser2(msg: "터치아이디를 사용할 수 없습니다.", err: error?.localizedDescription)
         }
     }
         
@@ -339,17 +341,38 @@ class GiftSaveController : TabmanViewController{
         
     }
     
-    func notifyUser(msg: String, err: String?) {
+    func notifyUser1(msg: String, err: String?) {
         DispatchQueue.main.async{
             let alert =  UIAlertController(title: msg, message: err, preferredStyle: .alert)
             
-            let cancelAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            let cancelAction = UIAlertAction(title: "확인", style: .cancel, handler: nil)
             
             alert.addAction(cancelAction)
             
             self.present(alert, animated: true, completion: nil)
         }
     }
+    
+    func notifyUser2(msg: String, err: String?) {
+        DispatchQueue.main.async{
+            let alert =  UIAlertController(title: msg, message: err, preferredStyle: .alert)
+            
+            let defaultAction = UIAlertAction(title: "설정", style: .default, handler: {_ in self.goSetting()})
+            let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+            alert.addAction(defaultAction)
+            alert.addAction(cancelAction)
+            
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    func goSetting() {
+        guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+        if UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url)
+        }
+    }
+    
 }
 
 extension GiftSaveController: PageboyViewControllerDataSource, TMBarDataSource{
