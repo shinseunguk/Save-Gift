@@ -93,6 +93,14 @@ class GiftDetailController : UIViewController{
         
         print("presentIndex ", presentIndex)
         print("presentPage ", presentPage)
+        print("presentId \(#line)", presentId)
+        
+        if presentPage != 0 {
+            if presentPage == 0 || presentPage == 1 {
+                categoryArr[6] = "선물 한 사람"
+            }
+        }
+        categoryArr[6] = "선물 한 사람"
         
         presentPageSetUp()
         presentSetUp()
@@ -632,11 +640,11 @@ class GiftDetailController : UIViewController{
                     print(responseString!)
                     DispatchQueue.main.async {
                         if responseString! == "true"{
-//                            self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "선물완료", completeTitle: "확인", nil)
-//                            self.delegate?.giftPresent()
-//                            self.detailToFriend?.detailToFriendFunc()
-////                            self.dismiss(animated: true, completion: nil)
-//                            self.presentingViewController?.dismiss(animated: true, completion: nil)
+                            self.presentProtocol1?.presentPageReload()
+                            self.presentProtocol2?.presentPageReload()
+                            self.presentProtocol3?.presentPageReload()
+                            
+                            self.presentingViewController?.dismiss(animated: true, completion: nil)
                         }else {
                             print("기프티콘 선물 실패")
                         }
@@ -939,7 +947,7 @@ extension GiftDetailController : UITableViewDelegate, UITableViewDataSource, det
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "GiftDetailTableViewCell") as! GiftDetailTableViewCell
-        if categoryArr.count == 8{
+        if presentPage != 0{
             cell.copyBtn.isHidden = true
         }
         if indexPath.row != 7 {
