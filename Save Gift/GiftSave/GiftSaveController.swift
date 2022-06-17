@@ -301,7 +301,7 @@ class GiftSaveController : TabmanViewController{
         case LAError.passcodeNotSet:
             self.notifyUser1(msg: "설정된 패스코드가 없습니다.", err: error?.localizedDescription)
         default:
-            self.notifyUser2(msg: "터치아이디를 사용할 수 없습니다.", err: error?.localizedDescription)
+            self.notifyUser1(msg: "터치아이디를 사용할 수 없습니다.", err: error?.localizedDescription)
         }
     }
         
