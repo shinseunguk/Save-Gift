@@ -291,19 +291,19 @@ class GiftSaveController : TabmanViewController{
                 }
             }
         }
-    }else {
-        // 터치 아이디 사용할 수 없음
-        switch error! {
-        // 터치 아이디로 등록한 지문이 없다.
-        case LAError.biometryNotEnrolled:
-            self.notifyUser1(msg: "등록된 TouchID 혹은 지문이 없습니다.", err: error?.localizedDescription)
-        // 디바이스의 패스코드를 설정 하지 않았다.
-        case LAError.passcodeNotSet:
-            self.notifyUser1(msg: "설정된 패스코드가 없습니다.", err: error?.localizedDescription)
-        default:
-            self.notifyUser1(msg: "터치아이디를 사용할 수 없습니다.", err: error?.localizedDescription)
+        }else {
+            // 터치 아이디 사용할 수 없음
+            switch error! {
+            // 터치 아이디로 등록한 지문이 없다.
+            case LAError.biometryNotEnrolled:
+                self.notifyUser1(msg: "등록된 TouchID 혹은 지문이 없습니다.", err: error?.localizedDescription)
+            // 디바이스의 패스코드를 설정 하지 않았다.
+            case LAError.passcodeNotSet:
+                self.notifyUser1(msg: "설정된 패스코드가 없습니다.", err: error?.localizedDescription)
+            default:
+                self.notifyUser1(msg: "터치아이디를 사용할 수 없습니다.", err: error?.localizedDescription)
+            }
         }
-    }
         
 
         
