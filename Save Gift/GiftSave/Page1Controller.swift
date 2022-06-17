@@ -162,7 +162,7 @@ class Page1Controller : UIViewController{
         helper.showLoading()
         requestPost(requestUrl: "/gift/save", param: param)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.helper.hideLoading()
             self.btnBlurRemove()
         }
@@ -182,7 +182,7 @@ class Page1Controller : UIViewController{
         helper.showLoading()
         requestPost(requestUrl: "/gift/save", param: param)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.helper.hideLoading()
             self.btnBlurRemove()
         }

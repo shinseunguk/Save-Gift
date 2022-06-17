@@ -1083,7 +1083,6 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
     
     @IBAction func registerAction(_ sender: Any) {
         registerBtn.isEnabled = false
-        helper.showLoading()
         self.tableView.endEditing(true)
         if registerBtn.titleLabel?.text! == "수정"{ // 기프티콘 수정
             
