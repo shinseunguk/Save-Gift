@@ -18,7 +18,10 @@ class Page3Controller : UIViewController{
     let LOG_TAG : String = "Page3Controller"
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var filterButton: UIButton!
+    @IBOutlet var viewMain: UIView!
     
+    // MARK: Blur효과가 적용될 EffectView
+    var viewBlurEffect:UIVisualEffectView!
     let helper : Helper = Helper()
     //cocoa pod
     let dropDown = DropDown()
@@ -107,6 +110,28 @@ class Page3Controller : UIViewController{
 //        arrRemoveAll()
     }
     
+    // MARK: 블러 추가 버튼
+    func btnBlurCreate() {
+        if viewBlurEffect == nil {
+            viewBlurEffect = UIVisualEffectView()
+
+            //Blur Effect는 .light 외에도 .dark, .regular 등이 있으니 적용해보세요!
+            viewBlurEffect.effect = UIBlurEffect(style: .light)
+//            viewBlurEffect.effect = UIBlurEffect(style: UIBlurEffect.Style.prominent)
+            
+            //viewMain에 Blur 효과가 적용된 EffectView 추가
+            self.viewMain.addSubview(viewBlurEffect)
+            viewBlurEffect.frame = self.viewMain.bounds
+        }
+    }
+    // MARK: 블러 제거 버튼
+    func btnBlurRemove() {
+        if viewBlurEffect != nil {
+            viewBlurEffect.removeFromSuperview()
+            viewBlurEffect = nil
+        }
+    }
+    
     func arrRemoveAll(){
         brandNameLabelArr.removeAll()
         productNameLabelArr.removeAll()
@@ -129,7 +154,16 @@ class Page3Controller : UIViewController{
         param["device_id"] = deviceID!
         param["use_yn"] = "All"
         param["category"] = "registrationDate"
+        
+        //blur효과
+        btnBlurCreate()
+        helper.showLoading()
         requestPost(requestUrl: "/gift/save", param: param)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.helper.hideLoading()
+            self.btnBlurRemove()
+        }
     }
     
     func bLoginSetupInit(){
@@ -139,7 +173,16 @@ class Page3Controller : UIViewController{
         param["index"] = "blogin"
         param["use_yn"] = "All"
         param["category"] = "registrationDate"
+        
+        //blur효과
+        btnBlurCreate()
+        helper.showLoading()
         requestPost(requestUrl: "/gift/save", param: param)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.helper.hideLoading()
+            self.btnBlurRemove()
+        }
     }
     
     func requestPost(requestUrl : String!, param : Dictionary<String, Any>) -> Void{

@@ -17,6 +17,10 @@ class GiftPresentPage3Controller : UIViewController{
     let LOG_TAG : String = "GiftPresentPage3Controller"
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var filterButton: UIButton!
+    @IBOutlet var viewMain: UIView!
+    
+    // MARK: Blur효과가 적용될 EffectView
+    var viewBlurEffect:UIVisualEffectView!
     let label = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 41))
     
     let helper : Helper = Helper()
@@ -92,6 +96,28 @@ class GiftPresentPage3Controller : UIViewController{
 //        arrRemoveAll()
     }
     
+    // MARK: 블러 추가 버튼
+    func btnBlurCreate() {
+        if viewBlurEffect == nil {
+            viewBlurEffect = UIVisualEffectView()
+
+            //Blur Effect는 .light 외에도 .dark, .regular 등이 있으니 적용해보세요!
+            viewBlurEffect.effect = UIBlurEffect(style: .light)
+//            viewBlurEffect.effect = UIBlurEffect(style: UIBlurEffect.Style.prominent)
+            
+            //viewMain에 Blur 효과가 적용된 EffectView 추가
+            self.viewMain.addSubview(viewBlurEffect)
+            viewBlurEffect.frame = self.viewMain.bounds
+        }
+    }
+    // MARK: 블러 제거 버튼
+    func btnBlurRemove() {
+        if viewBlurEffect != nil {
+            viewBlurEffect.removeFromSuperview()
+            viewBlurEffect = nil
+        }
+    }
+    
     func arrRemoveAll(){
         brandNameLabelArr.removeAll()
         productNameLabelArr.removeAll()
@@ -118,19 +144,17 @@ class GiftPresentPage3Controller : UIViewController{
         param["use_yn"] = "Unused"
         param["category"] = "registrationDate"
         param["present"] = 3
+        
+        //blur효과
+        btnBlurCreate()
+        helper.showLoading()
         requestPost(requestUrl: "/gift/save", param: param)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.helper.hideLoading()
+            self.btnBlurRemove()
+        }
     }
-    
-    //    func bLoginSetupInit(){
-    //        print("비로그인 setUP")
-    //
-    //        // 비로그인
-    //        param["device_id"] = deviceID!
-    //        param["index"] = "blogin"
-    //        param["use_yn"] = "Unused"
-    //        param["category"] = "registrationDate"
-    //        requestPost(requestUrl: "/gift/save", param: param)
-    //    }
     
     func requestPost(requestUrl : String!, param : Dictionary<String, Any>) -> Void{
         print("param.... ", param)

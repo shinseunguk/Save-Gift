@@ -190,7 +190,7 @@ class GiftSaveController : TabmanViewController{
             viewBlurEffect = UIVisualEffectView()
 
             //Blur Effect는 .light 외에도 .dark, .regular 등이 있으니 적용해보세요!
-            viewBlurEffect.effect = UIBlurEffect(style: .dark)
+            viewBlurEffect.effect = UIBlurEffect(style: .light)
 //            viewBlurEffect.effect = UIBlurEffect(style: UIBlurEffect.Style.prominent)
             
             //viewMain에 Blur 효과가 적용된 EffectView 추가
