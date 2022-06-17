@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import LocalAuthentication
 
 class LoadingController : UIViewController {
     let LOG_TAG : String = "LoadingController"
@@ -16,8 +17,15 @@ class LoadingController : UIViewController {
     let deviceID = UIDevice.current.identifierForVendor!.uuidString
     let deviceModel = GetDeviceModel.deviceModelName()
     let helper : Helper = Helper()
+    let authContext = LAContext()
     
     var pushToken : String = "test"
+    
+    enum BiometryType {
+        case faceId
+        case touchId
+        case none
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,16 +43,39 @@ class LoadingController : UIViewController {
         requestNotificationPermission()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
-            let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "tabbarVC")
-            self.navigationController?.pushViewController(pushVC!, animated: true)
+            
+            let type = self.getBiometryType()
+            print("type ", type)
+            if type == .faceId || type == .touchId {
+                let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "UnlockController")
+                self.navigationController?.pushViewController(pushVC!, animated: true)
+            }else {
+                let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "tabbarVC")
+                self.navigationController?.pushViewController(pushVC!, animated: true)
+            }
+            
+//            let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "tabbarVC")
+//            self.navigationController?.pushViewController(pushVC!, animated: true)
         }
+    }
+    
+    func getBiometryType() -> BiometryType {
+        switch authContext.biometryType {
+            case .faceID:
+                return .faceId
+            case .touchID:
+                return .touchId
+            default:
+                return .none
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
 
             navigationController?.setNavigationBarHidden(true, animated: animated)
-        }
+    }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)

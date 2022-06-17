@@ -32,6 +32,7 @@
 		048124F427EC1F07003DF866 /* CollectionViewTopCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048124F227EC1F07003DF866 /* CollectionViewTopCell.xib */; };
 		0487041B28447F5600CB8A23 /* PresentMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0487041928447F5600CB8A23 /* PresentMessageTableViewCell.xib */; };
 		0487041D2844875C00CB8A23 /* PresentMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0487041C2844875C00CB8A23 /* PresentMessageTableViewCell.swift */; };
+		04A15D2C285C6E800066F890 /* UnlockController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A15D2B285C6E7F0066F890 /* UnlockController.swift */; };
 		04BE84B4281A316D005FE5FC /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BE84B2281A316D005FE5FC /* SettingTableViewCell.swift */; };
 		04BE84B5281A316D005FE5FC /* SettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04BE84B3281A316D005FE5FC /* SettingTableViewCell.xib */; };
 		04D2D81427F53DFF0052D877 /* kakaotalk.png in Resources */ = {isa = PBXBuildFile; fileRef = 04D2D80B27F53DFF0052D877 /* kakaotalk.png */; };
@@ -139,6 +140,7 @@
 		048124F227EC1F07003DF866 /* CollectionViewTopCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionViewTopCell.xib; sourceTree = "<group>"; };
 		0487041928447F5600CB8A23 /* PresentMessageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PresentMessageTableViewCell.xib; sourceTree = "<group>"; };
 		0487041C2844875C00CB8A23 /* PresentMessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentMessageTableViewCell.swift; sourceTree = "<group>"; };
+		04A15D2B285C6E7F0066F890 /* UnlockController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockController.swift; sourceTree = "<group>"; };
 		04BE84B2281A316D005FE5FC /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
 		04BE84B3281A316D005FE5FC /* SettingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingTableViewCell.xib; sourceTree = "<group>"; };
 		04D2D80B27F53DFF0052D877 /* kakaotalk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kakaotalk.png; sourceTree = "<group>"; };
@@ -867,6 +869,7 @@
 				A2DC3F2527817EFC00D354B1 /* LoadingController.swift */,
 				A225D707275B5FD600484EAE /* LaunchScreen.storyboard */,
 				A225D702275B5FD500484EAE /* Main.storyboard */,
+				04A15D2B285C6E7F0066F890 /* UnlockController.swift */,
 			);
 			path = StoryBoard;
 			sourceTree = "<group>";
@@ -1767,6 +1770,7 @@
 				A28F439A276F55B700B5DB17 /* MainController.swift in Sources */,
 				A2D4935E2790615600FB5770 /* SettingNotiController.swift in Sources */,
 				A2B6C2DE27A81E2100B8617B /* RegisterUseTableViewCell.swift in Sources */,
+				04A15D2C285C6E800066F890 /* UnlockController.swift in Sources */,
 				A2D33524275E474D00ECF4B1 /* UITextFiled+Extension.swift in Sources */,
 				A225D701275B5FD500484EAE /* ViewController.swift in Sources */,
 				042C0FB927FFB93B005EDA8E /* GiftDetailTableViewCell.swift in Sources */,
