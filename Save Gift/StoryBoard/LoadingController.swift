@@ -53,13 +53,11 @@ class LoadingController : UIViewController {
                 let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "tabbarVC")
                 self.navigationController?.pushViewController(pushVC!, animated: true)
             }
-            
-//            let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "tabbarVC")
-//            self.navigationController?.pushViewController(pushVC!, animated: true)
         }
     }
     
     func getBiometryType() -> BiometryType {
+        authContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil)
         switch authContext.biometryType {
             case .faceID:
                 return .faceId

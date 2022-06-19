@@ -26,11 +26,12 @@ class UnlockController : UIViewController {
         lockBtn()
         
         let type = self.getBiometryType()
+        authContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil)
         if type == .faceId {
             nextButton.setImage(UIImage(systemName: "faceid"), for: .normal)
         } else if type == .touchId {
             nextButton.setImage(UIImage(systemName: "touchid"), for: .normal)
-        } else {
+        }else {
             let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "tabbarVC")
             self.navigationController?.pushViewController(pushVC!, animated: true)
         }
@@ -46,6 +47,7 @@ class UnlockController : UIViewController {
     
     
     func getBiometryType() -> BiometryType {
+        authContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil)
         switch authContext.biometryType {
             case .faceID:
                 return .faceId

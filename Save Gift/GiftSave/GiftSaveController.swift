@@ -79,29 +79,29 @@ class GiftSaveController : TabmanViewController{
         setTabMan()
         
         //blur효과
-        btnBlurCreate()
+//        btnBlurCreate()
         
         //가운데 lock btn
-        lockBtn()
+//        lockBtn()
         
-        if UserDefaults.standard.bool(forKey: "lock"){ //한번이라도 푼적 있음.
-            self.btnBlurRemove()
-            self.nextButton.removeFromSuperview()
-            self.floatingBtn()
-        }else {
-            auth() // 테스트시에는 주석처리
-            
-            let type = self.getBiometryType()
-            if type == .faceId {
-                nextButton.setImage(UIImage(systemName: "faceid"), for: .normal)
-            } else if type == .touchId {
-                nextButton.setImage(UIImage(systemName: "touchid"), for: .normal)
-            } else {
-                self.btnBlurRemove()
-                self.nextButton.removeFromSuperview()
-                self.floatingBtn()
-            }
-        }
+//        if UserDefaults.standard.bool(forKey: "lock"){ //한번이라도 푼적 있음.
+//            self.btnBlurRemove()
+//            self.nextButton.removeFromSuperview()
+//            self.floatingBtn()
+//        }else {
+//            auth() // 테스트시에는 주석처리
+//
+//            let type = self.getBiometryType()
+//            if type == .faceId {
+//                nextButton.setImage(UIImage(systemName: "faceid"), for: .normal)
+//            } else if type == .touchId {
+//                nextButton.setImage(UIImage(systemName: "touchid"), for: .normal)
+//            } else {
+//                self.btnBlurRemove()
+//                self.nextButton.removeFromSuperview()
+//                self.floatingBtn()
+//            }
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -316,6 +316,7 @@ class GiftSaveController : TabmanViewController{
 
     
     func getBiometryType() -> BiometryType {
+        authContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil)
         switch authContext.biometryType {
             case .faceID:
                 return .faceId
