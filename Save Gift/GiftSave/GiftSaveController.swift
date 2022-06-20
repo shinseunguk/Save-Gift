@@ -78,6 +78,9 @@ class GiftSaveController : TabmanViewController{
         //tabbar setting(TabMan)
         setTabMan()
         
+        //floating Button
+        floatingBtn()
+        
         //blur효과
 //        btnBlurCreate()
         

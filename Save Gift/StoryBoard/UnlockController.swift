@@ -92,7 +92,7 @@ class UnlockController : UIViewController {
         var description: String!
         
         var authCount : Int = 0
-        authContext.localizedCancelTitle = "취소"
+        authContext.localizedCancelTitle = ""
         
         if authContext.canEvaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, error: &error) {
         authContext.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "서비스를 이용하기 위해 인증 합니다.") { (success, error) in
