@@ -549,9 +549,53 @@
                     <view key="view" contentMode="scaleToFill" id="8ym-86-faa">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W45-dW-hgD">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZbY-6J-mDG">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1218"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="F A Q" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Baf-FK-8Aa">
+                                                <rect key="frame" x="179.66666666666666" y="25" width="54.666666666666657" height="28"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="Baf-FK-8Aa" firstAttribute="centerX" secondItem="ZbY-6J-mDG" secondAttribute="centerX" id="S3x-SB-wRg"/>
+                                            <constraint firstItem="Baf-FK-8Aa" firstAttribute="top" secondItem="ZbY-6J-mDG" secondAttribute="top" constant="25" id="yko-Sw-yys"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="ZbY-6J-mDG" firstAttribute="height" secondItem="W45-dW-hgD" secondAttribute="height" constant="400" id="2hy-RS-3M0"/>
+                                    <constraint firstAttribute="bottom" secondItem="ZbY-6J-mDG" secondAttribute="bottom" id="GWS-L5-Led"/>
+                                    <constraint firstAttribute="trailing" secondItem="ZbY-6J-mDG" secondAttribute="trailing" id="a2T-dZ-kZp"/>
+                                    <constraint firstItem="ZbY-6J-mDG" firstAttribute="width" secondItem="W45-dW-hgD" secondAttribute="width" id="bdq-IV-1S7"/>
+                                    <constraint firstItem="ZbY-6J-mDG" firstAttribute="leading" secondItem="W45-dW-hgD" secondAttribute="leading" id="rZp-jo-K7m"/>
+                                    <constraint firstItem="ZbY-6J-mDG" firstAttribute="top" secondItem="W45-dW-hgD" secondAttribute="top" id="tbp-SW-DKR"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="iwF-xj-dQt"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="QZi-mv-rt8"/>
+                            </scrollView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="Tga-ll-loK"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="W45-dW-hgD" firstAttribute="top" secondItem="Tga-ll-loK" secondAttribute="top" id="jj1-QO-JLE"/>
+                            <constraint firstItem="Tga-ll-loK" firstAttribute="trailing" secondItem="W45-dW-hgD" secondAttribute="trailing" id="q0w-JO-53J"/>
+                            <constraint firstItem="W45-dW-hgD" firstAttribute="leading" secondItem="Tga-ll-loK" secondAttribute="leading" id="sxM-4l-Zlo"/>
+                            <constraint firstItem="Tga-ll-loK" firstAttribute="bottom" secondItem="W45-dW-hgD" secondAttribute="bottom" id="thZ-4g-TNi"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="faqLabel" destination="Baf-FK-8Aa" id="awh-ag-16i"/>
+                        <outlet property="scrollView" destination="W45-dW-hgD" id="Son-1j-5FS"/>
+                        <outlet property="uiView" destination="ZbY-6J-mDG" id="Fus-4R-YGa"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NhN-Mn-0pv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1201,7 +1245,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="기프티콘 공유 서비스 준비중입니다." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ipk-vS-S26">
-                                <rect key="frame" x="107.00000000000001" y="420" width="200.33333333333337" height="56"/>
+                                <rect key="frame" x="137" y="420.33333333333331" width="140.33333333333337" height="55.333333333333314"/>
                                 <fontDescription key="fontDescription" name="NanumAmSeuTeReuDam" family="나눔손글씨 암스테르담" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
