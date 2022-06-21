@@ -47,7 +47,9 @@ class LoadingController : UIViewController {
             let type = self.getBiometryType()
             print("type ", type)
             if type == .faceId || type == .touchId {
-                let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "UnlockController")
+//                let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "UnlockController")
+//                self.navigationController?.pushViewController(pushVC!, animated: true)
+                let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "tabbarVC")
                 self.navigationController?.pushViewController(pushVC!, animated: true)
             }else {
                 let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "tabbarVC")
