@@ -557,16 +557,16 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="1218"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="F A Q" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Baf-FK-8Aa">
-                                                <rect key="frame" x="179.66666666666666" y="25" width="54.666666666666657" height="28"/>
+                                                <rect key="frame" x="179.66666666666666" y="50" width="54.666666666666657" height="28"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
-                                                <nil key="textColor"/>
+                                                <color key="textColor" systemColor="systemBlueColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="Baf-FK-8Aa" firstAttribute="centerX" secondItem="ZbY-6J-mDG" secondAttribute="centerX" id="S3x-SB-wRg"/>
-                                            <constraint firstItem="Baf-FK-8Aa" firstAttribute="top" secondItem="ZbY-6J-mDG" secondAttribute="top" constant="25" id="yko-Sw-yys"/>
+                                            <constraint firstItem="Baf-FK-8Aa" firstAttribute="top" secondItem="ZbY-6J-mDG" secondAttribute="top" constant="50" id="yko-Sw-yys"/>
                                         </constraints>
                                     </view>
                                 </subviews>

@@ -16,6 +16,9 @@ class SettingHowToUseController : UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var uiView: UIView!
     
+    
+    var faqArr : [String] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -26,12 +29,19 @@ class SettingHowToUseController : UIViewController {
         self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.black]
         self.navigationItem.title = "기프티콘 사용법"
         
+        faqArrSetUP() // 배열 append 함수
         tableViewSetUp()
+    }
+    
+    func faqArrSetUP(){
+        faqArr.append("기프티콘 저장소란?기프티콘 저장소란?기프티콘 저장소란?기프티콘 저장소란?기프티콘 저장소란?기프티콘 저장소란?")
+        faqArr.append("기능 소개")
     }
     
     func tableViewSetUp(){
         faqTableView.isScrollEnabled = false
         faqTableView.dataSource = self
+        faqTableView.delegate = self
         self.scrollView.addSubview(faqTableView)
         
         faqTableView.register(UINib(nibName: "SettingHowToUseCell", bundle: nil), forCellReuseIdentifier: "SettingHowToUseCell")
@@ -47,20 +57,26 @@ class SettingHowToUseController : UIViewController {
 }
 
 extension SettingHowToUseController : UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        print("\(#function)!!!!!!!!!!!!!!!!!")
+           return 80
+        
+   }
+    
     // Set the spacing between sections
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return CGFloat(20)
-    }
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        print("heightForHeaderInSection!!")
+//        return 30
+//    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6
+        return faqArr.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SettingHowToUseCell", for: indexPath) as! SettingHowToUseCell
-        cell.leftLabel?.text = "\(indexPath.row)"
+        cell.leftLabel?.text = faqArr[indexPath.row]
         return cell
     }
-    
     
 }
