@@ -15,9 +15,10 @@ class SettingHowToUseCell: UITableViewCell {
         // Initialization code
         
         //셀 radius
-        self.contentView.layer.cornerRadius = 13
-
-        // Your border code here (set border to contentView)
+        self.contentView.layer.cornerRadius = 10
+//
+//
+//        // Your border code here (set border to contentView)
         self.contentView.layer.borderColor = UIColor.systemGray2.cgColor
         self.contentView.layer.borderWidth = 1
     }
@@ -25,9 +26,13 @@ class SettingHowToUseCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        print("\(#line) \(#function)")
         // Configure the view for the selected state
-        self.contentView.frame = self.contentView.frame.inset(by: UIEdgeInsets(top: 40, left: 10, bottom: 10, right: 10))
+    }
+     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0))
     }
     
 }
