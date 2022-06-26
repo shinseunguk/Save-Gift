@@ -136,7 +136,8 @@ class Findpw2Controller : UIViewController, UITextFieldDelegate{
                     DispatchQueue.main.async{
                         if responseString == "true" {
                             self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "비밀번호가 재설정되었습니다", completeTitle: "확인", nil)
-                            // 원하는 화면으로 pop
+                            
+                            // 원하는 화면으로 pop tabbarVC  pushViewController 말고 bug fix ...
                             let viewControllers: [UIViewController] = self.navigationController!.viewControllers
                             print("\(#line) ", viewControllers)
                             for aViewController in viewControllers {
