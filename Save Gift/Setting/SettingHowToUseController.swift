@@ -88,4 +88,27 @@ extension SettingHowToUseController : UITableViewDelegate, UITableViewDataSource
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(faqArr[indexPath.row])
+        
+        let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "SettingHowToUse2Controller") as? SettingHowToUse2Controller
+        
+        pushVC?.aTitle = faqArr[indexPath.row]
+        self.navigationController?.pushViewController(pushVC!, animated: true)
+        
+        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        self.navigationItem.backBarButtonItem = backBarButtonItem
+        
+        switch indexPath.row {
+        case 0:
+            print("0")
+            break
+        case 1:
+            print("1")
+            break
+        default:
+            print("default")
+        }
+    }
+    
 }
