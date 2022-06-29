@@ -120,7 +120,7 @@ extension GiftSettingController: UITableViewDelegate, UITableViewDataSource{
             
             print("Click Cell Number: " + String(indexPath.row))
         
-        if indexPath.row == 0{ //회원탈퇴
+        if indexPath.row == 0{ // 로그아웃
             if(UserDefaults.standard.string(forKey: "ID") != nil){
                 UserDefaults.standard.removeObject(forKey: "ID")
                 
@@ -139,20 +139,20 @@ extension GiftSettingController: UITableViewDelegate, UITableViewDataSource{
                 let backBarButtonItem = UIBarButtonItem(title: "설정", style: .plain, target: self, action: nil)
                 self.navigationItem.backBarButtonItem = backBarButtonItem
             }
-        }else if indexPath.row == 1{ //내정보
+        }else if indexPath.row == 1{ // 내정보
             if(UserDefaults.standard.string(forKey: "ID") != nil){ //로그인 O
                 let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "SettingMyInfoVC")
                 self.navigationController?.pushViewController(pushVC!, animated: true)
             }else{// 로그인 X
                 needLoginService()
             }
-        }else if indexPath.row == 6 { //개발자
+        }else if indexPath.row == 6 { // 개발자
             let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "SettingDeveloperVC")
             self.navigationController?.pushViewController(pushVC!, animated: true)
-        }else if indexPath.row == 2 { //알림설정
+        }else if indexPath.row == 2 { // 알림설정
                 let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "SettingNotiControllerVC")
                 self.navigationController?.pushViewController(pushVC!, animated: true)
-        }else if indexPath.row == 3 { //앱버전
+        }else if indexPath.row == 3 { // 앱버전
             dbVersion = helper.getVersion(requestUrl: "/version").replacingOccurrences(of: ".", with: "")
             currentVersion = self.version!
             
@@ -165,17 +165,17 @@ extension GiftSettingController: UITableViewDelegate, UITableViewDataSource{
             }else{
                 print("예외")
             }
-        }else if indexPath.row == 4 { //기프티콘 사용법
+        }else if indexPath.row == 4 { // 기프티콘 사용법
             let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "SettingHowToUseVC")
             self.navigationController?.pushViewController(pushVC!, animated: true)
-        }else if indexPath.row == 5 { //회원탈퇴
+        }else if indexPath.row == 5 { // 회원탈퇴
             if(UserDefaults.standard.string(forKey: "ID") != nil){ //로그인 O
                 let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "SettingSecessionVC")
                 self.navigationController?.pushViewController(pushVC!, animated: true)
             }else{// 로그인 X
                 needLoginService()
             }
-        }else if indexPath.row == 7 { //테스트화면
+        }else if indexPath.row == 7 { // 테스트화면
             let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "Findid2Controller")
             self.navigationController?.pushViewController(pushVC!, animated: true)
         }
