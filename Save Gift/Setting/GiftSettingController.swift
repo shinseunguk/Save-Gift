@@ -124,8 +124,16 @@ extension GiftSettingController: UITableViewDelegate, UITableViewDataSource{
             if(UserDefaults.standard.string(forKey: "ID") != nil){
                 UserDefaults.standard.removeObject(forKey: "ID")
                 
-                let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "tabbarVC")
-                        self.navigationController?.pushViewController(pushVC!, animated: true)
+//                let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "tabbarVC")
+//                        self.navigationController?.pushViewController(pushVC!, animated: true)
+                // 원하는 화면으로 pop tabbarVC  pushViewController 말고 bug fix ...
+                let viewControllers: [UIViewController] = self.navigationController!.viewControllers
+                print("\(#line) ", viewControllers)
+                for aViewController in viewControllers {
+                    if aViewController is UnlockController {
+                        self.navigationController!.popToViewController(aViewController, animated: true)
+                    }
+                }
             }else{
                 guard let pushVC = self.storyboard?.instantiateViewController(identifier: "viewVC") as? ViewController else{
                     return

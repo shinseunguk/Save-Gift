@@ -242,7 +242,14 @@ class ViewController: UIViewController, ASAuthorizationControllerDelegate, ASAut
 //                            pushVC.VC = self.VC
                             self.navigationController?.pushViewController(pushVC, animated: true)
                             
-                            
+//                        //화면 Stack으로 인해 6월 29일 poptoviewcontroller 방식으로 교체
+//                        let viewControllers: [UIViewController] = self.navigationController!.viewControllers
+//                        print("\(#line) ", viewControllers)
+//                        for aViewController in viewControllers {
+//                            if aViewController is CustomTabBarController {
+//                                self.navigationController!.popToViewController(aViewController, animated: true)
+//                            }
+//                        }
                             
                         // 아이디저장
                         UserDefaults.standard.set(email, forKey: "ID")
