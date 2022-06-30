@@ -31,6 +31,7 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
     var delegate : GiftDeleteDelegate?
     var delegate2 : GiftDeleteDelegate2?
     var delegate3 : GiftDeleteDelegate3?
+    var uploadDelegate : uploadDelegate?
     
     let imagePicker = UIImagePickerController()
     let helper : Helper = Helper()
@@ -1487,13 +1488,10 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
                     
                     if response.value! == "success"{
                         DispatchQueue.main.async{
-//                            self.navigationController?.popViewController(animated: true)
-                            let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "tabbarVC")
+                            self.uploadDelegate?.uploadGift()
+                            self.navigationController?.popViewController(animated: true)
                             print("화면 이동")
-                            self.delegate?.giftDelete()
-                            self.delegate2?.giftDelete2()
-                            self.delegate3?.giftDelete3()
-                            self.navigationController?.pushViewController(pushVC!, animated: true)
+//                            self.navigationController?.pushViewController(pushVC!, animated: true)
                             //뒤로가기 작업 필요
                             }
                     }else {
