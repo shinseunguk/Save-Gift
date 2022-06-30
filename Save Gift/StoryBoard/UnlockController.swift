@@ -22,16 +22,24 @@ class UnlockController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        print("\(#function)")
+
         lockBtn()
-        
+
         let type = self.getBiometryType()
         authContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil)
         if type == .faceId {
             nextButton.setImage(UIImage(systemName: "faceid"), for: .normal)
         } else if type == .touchId {
             nextButton.setImage(UIImage(systemName: "touchid"), for: .normal)
-        }else {
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        let type = self.getBiometryType()
+        authContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil)
+        if type == .none {
             let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "tabbarVC")
             self.navigationController?.pushViewController(pushVC!, animated: true)
         }
@@ -128,12 +136,21 @@ class UnlockController : UIViewController {
             switch error! {
             // 터치 아이디로 등록한 지문이 없다.
             case LAError.biometryNotEnrolled:
-                self.notifyUser1(msg: "등록된 TouchID 혹은 지문이 없습니다.", err: error?.localizedDescription)
+//                self.notifyUser1(msg: "등록된 TouchID 혹은 지문이 없습니다.", err: error?.localizedDescription)
+                print("LAError.biometryNotEnrolled:")
+                let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "tabbarVC")
+                self.navigationController?.pushViewController(pushVC!, animated: true)
             // 디바이스의 패스코드를 설정 하지 않았다.
             case LAError.passcodeNotSet:
-                self.notifyUser1(msg: "설정된 패스코드가 없습니다.", err: error?.localizedDescription)
+//                self.notifyUser1(msg: "설정된 패스코드가 없습니다.", err: error?.localizedDescription)
+                print("LAError.passcodeNotSet:")
+                let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "tabbarVC")
+                self.navigationController?.pushViewController(pushVC!, animated: true)
             default:
-                self.notifyUser1(msg: "터치아이디를 사용할 수 없습니다.", err: error?.localizedDescription)
+//                self.notifyUser1(msg: "터치아이디를 사용할 수 없습니다.", err: error?.localizedDescription)
+                print("LAError.default:")
+                let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "tabbarVC")
+                self.navigationController?.pushViewController(pushVC!, animated: true)
             }
         }
         
