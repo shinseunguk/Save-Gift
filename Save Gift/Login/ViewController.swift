@@ -233,23 +233,23 @@ class ViewController: UIViewController, ASAuthorizationControllerDelegate, ASAut
 //                    print("응답 처리 로직 response", response as Any)
                     // 응답 처리 로직
                     
-                    if(responseString == "true"){
+                    if(responseString == "true"){ // 로그인 완료
                         DispatchQueue.main.async{
-                            guard let pushVC = self.storyboard?.instantiateViewController(identifier: "tabbarVC") as? CustomTabBarController else{
-                                return
-                            }
-                            
+//                            guard let pushVC = self.storyboard?.instantiateViewController(identifier: "tabbarVC") as? CustomTabBarController else{
+//                                return
+//                            }
+//
 //                            pushVC.VC = self.VC
-                            self.navigationController?.pushViewController(pushVC, animated: true)
+//                            self.navigationController?.pushViewController(pushVC, animated: true)
                             
 //                        //화면 Stack으로 인해 6월 29일 poptoviewcontroller 방식으로 교체
-//                        let viewControllers: [UIViewController] = self.navigationController!.viewControllers
-//                        print("\(#line) ", viewControllers)
-//                        for aViewController in viewControllers {
-//                            if aViewController is CustomTabBarController {
-//                                self.navigationController!.popToViewController(aViewController, animated: true)
-//                            }
-//                        }
+                        let viewControllers: [UIViewController] = self.navigationController!.viewControllers
+                        print("\(#line) ", viewControllers)
+                        for aViewController in viewControllers {
+                            if aViewController is UnlockController {
+                                self.navigationController!.popToViewController(aViewController, animated: true)
+                            }
+                        }
                             
                         // 아이디저장
                         UserDefaults.standard.set(email, forKey: "ID")
@@ -311,8 +311,15 @@ class ViewController: UIViewController, ASAuthorizationControllerDelegate, ASAut
 
                     self.setUserInfo()
 
-                    let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "tabbarVC")
-                            self.navigationController?.pushViewController(pushVC!, animated: true)
+//                    let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "tabbarVC")
+//                            self.navigationController?.pushViewController(pushVC!, animated: true)
+                    let viewControllers: [UIViewController] = self.navigationController!.viewControllers
+                    print("\(#line) ", viewControllers)
+                    for aViewController in viewControllers {
+                        if aViewController is UnlockController {
+                            self.navigationController!.popToViewController(aViewController, animated: true)
+                        }
+                    }
                 }
             }
         } else{

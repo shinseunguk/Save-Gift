@@ -64,8 +64,13 @@ class SettingSecessionController : UIViewController {
     func secessionSuccess(){
         UserDefaults.standard.removeObject(forKey: "ID")
         
-        let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "tabbarVC")
-        self.navigationController?.pushViewController(pushVC!, animated: true)
+        let viewControllers: [UIViewController] = self.navigationController!.viewControllers
+        print("\(#line) ", viewControllers)
+        for aViewController in viewControllers {
+            if aViewController is CustomTabBarController {
+                self.navigationController!.popToViewController(aViewController, animated: true)
+            }
+        }
         print("화면 이동")
     }
     
