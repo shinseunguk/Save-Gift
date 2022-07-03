@@ -97,10 +97,8 @@ class UnlockController : UIViewController {
     func auth() {
         
         var error: NSError?
-        var description: String!
-        
-        var authCount : Int = 0
-        authContext.localizedCancelTitle = ""
+        authContext.localizedCancelTitle = "취소"
+        authContext.localizedFallbackTitle = ""
         
         if authContext.canEvaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, error: &error) {
         authContext.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "서비스를 이용하기 위해 인증 합니다.") { (success, error) in
@@ -119,14 +117,17 @@ class UnlockController : UIViewController {
                 switch error! {
                 // 시스템(운영체제)에 의해 인증 과정이 종료 LAError.systemCancel:
                 case LAError.systemCancel:
+                    print("\(#line) systemCancel")
                     self.notifyUser1(msg: "시스템에 의해 중단되었습니다.", err: error?.localizedDescription)
                 // 사용자가 취소함 LAError.userCancel
                 case LAError.userCancel:
-                    self.notifyUser1(msg: "인증이 취소 되었습니다.", err: error?.localizedDescription)
-                // 터치아이디 대신 암호 입력 버튼을 누른경우(터치아이디 1회 틀리면 암호 입력 버튼 나옴) LAError.userFallback
-                case LAError.userFallback:
-                    self.notifyUser1(msg: "터치 아이디 인증", err: "암호 입력을 선택했습니다.")
+                    print("\(#line) userCancel")
+//                    self.notifyUser1(msg: "인증이 취소 되었습니다.", err: error?.localizedDescription)
+                case LAError.userFallback: // 암호 입력 선택 => authContext.localizedFallbackTitle = ""로 인해 해당분기 타지 않음.
+                    print("\(#line) userFallback")
+//                    self.notifyUser1(msg: "터치 아이디 인증", err: "암호 입력을 선택했습니다.")
                 default:
+                    print("\(#line) default")
                     self.notifyUser1(msg: "인증 실패", err: error?.localizedDescription)
                 }
             }
@@ -147,10 +148,10 @@ class UnlockController : UIViewController {
                 let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "tabbarVC")
                 self.navigationController?.pushViewController(pushVC!, animated: true)
             default:
-//                self.notifyUser1(msg: "터치아이디를 사용할 수 없습니다.", err: error?.localizedDescription)
+                self.notifyUser1(msg: "", err: "스마트폰 Face ID가 잠겨있습니다.\n 잠금해제 후 다시 시도 해주세요.")
                 print("LAError.default:")
-                let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "tabbarVC")
-                self.navigationController?.pushViewController(pushVC!, animated: true)
+//                let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "tabbarVC")
+//                self.navigationController?.pushViewController(pushVC!, animated: true)
             }
         }
         
