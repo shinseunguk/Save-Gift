@@ -18,16 +18,7 @@ class GiftSettingController : UIViewController{
     @IBOutlet weak var lockImageView: UIImageView!
 //    var arr = ["로그아웃", "내정보", "개발자", "알림설정", "앱버전", "기프티콘 사용법", "회원탈퇴", "테스트화면"] // TEST ARRAY
     var arr = ["로그아웃", "내정보", "알림설정", "앱버전", "기프티콘 사용법", "회원탈퇴", "개발자"]
-//    var imgArr: [UIImage] = [
-//        UIImage(systemName: "key.fill")!, // 로그아웃
-//        UIImage(systemName: "person.fill")!, // 내정보
-//        UIImage(systemName: "bell.fill")!, // 알림설정
-//        UIImage(systemName: "apps.iphone")!, // 앱버전
-//        UIImage(systemName: "doc.fill")!, // 기프티콘 사용법
-//        UIImage(systemName: "person.crop.circle.badge.minus.fill")!, // 회원탈퇴
-//        UIImage(systemName: "keyboard")!, // 개발자
-//        UIImage(systemName: "person.crop.circle.badge.minus.fill")! // TEST Image
-//    ]
+    var imgArr: [UIImage] = []
     var version: String? {
         guard let dictionary = Bundle.main.infoDictionary,
               let version = dictionary["CFBundleShortVersionString"] as? String,
@@ -43,6 +34,7 @@ class GiftSettingController : UIViewController{
         super.viewDidLoad()
         print("GiftSettingController")
         
+        imgArrSetUp()
         
         //셀 테두리지우기
 //        tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
@@ -54,6 +46,21 @@ class GiftSettingController : UIViewController{
         //cell 여백 삭제
         tableView.contentInset = .zero
         tableView.contentInsetAdjustmentBehavior = .never
+    }
+    
+    func imgArrSetUp(){
+        if #available(iOS 14, *) {
+            imgArr.append(UIImage(systemName: "key.fill")!) // 로그아웃
+            imgArr.append(UIImage(systemName: "person.fill")!) // 내정보
+            imgArr.append(UIImage(systemName: "bell.fill")!) // 알림설정
+            imgArr.append(UIImage(systemName: "apps.iphone")!) // 앱버전
+            imgArr.append(UIImage(systemName: "doc.fill")!) // 기프티콘 사용법
+            imgArr.append(UIImage(systemName: "person.crop.circle.badge.minus.fill")!) // 회원탈퇴
+            imgArr.append(UIImage(systemName: "keyboard")!) // 개발자
+        } else {
+            print("iOS 버전 14 미만")
+        }
+        
     }
     
     @IBAction func loginAction(_ sender: Any) {
@@ -105,7 +112,13 @@ extension GiftSettingController: UITableViewDelegate, UITableViewDataSource{
         }
         
         cell.leftLabel.text = arr[indexPath.row]
-//        cell.uiImageView.image = imgArr[indexPath.row]
+        if #available(iOS 14, *) {
+            cell.uiImageView.image = imgArr[indexPath.row]
+            print("ios 14버전 이상")
+        } else {
+            print("ios 14 버전 미만")
+        }
+        
         
         return cell
     }

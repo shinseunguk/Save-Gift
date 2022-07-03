@@ -85,6 +85,9 @@ extension SettingHowToUseController : UITableViewDelegate, UITableViewDataSource
         let cell = tableView.dequeueReusableCell(withIdentifier: "SettingHowToUseCell", for: indexPath) as! SettingHowToUseCell
         cell.leftLabel.numberOfLines = 3
         cell.leftLabel?.text = faqArr[indexPath.row]
+        let bgColorView = UIView()
+        bgColorView.backgroundColor = UIColor.white
+        cell.selectedBackgroundView = bgColorView
         return cell
     }
     
@@ -94,21 +97,11 @@ extension SettingHowToUseController : UITableViewDelegate, UITableViewDataSource
         let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "SettingHowToUse2Controller") as? SettingHowToUse2Controller
         
         pushVC?.aTitle = faqArr[indexPath.row]
+        pushVC?.aIndex = indexPath.row
         self.navigationController?.pushViewController(pushVC!, animated: true)
         
         let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         self.navigationItem.backBarButtonItem = backBarButtonItem
-        
-        switch indexPath.row {
-        case 0:
-            print("0")
-            break
-        case 1:
-            print("1")
-            break
-        default:
-            print("default")
-        }
     }
     
 }
