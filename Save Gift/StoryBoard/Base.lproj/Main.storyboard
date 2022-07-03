@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="gfd-vK-Avs">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="gfd-vK-Avs">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -495,7 +495,7 @@
                                 </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="cyQ-Or-yL3">
-                                        <rect key="frame" x="0.0" y="44.666666030883789" width="414" height="43.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="414" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cyQ-Or-yL3" id="SYx-CK-iTn">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
@@ -512,7 +512,7 @@
                                 </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="sp4-1x-2Qz">
-                                        <rect key="frame" x="0.0" y="44.666666030883789" width="414" height="43.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="414" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sp4-1x-2Qz" id="99s-YU-xwC">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
@@ -1132,7 +1132,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="customCell" rowHeight="70" id="1bt-2d-v8B" customClass="CustomCell" customModule="Save_Gift" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.666666030883789" width="414" height="70"/>
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="414" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1bt-2d-v8B" id="rcl-9X-GZj">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="70"/>
@@ -1348,7 +1348,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="pEV-xu-yR8">
-                                        <rect key="frame" x="0.0" y="44.666666030883789" width="334" height="43.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="334" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pEV-xu-yR8" id="7YG-3I-CbT">
                                             <rect key="frame" x="0.0" y="0.0" width="334" height="43.666667938232422"/>
@@ -1562,7 +1562,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingTableViewCell" id="wax-k3-ndu" customClass="SettingTableViewCell" customModule="Save_Gift" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.666666030883789" width="414" height="43.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="414" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wax-k3-ndu" id="Cfc-N7-BRx">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
@@ -2069,7 +2069,7 @@
                                                 </constraints>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="GiftDetailTableViewCell" id="Tx4-me-cic">
-                                                        <rect key="frame" x="0.0" y="44.666666030883789" width="394" height="43.666667938232422"/>
+                                                        <rect key="frame" x="0.0" y="24.333333969116211" width="394" height="43.666667938232422"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Tx4-me-cic" id="Tpx-kZ-GtJ">
                                                             <rect key="frame" x="0.0" y="0.0" width="394" height="43.666667938232422"/>
@@ -2285,7 +2285,7 @@
                                                 </constraints>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="xTR-i4-gMN">
-                                                        <rect key="frame" x="0.0" y="44.666666030883789" width="414" height="43.666667938232422"/>
+                                                        <rect key="frame" x="0.0" y="24.333333969116211" width="414" height="43.666667938232422"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xTR-i4-gMN" id="YGc-H0-NAV">
                                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
@@ -2768,7 +2768,7 @@
                                 <color key="textColor" systemColor="linkColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="회원탈퇴 하시더라도 기프티콘 저장소에서 제공하는 회원가입이 필요하지 않는 서비스는 이전과 같이 사용하실 수 있습니다." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AHF-tf-3Dy">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="회원탈퇴 하시더라도 기프티콘 수첩에서 제공하는 회원가입이 필요하지 않는 서비스는 이전과 같이 사용하실 수 있습니다." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AHF-tf-3Dy">
                                 <rect key="frame" x="20" y="284" width="374" height="70"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="5Pg-Bc-RCl"/>
@@ -2778,32 +2778,32 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="info.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="x6c-RS-OsH">
-                                <rect key="frame" x="33" y="460" width="30" height="28.666666666666686"/>
+                                <rect key="frame" x="33" y="410" width="30" height="28.666666666666686"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="0hD-kz-sZ5"/>
                                     <constraint firstAttribute="height" constant="30" id="hxX-nE-day"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이용안내" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ibc-Pa-CfP">
-                                <rect key="frame" x="75" y="463" width="59" height="21.333333333333314"/>
+                                <rect key="frame" x="75" y="413" width="59" height="21.333333333333314"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- 회원탈퇴 시 공유되고 있는 미사용 기프티콘은 선물함에서 사라집니다." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ujo-BT-A21">
-                                <rect key="frame" x="33" y="521" width="348" height="38.333333333333371"/>
+                                <rect key="frame" x="33" y="455" width="348" height="38.333333333333314"/>
                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- 기프티콘 저장소에서 관리 하고있는 기프티콘들은 삭제 됩니다." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WvH-aT-bAu">
-                                <rect key="frame" x="33" y="577.66666666666663" width="348" height="38.333333333333371"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- 기프티콘 수첩에서 관리 하고있는 기프티콘들은 삭제 됩니다." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WvH-aT-bAu">
+                                <rect key="frame" x="33" y="511.66666666666669" width="348" height="38.333333333333314"/>
                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- 회원탈퇴 하더라도 기프티콘을 소유하고 있다면 사용가능 합니다." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dej-uO-DkP">
-                                <rect key="frame" x="33" y="634.33333333333337" width="348" height="38.333333333333371"/>
+                                <rect key="frame" x="33" y="568.33333333333337" width="348" height="38.333333333333371"/>
                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -2833,11 +2833,11 @@
                             <constraint firstItem="5WP-9M-5qk" firstAttribute="leading" secondItem="Dch-Jw-yDQ" secondAttribute="leading" constant="20" id="iMi-ho-4dC"/>
                             <constraint firstItem="Dch-Jw-yDQ" firstAttribute="trailing" secondItem="5WP-9M-5qk" secondAttribute="trailing" constant="20" id="keV-Gl-vq8"/>
                             <constraint firstAttribute="trailing" secondItem="AHF-tf-3Dy" secondAttribute="trailing" constant="20" id="lOX-Lc-0ky"/>
-                            <constraint firstItem="ibc-Pa-CfP" firstAttribute="top" secondItem="AHF-tf-3Dy" secondAttribute="bottom" constant="109" id="mW4-Ot-KBm"/>
-                            <constraint firstItem="x6c-RS-OsH" firstAttribute="top" secondItem="AHF-tf-3Dy" secondAttribute="bottom" constant="105" id="s6I-L7-nbf"/>
+                            <constraint firstItem="ibc-Pa-CfP" firstAttribute="top" secondItem="AHF-tf-3Dy" secondAttribute="bottom" constant="59" id="mW4-Ot-KBm"/>
+                            <constraint firstItem="x6c-RS-OsH" firstAttribute="top" secondItem="AHF-tf-3Dy" secondAttribute="bottom" constant="55" id="s6I-L7-nbf"/>
                             <constraint firstItem="ufq-ny-nfE" firstAttribute="bottom" secondItem="Dch-Jw-yDQ" secondAttribute="bottom" id="tSf-Kc-lEP"/>
                             <constraint firstItem="x6c-RS-OsH" firstAttribute="leading" secondItem="Dch-Jw-yDQ" secondAttribute="leading" constant="33" id="wSw-gy-7rl"/>
-                            <constraint firstItem="ujo-BT-A21" firstAttribute="top" secondItem="x6c-RS-OsH" secondAttribute="bottom" constant="32" id="zGE-hd-Fvb"/>
+                            <constraint firstItem="ujo-BT-A21" firstAttribute="top" secondItem="x6c-RS-OsH" secondAttribute="bottom" constant="16" id="zGE-hd-Fvb"/>
                         </constraints>
                     </view>
                     <connections>

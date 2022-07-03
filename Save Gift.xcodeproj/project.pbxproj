@@ -54,7 +54,7 @@
 		04F9F4AD27FA916B00DC1273 /* FirebaseStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F9F4AC27FA916B00DC1273 /* FirebaseStorageManager.swift */; };
 		4D360973BF67B284F1DC15ED /* Pods_Save_Gift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C1F86336AE2EFE59D5D15E8 /* Pods_Save_Gift.framework */; };
 		A20D2682276A151700470D06 /* Register3Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20D2681276A151700470D06 /* Register3Controller.swift */; };
-		A213100127A97C5300A98783 /* BuildFile in Embed Frameworks */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A213100127A97C5300A98783 /* (null) in Embed Frameworks */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A218F1A1276E093D00E71316 /* FindidController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A218F1A0276E093D00E71316 /* FindidController.swift */; };
 		A21C6D5B276F630900BDE1E4 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21C6D5A276F630900BDE1E4 /* SideMenuViewController.swift */; };
 		A21C6D5D276F646000BDE1E4 /* CustomSideMenuNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21C6D5C276F646000BDE1E4 /* CustomSideMenuNavigation.swift */; };
@@ -110,7 +110,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				A213100127A97C5300A98783 /* BuildFile in Embed Frameworks */,
+				A213100127A97C5300A98783 /* (null) in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;

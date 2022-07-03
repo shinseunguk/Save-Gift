@@ -848,7 +848,7 @@ extension GiftFriendController: UITableViewDelegate, UITableViewDataSource, Deta
     //                vc.modalPresentationStyle = .overCurrentContext
                     self.present(vc, animated: true, completion: nil)
                 }else {
-                    self.normalActionSheet(title: "기프티콘 저장소", message: arr2[indexPath.row])
+                    self.normalActionSheet(title: "기프티콘 수첩", message: arr2[indexPath.row])
                 }
             }
         }
