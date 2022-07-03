@@ -100,7 +100,7 @@ class GiftDetailController : UIViewController{
                 categoryArr[6] = "선물 한 사람"
             }
         }
-        categoryArr[6] = "선물 한 사람"
+//        categoryArr[6] = "선물 한 사람"
         
         presentPageSetUp()
         presentSetUp()
