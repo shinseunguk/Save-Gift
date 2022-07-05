@@ -10,6 +10,7 @@ import KakaoSDKCommon
 import KakaoSDKAuth
 import KakaoSDKUser
 import Firebase
+import AuthenticationServices // 생체 인식
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,8 +23,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         KakaoSDK.initSDK(appKey: "0defae802c94b16017d351a984be5ef3")
         FirebaseApp.configure()
         
+        // apple ID 어플과 연동 상태 확인
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        appleIDProvider.getCredentialState(forUserID: "00000.abcabcabcabc.0000") { (credentialState, error) in
+            switch credentialState {
+            case .authorized:// 이미 증명이 된경우
+                print("authorized")
+            // The Apple ID credential is valid.
+            case .revoked: // 증명을 취소 했을 때
+                print("revoked")
+            case .notFound:// 증명이 존재하지 않을경우
+                // The Apple ID credential is either revoked or was not found, so show the sign-in UI.
+                print("notFound")
+                DispatchQueue.main.async {
+                    // self.window?.rootViewController?.showLoginViewController()
+                }
+            default:
+                break
+            }
+        }
         return true
     }
+        
 
     // MARK: UISceneSession Lifecycle
 

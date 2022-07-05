@@ -13,11 +13,9 @@ import KakaoSDKAuth // 카카오
 import KakaoSDKUser // 카카오
 import Firebase
 
-class ViewController: UIViewController, ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding, UITextFieldDelegate{
+class ViewController: UIViewController, ASAuthorizationControllerDelegate, UITextFieldDelegate{
     let LOG_TAG : String = "ViewController"
-    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
-        return self.view.window!
-    }
+
     
 
     @IBOutlet weak var btnRegister: UIButton!
@@ -290,6 +288,7 @@ class ViewController: UIViewController, ASAuthorizationControllerDelegate, ASAut
     
     //애플 로그인
     @IBAction func appleAction(_ sender: Any) {
+        print("애플 로그인")
         handleAuthorizationAppleIDButtonPress()
     }
     
@@ -425,6 +424,32 @@ class ViewController: UIViewController, ASAuthorizationControllerDelegate, ASAut
         authorizationController.performRequests()
     }
     
+    //앱스토어 열기
+    func openAppStore(appId: String) {
+
+        print("openAppStore")
+        if appId == "kakao"{
+          url = "https://apps.apple.com/kr/app/%EC%B9%B4%EC%B9%B4%EC%98%A4%ED%86%A1-kakaotalk/id362057947"
+        }else{
+          url = "itms-apps://itunes.apple.com/app/" + appId;
+        }
+          
+        
+        if let url = URL(string: url), UIApplication.shared.canOpenURL(url) {
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
+        }
+    }
+}
+
+extension ViewController : ASAuthorizationControllerPresentationContextProviding {
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return self.view.window!
+    }
+    
     // Apple ID 연동 성공 시
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         switch authorization.credential {
@@ -447,27 +472,8 @@ class ViewController: UIViewController, ASAuthorizationControllerDelegate, ASAut
         
     // Apple ID 연동 실패 시
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        print("Apple ID 연동 실패 error")
         // Handle error.
     }
     
-    //앱스토어 열기
-    func openAppStore(appId: String) {
-
-        print("openAppStore")
-        if appId == "kakao"{
-          url = "https://apps.apple.com/kr/app/%EC%B9%B4%EC%B9%B4%EC%98%A4%ED%86%A1-kakaotalk/id362057947"
-        }else{
-          url = "itms-apps://itunes.apple.com/app/" + appId;
-        }
-          
-        
-        if let url = URL(string: url), UIApplication.shared.canOpenURL(url) {
-            if #available(iOS 10.0, *) {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            } else {
-                UIApplication.shared.openURL(url)
-            }
-        }
-    }
 }
-
