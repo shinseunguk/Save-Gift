@@ -135,7 +135,7 @@ class GiftSaveController : TabmanViewController{
     }
     
     func floatingBtn(){
-        actionButton.addItem(title: "바코드(기프티콘) 저장하기", image: UIImage(systemName: "barcode")?.withRenderingMode(.alwaysTemplate)) { item in
+        actionButton.addItem(title: "바코드(기프티콘) 저장하기", image: UIImage(systemName: "plus")?.withRenderingMode(.alwaysTemplate)) { item in
             print("바코드(기프티콘) 저장하기")
 //            let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "GiftRegisterVC")
             guard let pushVC = self.storyboard?.instantiateViewController(identifier: "GiftRegisterVC") as? GiftRegisterController else{
@@ -145,10 +145,10 @@ class GiftSaveController : TabmanViewController{
             self.navigationController?.pushViewController(pushVC, animated: true)
     }
 
-        actionButton.addItem(title: "QR코드 저장하기", image: UIImage(systemName: "qrcode")?.withRenderingMode(.alwaysTemplate)) { item in
-          // do something
-            print("qrcode 2")
-        }
+//        actionButton.addItem(title: "QR코드 저장하기", image: UIImage(systemName: "qrcode")?.withRenderingMode(.alwaysTemplate)) { item in
+//          // do something
+//            print("qrcode 2")
+//        }
         
         view.addSubview(actionButton)
         actionButton.buttonColor = .systemBlue
@@ -170,8 +170,8 @@ class GiftSaveController : TabmanViewController{
             item.layer.shadowRadius = CGFloat(2)
         }
         
-                actionButton.bottomAnchor.constraint(equalTo: view.topAnchor
-                            ,constant: screenHeight-200).isActive = true // ---- 1
+                actionButton.bottomAnchor.constraint(equalTo: view.bottomAnchor
+                            ,constant: -100).isActive = true // ---- 1
     }
     
     func goSetting() {
