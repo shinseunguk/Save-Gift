@@ -4,6 +4,7 @@
 //
 //  Created by ukBook on 2021/12/04.
 //
+// FCM 등록방법 https://developer-fury.tistory.com/53
 
 import UIKit
 import KakaoSDKCommon
@@ -22,6 +23,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NetworkCheck.shared.startMonitoring()
         KakaoSDK.initSDK(appKey: "0defae802c94b16017d351a984be5ef3")
         FirebaseApp.configure()
+        
+        Messaging.messaging().delegate = self
+        UNUserNotificationCenter.current().delegate = self
+        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+        UNUserNotificationCenter.current().requestAuthorization(options: authOptions) { _, _ in }
+        application.registerForRemoteNotifications()
         
         // apple ID 어플과 연동 상태 확인
         let appleIDProvider = ASAuthorizationAppleIDProvider()
@@ -44,8 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         return true
     }
-        
-
+    
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
@@ -69,3 +75,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
  }
 
 
+extension AppDelegate: MessagingDelegate, UNUserNotificationCenterDelegate {
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+      let deviceTokenString = deviceToken.reduce("", {$0 + String(format: "%02X", $1)})
+      print("[Log] deviceToken :", deviceTokenString)
+        
+      Messaging.messaging().apnsToken = deviceToken
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+      completionHandler([.alert, .badge, .sound])
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+      completionHandler()
+    }
+    
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+            print("파이어베이스 토큰: \(fcmToken!)")
+    }
+}
