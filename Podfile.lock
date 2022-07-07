@@ -520,6 +520,7 @@ PODS:
     - gRPC-Core/Interface (= 1.28.2)
   - gRPC-Core/Interface (1.28.2)
   - GTMSessionFetcher/Core (1.7.0)
+  - IQKeyboardManagerSwift (6.5.10)
   - JJFloatingActionButton (2.5.0)
   - JSPhoneFormat (0.0.1)
   - KakaoSDK (2.8.6):
@@ -611,6 +612,7 @@ DEPENDENCIES:
   - GoogleMLKit/MLKitCore
   - GoogleMLKit/TextRecognition
   - GoogleMLKit/TextRecognitionKorean (= 2.3.0)
+  - IQKeyboardManagerSwift
   - JJFloatingActionButton
   - JSPhoneFormat
   - KakaoSDK
@@ -641,6 +643,7 @@ SPEC REPOS:
     - "gRPC-C++"
     - gRPC-Core
     - GTMSessionFetcher
+    - IQKeyboardManagerSwift
     - JJFloatingActionButton
     - JSPhoneFormat
     - KakaoSDK
@@ -690,6 +693,7 @@ SPEC CHECKSUMS:
   "gRPC-C++": 13d8ccef97d5c3c441b7e3c529ef28ebee86fad2
   gRPC-Core: 4afa11bfbedf7cdecd04de535a9e046893404ed5
   GTMSessionFetcher: 43748f93435c2aa068b1cbe39655aaf600652e91
+  IQKeyboardManagerSwift: 52962c76ab33532f15ad9f3ff4e5715eda5335bb
   JJFloatingActionButton: fdc3aefb0f28f04d0f988fa25d5fac97028a9ea7
   JSPhoneFormat: a809ac14c7a9301690f0f0077890ebda0f775f67
   KakaoSDK: 29ca188341fbb8994586eac73c10209f3889b574
@@ -716,6 +720,6 @@ SPEC CHECKSUMS:
   SideMenu: f583187d21c5b1dd04c72002be544b555a2627a2
   Tabman: 447a50447ed2869c39ab3b1a779327e43e067c4e
 
-PODFILE CHECKSUM: cab97330842720d7bdf906baa5efdcaeb2c1e2b6
+PODFILE CHECKSUM: 6a294154c04790b2244d4a8879a0576abb6c1494
 
-COCOAPODS: 1.10.2
+COCOAPODS: 1.11.2

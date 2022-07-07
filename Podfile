@@ -22,6 +22,7 @@ target 'Save Gift' do
   pod 'DropDown'
   pod 'Tabman'
   pod 'Alamofire'
+  pod 'IQKeyboardManagerSwift'
   # Pods for Save Gift
 
 end

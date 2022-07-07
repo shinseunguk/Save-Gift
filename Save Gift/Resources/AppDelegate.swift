@@ -13,6 +13,7 @@ import KakaoSDKAuth
 import KakaoSDKUser
 import Firebase
 import AuthenticationServices // 생체 인식
+import IQKeyboardManagerSwift // 키보드 화면 가림 현상
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,6 +22,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        //키보드 화면 가림 현상
+        IQKeyboardManager.shared.enable = true
+        
         //네트워크 상태 체크
         NetworkCheck.shared.startMonitoring()
         
