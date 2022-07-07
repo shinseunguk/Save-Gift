@@ -28,8 +28,6 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
     @IBOutlet weak var registerBtn: UIButton!
     @IBOutlet weak var uiView: UIView!
     
-    var keyHeight: CGFloat?
-    
     var delegate : GiftDeleteDelegate?
     var delegate2 : GiftDeleteDelegate2?
     var delegate3 : GiftDeleteDelegate3?
@@ -46,7 +44,6 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
     var segmentStatus : Int = 0
     var registerButton = UIButton()
     var s = 0
-    var keyboard : Bool? = true
     var registerDic : Dictionary = [Int:Any]()
     
     var result : Bool = false
@@ -144,9 +141,6 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
         
         print("deviceID : ", deviceID!)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification , object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-        
     }
     
     func revisSetup(){
@@ -185,6 +179,7 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         //테이블뷰 선택 enable
         tableView.allowsSelection = false
+        tableView.isScrollEnabled = false
         
         //Specify the xib file to use
         tableView.register(UINib(nibName: "RegisterTableViewCell", bundle: nil), forCellReuseIdentifier: "RegisterTableViewCell")
@@ -247,40 +242,6 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
 
     @objc func nextBtnAction(_ textField: UITextField){
         self.tableView.endEditing(true)
-    }
-    
-    @objc func keyboardWillHide(_ sender: Notification) {
-        // 키보드의 높이만큼 화면을 내려준다.
-        print("keyboardWillHide")
-        print("keyboard ", keyboard!)
-//        if !keyboard! {
-//            if let keyboardFrame: NSValue = sender.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
-//                let keyboardRectangle = keyboardFrame.cgRectValue
-//                let keyboardHeight = keyboardRectangle.height
-//                self.view.frame.origin.y += keyboardHeight
-//            }
-//            keyboard = true
-//        }
-        if !keyboard! {
-            self.view.frame.size.height += keyHeight!
-        }
-        keyboard = true
-    }
-    
-        
-    @objc func keyboardWillShow(_ sender: Notification) {
-        print("keyboardWillShow")
-        print("keyboard ", keyboard!)
-        if keyboard! {
-            let userInfo:NSDictionary = sender.userInfo! as NSDictionary
-            let keyboardFrame:NSValue = userInfo.value(forKey: UIResponder.keyboardFrameEndUserInfoKey) as! NSValue
-            let keyboardRectangle = keyboardFrame.cgRectValue
-            let keyboardHeight = keyboardRectangle.height
-            keyHeight = keyboardHeight
-
-            self.view.frame.size.height -= keyboardHeight
-        }
-        keyboard = false
     }
     
     @objc func imageTapped(sender: UITapGestureRecognizer) {
