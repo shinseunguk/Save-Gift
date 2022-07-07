@@ -33,6 +33,8 @@ class GiftDetailController : UIViewController{
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var uiView: UIView!
     
+    var keyHeight: CGFloat?
+    
     var delegate : GiftDeleteDelegate?
     var delegate2 : GiftDeleteDelegate2?
     var delegate3 : GiftDeleteDelegate3?
@@ -74,6 +76,7 @@ class GiftDetailController : UIViewController{
     
     var reviseBool : Bool = false
     var couponStatus : Bool = true
+    var keyboard : Bool? = true
     
     var presentIndex : Bool = false
     var presentId : String? = nil
@@ -88,7 +91,13 @@ class GiftDetailController : UIViewController{
     override func viewDidLoad(){
         super.viewDidLoad()
         
-//        print("imageUrl --- > ", "".getLocalURL()+"/images/\(imageUrl!)")
+        let tapGR = UITapGestureRecognizer(target: self, action: #selector(self.imageTapped))
+                        imageView.addGestureRecognizer(tapGR)
+                        imageView.isUserInteractionEnabled = true
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification , object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
         print("seq --- > ", seq!)
         
         print("presentIndex ", presentIndex)
@@ -220,6 +229,8 @@ class GiftDetailController : UIViewController{
     
     func presentSetUp(){
         if presentIndex { // friend -> Unused -> Detail
+            helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "선물과 함께 보낼 메시지를 작성후 선물을 보내보세요!", completeTitle: "확인", nil)
+            
             categoryArr.append("선물보낼 메시지")
             contentArr.append("")
             editBtn.removeFromSuperview()
@@ -252,6 +263,46 @@ class GiftDetailController : UIViewController{
             uiView.translatesAutoresizingMaskIntoConstraints = false
             uiViewHeight.constant = 1300
             //
+        }
+    }
+    
+    @objc func keyboardWillHide(_ sender: Notification) {
+        print("keyboardWillHide")
+        if !keyboard! {
+            self.view.frame.size.height += keyHeight!
+        }
+        keyboard = true
+    }
+    
+        
+    @objc func keyboardWillShow(_ sender: Notification) {
+        print("keyboardWillShow")
+//        print("keyboard ",keyboard!)
+//        // 키보드의 높이만큼 화면을 올려준다.
+//        if keyboard! {
+//            if let keyboardFrame: NSValue = sender.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+//                let keyboardRectangle = keyboardFrame.cgRectValue
+//                let keyboardHeight = keyboardRectangle.height
+//                self.view.frame.origin.y -= keyboardHeight
+//            }
+//            keyboard = false
+//        }
+        if keyboard! {
+            let userInfo:NSDictionary = sender.userInfo! as NSDictionary
+            let keyboardFrame:NSValue = userInfo.value(forKey: UIResponder.keyboardFrameEndUserInfoKey) as! NSValue
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            let keyboardHeight = keyboardRectangle.height
+            keyHeight = keyboardHeight
+
+            self.view.frame.size.height -= keyboardHeight
+        }
+        keyboard = false
+    }
+    
+    @objc func imageTapped(sender: UITapGestureRecognizer) {
+        if sender.state == .ended {
+            print("imageTapped")
+            self.view.endEditing(true)
         }
     }
     
