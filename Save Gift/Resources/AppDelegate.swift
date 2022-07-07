@@ -5,6 +5,7 @@
 //  Created by ukBook on 2021/12/04.
 //
 // FCM 등록방법 https://developer-fury.tistory.com/53
+// 키보드 화면 가림 현상 간단하게 해결하기 https://velog.io/@kerri/iOS-Swift-키보드-화면-가림-현상-간단하게-해결하기
 
 import UIKit
 import KakaoSDKCommon
