@@ -17,7 +17,13 @@ import IQKeyboardManagerSwift // 키보드 화면 가림 현상
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
+    let localUrl : String = "".getLocalURL()
+    let deviceID = UIDevice.current.identifierForVendor!.uuidString
+    let deviceModel = GetDeviceModel.deviceModelName()
+    let helper : Helper = Helper()
+    
+    var dic : Dictionary<String, Any> = [:]
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -79,6 +85,49 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UserDefaults.standard.removeObject(forKey: "lock")
     }
     
+    func requestPost(requestUrl : String!, dic : Dictionary<String, Any>) -> Void{
+        print("AppDelegate Device Insert => \n", dic)
+//        let param = ["device_model" : deviceModel, "device_id" : deviceID, "push_token" : pushToken, "push_yn" : 1 ,"push30" : 1, "push7" : 1 ,"push1" : 1] as [String : Any] // JSON 객체로 전송할 딕셔너리
+//        let param = "user_Id=\(email)&name=\(name)"
+        let paramData = try! JSONSerialization.data(withJSONObject: dic)
+        // URL 객체 정의
+                let url = URL(string: localUrl+requestUrl)
+                
+                // URLRequest 객체를 정의
+                var request = URLRequest(url: url!)
+                request.httpMethod = "POST"
+                request.httpBody = paramData
+                
+                // HTTP 메시지 헤더
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.addValue("application/json", forHTTPHeaderField: "Accept")
+//                request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+//                request.setValue(String(paramData.count), forHTTPHeaderField: "Content-Length")
+                
+                // URLSession 객체를 통해 전송, 응답값 처리
+                let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                    // 서버가 응답이 없거나 통신이 실패
+                    if let e = error {
+                        print("네트워크에 접속할 수 없습니다.")
+                        return
+                    }
+                    
+                let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+
+                    print("Device insert / update 응답 처리 로직 responseString", responseString!)
+//                    print("응답 처리 로직 data", data as Any)
+//                    print("응답 처리 로직 response", response as Any)
+                    // 응답 처리 로직
+                    if(responseString == "true"){
+                        DispatchQueue.main.async{
+                            print("Device insert / update SUCCESS")
+                        }
+                    }
+                }
+                // POST 전송
+                task.resume()
+    }
+    
  }
 
 
@@ -99,6 +148,18 @@ extension AppDelegate: MessagingDelegate, UNUserNotificationCenterDelegate {
     }
     
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-            print("파이어베이스 토큰: \(fcmToken!)")
+        
+        dic["device_model"] = deviceModel
+        dic["device_id"] = deviceID
+        dic["push_token"] = fcmToken!
+        dic["push_yn"] = 1
+        dic["push30"] = 1
+        dic["push7"] = 1
+        dic["push1"] = 1
+        
+        // user_device DB insert
+        requestPost(requestUrl: "/device/insert", dic: dic)
+        
+        print("파이어베이스 토큰: \(fcmToken!)")
     }
 }

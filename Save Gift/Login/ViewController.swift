@@ -34,6 +34,8 @@ class ViewController: UIViewController, ASAuthorizationControllerDelegate, UITex
 
     let localUrl = "".getLocalURL();
     let helper : Helper = Helper();
+    let deviceID = UIDevice.current.identifierForVendor!.uuidString
+    
     var url : String = ""
     var id: String = ""
     var pw: String = ""
@@ -198,7 +200,7 @@ class ViewController: UIViewController, ASAuthorizationControllerDelegate, UITex
     func requestPost(requestUrl : String!) -> Void{
         let email = idTextField.text
         let password = passwordTextField.text
-        let param = ["user_id" : email, "user_password" : password] as [String : Any] // JSON 객체로 전송할 딕셔너리
+        let param = ["user_id" : email, "user_password" : password, "device_id" : deviceID] as [String : Any] // JSON 객체로 전송할 딕셔너리
 //        let param = "user_Id=\(email)&name=\(name)"
         let paramData = try! JSONSerialization.data(withJSONObject: param)
         // URL 객체 정의
