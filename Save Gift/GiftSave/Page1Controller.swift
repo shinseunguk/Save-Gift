@@ -72,7 +72,8 @@ class Page1Controller : UIViewController{
             self.navigationController?.navigationBar.shadowImage = UIImage()
             self.navigationController?.navigationBar.isTranslucent = false
             self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.black]
-            self.navigationItem.title = "친구"
+            self.navigationController?.navigationBar.topItem?.title = ""
+            self.navigationItem.title = "\(presentId!)님에게 선물"
             self.helper.showAlertAction1(vc: self, preferredStyle: .alert, title: "알림", message: "선물할 기프티콘을 선택해주세요.", completeTitle: "확인", nil)
         }
         

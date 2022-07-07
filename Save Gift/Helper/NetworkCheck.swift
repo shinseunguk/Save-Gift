@@ -41,9 +41,9 @@ final class NetworkCheck {
             self?.getConnectionType(path)
 
             if self?.isConnected == true {
-                print("연결됨!")
+                print("네트워크 연결 성공")
             } else {
-                print("연결안됨!")
+                print("네트워크 연결 실패")
                 self!.showNetworkVCOnRoot()
             }
         }

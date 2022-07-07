@@ -28,6 +28,8 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
     @IBOutlet weak var registerBtn: UIButton!
     @IBOutlet weak var uiView: UIView!
     
+    var keyHeight: CGFloat?
+    
     var delegate : GiftDeleteDelegate?
     var delegate2 : GiftDeleteDelegate2?
     var delegate3 : GiftDeleteDelegate3?
@@ -93,63 +95,33 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad();
-
-//        self.imagePicker.delegate = self // picker delegate
-//        self.imagePicker.sourceType = .photoLibrary // 앨범에서 가져옴
-//        self.imagePicker.allowsEditing = false // 수정 가능 여부
-//        self.scrollView.delegate = self
-//
-//        //btn layout setting
-//        setupLayout()
-//
-//        //네비게이션바 setting
-//        setupNavigationBar()
-//
-//        //툴바 setting
-////        setupToolBar()
-//
-//        //등록일, 등록자 default setting
-//        deafultSetting()
-//
-//        //테이블뷰 setup
-//        setupTableView()
-//
-//        let tapGR = UITapGestureRecognizer(target: self, action: #selector(self.imageTapped))
-//                        imageView.addGestureRecognizer(tapGR)
-//                        imageView.isUserInteractionEnabled = true
-//
-//        print("deviceID : ", deviceID!)
-//
-//        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification , object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-//
-//        plusAction()
-//
-//        print("reviseDic ", reviseDic)
-//
-//        if reviseImage != nil{
-//            regularBool = true // 기프티콘 수정 default값
-//            regularStatusBool = true // 기프티콘 수정 default값
-//
-//            revisSetup()
-//
-//            DispatchQueue.global(qos: .userInteractive).async {
-//                DispatchQueue.main.async {
-//                    self.imageView.image = self.reviseImage
-//                }
-//            }
-//
-//            registerBtn.setTitle("수정", for: .normal)
-//        }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
         self.imagePicker.delegate = self // picker delegate
         self.imagePicker.sourceType = .photoLibrary // 앨범에서 가져옴
         self.imagePicker.allowsEditing = false // 수정 가능 여부
         self.scrollView.delegate = self
+
+        print("reviseDic ", reviseDic)
+        
+        if reviseImage != nil{
+            regularBool = true // 기프티콘 수정 default값
+            regularStatusBool = true // 기프티콘 수정 default값
+            
+            revisSetup()
+            
+            DispatchQueue.global(qos: .userInteractive).async {
+                DispatchQueue.main.async {
+                    self.imageView.image = self.reviseImage
+                }
+            }
+            
+            registerBtn.setTitle("수정", for: .normal)
+        }else {
+            plusAction()
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         //btn layout setting
         setupLayout()
@@ -175,25 +147,6 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification , object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         
-        
-        print("reviseDic ", reviseDic)
-        
-        if reviseImage != nil{
-            regularBool = true // 기프티콘 수정 default값
-            regularStatusBool = true // 기프티콘 수정 default값
-            
-            revisSetup()
-            
-            DispatchQueue.global(qos: .userInteractive).async {
-                DispatchQueue.main.async {
-                    self.imageView.image = self.reviseImage
-                }
-            }
-            
-            registerBtn.setTitle("수정", for: .normal)
-        }else {
-            plusAction()
-        }
     }
     
     func revisSetup(){
@@ -299,38 +252,43 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
     @objc func keyboardWillHide(_ sender: Notification) {
         // 키보드의 높이만큼 화면을 내려준다.
         print("keyboardWillHide")
-        print("keyboard ",keyboard!)
+        print("keyboard ", keyboard!)
+//        if !keyboard! {
+//            if let keyboardFrame: NSValue = sender.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+//                let keyboardRectangle = keyboardFrame.cgRectValue
+//                let keyboardHeight = keyboardRectangle.height
+//                self.view.frame.origin.y += keyboardHeight
+//            }
+//            keyboard = true
+//        }
         if !keyboard! {
-            if let keyboardFrame: NSValue = sender.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
-                let keyboardRectangle = keyboardFrame.cgRectValue
-                let keyboardHeight = keyboardRectangle.height
-                self.view.frame.origin.y += keyboardHeight
-            }
-            keyboard = true
+            self.view.frame.size.height += keyHeight!
         }
+        keyboard = true
     }
     
         
     @objc func keyboardWillShow(_ sender: Notification) {
         print("keyboardWillShow")
-        print("keyboard ",keyboard!)
-        // 키보드의 높이만큼 화면을 올려준다.
+        print("keyboard ", keyboard!)
         if keyboard! {
-            if let keyboardFrame: NSValue = sender.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
-                let keyboardRectangle = keyboardFrame.cgRectValue
-                let keyboardHeight = keyboardRectangle.height
-                self.view.frame.origin.y -= keyboardHeight
-            }
-            keyboard = false
+            let userInfo:NSDictionary = sender.userInfo! as NSDictionary
+            let keyboardFrame:NSValue = userInfo.value(forKey: UIResponder.keyboardFrameEndUserInfoKey) as! NSValue
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            let keyboardHeight = keyboardRectangle.height
+            keyHeight = keyboardHeight
+
+            self.view.frame.size.height -= keyboardHeight
         }
+        keyboard = false
     }
     
     @objc func imageTapped(sender: UITapGestureRecognizer) {
-                if sender.state == .ended {
-                    print("imageTapped")
-                    self.view.endEditing(true)
-                }
+        if sender.state == .ended {
+            print("imageTapped")
+            self.view.endEditing(true)
         }
+    }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
          if scrollView.contentOffset.x > 0 || scrollView.contentOffset.x < 0 {
