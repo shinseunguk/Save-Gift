@@ -91,7 +91,9 @@ class GiftDetailController : UIViewController{
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(self.imageTapped))
                         imageView.addGestureRecognizer(tapGR)
                         imageView.isUserInteractionEnabled = true
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         print("seq --- > ", seq!)
         
         print("presentIndex ", presentIndex)
@@ -308,10 +310,6 @@ class GiftDetailController : UIViewController{
         
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        
-    }
-    
     override func viewWillDisappear(_ animated: Bool) {
         print("\(LOG_TAG)", #function)
         
@@ -440,7 +438,16 @@ class GiftDetailController : UIViewController{
     }
     
     @IBAction func useynAction(_ sender: Any) {
-        if useynBtn.titleLabel?.text == "미사용 처리"{ // 이미 사용 혹은 사용 불가 -> 미사용
+        print("getRecentDictionary() as! Int ", getRecentDictionary()["use_yn"] as! Int)
+        
+        let resultDDay : Int = calculateDays(availableDate: getRecentDictionary()["expiration_period"] as! String)
+        if resultDDay > 0 {
+            couponStatus = false
+        }else {
+            couponStatus = true
+        }
+        
+        if getRecentDictionary()["use_yn"] as! Int == 1{ // 이미 사용 혹은 사용 불가 -> 미사용
             if couponStatus {
                 normalAlertUseYn(title: "알림", message: "미사용 처리 하시겠습니까?")
             }else { //유효기간이 지났음에도 쿠폰상태를 사용가능으로 변경하는 경우
@@ -581,10 +588,61 @@ class GiftDetailController : UIViewController{
             return
         }
         
-        pushVC.reviseDic = self.dic
+        pushVC.reviseDic = getRecentDictionary()
         pushVC.reviseImage = self.imageView.image
         pushVC.detailDelegate = self
         self.present(pushVC, animated: true, completion: nil)
+    }
+    
+    func getRecentDictionary() -> Dictionary<String, Any> {
+        for x in 0...6 {
+            let cell: GiftDetailTableViewCell = self.tableView.cellForRow(at: IndexPath(row: x, section: 0)) as! GiftDetailTableViewCell
+            
+            switch x {
+            case 0:
+                let text : String? = cell.secondLabel.text
+                print("text0 ", text!)
+                dic["barcode_number"] = text!
+                break
+            case 1:
+                let text : String? = cell.secondLabel.text
+                print("text1 ", text!)
+                dic["brand"] = text!
+                break
+            case 2:
+                let text : String? = cell.secondLabel.text
+                print("text2 ", text!)
+                dic["product_name"] = text!
+                break
+            case 3:
+                let text : String? = cell.secondLabel.text
+                print("text3 ", text!)
+                dic["expiration_period"] = text!
+                break
+            case 4:
+                let text : String? = cell.secondLabel.text
+                print("text4 ", text!)
+                if text! == "사용가능" {
+                    dic["use_yn"] = 0
+                }else {
+                    dic["use_yn"] = 1
+                }
+                break
+            case 5:
+                let text : String? = cell.secondLabel.text
+                print("text5 ", text!)
+                dic["registration_date"] = text!
+                break
+            case 6:
+                let text : String? = cell.secondLabel.text
+                print("text6 ", text!)
+                dic["registrant"] = text!
+                break
+            default:
+                print("default")
+            }
+        }
+        return dic
     }
     
     func deleteGiftCon(){
@@ -598,11 +656,13 @@ class GiftDetailController : UIViewController{
         //로직 구현해야함 ..
         if index == "사용완료"{
             print("사용완료")
+            param = getRecentDictionary()
             param["use_yn"] = 1
             param["seq"] = seq!
             useYnRequest(requestUrl: "/gift/useyn", param: param)
         }else if index == "미사용"{
             print("미사용")
+            param = getRecentDictionary()
             param["use_yn"] = 0
             param["seq"] = seq!
             useYnRequest(requestUrl: "/gift/useyn", param: param)
@@ -611,7 +671,7 @@ class GiftDetailController : UIViewController{
                 return
             }
             
-            pushVC.reviseDic = self.dic
+            pushVC.reviseDic = getRecentDictionary()
             pushVC.reviseImage = self.imageView.image
             pushVC.detailDelegate = self
             self.present(pushVC, animated: true, completion: nil)
