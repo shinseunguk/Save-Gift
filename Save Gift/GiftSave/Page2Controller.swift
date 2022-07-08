@@ -159,10 +159,12 @@ class Page2Controller : UIViewController{
         //blur효과
         btnBlurCreate()
         helper.showLoading()
+        print("showloading \(#file) \(#function) \(#line)")
         requestPost(requestUrl: "/gift/save", param: param)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.helper.hideLoading()
+            print("hideloading \(#file) \(#function) \(#line)")
             self.btnBlurRemove()
         }
     }
@@ -178,10 +180,12 @@ class Page2Controller : UIViewController{
         //blur효과
         btnBlurCreate()
         helper.showLoading()
+        print("showloading \(#file) \(#function) \(#line)")
         requestPost(requestUrl: "/gift/save", param: param)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.helper.hideLoading()
+            print("hideloading \(#file) \(#function) \(#line)")
             self.btnBlurRemove()
         }
     }
