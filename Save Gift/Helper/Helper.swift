@@ -294,7 +294,7 @@ class Helper : UIViewController{
                     loadingIndicatorView = UIActivityIndicatorView(style: .large)
                     // 아래는 다른 UI를 클릭하는 것 방지.
                     loadingIndicatorView.frame = window.frame
-                    loadingIndicatorView.color = .brown
+                    loadingIndicatorView.color = .systemBlue
 
                     window.addSubview(loadingIndicatorView)
                 }
