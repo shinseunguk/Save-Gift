@@ -216,7 +216,7 @@ class GiftFriendController : UIViewController{
             self.reAlert(email: email)
             //DB delete
         })
-        alert.addAction(UIAlertAction(title: "수락", style: .destructive) { action in
+        alert.addAction(UIAlertAction(title: "수락", style: .default) { action in
             print("수락")
             self.requestAddFriend(requestUrl: "/addFriend", friend : email)
             //DB delete후
