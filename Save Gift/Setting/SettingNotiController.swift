@@ -185,21 +185,35 @@ extension SettingNotiController: UITableViewDelegate, UITableViewDataSource{
        }
     
     @objc func changeSwitch1(_ sender: UISwitch) {
+        print("[sender.tag] ", [sender.tag])
         print(arr1[sender.tag] + "But \(sender.isOn) Became")
         switch arr1[sender.tag] {
         case "알림설정":
             if(sender.isOn){
                 print("알림설정 ON")
-                arrayBoll1[0] = true
+//                arrayBoll1[0] = true
+                for x in 0...3 {
+                    let cell: TableViewCell = self.tableViewFirst.cellForRow(at: IndexPath(row: x, section: 0)) as! TableViewCell
+                    cell.uiSwitch.isOn = true
+                    arrayBoll1[x] = true
+                }
             }else {
-                arrayBoll1[0] = false
                 print("알림설정 OFF")
+                for x in 0...3 {
+                    let cell: TableViewCell = self.tableViewFirst.cellForRow(at: IndexPath(row: x, section: 0)) as! TableViewCell
+                    cell.uiSwitch.isOn = false
+                    arrayBoll1[x] = false
+                }
+//                arrayBoll1[0] = false
             }
             break
         case "30일 전부터 알림":
             if(sender.isOn){
-                print("30일 전부터 알림 ON")
-                arrayBoll1[1] = true
+                for x in 0...3 {
+                    let cell: TableViewCell = self.tableViewFirst.cellForRow(at: IndexPath(row: x, section: 0)) as! TableViewCell
+                    cell.uiSwitch.isOn = true
+                    arrayBoll1[x] = true
+                }
             }else {
                 print("30일 전부터 알림 OFF")
                 arrayBoll1[1] = false
@@ -208,23 +222,53 @@ extension SettingNotiController: UITableViewDelegate, UITableViewDataSource{
         case "7일 전부터 알림":
             if(sender.isOn){
                 print("7일 전부터 알림 ON")
+                for x in 0...3 {
+                    let cell: TableViewCell = self.tableViewFirst.cellForRow(at: IndexPath(row: x, section: 0)) as! TableViewCell
+                    if x == 1{
+                        cell.uiSwitch.isOn = false
+                        arrayBoll1[x] = false
+                    }else{
+                        cell.uiSwitch.isOn = true
+                        arrayBoll1[x] = true
+                    }
+                }
                 arrayBoll1[2] = true
             }else {
                 print("7일 전부터 알림 OFF")
+                if arrayBoll1[1]{
+                    let cell: TableViewCell = self.tableViewFirst.cellForRow(at: IndexPath(row: 1, section: 0)) as! TableViewCell
+                    cell.uiSwitch.isOn = false
+                    arrayBoll1[1] = false
+                }
                 arrayBoll1[2] = false
             }
             break
         case "1일 전부터 알림":
             if(sender.isOn){
                 print("1일 전부터 알림 ON")
+                let cell: TableViewCell = self.tableViewFirst.cellForRow(at: IndexPath(row: 0, section: 0)) as! TableViewCell
+                cell.uiSwitch.isOn = true
+                arrayBoll1[0] = true
                 arrayBoll1[3] = true
             }else {
                 print("1일 전부터 알림 OFF")
-                arrayBoll1[3] = false
+                for x in 0...3 {
+                    let cell: TableViewCell = self.tableViewFirst.cellForRow(at: IndexPath(row: x, section: 0)) as! TableViewCell
+                    cell.uiSwitch.isOn = false
+                    arrayBoll1[x] = false
+                }
             }
             break
         default:
             print("default")
+        }
+        
+        //알림설정 off 로직
+        if !arrayBoll1[1] && !arrayBoll1[2] && !arrayBoll1[3]{
+            for x in 0...3 {
+                let cell: TableViewCell = self.tableViewFirst.cellForRow(at: IndexPath(row: x, section: 0)) as! TableViewCell
+                cell.uiSwitch.isOn = false
+            }
         }
         
         requestPost(requestUrl: "/notisetting", index: 0)
