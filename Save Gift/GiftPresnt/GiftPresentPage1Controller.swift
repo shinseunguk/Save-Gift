@@ -145,12 +145,10 @@ class GiftPresentPage1Controller : UIViewController{
         param["present"] = 1
         //blur효과
         btnBlurCreate()
-        helper.showLoading()
-        print("showloading \(#file) \(#function) \(#line)")
+        helper.showLoadingOneSec()
         requestPost(requestUrl: "/gift/save", param: param)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            self.helper.hideLoading()
             print("hideloading \(#file) \(#function) \(#line)")
             self.btnBlurRemove()
         }
