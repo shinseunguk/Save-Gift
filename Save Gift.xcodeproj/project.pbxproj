@@ -54,7 +54,7 @@
 		04F9F4AD27FA916B00DC1273 /* FirebaseStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F9F4AC27FA916B00DC1273 /* FirebaseStorageManager.swift */; };
 		763DE04F2C7A062C53B7ADC0 /* Pods_Save_Gift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD260840BC3222175AF7E31 /* Pods_Save_Gift.framework */; };
 		A20D2682276A151700470D06 /* Register3Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20D2681276A151700470D06 /* Register3Controller.swift */; };
-		A213100127A97C5300A98783 /* BuildFile in Embed Frameworks */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A213100127A97C5300A98783 /* (null) in Embed Frameworks */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A218F1A1276E093D00E71316 /* FindidController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A218F1A0276E093D00E71316 /* FindidController.swift */; };
 		A21C6D5B276F630900BDE1E4 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21C6D5A276F630900BDE1E4 /* SideMenuViewController.swift */; };
 		A21C6D5D276F646000BDE1E4 /* CustomSideMenuNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21C6D5C276F646000BDE1E4 /* CustomSideMenuNavigation.swift */; };
@@ -67,6 +67,7 @@
 		A232943127634593007ACA5F /* Register2Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = A232943027634593007ACA5F /* Register2Controller.swift */; };
 		A23698AE27A97B9100C86754 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A28F4397276F44B700B5DB17 /* LocalAuthentication.framework */; };
 		A240D8FD2814311F0009B03E /* TestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A240D8FC2814311F0009B03E /* TestController.swift */; };
+		A251B676288ABD5500258884 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A251B675288ABD5500258884 /* WebViewController.swift */; };
 		A27F4BE827CA90B700F9ED4A /* FriendController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27F4BE727CA90B700F9ED4A /* FriendController.swift */; };
 		A2877C6728260200006EFBCC /* GiftDetailFullScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2877C6628260200006EFBCC /* GiftDetailFullScreenController.swift */; };
 		A28A06B42794413000876560 /* GiftRegisterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28A06B32794413000876560 /* GiftRegisterController.swift */; };
@@ -76,6 +77,7 @@
 		A2907E1C27EF87A20001148D /* Page3Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2907E1B27EF87A20001148D /* Page3Controller.swift */; };
 		A293992327C257F2007DD927 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A293992127C257F2007DD927 /* CollectionViewCell.swift */; };
 		A293992427C257F2007DD927 /* CollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A293992227C257F2007DD927 /* CollectionViewCell.xib */; };
+		A29AAD7F288ADB300000B9FD /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A236990A27A97B9400C86754 /* WebKit.framework */; };
 		A2B6C2DE27A81E2100B8617B /* RegisterUseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B6C2DC27A81E2100B8617B /* RegisterUseTableViewCell.swift */; };
 		A2B6C2DF27A81E2100B8617B /* RegisterUseTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2B6C2DD27A81E2100B8617B /* RegisterUseTableViewCell.xib */; };
 		A2B6C2E227A8239600B8617B /* RegisterBarcodeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B6C2E027A8239600B8617B /* RegisterBarcodeTableViewCell.swift */; };
@@ -110,7 +112,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				A213100127A97C5300A98783 /* BuildFile in Embed Frameworks */,
+				A213100127A97C5300A98783 /* (null) in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -731,6 +733,7 @@
 		A2369A6527A97BA000C86754 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		A2369A6627A97BA000C86754 /* libpthread.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libpthread.tbd; path = usr/lib/libpthread.tbd; sourceTree = SDKROOT; };
 		A240D8FC2814311F0009B03E /* TestController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestController.swift; sourceTree = "<group>"; };
+		A251B675288ABD5500258884 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		A27F4BE727CA90B700F9ED4A /* FriendController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendController.swift; sourceTree = "<group>"; };
 		A2877C6628260200006EFBCC /* GiftDetailFullScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftDetailFullScreenController.swift; sourceTree = "<group>"; };
 		A28A06B32794413000876560 /* GiftRegisterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftRegisterController.swift; sourceTree = "<group>"; };
@@ -774,6 +777,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A29AAD7F288ADB300000B9FD /* WebKit.framework in Frameworks */,
 				A23698AE27A97B9100C86754 /* LocalAuthentication.framework in Frameworks */,
 				763DE04F2C7A062C53B7ADC0 /* Pods_Save_Gift.framework in Frameworks */,
 			);
@@ -892,6 +896,7 @@
 				A240D8FC2814311F0009B03E /* TestController.swift */,
 				0471A0CC28348C6F0081AA5E /* NetworkCheck.swift */,
 				044A82942834933700B779E8 /* NetworkViewController.swift */,
+				A251B675288ABD5500258884 /* WebViewController.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -1767,6 +1772,7 @@
 				A2D2FDA8277741ED0036B849 /* GiftFriendController.swift in Sources */,
 				0487041D2844875C00CB8A23 /* PresentMessageTableViewCell.swift in Sources */,
 				A2D4935C27905FA900FB5770 /* SettingDeveloperController.swift in Sources */,
+				A251B676288ABD5500258884 /* WebViewController.swift in Sources */,
 				A2D33522275CDEA700ECF4B1 /* RegisterController.swift in Sources */,
 				044A82952834933700B779E8 /* NetworkViewController.swift in Sources */,
 				A2DC3F2627817EFC00D354B1 /* LoadingController.swift in Sources */,

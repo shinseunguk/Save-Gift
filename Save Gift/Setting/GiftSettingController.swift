@@ -12,6 +12,8 @@ class GiftSettingController : UIViewController{
     
 //    @IBOutlet weak var cell: UITableViewCell!
     let helper : Helper = Helper()
+    let localUrl = "".getLocalURL()
+    let deviceID : String? = UserDefaults.standard.string(forKey: "device_id")
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var loginBtn: UIButton!
     @IBOutlet weak var loginLabel: UILabel!
@@ -56,6 +58,7 @@ class GiftSettingController : UIViewController{
             imgArr.append(UIImage(systemName: "apps.iphone")!) // 앱버전
             imgArr.append(UIImage(systemName: "doc.fill")!) // 기프티콘 사용법
             imgArr.append(UIImage(systemName: "person.crop.circle.badge.minus.fill")!) // 회원탈퇴
+            imgArr.append(UIImage(systemName: "keyboard")!) // 개발자
             imgArr.append(UIImage(systemName: "keyboard")!) // 개발자
         } else {
             print("iOS 버전 14 미만")
@@ -135,8 +138,8 @@ extension GiftSettingController: UITableViewDelegate, UITableViewDataSource{
         
         if indexPath.row == 0{ // 로그아웃
             if(UserDefaults.standard.string(forKey: "ID") != nil){
+                userDeviceDelete(requestUrl: "/device/delete")
                 UserDefaults.standard.removeObject(forKey: "ID")
-                
 //                let pushVC = self.storyboard?.instantiateViewController(withIdentifier: "tabbarVC")
 //                        self.navigationController?.pushViewController(pushVC!, animated: true)
                 // 원하는 화면으로 pop tabbarVC  pushViewController 말고 bug fix ...
@@ -234,4 +237,46 @@ extension GiftSettingController: UITableViewDelegate, UITableViewDataSource{
         present(alert, animated: true, completion: nil)
     }
     
+    func userDeviceDelete(requestUrl : String!) -> Void{ // 함수명은 delete지만 update로 변경
+        let param = ["user_id" : UserDefaults.standard.string(forKey: "ID"), "device_id" : deviceID] as [String : Any] // JSON 객체로 전송할 딕셔너리
+        let paramData = try! JSONSerialization.data(withJSONObject: param)
+        // URL 객체 정의
+                let url = URL(string: localUrl+requestUrl)
+                
+                // URLRequest 객체를 정의
+                var request = URLRequest(url: url!)
+                request.httpMethod = "POST"
+                request.httpBody = paramData
+                
+                // HTTP 메시지 헤더
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.addValue("application/json", forHTTPHeaderField: "Accept")
+//                request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+//                request.setValue(String(paramData.count), forHTTPHeaderField: "Content-Length")
+                
+                // URLSession 객체를 통해 전송, 응답값 처리
+                let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                    // 서버가 응답이 없거나 통신이 실패
+                    if let e = error {
+                        print("네트워크에 접속할 수 없습니다.")
+                        return
+                    }
+                    
+                let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+
+                    print("Device DELETE 응답 처리 로직 responseString", responseString!)
+//                    print("응답 처리 로직 data", data as Any)
+//                    print("응답 처리 로직 response", response as Any)
+                    // 응답 처리 로직
+                    if(responseString == "true"){
+                        DispatchQueue.main.async{
+                            print("Device DELETE SUCCESS")
+                        }
+                    }
+                }
+                // POST 전송
+                task.resume()
+    }
+    
 }
+ 

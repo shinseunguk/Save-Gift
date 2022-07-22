@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="gfd-vK-Avs">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="gfd-vK-Avs">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="thirdFont.ttf">
+        <array key="geulssi.ttf">
             <string>NanumAmSeuTeReuDam</string>
         </array>
     </customFonts>
@@ -164,38 +164,6 @@
                                     <action selector="registerAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="oRQ-Am-cs4"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="또는" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JCH-jv-qnL">
-                                <rect key="frame" x="194" y="570" width="26" height="19"/>
-                                <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="15"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A18-Al-vgs">
-                                <rect key="frame" x="182" y="619" width="50" height="50"/>
-                                <color key="backgroundColor" red="0.98039215800000001" green="0.88235294819999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="113-YG-qXE"/>
-                                    <constraint firstAttribute="width" constant="50" id="9BV-Re-P0E"/>
-                                </constraints>
-                                <color key="tintColor" red="1" green="0.0187217119" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" image="kakaotalk.png"/>
-                                <connections>
-                                    <action selector="kakaoAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gK2-yo-F4K"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="47S-B2-566">
-                                <rect key="frame" x="85" y="619" width="50" height="50"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="9m4-iz-UXB"/>
-                                    <constraint firstAttribute="width" constant="50" id="dIJ-xo-qEr"/>
-                                </constraints>
-                                <color key="tintColor" red="1" green="0.0187217119" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" image="apple.png"/>
-                                <connections>
-                                    <action selector="appleAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="isD-dl-pqJ"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iiy-ec-Abx">
                                 <rect key="frame" x="20" y="495" width="180" height="50"/>
                                 <color key="backgroundColor" systemColor="systemBlueColor"/>
@@ -236,19 +204,6 @@
                                     <action selector="findPWAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HaW-gO-Gk6"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tkJ-2X-dYc">
-                                <rect key="frame" x="279" y="620" width="50" height="50"/>
-                                <color key="backgroundColor" red="0.0" green="0.78823530669999997" blue="0.22745099660000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="50" id="0cx-8n-Qc0"/>
-                                    <constraint firstAttribute="height" constant="50" id="rU1-EZ-1pH"/>
-                                </constraints>
-                                <color key="tintColor" red="1" green="0.0187217119" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" image="naver.png"/>
-                                <connections>
-                                    <action selector="naverAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="t16-uf-juM"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="nP9-8k-Wkw"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -264,23 +219,15 @@
                             <constraint firstItem="nP9-8k-Wkw" firstAttribute="trailing" secondItem="ISF-8a-0Cf" secondAttribute="trailing" constant="20" id="BSJ-0l-UEf"/>
                             <constraint firstItem="iiy-ec-Abx" firstAttribute="width" secondItem="WiR-x7-L7B" secondAttribute="width" id="DKF-pg-hjs"/>
                             <constraint firstItem="nP9-8k-Wkw" firstAttribute="trailing" secondItem="12C-J7-0Be" secondAttribute="trailing" constant="20" id="Emh-7c-jGU"/>
-                            <constraint firstItem="47S-B2-566" firstAttribute="top" secondItem="iiy-ec-Abx" secondAttribute="bottom" constant="74" id="GCo-hB-204"/>
                             <constraint firstItem="nP9-8k-Wkw" firstAttribute="trailing" secondItem="Ul7-dk-Px3" secondAttribute="trailing" constant="20" id="H9y-f7-bn1"/>
                             <constraint firstItem="znL-aV-Czc" firstAttribute="leading" secondItem="nP9-8k-Wkw" secondAttribute="leading" constant="23" id="HIO-3u-i4j"/>
                             <constraint firstItem="12C-J7-0Be" firstAttribute="top" secondItem="ISF-8a-0Cf" secondAttribute="bottom" constant="27" id="I9D-YA-Jcn"/>
-                            <constraint firstItem="A18-Al-vgs" firstAttribute="leading" secondItem="47S-B2-566" secondAttribute="trailing" constant="47" id="Nkx-BG-GDo"/>
-                            <constraint firstItem="JCH-jv-qnL" firstAttribute="centerX" secondItem="nP9-8k-Wkw" secondAttribute="centerX" id="S30-Yp-3M0"/>
                             <constraint firstItem="WiR-x7-L7B" firstAttribute="leading" secondItem="iiy-ec-Abx" secondAttribute="trailing" constant="14" id="W87-hs-OON"/>
                             <constraint firstItem="Xsb-cV-5A3" firstAttribute="leading" secondItem="nP9-8k-Wkw" secondAttribute="leading" constant="23" id="Wdf-f9-8gc"/>
                             <constraint firstItem="12C-J7-0Be" firstAttribute="leading" secondItem="nP9-8k-Wkw" secondAttribute="leading" constant="20" id="b6v-HF-yRp"/>
-                            <constraint firstItem="JCH-jv-qnL" firstAttribute="top" secondItem="iiy-ec-Abx" secondAttribute="bottom" constant="25" id="bxr-Ms-zOF"/>
-                            <constraint firstItem="tkJ-2X-dYc" firstAttribute="top" secondItem="WiR-x7-L7B" secondAttribute="bottom" constant="75" id="ieF-bt-cfO"/>
                             <constraint firstItem="znL-aV-Czc" firstAttribute="top" secondItem="nP9-8k-Wkw" secondAttribute="top" constant="150" id="mMI-Uh-x5r"/>
-                            <constraint firstItem="tkJ-2X-dYc" firstAttribute="leading" secondItem="A18-Al-vgs" secondAttribute="trailing" constant="47" id="oB5-Cw-ELs"/>
                             <constraint firstItem="ISF-8a-0Cf" firstAttribute="top" secondItem="Ul7-dk-Px3" secondAttribute="bottom" constant="35" id="oKe-Zz-6bR"/>
                             <constraint firstItem="ISF-8a-0Cf" firstAttribute="top" secondItem="Xsb-cV-5A3" secondAttribute="bottom" constant="5" id="p6U-HS-nfV"/>
-                            <constraint firstItem="A18-Al-vgs" firstAttribute="top" secondItem="iiy-ec-Abx" secondAttribute="bottom" constant="74" id="u1Z-JC-Ozv"/>
-                            <constraint firstItem="A18-Al-vgs" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ucY-aa-EN6"/>
                             <constraint firstItem="nP9-8k-Wkw" firstAttribute="trailing" secondItem="zRF-Tt-Oww" secondAttribute="trailing" constant="20" id="w9V-2T-OJn"/>
                             <constraint firstItem="iiy-ec-Abx" firstAttribute="leading" secondItem="nP9-8k-Wkw" secondAttribute="leading" constant="20" id="y11-rw-Dax"/>
                             <constraint firstItem="ISF-8a-0Cf" firstAttribute="leading" secondItem="nP9-8k-Wkw" secondAttribute="leading" constant="20" id="zf0-6u-fHZ"/>
@@ -289,12 +236,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="F64-gy-KCK"/>
                     <connections>
-                        <outlet property="btnAppleLogin" destination="47S-B2-566" id="KRa-jY-SZb"/>
                         <outlet property="btnFindID" destination="iiy-ec-Abx" id="9KK-Ot-jMQ"/>
                         <outlet property="btnFindPW" destination="WiR-x7-L7B" id="lpY-pG-a6x"/>
-                        <outlet property="btnKakaoLogin" destination="A18-Al-vgs" id="y7I-Ub-0D9"/>
                         <outlet property="btnLogin" destination="12C-J7-0Be" id="act-9N-YpS"/>
-                        <outlet property="btnNaverLogin" destination="tkJ-2X-dYc" id="csj-Fd-H8U"/>
                         <outlet property="btnRegister" destination="zRF-Tt-Oww" id="2P2-oe-rm0"/>
                         <outlet property="idTextField" destination="Ul7-dk-Px3" id="FoM-En-GZn"/>
                         <outlet property="passwordTextField" destination="ISF-8a-0Cf" id="rd3-QN-Jgb"/>
@@ -495,7 +439,7 @@
                                 </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="cyQ-Or-yL3">
-                                        <rect key="frame" x="0.0" y="44.666666030883789" width="414" height="43.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="414" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cyQ-Or-yL3" id="SYx-CK-iTn">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
@@ -512,7 +456,7 @@
                                 </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="sp4-1x-2Qz">
-                                        <rect key="frame" x="0.0" y="44.666666030883789" width="414" height="43.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="414" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sp4-1x-2Qz" id="99s-YU-xwC">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
@@ -643,6 +587,40 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eft-Lx-YUx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5190" y="3556"/>
+        </scene>
+        <!--Web View Controller-->
+        <scene sceneID="fq0-4D-fyu">
+            <objects>
+                <viewController storyboardIdentifier="WebViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Pbs-9H-Tzj" customClass="WebViewController" customModule="Save_Gift" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="4IE-67-Is7">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BrJ-9Q-YQ1">
+                                <rect key="frame" x="0.0" y="74" width="414" height="788"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="aeB-XH-obx"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="BrJ-9Q-YQ1" firstAttribute="leading" secondItem="aeB-XH-obx" secondAttribute="leading" id="793-N1-kwV"/>
+                            <constraint firstItem="aeB-XH-obx" firstAttribute="bottom" secondItem="BrJ-9Q-YQ1" secondAttribute="bottom" id="85u-pH-HfM"/>
+                            <constraint firstItem="aeB-XH-obx" firstAttribute="trailing" secondItem="BrJ-9Q-YQ1" secondAttribute="trailing" id="ohr-cC-Hg6"/>
+                            <constraint firstItem="BrJ-9Q-YQ1" firstAttribute="top" secondItem="aeB-XH-obx" secondAttribute="top" constant="30" id="y3K-TN-veX"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="BrJ-9Q-YQ1" id="Hp9-i4-1vt"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0dB-uW-fff" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1759" y="-589"/>
         </scene>
         <!--Register Controller-->
         <scene sceneID="rBB-lo-wYZ">
@@ -1132,7 +1110,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="customCell" rowHeight="70" id="1bt-2d-v8B" customClass="CustomCell" customModule="Save_Gift" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.666666030883789" width="414" height="70"/>
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="414" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1bt-2d-v8B" id="rcl-9X-GZj">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="70"/>
@@ -1348,7 +1326,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="pEV-xu-yR8">
-                                        <rect key="frame" x="0.0" y="44.666666030883789" width="334" height="43.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="334" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pEV-xu-yR8" id="7YG-3I-CbT">
                                             <rect key="frame" x="0.0" y="0.0" width="334" height="43.666667938232422"/>
@@ -1562,7 +1540,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingTableViewCell" id="wax-k3-ndu" customClass="SettingTableViewCell" customModule="Save_Gift" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.666666030883789" width="414" height="43.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="414" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wax-k3-ndu" id="Cfc-N7-BRx">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
@@ -2069,7 +2047,7 @@
                                                 </constraints>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="GiftDetailTableViewCell" id="Tx4-me-cic">
-                                                        <rect key="frame" x="0.0" y="44.666666030883789" width="394" height="43.666667938232422"/>
+                                                        <rect key="frame" x="0.0" y="24.333333969116211" width="394" height="43.666667938232422"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Tx4-me-cic" id="Tpx-kZ-GtJ">
                                                             <rect key="frame" x="0.0" y="0.0" width="394" height="43.666667938232422"/>
@@ -2285,7 +2263,7 @@
                                                 </constraints>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="xTR-i4-gMN">
-                                                        <rect key="frame" x="0.0" y="44.666666030883789" width="414" height="43.666667938232422"/>
+                                                        <rect key="frame" x="0.0" y="24.333333969116211" width="414" height="43.666667938232422"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xTR-i4-gMN" id="YGc-H0-NAV">
                                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
@@ -3097,7 +3075,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="apple.png" width="3.8399999141693115" height="4.8000001907348633"/>
         <image name="arrow.up.arrow.down" catalog="system" width="128" height="98"/>
         <image name="barcode" catalog="system" width="128" height="93"/>
         <image name="checkmark.square" catalog="system" width="128" height="114"/>
@@ -3105,10 +3082,8 @@
         <image name="gear" catalog="system" width="128" height="119"/>
         <image name="gift" catalog="system" width="128" height="124"/>
         <image name="info.circle" catalog="system" width="128" height="121"/>
-        <image name="kakaotalk.png" width="40" height="40"/>
         <image name="lock" catalog="system" width="128" height="128"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
-        <image name="naver.png" width="25" height="25"/>
         <image name="person.3.fill" catalog="system" width="128" height="61"/>
         <image name="square.and.arrow.up.fill" catalog="system" width="115" height="128"/>
         <systemColor name="labelColor">

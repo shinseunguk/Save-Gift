@@ -22,9 +22,9 @@ class ViewController: UIViewController, ASAuthorizationControllerDelegate, UITex
     @IBOutlet weak var idTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var btnLogin: UIButton!
-    @IBOutlet weak var btnAppleLogin: UIButton!
-    @IBOutlet weak var btnKakaoLogin: UIButton!
-    @IBOutlet weak var btnNaverLogin: UIButton!
+//    @IBOutlet weak var btnAppleLogin: UIButton!
+//    @IBOutlet weak var btnKakaoLogin: UIButton!
+//    @IBOutlet weak var btnNaverLogin: UIButton!
     @IBOutlet weak var btnFindPW: UIButton!
     @IBOutlet weak var btnFindID: UIButton!
     
@@ -169,17 +169,17 @@ class ViewController: UIViewController, ASAuthorizationControllerDelegate, UITex
         btnRegister.layer.borderColor = UIColor.systemBlue.cgColor
         btnRegister.adjustsImageWhenHighlighted = false
         
-        btnKakaoLogin.layer.cornerRadius = self.btnKakaoLogin.frame.size.height / 2
-        btnKakaoLogin.layer.borderWidth = 0
-        btnKakaoLogin.adjustsImageWhenHighlighted = false
-        
-        btnAppleLogin.layer.cornerRadius = self.btnAppleLogin.frame.size.height / 2
-        btnAppleLogin.layer.borderWidth = 0
-        btnAppleLogin.adjustsImageWhenHighlighted = false
-        
-        btnNaverLogin.layer.cornerRadius = self.btnNaverLogin.frame.size.height / 2
-        btnNaverLogin.layer.borderWidth = 0
-        btnNaverLogin.adjustsImageWhenHighlighted = false
+//        btnKakaoLogin.layer.cornerRadius = self.btnKakaoLogin.frame.size.height / 2
+//        btnKakaoLogin.layer.borderWidth = 0
+//        btnKakaoLogin.adjustsImageWhenHighlighted = false
+//        
+//        btnAppleLogin.layer.cornerRadius = self.btnAppleLogin.frame.size.height / 2
+//        btnAppleLogin.layer.borderWidth = 0
+//        btnAppleLogin.adjustsImageWhenHighlighted = false
+//        
+//        btnNaverLogin.layer.cornerRadius = self.btnNaverLogin.frame.size.height / 2
+//        btnNaverLogin.layer.borderWidth = 0
+//        btnNaverLogin.adjustsImageWhenHighlighted = false
         
         btnRegister.layer.cornerRadius = 5
         btnLogin.layer.cornerRadius = 5
