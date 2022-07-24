@@ -25,6 +25,10 @@ class RegisterController: UIViewController {
     var email : Bool = false;
     var sms : Bool = false;
     
+    var url : String? = nil
+    var btnINbtn1 = UIButton()
+    var btnINbtn2 = UIButton()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("RegisterController viewDidLoad")
@@ -50,15 +54,61 @@ class RegisterController: UIViewController {
     
     func setupLayout(){
         nextButton.layer.cornerRadius = 5
+        
+        firstButton.addSubview(btnINbtn1)
+        secondButton.addSubview(btnINbtn2)
+        
+        btnINbtn1.translatesAutoresizingMaskIntoConstraints = false
+        btnINbtn1.setTitleColor(.systemBlue, for: .normal)
+        btnINbtn1.tintColor = UIColor.systemBlue
+        btnINbtn1.backgroundColor = .none
+        btnINbtn1.setTitle("보기", for: .normal)
+        btnINbtn1.setUnderline()
+        btnINbtn1.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
+        
+        btnINbtn1.centerYAnchor.constraint(equalTo: firstButton.centerYAnchor).isActive = true
+        btnINbtn1.rightAnchor.constraint(equalTo: firstButton.rightAnchor, constant: -20).isActive = true
+        btnINbtn1.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        btnINbtn1.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        btnINbtn1.addTarget(self, action: #selector(self.goToWebView(_:)), for: .touchUpInside)
+        btnINbtn1.tag = 1
+        
+        btnINbtn2.translatesAutoresizingMaskIntoConstraints = false
+        btnINbtn2.setTitleColor(.systemBlue, for: .normal)
+        btnINbtn2.tintColor = UIColor.systemBlue
+        btnINbtn2.backgroundColor = .none
+        btnINbtn2.setTitle("보기", for: .normal)
+        btnINbtn2.setUnderline()
+        btnINbtn2.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
+        
+        btnINbtn2.centerYAnchor.constraint(equalTo: secondButton.centerYAnchor).isActive = true
+        btnINbtn2.rightAnchor.constraint(equalTo: secondButton.rightAnchor, constant: -20).isActive = true
+        btnINbtn2.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        btnINbtn2.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        btnINbtn2.addTarget(self, action: #selector(self.goToWebView(_:)), for: .touchUpInside)
+        btnINbtn2.tag = 2
+    }
+    
+    @objc func goToWebView(_ button: UIButton){
+        print("\(#function)", button.tag)
+        
+        if button.tag == 1 {
+            url = "/privacy/policy"
+        }else if button.tag == 2 {
+            url = "/marketing/agree"
+        }
+        guard let pushVC = self.storyboard?.instantiateViewController(identifier: "WebViewController") as? WebViewController else{
+            return
+        }
+        
+        pushVC.strURL = url
+        self.navigationController?.pushViewController(pushVC, animated: true)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
     }
     
-    @objc func actionA() -> Void {
-        print("dd")
-    }
     @IBAction func wholeBtnAction(_ sender: Any) {
         whole = !whole
         

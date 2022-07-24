@@ -67,7 +67,7 @@ class SettingHowToUse2Controller : UIViewController {
 
         추가적인 기능 요청은
         개발자 이메일을 통해 기능개선 요청 및 추가 요청 해주시기 바랍니다.\n
-        개발자 이메일 - krdut1@gmail.com
+        개발자 이메일 - ukseung.dev@gmail.com
         """)
         
         //기프티콘 저장은 어떻게 하나요? 2
