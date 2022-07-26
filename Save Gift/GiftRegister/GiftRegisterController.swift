@@ -936,9 +936,21 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
             let barcodeScanner = BarcodeScanner.barcodeScanner()
             barcodeScanner.process(image) { barcodes, error in
               guard error == nil, let barcodes = barcodes, !barcodes.isEmpty else {
-                // Error handling
-                return
-              }
+                  // Error handling
+                  
+//                  self.imageView.image = self.barcodeImage!
+                  
+                  //바코드 인식 -> setText
+                  let index = IndexPath(row: 2, section: 0)
+                  let cell: RegisterTableViewCell = self.tableView.cellForRow(at: index) as! RegisterTableViewCell
+                  cell.textfield.text! = ""
+                  cell.textfield.isEnabled = true
+                  
+                  self.imageView.image = self.newImage // 받아온 이미지를 update
+                  
+                  self.normalAlert(titles: "바코드가 인식 되지 않는 이미지 입니다.", messages: "화질이 좋지 않은 이미지는 바코드가 인식 하지 않을수도 있습니다.\n 그래도 등록 하시겠습니까?")
+                  return
+                }
               // Recognized barcodes
                 for barcode in barcodes {
                     //OCR
@@ -946,8 +958,8 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
                     
                     self.registerDic[8] = displayValue
                     if(error == nil){
-    //                    self.imageView.isHidden = false
-    //                    self.imageView.image = newImage // 받아온 이미지를 update
+                        self.imageView.isHidden = false
+                        self.imageView.image = self.newImage // 받아온 이미지를 update
                     }
                 }
                 self.registerDic[7] = self.imgLocalUrl
