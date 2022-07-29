@@ -64,6 +64,8 @@ class ViewController: UIViewController, ASAuthorizationControllerDelegate, UITex
         
         //테스트 해볼것
         idTextField.keyboardType = .emailAddress
+        idTextField.spellCheckingType = .no
+        idTextField.autocorrectionType = .no
         self.idTextField.addTarget(self, action: #selector(self.textFieldDidEndEditing(_:)), for: .editingChanged)
         self.passwordTextField.addTarget(self, action: #selector(self.textFieldDidEndEditing(_:)), for: .editingChanged)
         idTextField.tag = 0

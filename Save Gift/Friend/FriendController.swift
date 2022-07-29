@@ -40,11 +40,13 @@ class FriendController : UIViewController, UITextFieldDelegate {
         
         // 휴대전화번호 placeholder
         emailTextfield.attributedPlaceholder = NSAttributedString(string: "이메일 형태로 입력해주세요.", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
+        emailTextfield.tag = 0
         
         cellPhoneTextField.keyboardType = .phonePad
         cellPhoneTextField.textAlignment = .left
         cellPhoneTextField.textColor = UIColor.black
         cellPhoneTextField.attributedPlaceholder = NSAttributedString(string: "숫자만 입력해주세요.", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
+        cellPhoneTextField.tag = 1
         
         findBtn.layer.cornerRadius = 5
         

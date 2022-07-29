@@ -771,6 +771,8 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
                 cell.textfield.attributedPlaceholder = NSAttributedString(string: "ex) 스타벅스", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
                 cell.textfield.text = reviseDic!["brand"] as! String
                 cell.textfield.addTarget(self, action: #selector(self.textFieldDidChange0(_:)), for: .editingChanged)
+                cell.textfield.spellCheckingType = .no
+                cell.textfield.autocorrectionType = .no
                 cell.textfield.tag = indexPath.row
                 break;
             case 1:
@@ -778,6 +780,8 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
                 cell.textfield.attributedPlaceholder = NSAttributedString(string: "ex) 뿌링클 치킨 + 콜라 1.25L", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
                 cell.textfield.text = reviseDic!["product_name"] as! String
                 cell.textfield.addTarget(self, action: #selector(self.textFieldDidChange1(_:)), for: .editingChanged)
+                cell.textfield.spellCheckingType = .no
+                cell.textfield.autocorrectionType = .no
                 cell.textfield.tag = indexPath.row
                 break;
             case 2:
@@ -819,6 +823,8 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
                 cell.textfield.tag = indexPath.row
                 cell.textfield.text = reviseDic!["registrant"] as! String
                 cell.textfield.addTarget(self, action: #selector(self.textFieldDidChange6(_:)), for: .editingChanged)
+                cell.textfield.spellCheckingType = .no
+                cell.textfield.autocorrectionType = .no
             default:
                 print("default")
                 break;
@@ -844,12 +850,16 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
             cell.textfield.attributedPlaceholder = NSAttributedString(string: "ex) 스타벅스", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
             cell.textfield.addTarget(self, action: #selector(self.textFieldDidChange0(_:)), for: .editingChanged)
             cell.textfield.tag = indexPath.row
+            cell.textfield.spellCheckingType = .no
+            cell.textfield.autocorrectionType = .no
             break;
         case 1:
             cell.textfield.isEnabled = true
             cell.textfield.attributedPlaceholder = NSAttributedString(string: "ex) 뿌링클 치킨 + 콜라 1.25L", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
             cell.textfield.addTarget(self, action: #selector(self.textFieldDidChange1(_:)), for: .editingChanged)
             cell.textfield.tag = indexPath.row
+            cell.textfield.spellCheckingType = .no
+            cell.textfield.autocorrectionType = .no
             break;
         case 2:
             cell.textfield.isEnabled = true
@@ -886,6 +896,8 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
             cell.textfield.attributedPlaceholder = NSAttributedString(string: "ex) ghdrlfehd@naver.com(홍길동)", attributes: [NSAttributedString.Key.foregroundColor : UIColor.init(displayP3Red: 144/255, green: 144/255, blue: 149/255, alpha: 1)])
             cell.textfield.tag = indexPath.row
             cell.textfield.addTarget(self, action: #selector(self.textFieldDidChange6(_:)), for: .editingChanged)
+            cell.textfield.spellCheckingType = .no
+            cell.textfield.autocorrectionType = .no
         default:
             print("default")
             break;
