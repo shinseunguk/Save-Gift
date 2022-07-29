@@ -18,7 +18,19 @@ class SettingNotiController : UIViewController {
     var arr2 = ["이메일","SMS(문자)"];
     var arrayBoll1 = [true, true, true, true];
     var arrayBoll2 = [true, true];
-    let localUrl = "".getLocalURL();
+    let serverURL = { () -> String in
+        let url = Bundle.main.url(forResource: "Gift", withExtension: "plist")
+        let dictionary = NSDictionary(contentsOf: url!)
+
+        // 각 데이터 형에 맞도록 캐스팅 해줍니다.
+        #if DEBUG
+        var LocalURL = dictionary!["debugURL"] as? String
+        #elseif RELEASE
+        var LocalURL = dictionary!["releaseURL"] as? String
+        #endif
+        
+        return LocalURL!
+    }
     
     let helper : Helper = Helper();
     var dic : [String: Any] = [:];
@@ -70,7 +82,7 @@ class SettingNotiController : UIViewController {
     func requestGet(user_id : String!, requestUrl : String!){
         do {
             // URL 설정 GET 방식으로 호출
-            let url = URL(string: localUrl+requestUrl+"?user_id="+user_id!)
+            let url = URL(string: serverURL()+requestUrl+"?user_id="+user_id!)
             let response = try String(contentsOf: url!)
             
             dic = helper.jsonParser3(stringData: response, data1: "email_yn", data2: "sms_yn", data3: "push_yn");
@@ -101,7 +113,7 @@ class SettingNotiController : UIViewController {
     func requestStatus2(requestUrl : String!){
         do {
             // URL 설정 GET 방식으로 호출
-            let url = URL(string: localUrl+requestUrl+"?device_id="+deviceID!)
+            let url = URL(string: serverURL()+requestUrl+"?device_id="+deviceID!)
             let response = try String(contentsOf: url!)
             
             dic2 = helper.jsonParser4(stringData: response, data1: "push_yn", data2: "push30", data3: "push7", data4: "push1");
@@ -335,7 +347,7 @@ extension SettingNotiController: UITableViewDelegate, UITableViewDataSource{
             
             let paramData = try! JSONSerialization.data(withJSONObject: param)
             // URL 객체 정의
-                    let url = URL(string: localUrl+requestUrl)
+                    let url = URL(string: serverURL()+requestUrl)
                     
                     // URLRequest 객체를 정의
                     var request = URLRequest(url: url!)
@@ -388,7 +400,7 @@ extension SettingNotiController: UITableViewDelegate, UITableViewDataSource{
             
             let paramData = try! JSONSerialization.data(withJSONObject: param)
             // URL 객체 정의
-                    let url = URL(string: localUrl+requestUrl)
+                    let url = URL(string: serverURL()+requestUrl)
                     
                     // URLRequest 객체를 정의
                     var request = URLRequest(url: url!)

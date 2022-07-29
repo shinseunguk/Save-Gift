@@ -13,11 +13,23 @@ class LoadingController : UIViewController {
     let LOG_TAG : String = "LoadingController"
     @IBOutlet weak var logo: UIImageView!
     
-    let localUrl : String = "".getLocalURL()
     let deviceID = UIDevice.current.identifierForVendor!.uuidString
     let deviceModel = GetDeviceModel.deviceModelName()
     let helper : Helper = Helper()
     let authContext = LAContext()
+    let serverURL = { () -> String in
+        let url = Bundle.main.url(forResource: "Gift", withExtension: "plist")
+        let dictionary = NSDictionary(contentsOf: url!)
+
+        // 각 데이터 형에 맞도록 캐스팅 해줍니다.
+        #if DEBUG
+        var LocalURL = dictionary!["debugURL"] as? String
+        #elseif RELEASE
+        var LocalURL = dictionary!["releaseURL"] as? String
+        #endif
+        
+        return LocalURL!
+    }
     
     var pushToken : String = "test"
     

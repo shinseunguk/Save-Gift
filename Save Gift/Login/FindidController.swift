@@ -11,7 +11,20 @@ import JSPhoneFormat
 class FindidController : UIViewController {
     let LOG_TAG : String = "FindidController"
     let helper = Helper()
-    let localUrl = "".getLocalURL()
+    let serverURL = { () -> String in
+        let url = Bundle.main.url(forResource: "Gift", withExtension: "plist")
+        let dictionary = NSDictionary(contentsOf: url!)
+
+        // 각 데이터 형에 맞도록 캐스팅 해줍니다.
+        #if DEBUG
+        var LocalURL = dictionary!["debugURL"] as? String
+        #elseif RELEASE
+        var LocalURL = dictionary!["releaseURL"] as? String
+        #endif
+        
+        return LocalURL!
+    }
+    
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var cellPhoneTextField: UITextField!
 
@@ -165,7 +178,7 @@ class FindidController : UIViewController {
         print("checkSms param.... ", param)
         let paramData = try! JSONSerialization.data(withJSONObject: param)
         // URL 객체 정의
-                let url = URL(string: localUrl+requestUrl)
+                let url = URL(string: serverURL()+requestUrl)
 
                 // URLRequest 객체를 정의
                 var request = URLRequest(url: url!)

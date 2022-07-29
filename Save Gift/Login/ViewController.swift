@@ -32,9 +32,21 @@ class ViewController: UIViewController, ASAuthorizationControllerDelegate, UITex
     // Storyboard
     @IBOutlet weak var appleSignInButton: UIStackView!
 
-    let localUrl = "".getLocalURL();
     let helper : Helper = Helper();
     let deviceID = UIDevice.current.identifierForVendor!.uuidString
+    let serverURL = { () -> String in
+        let url = Bundle.main.url(forResource: "Gift", withExtension: "plist")
+        let dictionary = NSDictionary(contentsOf: url!)
+
+        // 각 데이터 형에 맞도록 캐스팅 해줍니다.
+        #if DEBUG
+        var LocalURL = dictionary!["debugURL"] as? String
+        #elseif RELEASE
+        var LocalURL = dictionary!["releaseURL"] as? String
+        #endif
+        
+        return LocalURL!
+    }
     
     var url : String = ""
     var id: String = ""
@@ -206,7 +218,7 @@ class ViewController: UIViewController, ASAuthorizationControllerDelegate, UITex
 //        let param = "user_Id=\(email)&name=\(name)"
         let paramData = try! JSONSerialization.data(withJSONObject: param)
         // URL 객체 정의
-                let url = URL(string: localUrl+requestUrl)
+                let url = URL(string: serverURL()+requestUrl)
                 
                 // URLRequest 객체를 정의
                 var request = URLRequest(url: url!)
@@ -271,7 +283,7 @@ class ViewController: UIViewController, ASAuthorizationControllerDelegate, UITex
     func requestGet(user_id : String!, requestUrl : String!){
         do {
             // URL 설정 GET 방식으로 호출
-            let url = URL(string: localUrl+requestUrl+"?user_id="+user_id!)
+            let url = URL(string: serverURL()+requestUrl+"?user_id="+user_id!)
             let response = try String(contentsOf: url!)
             
 //            print("success")

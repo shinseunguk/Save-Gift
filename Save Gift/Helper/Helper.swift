@@ -10,7 +10,19 @@ import UIKit
 
 class Helper : UIViewController{
     
-    let localUrl : String = "".getLocalURL()
+    let serverURL = { () -> String in
+        let url = Bundle.main.url(forResource: "Gift", withExtension: "plist")
+        let dictionary = NSDictionary(contentsOf: url!)
+
+        // 각 데이터 형에 맞도록 캐스팅 해줍니다.
+        #if DEBUG
+        var LocalURL = dictionary!["debugURL"] as? String
+        #elseif RELEASE
+        var LocalURL = dictionary!["releaseURL"] as? String
+        #endif
+        
+        return LocalURL!
+    }
     
     func jsonParser(stringData : String, data1 : String?, data2 : String?) -> Dictionary<String, Any>{
         let strJsonString = stringData
@@ -263,7 +275,7 @@ class Helper : UIViewController{
     func getVersion(requestUrl : String!) -> String{
         do {
             // URL 설정 GET 방식으로 호출
-            let url = URL(string: localUrl+requestUrl)
+            let url = URL(string: serverURL()+requestUrl)
             let response = try String(contentsOf: url!)
             
 //            print("success")

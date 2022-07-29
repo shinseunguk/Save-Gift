@@ -13,8 +13,21 @@ import Firebase
 class FirebaseStorageManager {
     static let LOG_TAG : String = "FirebaseStorageManager"
     static let helper : Helper = Helper()
-    static let localUrl : String = "".getLocalURL()
     static let deviceID : String? = UserDefaults.standard.string(forKey: "device_id")
+    
+    static let serverURL = { () -> String in
+        let url = Bundle.main.url(forResource: "Gift", withExtension: "plist")
+        let dictionary = NSDictionary(contentsOf: url!)
+
+        // 각 데이터 형에 맞도록 캐스팅 해줍니다.
+        #if DEBUG
+        var LocalURL = dictionary!["debugURL"] as? String
+        #elseif RELEASE
+        var LocalURL = dictionary!["releaseURL"] as? String
+        #endif
+        
+        return LocalURL!
+    }
     
     
     static func uploadImage(image: UIImage, param : inout Dictionary<String, Any>) -> Bool {
@@ -75,7 +88,7 @@ class FirebaseStorageManager {
         print("param .....2 ", param)
         let paramData = try! JSONSerialization.data(withJSONObject: param)
         // URL 객체 정의r
-                let url = URL(string: localUrl+requestUrl)
+                let url = URL(string: serverURL()+requestUrl)
 
                 // URLRequest 객체를 정의
                 var request = URLRequest(url: url!)

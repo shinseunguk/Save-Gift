@@ -42,7 +42,19 @@ class GiftDetailController : UIViewController{
     
     var detailToFriend : DetailToFriendDelegate?
     
-    let localUrl : String = "".getLocalURL()
+    let serverURL = { () -> String in
+        let url = Bundle.main.url(forResource: "Gift", withExtension: "plist")
+        let dictionary = NSDictionary(contentsOf: url!)
+
+        // 각 데이터 형에 맞도록 캐스팅 해줍니다.
+        #if DEBUG
+        var LocalURL = dictionary!["debugURL"] as? String
+        #elseif RELEASE
+        var LocalURL = dictionary!["releaseURL"] as? String
+        #endif
+        
+        return LocalURL!
+    }
     
     var categoryArr = ["바코드 번호", "교환처", "상품명", "유효기간", "쿠폰상태", "등록일", "등록자"]
     var contentArr =  ["", "", "", "", "", "", ""]
@@ -343,7 +355,7 @@ class GiftDetailController : UIViewController{
     
     func contentArrSetup(){
         
-        let url = URL(string: "".getLocalURL()+"/images/\(imageUrl!)")
+        let url = URL(string: serverURL()+"/images/\(imageUrl!)")
         DispatchQueue.global(qos: .userInteractive).async {
                 let data = try? Data(contentsOf: url!)
                 DispatchQueue.main.async {
@@ -689,7 +701,7 @@ class GiftDetailController : UIViewController{
     func presentTabRequest(requestUrl : String!, param : Dictionary<String, Any>) -> Void{
         let paramData = try! JSONSerialization.data(withJSONObject: param)
         // URL 객체 정의
-                let url = URL(string: localUrl+requestUrl)
+                let url = URL(string: serverURL()+requestUrl)
 
                 // URLRequest 객체를 정의
                 var request = URLRequest(url: url!)
@@ -733,7 +745,7 @@ class GiftDetailController : UIViewController{
         
         let paramData = try! JSONSerialization.data(withJSONObject: presentParam)
         // URL 객체 정의
-                let url = URL(string: localUrl+requestUrl)
+                let url = URL(string: serverURL()+requestUrl)
 
                 // URLRequest 객체를 정의
                 var request = URLRequest(url: url!)
@@ -777,7 +789,7 @@ class GiftDetailController : UIViewController{
         
         let paramData = try! JSONSerialization.data(withJSONObject: presentParam)
         // URL 객체 정의
-                let url = URL(string: localUrl+requestUrl)
+                let url = URL(string: serverURL()+requestUrl)
 
                 // URLRequest 객체를 정의
                 var request = URLRequest(url: url!)
@@ -818,7 +830,7 @@ class GiftDetailController : UIViewController{
         print("deleteGiftConRequest param.... ", param)
         let paramData = try! JSONSerialization.data(withJSONObject: param)
         // URL 객체 정의
-                let url = URL(string: localUrl+requestUrl)
+                let url = URL(string: serverURL()+requestUrl)
 
                 // URLRequest 객체를 정의
                 var request = URLRequest(url: url!)
@@ -859,7 +871,7 @@ class GiftDetailController : UIViewController{
         print("param.... ", param)
         let paramData = try! JSONSerialization.data(withJSONObject: param)
         // URL 객체 정의
-                let url = URL(string: localUrl+requestUrl)
+                let url = URL(string: serverURL()+requestUrl)
 
                 // URLRequest 객체를 정의
                 var request = URLRequest(url: url!)
@@ -934,7 +946,7 @@ class GiftDetailController : UIViewController{
         print("param.... ", param)
         let paramData = try! JSONSerialization.data(withJSONObject: param)
         // URL 객체 정의
-                let url = URL(string: localUrl+requestUrl)
+                let url = URL(string: serverURL()+requestUrl)
 
                 // URLRequest 객체를 정의
                 var request = URLRequest(url: url!)

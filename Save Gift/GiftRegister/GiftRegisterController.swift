@@ -36,8 +36,21 @@ class GiftRegisterController : UIViewController, UITextFieldDelegate{
     let imagePicker = UIImagePickerController()
     let helper : Helper = Helper()
     let giftDetailController : GiftDetailController = GiftDetailController()
-    let localUrl : String = "".getLocalURL()
     let deviceID : String? = UserDefaults.standard.string(forKey: "device_id")
+    let serverURL = { () -> String in
+        let url = Bundle.main.url(forResource: "Gift", withExtension: "plist")
+        let dictionary = NSDictionary(contentsOf: url!)
+
+        // 각 데이터 형에 맞도록 캐스팅 해줍니다.
+        #if DEBUG
+        var LocalURL = dictionary!["debugURL"] as? String
+        #elseif RELEASE
+        var LocalURL = dictionary!["releaseURL"] as? String
+        #endif
+        
+        return LocalURL!
+    }
+    
     
     var arr = ["교환처", "상품명", "바코드 번호", "유효기간", "쿠폰상태", "등록일", "등록자"]
     var arrTextField = ["", "", "", "", "", "", ""]
@@ -1226,7 +1239,7 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
         let paramData = try! JSONSerialization.data(withJSONObject: param)
         // URL 객체 정의
         
-                let url = URL(string: localUrl+requestUrl)
+                let url = URL(string: serverURL()+requestUrl)
 
                 // URLRequest 객체를 정의
                 var request = URLRequest(url: url!)
@@ -1291,7 +1304,7 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
         
         let paramData = try! JSONSerialization.data(withJSONObject: param)
         // URL 객체 정의r
-                let url = URL(string: localUrl+requestUrl)
+                let url = URL(string: serverURL()+requestUrl)
 
                 // URLRequest 객체를 정의
                 var request = URLRequest(url: url!)
@@ -1422,7 +1435,7 @@ extension GiftRegisterController : UIImagePickerControllerDelegate, UINavigation
                         multipart.append("\(value)".data(using: .utf8, allowLossyConversion: false)!, withName: "\(key)")
                         //이미지 데이터 외에 같이 전달할 데이터 (여기서는 user, emoji, date, content 등)
                     }
-                }, to: "".getLocalURL()+requestUrl    //전달할 url
+                }, to: serverURL()+requestUrl    //전달할 url
                 ,method: .post        //전달 방식
                 ,headers: headers).responseString(completionHandler: { (response) in    //헤더와 응답 처리
                     print("response --------> \n", response)

@@ -31,7 +31,20 @@ class Page1Controller : UIViewController{
     var dic : Dictionary<String, Any> = [:]
 
     let deviceID : String? = UserDefaults.standard.string(forKey: "device_id")
-    let localUrl : String = "".getLocalURL()
+    let serverURL = { () -> String in
+        let url = Bundle.main.url(forResource: "Gift", withExtension: "plist")
+        let dictionary = NSDictionary(contentsOf: url!)
+
+        // 각 데이터 형에 맞도록 캐스팅 해줍니다.
+        #if DEBUG
+        var LocalURL = dictionary!["debugURL"] as? String
+        #elseif RELEASE
+        var LocalURL = dictionary!["releaseURL"] as? String
+        #endif
+        
+        return LocalURL!
+    }
+    
     let label = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 61))
 
     var param : Dictionary<String, Any> = [:]
@@ -194,7 +207,7 @@ class Page1Controller : UIViewController{
         print("param.... ", param)
         let paramData = try! JSONSerialization.data(withJSONObject: param)
         // URL 객체 정의
-                let url = URL(string: localUrl+requestUrl)
+                let url = URL(string: serverURL()+requestUrl)
 
                 // URLRequest 객체를 정의
                 var request = URLRequest(url: url!)
@@ -430,7 +443,7 @@ extension Page1Controller: UICollectionViewDelegate, UICollectionViewDataSource,
             cell.useYnBtn.backgroundColor = .systemRed
         }
         
-        let url = URL(string: "".getLocalURL()+"/images/\(cellImageViewArr[indexPath.row])")
+        let url = URL(string: serverURL()+"/images/\(cellImageViewArr[indexPath.row])")
         DispatchQueue.global(qos: .userInteractive).async {
                 let data = try? Data(contentsOf: url!)
                 DispatchQueue.main.async {

@@ -12,8 +12,21 @@ class GiftSettingController : UIViewController{
     
 //    @IBOutlet weak var cell: UITableViewCell!
     let helper : Helper = Helper()
-    let localUrl = "".getLocalURL()
     let deviceID : String? = UserDefaults.standard.string(forKey: "device_id")
+    let serverURL = { () -> String in
+        let url = Bundle.main.url(forResource: "Gift", withExtension: "plist")
+        let dictionary = NSDictionary(contentsOf: url!)
+
+        // 각 데이터 형에 맞도록 캐스팅 해줍니다.
+        #if DEBUG
+        var LocalURL = dictionary!["debugURL"] as? String
+        #elseif RELEASE
+        var LocalURL = dictionary!["releaseURL"] as? String
+        #endif
+        
+        return LocalURL!
+    }
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var loginBtn: UIButton!
     @IBOutlet weak var loginLabel: UILabel!
@@ -241,7 +254,7 @@ extension GiftSettingController: UITableViewDelegate, UITableViewDataSource{
         let param = ["user_id" : UserDefaults.standard.string(forKey: "ID"), "device_id" : deviceID] as [String : Any] // JSON 객체로 전송할 딕셔너리
         let paramData = try! JSONSerialization.data(withJSONObject: param)
         // URL 객체 정의
-                let url = URL(string: localUrl+requestUrl)
+                let url = URL(string: serverURL()+requestUrl)
                 
                 // URLRequest 객체를 정의
                 var request = URLRequest(url: url!)

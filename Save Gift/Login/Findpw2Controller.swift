@@ -11,7 +11,20 @@ import UIKit
 class Findpw2Controller : UIViewController, UITextFieldDelegate{
     let LOG_TAG : String = "Findpw2Controller"
     let helper = Helper()
-    let localUrl = "".getLocalURL()
+    let serverURL = { () -> String in
+        let url = Bundle.main.url(forResource: "Gift", withExtension: "plist")
+        let dictionary = NSDictionary(contentsOf: url!)
+
+        // 각 데이터 형에 맞도록 캐스팅 해줍니다.
+        #if DEBUG
+        var LocalURL = dictionary!["debugURL"] as? String
+        #elseif RELEASE
+        var LocalURL = dictionary!["releaseURL"] as? String
+        #endif
+        
+        return LocalURL!
+    }
+    
     @IBOutlet weak var changePassWord: UITextField!
     @IBOutlet weak var changeRePassWord: UITextField!
     @IBOutlet weak var modifyBtn2: UIButton!
@@ -104,7 +117,7 @@ class Findpw2Controller : UIViewController, UITextFieldDelegate{
     func passwordChangeRequest(requestUrl : String!, param : Dictionary<String, Any>) -> Void{
         let paramData = try! JSONSerialization.data(withJSONObject: param)
         // URL 객체 정의
-                let url = URL(string: localUrl+requestUrl)
+                let url = URL(string: serverURL()+requestUrl)
                 
                 // URLRequest 객체를 정의
                 var request = URLRequest(url: url!)

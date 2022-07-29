@@ -12,7 +12,19 @@ import WebKit
 
 class WebViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, UIScrollViewDelegate{
     let helper : Helper = Helper()
-    let localUrl = "".getLocalURL()
+    let serverURL = { () -> String in
+        let url = Bundle.main.url(forResource: "Gift", withExtension: "plist")
+        let dictionary = NSDictionary(contentsOf: url!)
+
+        // 각 데이터 형에 맞도록 캐스팅 해줍니다.
+        #if DEBUG
+        var LocalURL = dictionary!["debugURL"] as? String
+        #elseif RELEASE
+        var LocalURL = dictionary!["releaseURL"] as? String
+        #endif
+        
+        return LocalURL!
+    }
     
     @IBOutlet weak var webView: WKWebView!
     
@@ -20,7 +32,7 @@ class WebViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, U
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let url = URL(string: "\(localUrl+strURL!)")
+        let url = URL(string: "\(serverURL()+strURL!)")
         let request = URLRequest(url: url!)
         
         navTitleInit()

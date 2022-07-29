@@ -15,7 +15,20 @@ protocol DetailToFriendDelegate{
 class GiftFriendController : UIViewController{
     let LOG_TAG : String = "GiftFriend2Controller"
     let helper : Helper = Helper();
-    let localUrl : String = "".getLocalURL();
+    let serverURL = { () -> String in
+        let url = Bundle.main.url(forResource: "Gift", withExtension: "plist")
+        let dictionary = NSDictionary(contentsOf: url!)
+
+        // 각 데이터 형에 맞도록 캐스팅 해줍니다.
+        #if DEBUG
+        var LocalURL = dictionary!["debugURL"] as? String
+        #elseif RELEASE
+        var LocalURL = dictionary!["releaseURL"] as? String
+        #endif
+        
+        return LocalURL!
+    }
+    
     let deviceID : String? = UserDefaults.standard.string(forKey: "device_id")
     var detailDelegate : detailDelegate?
     var user_id : String?
@@ -291,7 +304,7 @@ class GiftFriendController : UIViewController{
         print("param.... ", param)
         let paramData = try! JSONSerialization.data(withJSONObject: param)
         // URL 객체 정의
-                let url = URL(string: localUrl+requestUrl)
+                let url = URL(string: serverURL()+requestUrl)
 
                 // URLRequest 객체를 정의
                 var request = URLRequest(url: url!)
@@ -338,7 +351,7 @@ class GiftFriendController : UIViewController{
         
         let paramData = try! JSONSerialization.data(withJSONObject: param)
         // URL 객체 정의
-                let url = URL(string: localUrl+requestUrl)
+                let url = URL(string: serverURL()+requestUrl)
         
                 // URLRequest 객체를 정의
                 var request = URLRequest(url: url!)
@@ -412,7 +425,7 @@ class GiftFriendController : UIViewController{
         
         let paramData = try! JSONSerialization.data(withJSONObject: param)
         // URL 객체 정의
-                let url = URL(string: localUrl+requestUrl)
+                let url = URL(string: serverURL()+requestUrl)
         
                 // URLRequest 객체를 정의
                 var request = URLRequest(url: url!)
@@ -483,7 +496,7 @@ class GiftFriendController : UIViewController{
     
             let paramData = try! JSONSerialization.data(withJSONObject: param)
             // URL 객체 정의
-                    let url = URL(string: localUrl+requestUrl)
+                    let url = URL(string: serverURL()+requestUrl)
     
                     // URLRequest 객체를 정의
                     var request = URLRequest(url: url!)
@@ -569,7 +582,7 @@ class GiftFriendController : UIViewController{
     
             let paramData = try! JSONSerialization.data(withJSONObject: param)
             // URL 객체 정의
-                    let url = URL(string: localUrl+requestUrl)
+                    let url = URL(string: serverURL()+requestUrl)
     
                     // URLRequest 객체를 정의
                     var request = URLRequest(url: url!)
@@ -643,7 +656,7 @@ class GiftFriendController : UIViewController{
     
             let paramData = try! JSONSerialization.data(withJSONObject: param)
             // URL 객체 정의
-                    let url = URL(string: localUrl+requestUrl)
+                    let url = URL(string: serverURL()+requestUrl)
     
                     // URLRequest 객체를 정의
                     var request = URLRequest(url: url!)

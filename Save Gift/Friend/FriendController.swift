@@ -22,7 +22,20 @@ class FriendController : UIViewController, UITextFieldDelegate {
     var cellPhone : String?
     var buttn : UIButton?
     
-    let localUrl : String = "".getLocalURL()
+    let serverURL = { () -> String in
+        let url = Bundle.main.url(forResource: "Gift", withExtension: "plist")
+        let dictionary = NSDictionary(contentsOf: url!)
+
+        // 각 데이터 형에 맞도록 캐스팅 해줍니다.
+        #if DEBUG
+        var LocalURL = dictionary!["debugURL"] as? String
+        #elseif RELEASE
+        var LocalURL = dictionary!["releaseURL"] as? String
+        #endif
+        
+        return LocalURL!
+    }
+    
     let phoneFormat = JSPhoneFormat.init(appenCharacter: "-")   //구분자로 사용하고싶은 캐릭터를 넣어주시면 됩니다.
     
     var dic : [String: Any] = [:];
@@ -194,7 +207,7 @@ class FriendController : UIViewController, UITextFieldDelegate {
         
         let paramData = try! JSONSerialization.data(withJSONObject: param)
         // URL 객체 정의
-                let url = URL(string: localUrl+requestUrl)
+                let url = URL(string: serverURL()+requestUrl)
         
                 // URLRequest 객체를 정의
                 var request = URLRequest(url: url!)
@@ -265,7 +278,7 @@ class FriendController : UIViewController, UITextFieldDelegate {
         
         let paramData = try! JSONSerialization.data(withJSONObject: param)
         // URL 객체 정의
-                let url = URL(string: localUrl+requestUrl)
+                let url = URL(string: serverURL()+requestUrl)
         
                 // URLRequest 객체를 정의
                 var request = URLRequest(url: url!)
@@ -349,7 +362,7 @@ class FriendController : UIViewController, UITextFieldDelegate {
 
         let paramData = try! JSONSerialization.data(withJSONObject: param)
         // URL 객체 정의
-                let url = URL(string: localUrl+requestUrl)
+                let url = URL(string: serverURL()+requestUrl)
 
                 // URLRequest 객체를 정의
                 var request = URLRequest(url: url!)
@@ -414,7 +427,7 @@ class FriendController : UIViewController, UITextFieldDelegate {
     
             let paramData = try! JSONSerialization.data(withJSONObject: param)
             // URL 객체 정의
-                    let url = URL(string: localUrl+requestUrl)
+                    let url = URL(string: serverURL()+requestUrl)
     
                     // URLRequest 객체를 정의
                     var request = URLRequest(url: url!)
@@ -472,7 +485,7 @@ class FriendController : UIViewController, UITextFieldDelegate {
 //
 //        let paramData = try! JSONSerialization.data(withJSONObject: param)
 //        // URL 객체 정의
-//                let url = URL(string: localUrl+requestUrl)
+//                let url = URL(string: serverURL()+requestUrl)
 //
 //                // URLRequest 객체를 정의
 //                var request = URLRequest(url: url!)
