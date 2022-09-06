@@ -69,6 +69,7 @@ https://colorful-area-a25.notion.site/f4fbecebca51473c9fe6c2ff0f1a3af3
 - 중복 기프티콘 체크
 - 앱내 기프티콘 선물 기능 구현
 
+<br><br>
 이외 각종 기능 구현
 
 
