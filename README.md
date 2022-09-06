@@ -6,12 +6,12 @@
 # Description
 https://colorful-area-a25.notion.site/f4fbecebca51473c9fe6c2ff0f1a3af3
 
-#앱 주요기능
+# 앱 주요기능
 
-#Swift & CocoaPod 주요 사용기술
+# Swift & CocoaPod 주요 사용기술
 
 
-#Spring 주요 사용기술
+# Spring 주요 사용기술
 
 
 
