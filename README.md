@@ -42,7 +42,7 @@ https://colorful-area-a25.notion.site/f4fbecebca51473c9fe6c2ff0f1a3af3
 - Viewpager 구현
 - 다양한 정규식(날짜, 이메일, 패스워드, 휴대폰 번호) 구현
 
-이외 Swift 문법을 활용한 기능 구현, 자세한 내용은 Git에서 확인 가능합니다.
+<br><br>
 
 ## Cocoapod
 
